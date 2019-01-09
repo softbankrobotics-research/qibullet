@@ -1,0 +1,1773 @@
+<robot name="JulietteY20MP">
+    <material name="LightGrey">
+        <texture />
+        <color rgba="0.9 0.9 0.9 1" />
+    </material>
+    <link name="AccelerometerBase" />
+    <link name="Battery" />
+    <link name="Bumper/Back" />
+    <link name="Bumper/FrontLeft" />
+    <link name="Bumper/FrontRight" />
+    <link name="CameraBottom" />
+    <link name="CameraDepth" />
+    <link name="CameraTop" />
+    <link name="ChestBoard/Button" />
+    <link name="DeadAngle/Left" />
+    <link name="DeadAngle/Right" />
+    <link name="FanCenter" />
+    <link name="FanLeft" />
+    <link name="FanRight" />
+    <link name="Gaze" />
+    <link name="GyrometerBaseX" />
+    <link name="GyrometerBaseY" />
+    <link name="GyrometerBaseZ" />
+    <link name="Head" />
+    <link name="Head/Touch/Front" />
+    <link name="Head/Touch/Middle" />
+    <link name="Head/Touch/Rear" />
+    <link name="HeadFuse" />
+    <link name="HeadPitch" />
+    <link name="HeadPitchSphereCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.11" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="HeadYaw" />
+    <link name="HipPitch" />
+    <link name="HipPitchPillCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <cylinder radius="0.1275" length="0.355" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="HipPitchSphereCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.095" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="HipRoll" />
+    <link name="KneePitch" />
+    <link name="LArm" />
+    <link name="LArmFuse" />
+    <link name="LElbowRoll" />
+    <link name="LElbowRollDynamicCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.27" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LElbowRollPillCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.2" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LElbowRollSphereACollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LElbowRollSphereBCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LElbowRollSphereCCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LElbowRollSphereDCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LElbowYaw" />
+    <link name="LFinger11_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger12_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger13_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger21_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger22_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger23_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger31_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger32_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger33_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger41_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger42_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LFinger43_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LHand/Touch/Back" />
+    <link name="LHand_actuator_frame" />
+    <link name="LShoulderPitch" />
+    <link name="LShoulderRoll" />
+    <link name="LThumb1_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LThumb2_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LWristYaw" />
+    <link name="LWristYawSphereCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.052" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="LaserSensor/Front" />
+    <link name="LaserSensor/Left" />
+    <link name="LaserSensor/Right" />
+    <link name="LaserSensor/Shovel" />
+    <link name="LaserSensor/VerticalLeft" />
+    <link name="LaserSensor/VerticalRight" />
+    <link name="Leg" />
+    <link name="LegFuse" />
+    <link name="MicroFL" />
+    <link name="MicroFR" />
+    <link name="MicroRL" />
+    <link name="MicroRR" />
+    <link name="MicrophoneFrame" />
+    <link name="PowerHatch" />
+    <link name="RArm" />
+    <link name="RArmFuse" />
+    <link name="RElbowRoll" />
+    <link name="RElbowRollDynamicCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.27" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="RElbowRollPillCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <cylinder radius="0.035" length="0.2" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="RElbowRollSphereACollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="RElbowRollSphereBCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="RElbowRollSphereCCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="RElbowRollSphereDCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.035" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="RElbowYaw" />
+    <link name="RFinger11_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger12_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger13_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger21_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger22_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger23_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger31_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger32_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger33_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger41_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger42_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RFinger43_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RHand/Touch/Back" />
+    <link name="RHand_actuator_frame" />
+    <link name="RShoulderPitch" />
+    <link name="RShoulderRoll" />
+    <link name="RThumb1_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Phalax.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RThumb2_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/PhalaxEnd.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RWristYaw" />
+    <link name="RWristYawSphereCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.052" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="Sonar/Back" />
+    <link name="Sonar/Front" />
+    <link name="SpeakerLeft" />
+    <link name="SpeakerRight" />
+    <link name="Tablet" />
+    <link name="TorsoBackLeftSphereCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.08" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="TorsoBackRightSphereCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.08" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="TorsoSphereBackCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="TorsoSphereLeftCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.07" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="TorsoSphereRightCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <sphere radius="0.07" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="TorsoTabCollision_shape">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <box size="0.2 0.256 0.1" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="Torso_link">
+        <inertial>
+            <mass value="3.99533" />
+            <origin xyz="0.00322 0 -0.01029" rpy="0 -0 0" />
+            <inertia ixx="0.0452761" ixy="0" ixz="0.00499091" iyy="0.0432702" iyz="-0.000266886" izz="0.0258881" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Torso.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="HeadYaw_link">
+        <inertial>
+            <mass value="0.27391" />
+            <origin xyz="-0.00207 0 -0.02636" rpy="0 -0 0" />
+            <inertia ixx="0.000343501" ixy="-0" ixz="-1.88563e-05" iyy="0.000493898" iyz="2.09863e-06" izz="0.000215252" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/HeadYaw.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="HeadPitch_link">
+        <inertial>
+            <mass value="1.51893" />
+            <origin xyz="0.11152 0.00312 -4.87469e-09" rpy="1.5708 5.55112e-17 1.5708" />
+            <inertia ixx="0.00597209" ixy="0" ixz="0.000125138" iyy="0.0059054" iyz="4.3428e-07" izz="0.00570374" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 5.55112e-17 1.5708" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/HeadPitch.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LShoulderPitch_link">
+        <inertial>
+            <mass value="0.3125" />
+            <origin xyz="0.00018 -0.000989999 -0.01856" rpy="1.5708 -0 0" />
+            <inertia ixx="0.000361198" ixy="-1.98347e-06" ixz="6.35907e-07" iyy="0.000137229" iyz="-5.68878e-06" izz="0.000399194" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/LShoulderPitch.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LShoulderRoll_link">
+        <inertial>
+            <mass value="0.50527" />
+            <origin xyz="0.01284 -0.08151 -0.01017" rpy="0 -0 -1.5708" />
+            <inertia ixx="0.000500872" ixy="-3.55918e-05" ixz="8.51263e-05" iyy="0.00126284" iyz="9.06813e-06" izz="0.00115718" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/LShoulderRoll.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LElbowYaw_link">
+        <inertial>
+            <mass value="0.27495" />
+            <origin xyz="-0.000190001 0.00119 -0.02297" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <inertia ixx="0.000122971" ixy="9.86024e-07" ixz="-2.55838e-05" iyy="0.000331766" iyz="-1.98925e-06" izz="0.000303047" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/LElbowYaw.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LElbowRoll_link">
+        <inertial>
+            <mass value="0.16579" />
+            <origin xyz="0.00271 -0.0593 -0.01014" rpy="0 -0 -1.5708" />
+            <inertia ixx="0.00156513" ixy="1.47517e-05" ixz="-6.05746e-05" iyy="0.00173219" iyz="-1.7619e-07" izz="0.000273081" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/LElbowRoll.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="LWristYaw_link">
+        <inertial>
+            <mass value="0.27555" />
+            <origin xyz="-0.000719998 -0.00207 0.03536" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <inertia ixx="0.000151643" ixy="1.06629e-05" ixz="2.89509e-06" iyy="0.000431099" iyz="-3.13715e-06" izz="0.000456172" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/LWristYaw.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="HipRoll_link">
+        <inertial>
+            <mass value="1.02338" />
+            <origin xyz="0.06039 0 0.000320003" rpy="3.14159 -1.5708 3.14159" />
+            <inertia ixx="0.00502422" ixy="0" ixz="-2.54911e-05" iyy="0.00640971" iyz="0.000159449" izz="0.00441082" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="3.14159 -1.5708 3.14159" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/HipRoll.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="HipPitch_link">
+        <inertial>
+            <mass value="2.45917" />
+            <origin xyz="0.00237 0.09654 4.2199e-09" rpy="1.5708 -0 0" />
+            <inertia ixx="0.034351" ixy="0" ixz="0.000223034" iyy="0.0303122" iyz="-8.37542e-05" izz="0.0143771" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/HipPitch.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="KneePitch_link">
+        <inertial>
+            <mass value="11.6015" />
+            <origin xyz="0.00220451 0.185729 8.11846e-09" rpy="1.5708 -0 0" />
+            <inertia ixx="0.129229" ixy="-0.000401943" ixz="0.00048556" iyy="0.122839" iyz="-1.01666e-08" izz="0.108168" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/KneePitch.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RShoulderPitch_link">
+        <inertial>
+            <mass value="0.3125" />
+            <origin xyz="0.00018 -0.000990001 0.01856" rpy="1.5708 -0 0" />
+            <inertia ixx="0.000361198" ixy="1.98347e-06" ixz="6.35907e-07" iyy="0.000137229" iyz="5.68878e-06" izz="0.000399194" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/RShoulderPitch.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RShoulderRoll_link">
+        <inertial>
+            <mass value="0.50527" />
+            <origin xyz="-0.01284 -0.08151 -0.01017" rpy="0 -0 -1.5708" />
+            <inertia ixx="0.000500872" ixy="3.55918e-05" ixz="8.51263e-05" iyy="0.00126284" iyz="-9.06813e-06" izz="0.00115718" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/RShoulderRoll.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RElbowYaw_link">
+        <inertial>
+            <mass value="0.27495" />
+            <origin xyz="0.000189999 0.00119 -0.02297" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <inertia ixx="0.000122971" ixy="-9.86024e-07" ixz="-2.55838e-05" iyy="0.000331766" iyz="1.98925e-06" izz="0.000303047" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/RElbowYaw.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RElbowRoll_link">
+        <inertial>
+            <mass value="0.16579" />
+            <origin xyz="-0.00271 -0.0593 -0.01014" rpy="0 -0 -1.5708" />
+            <inertia ixx="0.00156513" ixy="-1.47517e-05" ixz="-6.05746e-05" iyy="0.00173219" iyz="1.7619e-07" izz="0.000273081" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/RElbowRoll.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="RWristYaw_link">
+        <inertial>
+            <mass value="0.27555" />
+            <origin xyz="0.000720002 -0.00207 0.03536" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <inertia ixx="0.000151643" ixy="-1.06629e-05" ixz="2.89509e-06" iyy="0.000431099" iyz="3.13715e-06" izz="0.000456172" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/RWristYaw.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="WheelB_link">
+        <inertial>
+            <mass value="1.58028" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00299756" ixy="6.3068e-07" ixz="5.56903e-06" iyy="0.00303229" iyz="-9.0408e-07" izz="0.00296585" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Wheel.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="WheelFL_link">
+        <inertial>
+            <mass value="1.58028" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00299756" ixy="6.3068e-07" ixz="5.56903e-06" iyy="0.00303229" iyz="-9.0408e-07" izz="0.00296585" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Wheel.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="WheelFR_link">
+        <inertial>
+            <mass value="1.58028" />
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <inertia ixx="0.00299756" ixy="6.3068e-07" ixz="5.56903e-06" iyy="0.00303229" iyz="-9.0408e-07" izz="0.00296585" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 -0 0" />
+            <geometry>
+                <mesh filename="pepper_meshes/juliette/Wheel.mesh" scale="1 1 1" />
+            </geometry>
+            <material name="LightGrey">
+                <texture />
+                <color rgba="0.9 0.9 0.9 1" />
+            </material>
+        </visual>
+    </link>
+    <link name="base_link" />
+    <joint name="AccelerometerBase_fixedjoint" type="fixed">
+        <origin xyz="0.0147 0.26319 -0.0017" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="AccelerometerBase" />
+    </joint>
+    <joint name="Battery_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Battery" />
+    </joint>
+    <joint name="Bumper/Back_fixedjoint" type="fixed">
+        <origin xyz="-0.251 0.264 0" rpy="-1.5708 -0 3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Bumper/Back" />
+    </joint>
+    <joint name="Bumper/FrontLeft_fixedjoint" type="fixed">
+        <origin xyz="0.129 0.264 0.227" rpy="1.5708 -0.48886 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Bumper/FrontLeft" />
+    </joint>
+    <joint name="Bumper/FrontRight_fixedjoint" type="fixed">
+        <origin xyz="0.129 0.264 -0.227" rpy="1.5708 0.48886 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Bumper/FrontRight" />
+    </joint>
+    <joint name="CameraBottom_fixedjoint" type="fixed">
+        <origin xyz="0.06177 0.09262 0" rpy="1.5708 5.55112e-17 2.26893" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="CameraBottom" />
+    </joint>
+    <joint name="CameraDepth_fixedjoint" type="fixed">
+        <origin xyz="0.1194 0.05138 0.039" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="CameraDepth" />
+    </joint>
+    <joint name="CameraTop_fixedjoint" type="fixed">
+        <origin xyz="0.16284 0.08601 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="CameraTop" />
+    </joint>
+    <joint name="ChestBoard/Button_fixedjoint" type="fixed">
+        <origin xyz="0.049871 0.001588 0.055163" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="ChestBoard/Button" />
+    </joint>
+    <joint name="DeadAngle/Left_fixedjoint" type="fixed">
+        <origin xyz="0.04913 0.0664 0.07434" rpy="1.5708 -0.79 7.88684e-17" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="DeadAngle/Left" />
+    </joint>
+    <joint name="DeadAngle/Right_fixedjoint" type="fixed">
+        <origin xyz="0.04913 0.0664 -0.07434" rpy="1.5708 0.79 -7.88684e-17" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="DeadAngle/Right" />
+    </joint>
+    <joint name="FanCenter_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="FanCenter" />
+    </joint>
+    <joint name="FanLeft_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="FanLeft" />
+    </joint>
+    <joint name="FanRight_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="FanRight" />
+    </joint>
+    <joint name="Gaze_fixedjoint" type="fixed">
+        <origin xyz="0.1189 0.0657 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="Gaze" />
+    </joint>
+    <joint name="GyrometerBaseX_fixedjoint" type="fixed">
+        <origin xyz="0.0147 0.26319 -0.0017" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="GyrometerBaseX" />
+    </joint>
+    <joint name="GyrometerBaseY_fixedjoint" type="fixed">
+        <origin xyz="0.0147 0.26319 -0.0017" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="GyrometerBaseY" />
+    </joint>
+    <joint name="GyrometerBaseZ_fixedjoint" type="fixed">
+        <origin xyz="0.0147 0.26319 -0.0017" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="GyrometerBaseZ" />
+    </joint>
+    <joint name="Head/Touch/Front_fixedjoint" type="fixed">
+        <origin xyz="0.21267 0.028175 0" rpy="1.5708 5.55112e-17 1.78024" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="Head/Touch/Front" />
+    </joint>
+    <joint name="Head/Touch/Middle_fixedjoint" type="fixed">
+        <origin xyz="0.2159 0.0041 0" rpy="1.5708 5.55112e-17 1.53589" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="Head/Touch/Middle" />
+    </joint>
+    <joint name="Head/Touch/Rear_fixedjoint" type="fixed">
+        <origin xyz="0.21052 -0.03376 0" rpy="1.5708 -5.55112e-17 1.25664" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="Head/Touch/Rear" />
+    </joint>
+    <joint name="HeadFuse_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="HeadFuse" />
+    </joint>
+    <joint name="HeadPitchSphereCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0.12 0.004 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="HeadPitchSphereCollision_shape" />
+    </joint>
+    <joint name="HeadPitch_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="HeadPitch" />
+    </joint>
+    <joint name="HeadYaw" type="revolute">
+        <origin xyz="-0.038 0 0.1699" rpy="0 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="Torso_link" />
+        <child link="HeadYaw_link" />
+        <limit effort="1.8721" velocity="7.33998" lower="-2.08567" upper="2.08567" />
+    </joint>
+    <joint name="HeadPitch" type="revolute">
+        <origin xyz="0 0 0" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 1" />
+        <parent link="HeadYaw_link" />
+        <child link="HeadPitch_link" />
+        <limit effort="2.66575" velocity="9.22756" lower="-0.706858" upper="0.445059" />
+    </joint>
+    <joint name="LShoulderPitch" type="revolute">
+        <origin xyz="-0.057 0.14974 0.08682" rpy="-1.5708 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="Torso_link" />
+        <child link="LShoulderPitch_link" />
+        <limit effort="4.11862" velocity="7.33998" lower="-2.08567" upper="2.08567" />
+    </joint>
+    <joint name="LShoulderRoll" type="revolute">
+        <origin xyz="0 0 0" rpy="-1.5708 -1.5708 3.14159" />
+        <axis xyz="0 0 1" />
+        <parent link="LShoulderPitch_link" />
+        <child link="LShoulderRoll_link" />
+        <limit effort="3.70244" velocity="9.22756" lower="0.00872665" upper="1.56207" />
+    </joint>
+    <joint name="LElbowYaw" type="revolute">
+        <origin xyz="0.015 -0.1812 0.00013" rpy="1.41372 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="LShoulderRoll_link" />
+        <child link="LElbowYaw_link" />
+        <limit effort="2.80815" velocity="7.33998" lower="-2.08567" upper="2.08567" />
+    </joint>
+    <joint name="LElbowRoll" type="revolute">
+        <origin xyz="0 0 0" rpy="-1.5708 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="LElbowYaw_link" />
+        <child link="LElbowRoll_link" />
+        <limit effort="2.22146" velocity="9.22756" lower="-1.56207" upper="-0.00872665" />
+    </joint>
+    <joint name="LWristYaw" type="revolute">
+        <origin xyz="0 -0.15 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="LElbowRoll_link" />
+        <child link="LWristYaw_link" />
+        <limit effort="0.134278" velocity="17.3835" lower="-1.82387" upper="1.82387" />
+    </joint>
+    <joint name="HipRoll" type="revolute">
+        <origin xyz="2e-05 0 -0.139" rpy="3.14159 1.5708 3.14159" />
+        <axis xyz="0 0 1" />
+        <parent link="Torso_link" />
+        <child link="HipRoll_link" />
+        <limit effort="10.1884" velocity="2.27032" lower="-0.514872" upper="0.514872" />
+    </joint>
+    <joint name="HipPitch" type="revolute">
+        <origin xyz="0.079 0 0" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 1" />
+        <parent link="HipRoll_link" />
+        <child link="HipPitch_link" />
+        <limit effort="19.787" velocity="2.93276" lower="-1.03847" upper="1.03847" />
+    </joint>
+    <joint name="KneePitch" type="revolute">
+        <origin xyz="0 0.268 0" rpy="0 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="HipPitch_link" />
+        <child link="KneePitch_link" />
+        <limit effort="27.702" velocity="2.93276" lower="-0.514872" upper="0.514872" />
+    </joint>
+    <joint name="RShoulderPitch" type="revolute">
+        <origin xyz="-0.057 -0.14974 0.08682" rpy="-1.5708 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="Torso_link" />
+        <child link="RShoulderPitch_link" />
+        <limit effort="4.11862" velocity="7.33998" lower="-2.08567" upper="2.08567" />
+    </joint>
+    <joint name="RShoulderRoll" type="revolute">
+        <origin xyz="0 0 0" rpy="-1.5708 -1.5708 3.14159" />
+        <axis xyz="0 0 1" />
+        <parent link="RShoulderPitch_link" />
+        <child link="RShoulderRoll_link" />
+        <limit effort="3.70244" velocity="9.22756" lower="-1.56207" upper="-0.00872665" />
+    </joint>
+    <joint name="RElbowYaw" type="revolute">
+        <origin xyz="-0.015 -0.1812 0.00013" rpy="1.41372 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="RShoulderRoll_link" />
+        <child link="RElbowYaw_link" />
+        <limit effort="2.80815" velocity="7.33998" lower="-2.08567" upper="2.08567" />
+    </joint>
+    <joint name="RElbowRoll" type="revolute">
+        <origin xyz="0 0 0" rpy="-1.5708 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="RElbowYaw_link" />
+        <child link="RElbowRoll_link" />
+        <limit effort="2.22146" velocity="9.22756" lower="0.00872665" upper="1.56207" />
+    </joint>
+    <joint name="RWristYaw" type="revolute">
+        <origin xyz="0 -0.15 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 1" />
+        <parent link="RElbowRoll_link" />
+        <child link="RWristYaw_link" />
+        <limit effort="0.134278" velocity="17.3835" lower="-1.82387" upper="1.82387" />
+    </joint>
+    <joint name="HeadYaw_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadYaw_link" />
+        <child link="HeadYaw" />
+    </joint>
+    <joint name="Head_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="Head" />
+    </joint>
+    <joint name="HipPitchPillCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="-0.0075 0.07 0" rpy="1.5708 -0 -3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="HipPitch_link" />
+        <child link="HipPitchPillCollision_shape" />
+    </joint>
+    <joint name="HipPitchSphereCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="-0.005 -0.05 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="HipPitch_link" />
+        <child link="HipPitchSphereCollision_shape" />
+    </joint>
+    <joint name="HipPitch_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="HipPitch_link" />
+        <child link="HipPitch" />
+    </joint>
+    <joint name="HipRoll_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="3.14159 -1.5708 3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="HipRoll_link" />
+        <child link="HipRoll" />
+    </joint>
+    <joint name="KneePitch_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="KneePitch" />
+    </joint>
+    <joint name="LArmFuse_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="LArmFuse" />
+    </joint>
+    <joint name="LArm_fixedjoint" type="fixed">
+        <origin xyz="0 -0.0303 0.0695" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="LWristYaw_link" />
+        <child link="LArm" />
+    </joint>
+    <joint name="LElbowRollDynamicCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.15 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRollDynamicCollision_shape" />
+    </joint>
+    <joint name="LElbowRollPillCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.115 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRollPillCollision_shape" />
+    </joint>
+    <joint name="LElbowRollSphereACollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.1875 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRollSphereACollision_shape" />
+    </joint>
+    <joint name="LElbowRollSphereBCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.125 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRollSphereBCollision_shape" />
+    </joint>
+    <joint name="LElbowRollSphereCCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.0625 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRollSphereCCollision_shape" />
+    </joint>
+    <joint name="LElbowRollSphereDCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRollSphereDCollision_shape" />
+    </joint>
+    <joint name="LElbowRoll_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowRoll_link" />
+        <child link="LElbowRoll" />
+    </joint>
+    <joint name="LElbowYaw_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+        <axis xyz="0 0 0" />
+        <parent link="LElbowYaw_link" />
+        <child link="LElbowYaw" />
+    </joint>
+    <joint name="LFinger11" type="continuous">
+        <origin xyz="-0.0268 0.004 0.0821" rpy="1.78277 -0.529825 -1.59039" />
+        <axis xyz="0 0 1" />
+        <parent link="LWristYaw_link" />
+        <child link="LFinger11_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger12" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger11_link" />
+        <child link="LFinger12_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger13" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger12_link" />
+        <child link="LFinger13_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger21" type="continuous">
+        <origin xyz="-0.0073 0.006 0.0873" rpy="1.6413 -0.522522 -1.60603" />
+        <axis xyz="0 0 1" />
+        <parent link="LWristYaw_link" />
+        <child link="LFinger21_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger22" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger21_link" />
+        <child link="LFinger22_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger23" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger22_link" />
+        <child link="LFinger23_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger31" type="continuous">
+        <origin xyz="0.0123 0.004 0.0833" rpy="1.50025 -0.525718 -1.58781" />
+        <axis xyz="0 0 1" />
+        <parent link="LWristYaw_link" />
+        <child link="LFinger31_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger32" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger31_link" />
+        <child link="LFinger32_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger33" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger32_link" />
+        <child link="LFinger33_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger41" type="continuous">
+        <origin xyz="0.0309 0 0.074" rpy="1.3184 -0.528785 -1.53079" />
+        <axis xyz="0 0 1" />
+        <parent link="LWristYaw_link" />
+        <child link="LFinger41_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger42" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger41_link" />
+        <child link="LFinger42_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LFinger43" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LFinger42_link" />
+        <child link="LFinger43_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LHand" type="revolute">
+        <origin xyz="0 0 0.025" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="1 0 0" />
+        <parent link="LWristYaw_link" />
+        <child link="LHand_actuator_frame" />
+        <limit effort="0.096152" velocity="12.56" lower="0.02" upper="0.98" />
+    </joint>
+    <joint name="LHand/Touch/Back_fixedjoint" type="fixed">
+        <origin xyz="0 0.0304 0.0523" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LWristYaw_link" />
+        <child link="LHand/Touch/Back" />
+    </joint>
+    <joint name="LShoulderPitch_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="LShoulderPitch_link" />
+        <child link="LShoulderPitch" />
+    </joint>
+    <joint name="LShoulderRoll_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="LShoulderRoll_link" />
+        <child link="LShoulderRoll" />
+    </joint>
+    <joint name="LThumb1" type="continuous">
+        <origin xyz="-0.0357 -0.0199 0.0482" rpy="-2.76225 -0.785789 -0.937585" />
+        <axis xyz="0 0 1" />
+        <parent link="LWristYaw_link" />
+        <child link="LThumb1_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LThumb2" type="continuous">
+        <origin xyz="0.022 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="LThumb1_link" />
+        <child link="LThumb2_link" />
+        <mimic offset="0" multiplier="0.872665" joint="LHand" />
+    </joint>
+    <joint name="LWristYawSphereCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="-0.01 -0.015 0.055" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="LWristYaw_link" />
+        <child link="LWristYawSphereCollision_shape" />
+    </joint>
+    <joint name="LWristYaw_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+        <axis xyz="0 0 0" />
+        <parent link="LWristYaw_link" />
+        <child link="LWristYaw" />
+    </joint>
+    <joint name="LaserSensor/Front_fixedjoint" type="fixed">
+        <origin xyz="0.0562 0.334 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="LaserSensor/Front" />
+    </joint>
+    <joint name="LaserSensor/Left_fixedjoint" type="fixed">
+        <origin xyz="-0.018 0.334 0.0899" rpy="-1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="LaserSensor/Left" />
+    </joint>
+    <joint name="LaserSensor/Right_fixedjoint" type="fixed">
+        <origin xyz="-0.018 0.334 -0.0899" rpy="-1.5708 1.5708 3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="LaserSensor/Right" />
+    </joint>
+    <joint name="LaserSensor/Shovel_fixedjoint" type="fixed">
+        <origin xyz="0.0562 0.334 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="LaserSensor/Shovel" />
+    </joint>
+    <joint name="LaserSensor/VerticalLeft_fixedjoint" type="fixed">
+        <origin xyz="0.0562 0.334 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="LaserSensor/VerticalLeft" />
+    </joint>
+    <joint name="LaserSensor/VerticalRight_fixedjoint" type="fixed">
+        <origin xyz="0.0562 0.334 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="LaserSensor/VerticalRight" />
+    </joint>
+    <joint name="LegFuse_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="LegFuse" />
+    </joint>
+    <joint name="Leg_fixedjoint" type="fixed">
+        <origin xyz="0.0062 0.334 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Leg" />
+    </joint>
+    <joint name="MicroFL_fixedjoint" type="fixed">
+        <origin xyz="0.2066 0.0313 0.0343" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="MicroFL" />
+    </joint>
+    <joint name="MicroFR_fixedjoint" type="fixed">
+        <origin xyz="0.2066 0.0313 -0.0343" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="MicroFR" />
+    </joint>
+    <joint name="MicroRL_fixedjoint" type="fixed">
+        <origin xyz="0.2066 -0.0267 0.0343" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="MicroRL" />
+    </joint>
+    <joint name="MicroRR_fixedjoint" type="fixed">
+        <origin xyz="0.2066 -0.0267 -0.0343" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="MicroRR" />
+    </joint>
+    <joint name="MicrophoneFrame_fixedjoint" type="fixed">
+        <origin xyz="0.2066 0.0023 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="MicrophoneFrame" />
+    </joint>
+    <joint name="PowerHatch_fixedjoint" type="fixed">
+        <origin xyz="-0.16206 0.16422 0" rpy="-1.5708 3.46077e-08 -1.97781" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="PowerHatch" />
+    </joint>
+    <joint name="RArmFuse_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="RArmFuse" />
+    </joint>
+    <joint name="RArm_fixedjoint" type="fixed">
+        <origin xyz="0 -0.0303 0.0695" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="RWristYaw_link" />
+        <child link="RArm" />
+    </joint>
+    <joint name="RElbowRollDynamicCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.15 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRollDynamicCollision_shape" />
+    </joint>
+    <joint name="RElbowRollPillCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.115 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRollPillCollision_shape" />
+    </joint>
+    <joint name="RElbowRollSphereACollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.1875 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRollSphereACollision_shape" />
+    </joint>
+    <joint name="RElbowRollSphereBCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.125 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRollSphereBCollision_shape" />
+    </joint>
+    <joint name="RElbowRollSphereCCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 -0.0625 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRollSphereCCollision_shape" />
+    </joint>
+    <joint name="RElbowRollSphereDCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRollSphereDCollision_shape" />
+    </joint>
+    <joint name="RElbowRoll_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowRoll_link" />
+        <child link="RElbowRoll" />
+    </joint>
+    <joint name="RElbowYaw_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+        <axis xyz="0 0 0" />
+        <parent link="RElbowYaw_link" />
+        <child link="RElbowYaw" />
+    </joint>
+    <joint name="RFinger11" type="continuous">
+        <origin xyz="0.0268 0.004 0.0821" rpy="1.35882 -0.529825 -1.55121" />
+        <axis xyz="0 0 1" />
+        <parent link="RWristYaw_link" />
+        <child link="RFinger11_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger12" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger11_link" />
+        <child link="RFinger12_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger13" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger12_link" />
+        <child link="RFinger13_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger21" type="continuous">
+        <origin xyz="0.0073 0.006 0.0873" rpy="1.50029 -0.522522 -1.53556" />
+        <axis xyz="0 0 1" />
+        <parent link="RWristYaw_link" />
+        <child link="RFinger21_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger22" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger21_link" />
+        <child link="RFinger22_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger23" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger22_link" />
+        <child link="RFinger23_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger31" type="continuous">
+        <origin xyz="-0.0123 0.004 0.0833" rpy="1.64134 -0.525718 -1.55378" />
+        <axis xyz="0 0 1" />
+        <parent link="RWristYaw_link" />
+        <child link="RFinger31_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger32" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger31_link" />
+        <child link="RFinger32_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger33" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger32_link" />
+        <child link="RFinger33_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger41" type="continuous">
+        <origin xyz="-0.0309 0 0.074" rpy="1.82319 -0.528785 -1.6108" />
+        <axis xyz="0 0 1" />
+        <parent link="RWristYaw_link" />
+        <child link="RFinger41_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger42" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger41_link" />
+        <child link="RFinger42_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RFinger43" type="continuous">
+        <origin xyz="0.018 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RFinger42_link" />
+        <child link="RFinger43_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RHand" type="revolute">
+        <origin xyz="0 0 0.025" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="1 0 0" />
+        <parent link="RWristYaw_link" />
+        <child link="RHand_actuator_frame" />
+        <limit effort="0.096152" velocity="12.56" lower="0.02" upper="0.98" />
+    </joint>
+    <joint name="RHand/Touch/Back_fixedjoint" type="fixed">
+        <origin xyz="0 0.0304 0.0523" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RWristYaw_link" />
+        <child link="RHand/Touch/Back" />
+    </joint>
+    <joint name="RShoulderPitch_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="RShoulderPitch_link" />
+        <child link="RShoulderPitch" />
+    </joint>
+    <joint name="RShoulderRoll_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 -1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="RShoulderRoll_link" />
+        <child link="RShoulderRoll" />
+    </joint>
+    <joint name="RThumb1" type="continuous">
+        <origin xyz="0.0357 -0.0199 0.0482" rpy="-0.379338 -0.785789 -2.20401" />
+        <axis xyz="0 0 1" />
+        <parent link="RWristYaw_link" />
+        <child link="RThumb1_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RThumb2" type="continuous">
+        <origin xyz="0.022 0 0" rpy="-0 -0 -1.0472" />
+        <axis xyz="0 0 1" />
+        <parent link="RThumb1_link" />
+        <child link="RThumb2_link" />
+        <mimic offset="0" multiplier="0.872665" joint="RHand" />
+    </joint>
+    <joint name="RWristYawSphereCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0.01 -0.015 0.055" rpy="1.5708 -1.5708 -3.14159" />
+        <axis xyz="0 0 0" />
+        <parent link="RWristYaw_link" />
+        <child link="RWristYawSphereCollision_shape" />
+    </joint>
+    <joint name="RWristYaw_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="-1.5708 -1.5708 8.76263e-08" />
+        <axis xyz="0 0 0" />
+        <parent link="RWristYaw_link" />
+        <child link="RWristYaw" />
+    </joint>
+    <joint name="Sonar/Back_fixedjoint" type="fixed">
+        <origin xyz="-0.0718 0.0534 0" rpy="-1.5708 1.38778e-17 -2.93215" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Sonar/Back" />
+    </joint>
+    <joint name="Sonar/Front_fixedjoint" type="fixed">
+        <origin xyz="0.0699 0.1023 0" rpy="1.5708 -0 -0.322858" />
+        <axis xyz="0 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="Sonar/Front" />
+    </joint>
+    <joint name="SpeakerLeft_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="SpeakerLeft" />
+    </joint>
+    <joint name="SpeakerRight_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="1.5708 5.55112e-17 1.5708" />
+        <axis xyz="0 0 0" />
+        <parent link="HeadPitch_link" />
+        <child link="SpeakerRight" />
+    </joint>
+    <joint name="Tablet_fixedjoint" type="fixed">
+        <origin xyz="0.0839249 0 0.06251" rpy="0 -0.523599 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="Tablet" />
+    </joint>
+    <joint name="TorsoBackLeftSphereCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="-0.08 0.055 -0.06" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="TorsoBackLeftSphereCollision_shape" />
+    </joint>
+    <joint name="TorsoBackRightSphereCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="-0.08 -0.055 -0.06" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="TorsoBackRightSphereCollision_shape" />
+    </joint>
+    <joint name="TorsoSphereBackCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0 0 -0.08" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="TorsoSphereBackCollision_shape" />
+    </joint>
+    <joint name="TorsoSphereLeftCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0.08 0.05 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="TorsoSphereLeftCollision_shape" />
+    </joint>
+    <joint name="TorsoSphereRightCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0.08 -0.05 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="TorsoSphereRightCollision_shape" />
+    </joint>
+    <joint name="TorsoTabCollision_shape_fixedjoint" type="fixed">
+        <origin xyz="0.08 0 0.04" rpy="0 1.0472 0" />
+        <axis xyz="0 0 0" />
+        <parent link="Torso_link" />
+        <child link="TorsoTabCollision_shape" />
+    </joint>
+    <joint name="WheelB" type="continuous">
+        <origin xyz="-0.17 0.264 0" rpy="-1.5708 -0 -3.14159" />
+        <axis xyz="1 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="WheelB_link" />
+        <limit effort="3.25" velocity="6.28319" lower="0" upper="0" />
+    </joint>
+    <joint name="WheelFL" type="continuous">
+        <origin xyz="0.09 0.264 0.155" rpy="1.5708 -1.07517 -1.16723e-16" />
+        <axis xyz="1 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="WheelFL_link" />
+        <limit effort="3.25" velocity="6.28319" lower="0" upper="0" />
+    </joint>
+    <joint name="WheelFR" type="continuous">
+        <origin xyz="0.09 0.264 -0.155" rpy="1.5708 1.07517 1.16723e-16" />
+        <axis xyz="1 0 0" />
+        <parent link="KneePitch_link" />
+        <child link="WheelFR_link" />
+        <limit effort="3.25" velocity="6.28319" lower="0" upper="0" />
+    </joint>
+    <joint name="base_link_fixedjoint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 -0 0" />
+        <axis xyz="0 0 0" />
+        <parent link="base_link" />
+        <child link="Torso_link" />
+    </joint>
+</robot>
