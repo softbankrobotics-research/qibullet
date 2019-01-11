@@ -55,22 +55,18 @@ class RobotVirtual:
             print("Cannot load robot model: " + str(e))
             return False
 
-
         for i in range(pybullet.getNumJoints(self.robot_model)):
             if IS_VERSION_PYTHON_3:
                 # PYTHON 3 version needs a conversion bytes to str
                 joint_info = pybullet.getJointInfo(self.robot_model, i)
-                self.link_dict[joint_info[12].decode('utf-8')] = Link(joint_info)
+                self.link_dict[joint_info[12].decode('utf-8')] =\
+                    Link(joint_info)
 
                 if joint_info[2] == pybullet.JOINT_PRISMATIC or\
                         joint_info[2] == pybullet.JOINT_REVOLUTE:
-                    self.joint_dict[joint_info[1].decode('utf-8')] = Joint(joint_info)
+                    self.joint_dict[joint_info[1].decode('utf-8')] =\
+                        Joint(joint_info)
 
-                    pybullet.setJointMotorControl2(
-                        self.robot_model,
-                        i,
-                        pybullet.POSITION_CONTROL,
-                        0)
             else:
                 # PYTHON 2 Version
                 joint_info = pybullet.getJointInfo(self.robot_model, i)
@@ -80,11 +76,11 @@ class RobotVirtual:
                         joint_info[2] == pybullet.JOINT_REVOLUTE:
                     self.joint_dict[joint_info[1]] = Joint(joint_info)
 
-                    pybullet.setJointMotorControl2(
-                        self.robot_model,
-                        i,
-                        pybullet.POSITION_CONTROL,
-                        0)
+                pybullet.setJointMotorControl2(
+                    self.robot_model,
+                    i,
+                    pybullet.POSITION_CONTROL,
+                    0)
 
         return True
 
