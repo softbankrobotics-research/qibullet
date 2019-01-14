@@ -49,7 +49,8 @@ class RobotVirtual:
                 orientation,
                 useFixedBase=fixed_base,
                 globalScaling=1.0,
-                flags=pybullet.URDF_USE_SELF_COLLISION)
+                flags=pybullet.URDF_USE_SELF_COLLISION |
+                pybullet.URDF_USE_MATERIAL_COLORS_FROM_MTL)
 
         except pybullet.error as e:
             print("Cannot load robot model: " + str(e))
