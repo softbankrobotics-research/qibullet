@@ -295,6 +295,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- LShoulderRoll and additional texture link -->
   <joint name="LShoulderRoll" type="revolute">
     <parent link="LShoulder"/>
     <child link="LBicep"/>
@@ -310,7 +312,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LShoulderRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LShoulderRoll_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -321,6 +323,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LShoulderRoll_shiny_joint" type="fixed">
+    <parent link="LShoulder"/>
+    <child link="LShoulderRoll_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LShoulderRoll_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/LShoulderRoll_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End LShoulderRoll -->
+
   <joint name="LElbowYaw" type="revolute">
     <parent link="LBicep"/>
     <child link="LElbow"/>
