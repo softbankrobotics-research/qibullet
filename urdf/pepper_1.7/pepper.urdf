@@ -117,7 +117,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HipRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HipRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.079"/>
     </visual>
