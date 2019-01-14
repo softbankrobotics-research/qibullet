@@ -135,6 +135,8 @@
     <axis xyz="0 -1.0 0"/>
     <limit effort="19.787" lower="-1.03847" upper="1.03847" velocity="2.93276"/>
   </joint>
+
+  <!-- Create Pelvis link and additional link for texture -->
   <link name="Pelvis">
     <inertial>
       <mass value="2.45917"/>
@@ -143,7 +145,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HipPitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HipPitch_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.268"/>
     </visual>
@@ -154,6 +156,21 @@
       <origin rpy="0 0 0" xyz="0 0 0.268"/>
     </collision>
   </link>
+  <joint name="HipPitch_shiny_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="Hip"/>
+    <child link="HipPitch_shiny"/>
+  </joint>
+  <link name="HipPitch_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HipPitch_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End Pelvis link -->
+
   <joint name="KneePitch" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <child link="Pelvis"/>
