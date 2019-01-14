@@ -128,6 +128,8 @@
       <origin rpy="0 0 0" xyz="0 0 0.079"/>
     </collision>
   </link>
+
+  <!-- Create Pelvis link and additional link for texture -->
   <joint name="HipPitch" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.268"/>
     <child link="Hip"/>
@@ -135,8 +137,6 @@
     <axis xyz="0 -1.0 0"/>
     <limit effort="19.787" lower="-1.03847" upper="1.03847" velocity="2.93276"/>
   </joint>
-
-  <!-- Create Pelvis link and additional link for texture -->
   <link name="Pelvis">
     <inertial>
       <mass value="2.45917"/>
@@ -347,6 +347,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- LElbowRoll link and additional texture  -->
   <joint name="LElbowRoll" type="revolute">
     <parent link="LElbow"/>
     <child link="LForeArm"/>
@@ -362,7 +364,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LElbowRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LElbowRoll_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -373,6 +375,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LElbowRoll_milky_joint" type="fixed">
+    <parent link="LElbow"/>
+    <child link="LElbowRoll_milky"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LElbowRoll_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/LElbowRoll_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End definition of LElbowRoll -->
+
   <joint name="LWristYaw" type="revolute">
     <parent link="LForeArm"/>
     <child link="l_wrist"/>
