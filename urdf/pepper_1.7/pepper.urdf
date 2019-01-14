@@ -422,7 +422,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LWristYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LWristYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -524,6 +524,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- RElbowRoll link and additional texture link -->
   <joint name="RElbowRoll" type="revolute">
     <parent link="RElbow"/>
     <child link="RForeArm"/>
@@ -539,7 +541,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RElbowRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RElbowRoll_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -550,6 +552,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RElbowRoll_milky_joint" type="fixed">
+    <parent link="RElbow"/>
+    <child link="RElbowRoll_milky"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RElbowRoll_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/RElbowRoll_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End RElbowRoll -->
+
   <joint name="RWristYaw" type="revolute">
     <parent link="RForeArm"/>
     <child link="r_wrist"/>
@@ -1441,7 +1458,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LThumb1.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1519,7 +1536,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LThumb2.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
