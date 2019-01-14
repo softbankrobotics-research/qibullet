@@ -40,6 +40,8 @@
     <axis xyz="0 1.0 0"/>
     <limit effort="2.666" lower="-0.706858" upper="0.637045" velocity="9.22756"/>
   </joint>
+
+  <!-- Add additional links to load different textures in the simulated model -->
   <link name="Head">
     <inertial>
       <mass value="1.51893"/>
@@ -48,7 +50,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HeadPitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_eyes.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -59,6 +61,47 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="Head_visual_milky_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="Head_visual_milky"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="Head_visual_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_face_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="Head_visual_ears_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="Head_visual_ears"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="Head_visual_ears">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_ears.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="HeadPitch_face_shiny_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="HeadPitch_face_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="HeadPitch_face_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_face_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End links for the Head -->
+
   <joint name="HipRoll" type="revolute">
     <origin rpy="0 0 0" xyz="-2e-05 0 0.218"/>
     <child link="torso"/>
@@ -143,6 +186,8 @@
     <parent link="base_footprint"/>
   </joint>
   <link name="base_footprint"/>
+
+  <!-- Add the torso link and additional texture links -->
   <link name="torso">
     <inertial>
       <mass value="3.99533"/>
@@ -151,7 +196,8 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/Torso.dae" scale="0.1 0.1 0.1"/>
+        <!-- <mesh filename="meshes/pepper_1.7/Torso.obj" scale="0.1 0.1 0.1"/> -->
+        <mesh filename="meshes/pepper_1.7/Torso_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -162,6 +208,34 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="Torso_visual_shiny_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="Torso_visual_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="Torso_visual_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/Torso_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="Torso_visual_transparent_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="Torso_visual_transparent"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="Torso_visual_transparent">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/Torso_transparent.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End torso links -->
+
   <joint name="LShoulderPitch" type="revolute">
     <parent link="torso"/>
     <child link="LShoulder"/>
@@ -424,7 +498,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RWristYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RWristYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
