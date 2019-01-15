@@ -27,16 +27,16 @@ class RobotVirtual:
         self.joint_dict = dict()
         self.link_dict = dict()
 
-    def loadRobot(self, position, orientation, physicsClientId=0):
+    def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
         Loads the robot into a simulation, loads the joints and the links
         descriptions. The joints are set to 0 rad
 
         Parameters:
-            position - List containing 3 elements, the position x,y,z of the
-            robot in the WORLD frame
-            orientation - List containing 4 elements, the orientation x,y,z,q
-            of the robot using quaternions
+            translation - List containing 3 elements, the translation [x, y, z]
+            of the robot in the WORLD frame
+            quaternion - List containing 4 elements, the quaternion
+            [x, y, z, q] of the robot in the WORLD frame
             physicsClientId - The id of the simulated instance in which the
             robot is supposed to be loaded
 
@@ -47,8 +47,8 @@ class RobotVirtual:
             self.physics_client = physicsClientId
             self.robot_model = pybullet.loadURDF(
                 self.description_file,
-                position,
-                orientation,
+                translation,
+                quaternion,
                 useFixedBase=False,
                 globalScaling=1.0,
                 physicsClientId=self.physics_client,

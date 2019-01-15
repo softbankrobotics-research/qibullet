@@ -38,7 +38,7 @@ class PepperVirtual(RobotVirtual):
         # Default speed (in rad/s) theta : 1.0, min : 0.2, max : 2.0
         self.vel_theta = 1.0
 
-    def loadRobot(self, position, orientation, physicsClientId=0):
+    def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
         Overload @loadRobot from the @RobotVirtual class. Update max velocity
         for the fingers and thumbs, based on the hand joints. Add self
@@ -52,8 +52,8 @@ class PepperVirtual(RobotVirtual):
 
         RobotVirtual.loadRobot(
             self,
-            position,
-            orientation,
+            translation,
+            quaternion,
             physicsClientId=self.physics_client)
 
         for joint_name in list(self.joint_dict):

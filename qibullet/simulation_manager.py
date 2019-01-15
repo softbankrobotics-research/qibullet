@@ -2,7 +2,8 @@
 # coding: utf-8
 
 import pybullet
-from threading import Thread
+import threading
+import pybullet_data
 from qibullet.pepper_virtual import PepperVirtual
 
 
@@ -46,7 +47,7 @@ class SimulationManager:
         else:
             physics_client = pybullet.connect(pybullet.DIRECT)
             threading.Thread(
-                target=self.stepSimulation,
+                target=self._stepSimulation,
                 args=[physics_client]).start()
 
         pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
@@ -69,7 +70,12 @@ class SimulationManager:
         """
         pybullet.disconnect(physicsClientId=physics_client)
 
-    def spawnPepper(self, physics_client, translation, quaternion):
+    def spawnPepper(
+            self,
+            physics_client,
+            translation,
+            quaternion,
+            spawn_ground_plane=False):
         """
         Loads a Pepper model in the simulation
 
@@ -80,12 +86,24 @@ class SimulationManager:
             [x, y, z] in the WORLD frame
             quaternions - List containing 4 elements, the spawning rotation as
             a quaternion [x, y, z, w] in the WORLD frame
+            spawn_ground_plane - If True, the pybullet_data ground plane will
+            be spawned
 
         Returns:
             pepper - A PepperVirtual object, the Pepper simulated instance
         """
         pepper = PepperVirtual()
-        pepper.loadRobot(position, orientation, physicsClientId=physics_client)
+
+        if spawn_ground_plane:
+            pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
+            pybullet.loadMJCF(
+                "mjcf/ground_plane.xml",
+                physicsClientId=physics_client)
+
+        pepper.loadRobot(
+            translation,
+            quaternion,
+            physicsClientId=physics_client)
 
         return pepper
 
