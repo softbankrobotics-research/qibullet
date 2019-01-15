@@ -38,7 +38,7 @@ class PepperVirtual(RobotVirtual):
         # Default speed (in rad/s) theta : 1.0, min : 0.2, max : 2.0
         self.vel_theta = 1.0
 
-    def loadRobot(self, position, orientation):
+    def loadRobot(self, position, orientation, physicsClientId=0):
         """
         Overload @loadRobot from the @RobotVirtual class. Update max velocity
         for the fingers and thumbs, based on the hand joints. Add self
@@ -46,8 +46,15 @@ class PepperVirtual(RobotVirtual):
         fingers and thumbs of a hand won't autocollide with the corresponding
         wrist). Add the cameras. Add motion constraint.
         """
-        pybullet.setAdditionalSearchPath("../")
-        RobotVirtual.loadRobot(self, position, orientation)
+        pybullet.setAdditionalSearchPath(
+            "../",
+            physicsClientId=physicsClientId)
+
+        RobotVirtual.loadRobot(
+            self,
+            position,
+            orientation,
+            physicsClientId=self.physics_client)
 
         for joint_name in list(self.joint_dict):
             if 'RFinger' in joint_name or 'RThumb' in joint_name:
@@ -65,7 +72,8 @@ class PepperVirtual(RobotVirtual):
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
                 self.link_dict[shoulder_roll_link].getIndex(),
-                0)
+                0,
+                physicsClientId=self.physics_client)
 
         for name, link in self.link_dict.items():
             for wrist in ["r_wrist", "l_wrist"]:
@@ -76,26 +84,31 @@ class PepperVirtual(RobotVirtual):
                         self.robot_model,
                         self.link_dict[wrist].getIndex(),
                         link.getIndex(),
-                        0)
+                        0,
+                        physicsClientId=self.physics_client)
 
         self.camera_top = CameraRgb(
             self.robot_model,
-            self.link_dict["CameraTop_optical_frame"])
+            self.link_dict["CameraTop_optical_frame"],
+            physicsClientId=self.physics_client)
 
         self.camera_bottom = CameraRgb(
             self.robot_model,
-            self.link_dict["CameraBottom_optical_frame"])
+            self.link_dict["CameraBottom_optical_frame"],
+            physicsClientId=self.physics_client)
 
         self.camera_depth = CameraDepth(
             self.robot_model,
-            self.link_dict["CameraDepth_optical_frame"])
+            self.link_dict["CameraDepth_optical_frame"],
+            physicsClientId=self.physics_client)
 
         # TODO: motion constraint fucks up the right hand mimic behaviour
         self.motion_constraint = pybullet.createConstraint(
             self.robot_model,
             -1, -1, -1,
             pybullet.JOINT_FIXED,
-            [0, 0, 0], [0, 0, 0], [0, 0, 0])
+            [0, 0, 0], [0, 0, 0], [0, 0, 0],
+            physicsClientId=self.physics_client)
 
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None):
         """
@@ -117,7 +130,8 @@ class PepperVirtual(RobotVirtual):
 
         # get actual position in frame world
         actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
-            self.robot_model)
+            self.robot_model,
+            physicsClientId=self.physics_client)
         # pose x, y, z
         pose_requested = [x, y, 0]
         # orientation requested (quaternions)
@@ -143,7 +157,8 @@ class PepperVirtual(RobotVirtual):
             self.motion_constraint,
             pose_requested,
             jointChildFrameOrientation=orn_requested,
-            maxForce=force)
+            maxForce=force,
+            physicsClientId=self.physics_client)
         # init robot speed
         speed_xy = self.vel_xy
         if speed is not None:
@@ -162,7 +177,8 @@ class PepperVirtual(RobotVirtual):
         while getDistance(actual_pose, pose_requested) > threshold_xy\
                 or getOrientation(actual_orn, orn_requested) > threshold_theta:
             actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
-                self.robot_model)
+                self.robot_model,
+                physicsClientId=self.physics_client)
             # if the robot is on the position requested, we set the
             # velocity to 0.
             if abs(actual_pose[0] - pose_requested[0]) <= threshold_xy / 2:
@@ -179,21 +195,25 @@ class PepperVirtual(RobotVirtual):
             pybullet.resetBaseVelocity(
                 self.robot_model,
                 [vel_x * p_x, vel_y * p_y, 0],
-                [0, 0, vel_theta * p_theta])
+                [0, 0, vel_theta * p_theta],
+                physicsClientId=self.physics_client)
         # Change the constraint to the actual position and orientation in
         # order to stop the robot's motion. The force applied is huge
         # to avoid oscillation.
         actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
-            self.robot_model)
+            self.robot_model,
+            physicsClientId=self.physics_client)
         pybullet.changeConstraint(
             self.motion_constraint,
             actual_pose,
             jointChildFrameOrientation=actual_orn,
-            maxForce=force * 10)
+            maxForce=force * 10,
+            physicsClientId=self.physics_client)
         pybullet.resetBaseVelocity(
             self.robot_model,
             [0, 0, 0],
-            [0, 0, 0])
+            [0, 0, 0],
+            physicsClientId=self.physics_client)
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
@@ -408,11 +428,13 @@ class PepperVirtual(RobotVirtual):
                 contact_tuple = pybullet.getContactPoints(
                     bodyA=self.robot_model,
                     bodyB=self.robot_model,
-                    linkIndexA=self.link_dict[name].getIndex())
+                    linkIndexA=self.link_dict[name].getIndex(),
+                    physicsClientId=self.physics_client)
                 contact_tuple += pybullet.getContactPoints(
                     bodyA=self.robot_model,
                     bodyB=self.robot_model,
-                    linkIndexB=self.link_dict[name].getIndex())
+                    linkIndexB=self.link_dict[name].getIndex(),
+                    physicsClientId=self.physics_client)
 
                 if len(contact_tuple) != 0:
                     return True

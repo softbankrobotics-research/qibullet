@@ -69,6 +69,26 @@ class SimulationManager:
         """
         pybullet.disconnect(physicsClientId=physics_client)
 
+    def spawnPepper(self, physics_client, translation, quaternion):
+        """
+        Loads a Pepper model in the simulation
+
+        Parameters:
+            physics_client - The id of the simulated instance in which the
+            robot is supposed to be spawned
+            translation - List containing 3 elements, the spawning translation
+            [x, y, z] in the WORLD frame
+            quaternions - List containing 4 elements, the spawning rotation as
+            a quaternion [x, y, z, w] in the WORLD frame
+
+        Returns:
+            pepper - A PepperVirtual object, the Pepper simulated instance
+        """
+        pepper = PepperVirtual()
+        pepper.loadRobot(position, orientation, physicsClientId=physics_client)
+
+        return pepper
+
     def _stepSimulation(self, physics_client):
         """
         INTERNAL METHOD: Steps the simulated instance corresponding to the
