@@ -1,0 +1,11 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.2.0)
+
+newmtl shiny_white
+Kd 0.64 0.64 0.64
+Ka 0 0 0
+Ks 1 1 1
+Ke 1 1 1
+Ns 50
+illum 2
+
