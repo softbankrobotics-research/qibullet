@@ -22,7 +22,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HeadYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HeadYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -33,6 +33,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- HeadPitch and additional texture links -->
   <joint name="HeadPitch" type="revolute">
     <parent link="Neck"/>
     <child link="Head"/>
@@ -48,7 +50,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HeadPitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_eyes.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -59,6 +61,47 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="HeadPitch_milky_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="HeadPitch_milky"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="HeadPitch_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="HeadPitch_ears_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="HeadPitch_ears"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="HeadPitch_ears">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_ears.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="HeadPitch_shiny_joint" type="fixed">
+    <parent link="Head"/>
+    <child link="HeadPitch_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="HeadPitch_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HeadPitch_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End links for the Head -->
+
   <joint name="HipRoll" type="revolute">
     <origin rpy="0 0 0" xyz="-2e-05 0 0.218"/>
     <child link="torso"/>
@@ -74,7 +117,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HipRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HipRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.079"/>
     </visual>
@@ -85,6 +128,8 @@
       <origin rpy="0 0 0" xyz="0 0 0.079"/>
     </collision>
   </link>
+
+  <!-- Create Pelvis link and additional link for texture -->
   <joint name="HipPitch" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0.268"/>
     <child link="Hip"/>
@@ -100,7 +145,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/HipPitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/HipPitch_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0.268"/>
     </visual>
@@ -111,6 +156,22 @@
       <origin rpy="0 0 0" xyz="0 0 0.268"/>
     </collision>
   </link>
+  <joint name="HipPitch_shiny_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="Pelvis"/>
+    <child link="HipPitch_shiny"/>
+  </joint>
+  <link name="HipPitch_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/HipPitch_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.268"/>
+    </visual>
+  </link>
+  <!-- End Pelvis link -->
+
+  <!-- KneePitch and additional texture link -->
   <joint name="KneePitch" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <child link="Pelvis"/>
@@ -126,7 +187,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/KneePitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/KneePitch_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -137,12 +198,29 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="KneePitch_milky_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="Tibia"/>
+    <child link="KneePitch_milky"/>
+  </joint>
+  <link name="KneePitch_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/KneePitch_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End KneePitch link -->
+
   <joint name="base_footprint_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.334"/>
     <child link="Tibia"/>
     <parent link="base_footprint"/>
   </joint>
   <link name="base_footprint"/>
+
+  <!-- Add the torso link and additional texture links -->
   <link name="torso">
     <inertial>
       <mass value="3.99533"/>
@@ -151,7 +229,8 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/Torso.dae" scale="0.1 0.1 0.1"/>
+        <!-- <mesh filename="meshes/pepper_1.7/Torso.obj" scale="0.1 0.1 0.1"/> -->
+        <mesh filename="meshes/pepper_1.7/Torso_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -162,6 +241,34 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="Torso_shiny_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="Torso_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="Torso_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/Torso_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="Torso_transparent_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="Torso_transparent"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="Torso_transparent">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/Torso_transparent.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End torso links -->
+
   <joint name="LShoulderPitch" type="revolute">
     <parent link="torso"/>
     <child link="LShoulder"/>
@@ -177,7 +284,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LShoulderPitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LShoulderPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -188,6 +295,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- LShoulderRoll and additional texture link -->
   <joint name="LShoulderRoll" type="revolute">
     <parent link="LShoulder"/>
     <child link="LBicep"/>
@@ -203,7 +312,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LShoulderRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LShoulderRoll_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -214,6 +323,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LShoulderRoll_shiny_joint" type="fixed">
+    <parent link="LBicep"/>
+    <child link="LShoulderRoll_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LShoulderRoll_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/LShoulderRoll_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End LShoulderRoll -->
+
   <joint name="LElbowYaw" type="revolute">
     <parent link="LBicep"/>
     <child link="LElbow"/>
@@ -229,7 +353,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LElbowYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LElbowYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -240,6 +364,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- LElbowRoll link and additional texture  -->
   <joint name="LElbowRoll" type="revolute">
     <parent link="LElbow"/>
     <child link="LForeArm"/>
@@ -255,7 +381,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LElbowRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LElbowRoll_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -266,6 +392,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LElbowRoll_milky_joint" type="fixed">
+    <parent link="LForeArm"/>
+    <child link="LElbowRoll_milky"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LElbowRoll_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/LElbowRoll_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End definition of LElbowRoll -->
+
   <joint name="LWristYaw" type="revolute">
     <parent link="LForeArm"/>
     <child link="l_wrist"/>
@@ -281,7 +422,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LWristYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LWristYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -320,7 +461,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RShoulderPitch.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RShoulderPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -331,6 +472,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- RShoulderRoll and additional texture link -->
   <joint name="RShoulderRoll" type="revolute">
     <parent link="RShoulder"/>
     <child link="RBicep"/>
@@ -346,7 +489,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RShoulderRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RShoulderRoll_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -357,6 +500,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RShoulderRoll_shiny_joint" type="fixed">
+    <parent link="RBicep"/>
+    <child link="RShoulderRoll_shiny"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RShoulderRoll_shiny">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/RShoulderRoll_shiny.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End RShoulderRoll -->
+
   <joint name="RElbowYaw" type="revolute">
     <parent link="RBicep"/>
     <child link="RElbow"/>
@@ -372,7 +530,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RElbowYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RElbowYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -383,6 +541,8 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+
+  <!-- RElbowRoll link and additional texture link -->
   <joint name="RElbowRoll" type="revolute">
     <parent link="RElbow"/>
     <child link="RForeArm"/>
@@ -398,7 +558,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RElbowRoll.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RElbowRoll_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -409,6 +569,21 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RElbowRoll_milky_joint" type="fixed">
+    <parent link="RForeArm"/>
+    <child link="RElbowRoll_milky"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RElbowRoll_milky">
+    <visual>
+      <geometry>
+        <mesh filename="meshes/pepper_1.7/RElbowRoll_milky.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <!-- End RElbowRoll -->
+
   <joint name="RWristYaw" type="revolute">
     <parent link="RForeArm"/>
     <child link="r_wrist"/>
@@ -424,7 +599,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RWristYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RWristYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -676,7 +851,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger41.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger41.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -702,7 +877,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger42.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger42.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -728,7 +903,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger12.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -754,7 +929,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger33.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger33.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -780,7 +955,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger31.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger31.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -806,7 +981,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger21.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -832,7 +1007,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger32.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger32.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -858,7 +1033,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger13.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -884,7 +1059,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger32.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger32.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -910,7 +1085,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger11.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -936,7 +1111,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger22.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -962,7 +1137,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger13.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -988,7 +1163,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger22.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1014,7 +1189,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger21.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1040,7 +1215,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger41.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger41.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1066,7 +1241,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger12.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1092,7 +1267,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger23.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1118,7 +1293,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger11.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1144,7 +1319,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger23.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1170,7 +1345,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger43.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger43.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1196,7 +1371,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger43.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger43.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1222,7 +1397,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger42.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger42.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1248,7 +1423,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LFinger31.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LFinger31.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1274,7 +1449,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RFinger33.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RFinger33.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1300,7 +1475,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LThumb1.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1326,7 +1501,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RThumb2.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1352,7 +1527,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/RThumb1.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/RThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1378,7 +1553,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/LThumb2.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/LThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1405,7 +1580,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/WheelFL.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/WheelFL.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1431,7 +1606,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/WheelB.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/WheelB.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1457,7 +1632,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/WheelFR.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/WheelFR.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
