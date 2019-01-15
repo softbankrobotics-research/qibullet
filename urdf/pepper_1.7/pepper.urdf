@@ -158,7 +158,7 @@
   </link>
   <joint name="HipPitch_shiny_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="Hip"/>
+    <parent link="Pelvis"/>
     <child link="HipPitch_shiny"/>
   </joint>
   <link name="HipPitch_shiny">
@@ -166,7 +166,7 @@
       <geometry>
         <mesh filename="meshes/pepper_1.7/HipPitch_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.268"/>
     </visual>
   </link>
   <!-- End Pelvis link -->
@@ -324,7 +324,7 @@
     </collision>
   </link>
   <joint name="LShoulderRoll_shiny_joint" type="fixed">
-    <parent link="LShoulder"/>
+    <parent link="LBicep"/>
     <child link="LShoulderRoll_shiny"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
@@ -393,7 +393,7 @@
     </collision>
   </link>
   <joint name="LElbowRoll_milky_joint" type="fixed">
-    <parent link="LElbow"/>
+    <parent link="LForeArm"/>
     <child link="LElbowRoll_milky"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
@@ -501,7 +501,7 @@
     </collision>
   </link>
   <joint name="RShoulderRoll_shiny_joint" type="fixed">
-    <parent link="RShoulder"/>
+    <parent link="RBicep"/>
     <child link="RShoulderRoll_shiny"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
@@ -570,7 +570,7 @@
     </collision>
   </link>
   <joint name="RElbowRoll_milky_joint" type="fixed">
-    <parent link="RElbow"/>
+    <parent link="RForeArm"/>
     <child link="RElbowRoll_milky"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
