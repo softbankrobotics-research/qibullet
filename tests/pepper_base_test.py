@@ -3,9 +3,6 @@
 import sys
 import unittest
 import pybullet
-
-sys.path.append("../")
-
 from qibullet import PepperVirtual
 
 
