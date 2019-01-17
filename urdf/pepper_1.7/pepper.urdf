@@ -183,7 +183,8 @@
     <inertial>
       <mass value="11.6015"/>
       <inertia ixx="0.129229" ixy="-0.000401943" ixz="0.00048556" iyy="0.122839" iyz="-1.01666e-08" izz="0.108168"/>
-      <origin rpy="0 0 0" xyz="0.00220451 0 0.082271"/>
+      <!-- <origin rpy="0 0 0" xyz="0.00220451 0 0.082271"/> -->
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     </inertial>
     <visual>
       <geometry>
@@ -1592,11 +1593,11 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
     <contact>
-      <lateral_friction value="0.01"/>
-      <spinning_friction value="0.01"/>
-      <!-- <rolling_friction value="0.05"/> -->
-      <!-- <stiffness value="30000"/> -->
-      <!-- <damping value="1000"/> -->
+      <lateral_friction value="0.03"/>
+      <spinning_friction value="0.03"/>
+      <rolling_friction value="0.07"/>
+      <!-- <stiffness value="30000"/>
+      <damping value="1000"/> -->
     </contact>
   </link>
   <joint name="WheelFL" type="continuous">
@@ -1625,11 +1626,11 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
     <contact>
-      <lateral_friction value="0.01"/>
-      <spinning_friction value="0.01"/>
-      <!-- <rolling_friction value="0.05"/> -->
-      <!-- <stiffness value="30000"/> -->
-      <!-- <damping value="1000"/> -->
+      <lateral_friction value="0.03"/>
+      <spinning_friction value="0.03"/>
+      <rolling_friction value="0.07"/>
+      <!-- <stiffness value="30000"/>
+      <damping value="1000"/> -->
     </contact>
   </link>
 
@@ -1659,11 +1660,11 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
     <contact>
-      <lateral_friction value="0.01"/>
-      <spinning_friction value="0.01"/>
-      <!-- <rolling_friction value="0.05"/> -->
-      <!-- <stiffness value="30000"/> -->
-      <!-- <damping value="1000"/> -->
+      <lateral_friction value="0.03"/>
+      <spinning_friction value="0.03"/>
+      <rolling_friction value="0.07"/>
+      <!-- <stiffness value="30000"/>
+      <damping value="1000"/> -->
     </contact>
   </link>
   <joint name="WheelFR" type="continuous">
