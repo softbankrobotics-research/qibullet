@@ -4,6 +4,7 @@
 import sys
 import cv2
 import time
+import math
 import pybullet as p
 import pybullet_data
 
@@ -27,37 +28,53 @@ if __name__ == "__main__":
     pepper = PepperVirtual()
     pepper.loadRobot([0, 0, 0], [0, 0, 0, 1])
 
-    joint_parameters = list()
-    forward=0
-    turn=0
+    vel_t = 5
+    velt_x = 0
+    velt_y = 0
+    # vel_r = 1
+
     while (1):
         keys = p.getKeyboardEvents()
-        leftWheelVelocity=0
-        rightWheelVelocity=0
-        speed=5
-
-        for k,v in keys.items():
-
+        for k, v in keys.items():
             if (k == p.B3G_RIGHT_ARROW and (v&p.KEY_WAS_TRIGGERED)):
-                    turn = -0.5
+                    velt_y = -vel_t
             if (k == p.B3G_RIGHT_ARROW and (v&p.KEY_WAS_RELEASED)):
-                    turn = 0
+                    velt_y = 0
             if (k == p.B3G_LEFT_ARROW and (v&p.KEY_WAS_TRIGGERED)):
-                    turn = 0.5
+                    velt_y = vel_t
             if (k == p.B3G_LEFT_ARROW and (v&p.KEY_WAS_RELEASED)):
-                    turn = 0
+                    velt_y = 0
 
             if (k == p.B3G_UP_ARROW and (v&p.KEY_WAS_TRIGGERED)):
-                    forward=1
+                    velt_x = vel_t
             if (k == p.B3G_UP_ARROW and (v&p.KEY_WAS_RELEASED)):
-                    forward=0
+                    velt_x = 0
             if (k == p.B3G_DOWN_ARROW and (v&p.KEY_WAS_TRIGGERED)):
-                    forward=-1
+                    velt_x = -vel_t
             if (k == p.B3G_DOWN_ARROW and (v&p.KEY_WAS_RELEASED)):
-                    forward=0
+                    velt_x = 0
 
-        rightWheelVelocity+= (forward+turn)*speed
-        leftWheelVelocity += (forward-turn)*speed
+        theta = (math.pi / 3.0)
 
-        p.setJointMotorControl2(pepper.robot_model,pepper.joint_dict["WheelFL"].getIndex(),p.VELOCITY_CONTROL,targetVelocity=leftWheelVelocity,force=500)
-        p.setJointMotorControl2(pepper.robot_model,pepper.joint_dict["WheelFR"].getIndex(),p.VELOCITY_CONTROL,targetVelocity=-rightWheelVelocity,force=500)
+        vel_fl = -(math.sqrt(3.0)/2.0) * velt_x - 0.5 * velt_y
+        vel_b = 0.5 * velt_y
+        vel_fr = (math.sqrt(3.0)/2.0) * velt_x - 0.5 * velt_y
+
+        p.setJointMotorControl2(
+            pepper.robot_model,
+            pepper.joint_dict["WheelFL"].getIndex(),
+            p.VELOCITY_CONTROL,
+            targetVelocity=-vel_fl,
+            force=500)
+        p.setJointMotorControl2(
+            pepper.robot_model,
+            pepper.joint_dict["WheelFR"].getIndex(),
+            p.VELOCITY_CONTROL,
+            targetVelocity=-vel_fr,
+            force=500)
+        p.setJointMotorControl2(
+            pepper.robot_model,
+            pepper.joint_dict["WheelB"].getIndex(),
+            p.VELOCITY_CONTROL,
+            targetVelocity=-vel_b,
+            force=500)

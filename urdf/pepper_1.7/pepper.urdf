@@ -1586,10 +1586,18 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/WheelFL_0.10.stl" scale="0.1 0.1 0.1"/>
+        <!-- <mesh filename="meshes/pepper_1.7/WheelFL_0.10.stl" scale="0.1 0.1 0.1"/> -->
+        <mesh filename="meshes/pepper_1.7/WheelFL.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
+    <contact>
+      <lateral_friction value="0.01"/>
+      <spinning_friction value="0.01"/>
+      <!-- <rolling_friction value="0.05"/> -->
+      <!-- <stiffness value="30000"/> -->
+      <!-- <damping value="1000"/> -->
+    </contact>
   </link>
   <joint name="WheelFL" type="continuous">
     <parent link="Tibia"/>
@@ -1597,15 +1605,6 @@
     <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>
     <axis xyz="1.0 0.0 0.0"/>
     <!-- <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/> -->
-  </joint>
-  <link name="Free_WheelFL_link"/>
-  <joint name="Free_WheelFL" type="continuous">
-    <parent link="WheelFL_link"/>
-    <child link="Free_WheelFL_link"/>
-    <!-- <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/> -->
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0.0 1.0 0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="WheelB_link">
     <inertial>
@@ -1621,26 +1620,25 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/WheelB_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/WheelB.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
+    <contact>
+      <lateral_friction value="0.01"/>
+      <spinning_friction value="0.01"/>
+      <!-- <rolling_friction value="0.05"/> -->
+      <!-- <stiffness value="30000"/> -->
+      <!-- <damping value="1000"/> -->
+    </contact>
   </link>
+
   <joint name="WheelB" type="continuous">
     <parent link="Tibia"/>
     <child link="WheelB_link"/>
     <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/>
     <axis xyz="1.0 0.0 0.0"/>
     <!-- <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/> -->
-  </joint>
-  <link name="Free_WheelB_link"/>
-  <joint name="Free_WheelB" type="continuous">
-    <parent link="WheelB_link"/>
-    <child link="Free_WheelB_link"/>
-    <!-- <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/> -->
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0.0 1.0 0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="WheelFR_link">
     <inertial>
@@ -1656,10 +1654,17 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/pepper_1.7/WheelFR_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/pepper_1.7/WheelFR.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
+    <contact>
+      <lateral_friction value="0.01"/>
+      <spinning_friction value="0.01"/>
+      <!-- <rolling_friction value="0.05"/> -->
+      <!-- <stiffness value="30000"/> -->
+      <!-- <damping value="1000"/> -->
+    </contact>
   </link>
   <joint name="WheelFR" type="continuous">
     <parent link="Tibia"/>
@@ -1667,15 +1672,6 @@
     <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>
     <axis xyz="1.0 0.0 0.0"/>
     <!-- <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/> -->
-  </joint>
-  <link name="Free_WheelFR_link"/>
-  <joint name="Free_WheelFR" type="continuous">
-    <parent link="WheelFR_link"/>
-    <child link="Free_WheelFR_link"/>
-    <!-- <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/> -->
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0.0 1.0 0.0"/>
-    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- HEAD -->

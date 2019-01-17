@@ -84,15 +84,6 @@ class PepperVirtual(RobotVirtual):
                 0,
                 physicsClientId=self.physics_client)
 
-        for wheel_link in ["WheelFR_link", "WheelFL_link", "WheelB_link"]:
-            pybullet.setCollisionFilterPair(
-                self.robot_model,
-                self.robot_model,
-                self.link_dict["Tibia"].getIndex(),
-                self.link_dict[wheel_link].getIndex(),
-                0,
-                physicsClientId=self.physics_client)
-
         for name, link in self.link_dict.items():
             for wrist in ["r_wrist", "l_wrist"]:
                 if wrist[0] + "finger" in name.lower() or\
