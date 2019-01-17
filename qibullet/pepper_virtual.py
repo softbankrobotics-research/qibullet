@@ -63,8 +63,17 @@ class PepperVirtual(RobotVirtual):
             elif 'LFinger' in joint_name or 'LThumb' in joint_name:
                 self.joint_dict[joint_name].setMaxVelocity(
                     self.joint_dict["LHand"].getMaxVelocity())
-            elif "Wheel" in joint_name:
+            elif "Free" in joint_name:
                     self.joint_dict.pop(joint_name)
+            # elif "Wheel" in joint_name:
+            #         self.joint_dict.pop(joint_name)
+            else:
+                pybullet.setJointMotorControl2(
+                    self.robot_model,
+                    self.joint_dict[joint_name].getIndex(),
+                    pybullet.POSITION_CONTROL,
+                    0,
+                    physicsClientId=self.physics_client)
 
         for shoulder_roll_link in ["RBicep", "LBicep"]:
             pybullet.setCollisionFilterPair(
@@ -72,6 +81,15 @@ class PepperVirtual(RobotVirtual):
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
                 self.link_dict[shoulder_roll_link].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+
+        for wheel_link in ["WheelFR_link", "WheelFL_link", "WheelB_link"]:
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict["Tibia"].getIndex(),
+                self.link_dict[wheel_link].getIndex(),
                 0,
                 physicsClientId=self.physics_client)
 
@@ -103,12 +121,16 @@ class PepperVirtual(RobotVirtual):
             physicsClientId=self.physics_client)
 
         # TODO: motion constraint fucks up the right hand mimic behaviour
-        self.motion_constraint = pybullet.createConstraint(
-            self.robot_model,
-            -1, -1, -1,
-            pybullet.JOINT_FIXED,
-            [0, 0, 0], [0, 0, 0], [0, 0, 0],
-            physicsClientId=self.physics_client)
+        # self.motion_constraint = pybullet.createConstraint(
+        #     self.robot_model,
+        #     -1, -1, -1,
+        #     pybullet.JOINT_FIXED,
+        #     [0, 0, 0], [0, 0, 0], [0, 0, 0],
+        #     physicsClientId=self.physics_client)
+
+        # pybullet.removeConstraint(
+        #     self.motion_constraint,
+        #     physicsClientId=self.physics_client)
 
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None):
         """
@@ -122,7 +144,7 @@ class PepperVirtual(RobotVirtual):
         """
 
         # force applied in the movement
-        force = 100
+        force = 200
         # The robot will stop the movement with a precision
         # of 0.01 m and 0.02 rads
         threshold_xy = 0.01
@@ -155,10 +177,11 @@ class PepperVirtual(RobotVirtual):
         # change the constraint to the position and orientation requested
         pybullet.changeConstraint(
             self.motion_constraint,
-            pose_requested,
+            jointChildPivot=pose_requested,
             jointChildFrameOrientation=orn_requested,
             maxForce=force,
             physicsClientId=self.physics_client)
+
         # init robot speed
         speed_xy = self.vel_xy
         if speed is not None:
@@ -174,6 +197,7 @@ class PepperVirtual(RobotVirtual):
             p_y = (pose_requested[1] - actual_pose[1]) / distance
         if abs(theta):
             p_theta = abs(theta) / theta
+
         while getDistance(actual_pose, pose_requested) > threshold_xy\
                 or getOrientation(actual_orn, orn_requested) > threshold_theta:
             actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
@@ -181,22 +205,22 @@ class PepperVirtual(RobotVirtual):
                 physicsClientId=self.physics_client)
             # if the robot is on the position requested, we set the
             # velocity to 0.
-            if abs(actual_pose[0] - pose_requested[0]) <= threshold_xy / 2:
-                vel_x = 0
-            if abs(actual_pose[1] - pose_requested[1]) <= threshold_xy / 2:
-                vel_y = 0
-            if getOrientation(actual_orn, orn_requested) <= threshold_theta:
-                vel_theta = 0
+            # if abs(actual_pose[0] - pose_requested[0]) <= threshold_xy / 2:
+            #     vel_x = 0
+            # if abs(actual_pose[1] - pose_requested[1]) <= threshold_xy / 2:
+            #     vel_y = 0
+            # if getOrientation(actual_orn, orn_requested) <= threshold_theta:
+            #     vel_theta = 0
             # TODO : This value is subjective. We need to wait a few
             # millisecond in order to be claused to the reality and avoid
             # a bug due to the resetBaseVelocity function.
-            time.sleep(0.02)
+            # time.sleep(0.001)
             # reset velocity of the robot
-            pybullet.resetBaseVelocity(
-                self.robot_model,
-                [vel_x * p_x, vel_y * p_y, 0],
-                [0, 0, vel_theta * p_theta],
-                physicsClientId=self.physics_client)
+            # pybullet.resetBaseVelocity(
+            #     self.robot_model,
+            #     [vel_x * p_x, vel_y * p_y, 0],
+            #     [0, 0, vel_theta * p_theta],
+            #     physicsClientId=self.physics_client)
         # Change the constraint to the actual position and orientation in
         # order to stop the robot's motion. The force applied is huge
         # to avoid oscillation.
@@ -205,15 +229,15 @@ class PepperVirtual(RobotVirtual):
             physicsClientId=self.physics_client)
         pybullet.changeConstraint(
             self.motion_constraint,
-            actual_pose,
+            jointChildPivot=actual_pose,
             jointChildFrameOrientation=actual_orn,
             maxForce=force * 10,
             physicsClientId=self.physics_client)
-        pybullet.resetBaseVelocity(
-            self.robot_model,
-            [0, 0, 0],
-            [0, 0, 0],
-            physicsClientId=self.physics_client)
+        # pybullet.resetBaseVelocity(
+        #     self.robot_model,
+        #     [0, 0, 0],
+        #     [0, 0, 0],
+        #     physicsClientId=self.physics_client)
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """

@@ -87,13 +87,6 @@ class RobotVirtual:
                         joint_info[2] == pybullet.JOINT_REVOLUTE:
                     self.joint_dict[joint_info[1]] = Joint(joint_info)
 
-            pybullet.setJointMotorControl2(
-                self.robot_model,
-                i,
-                pybullet.POSITION_CONTROL,
-                0,
-                physicsClientId=self.physics_client)
-
         return True
 
     def getPhysicsClientId(self):

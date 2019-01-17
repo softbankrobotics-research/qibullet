@@ -1596,7 +1596,16 @@
     <child link="WheelFL_link"/>
     <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>
     <axis xyz="1.0 0.0 0.0"/>
-    <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/>
+    <!-- <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/> -->
+  </joint>
+  <link name="Free_WheelFL_link"/>
+  <joint name="Free_WheelFL" type="continuous">
+    <parent link="WheelFL_link"/>
+    <child link="Free_WheelFL_link"/>
+    <!-- <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/> -->
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0.0 1.0 0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="WheelB_link">
     <inertial>
@@ -1621,8 +1630,17 @@
     <parent link="Tibia"/>
     <child link="WheelB_link"/>
     <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/>
-    <axis xyz="1.0 0 0"/>
-    <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/>
+    <axis xyz="1.0 0.0 0.0"/>
+    <!-- <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/> -->
+  </joint>
+  <link name="Free_WheelB_link"/>
+  <joint name="Free_WheelB" type="continuous">
+    <parent link="WheelB_link"/>
+    <child link="Free_WheelB_link"/>
+    <!-- <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/> -->
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0.0 1.0 0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
   <link name="WheelFR_link">
     <inertial>
@@ -1648,7 +1666,16 @@
     <child link="WheelFR_link"/>
     <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>
     <axis xyz="1.0 0.0 0.0"/>
-    <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/>
+    <!-- <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/> -->
+  </joint>
+  <link name="Free_WheelFR_link"/>
+  <joint name="Free_WheelFR" type="continuous">
+    <parent link="WheelFR_link"/>
+    <child link="Free_WheelFR_link"/>
+    <!-- <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/> -->
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0.0 1.0 0.0"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- HEAD -->
