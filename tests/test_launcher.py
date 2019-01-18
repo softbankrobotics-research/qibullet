@@ -25,9 +25,7 @@ if __name__ == "__main__":
         PepperCameraTest,
         PepperSelfCollisionTest]
 
-    physics_client = simulation_manager.launchSimulation(
-        gui=False,
-        frequency_multiplier=1)
+    physics_client = simulation_manager.launchSimulation(gui=False)
 
     for test_class in test_classes:
         pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
