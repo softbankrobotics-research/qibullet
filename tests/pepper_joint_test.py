@@ -5,9 +5,6 @@ import time
 import random
 import unittest
 import pybullet
-
-sys.path.append("../")
-
 from qibullet import PepperVirtual
 
 

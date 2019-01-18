@@ -23,32 +23,35 @@ class RobotVirtual:
             robot. For now, only URDF is handled
         """
         self.description_file = description_file
+        self.physics_client = 0
         self.joint_dict = dict()
         self.link_dict = dict()
 
-    def loadRobot(self, position, orientation, fixed_base=False):
+    def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
         Loads the robot into a simulation, loads the joints and the links
         descriptions. The joints are set to 0 rad
 
         Parameters:
-            position - List containing 3 elements, the position x,y,z of the
-            robot in the WORLD frame
-            orientation - List containing 4 elements, the orientation x,y,z,q
-            of the robot using quaternions
-            fixed_base - Boolean, the robot's base is fixed if Trjointsue, free
-            otherwisejoints
+            translation - List containing 3 elements, the translation [x, y, z]
+            of the robot in the WORLD frame
+            quaternion - List containing 4 elements, the quaternion
+            [x, y, z, q] of the robot in the WORLD frame
+            physicsClientId - The id of the simulated instance in which the
+            robot is supposed to be loaded
 
         Returns:
             boolean - True if the method ran correctly, False otherwise
         """
         try:
+            self.physics_client = physicsClientId
             self.robot_model = pybullet.loadURDF(
                 self.description_file,
-                position,
-                orientation,
-                useFixedBase=fixed_base,
+                translation,
+                quaternion,
+                useFixedBase=False,
                 globalScaling=1.0,
+                physicsClientId=self.physics_client,
                 flags=pybullet.URDF_USE_SELF_COLLISION |
                 pybullet.URDF_USE_MATERIAL_COLORS_FROM_MTL)
 
@@ -56,10 +59,15 @@ class RobotVirtual:
             print("Cannot load robot model: " + str(e))
             return False
 
-        for i in range(pybullet.getNumJoints(self.robot_model)):
+        for i in range(pybullet.getNumJoints(
+                self.robot_model,
+                physicsClientId=self.physics_client)):
             if IS_VERSION_PYTHON_3:
                 # PYTHON 3 version needs a conversion bytes to str
-                joint_info = pybullet.getJointInfo(self.robot_model, i)
+                joint_info = pybullet.getJointInfo(
+                    self.robot_model,
+                    i,
+                    physicsClientId=self.physics_client)
                 self.link_dict[joint_info[12].decode('utf-8')] =\
                     Link(joint_info)
 
@@ -67,23 +75,36 @@ class RobotVirtual:
                         joint_info[2] == pybullet.JOINT_REVOLUTE:
                     self.joint_dict[joint_info[1].decode('utf-8')] =\
                         Joint(joint_info)
-
             else:
                 # PYTHON 2 Version
-                joint_info = pybullet.getJointInfo(self.robot_model, i)
+                joint_info = pybullet.getJointInfo(
+                    self.robot_model,
+                    i, physicsClientId=self.physics_client)
+
                 self.link_dict[joint_info[12]] = Link(joint_info)
 
                 if joint_info[2] == pybullet.JOINT_PRISMATIC or\
                         joint_info[2] == pybullet.JOINT_REVOLUTE:
                     self.joint_dict[joint_info[1]] = Joint(joint_info)
 
-                pybullet.setJointMotorControl2(
-                    self.robot_model,
-                    i,
-                    pybullet.POSITION_CONTROL,
-                    0)
+            pybullet.setJointMotorControl2(
+                self.robot_model,
+                i,
+                pybullet.POSITION_CONTROL,
+                0,
+                physicsClientId=self.physics_client)
 
         return True
+
+    def getPhysicsClientId(self):
+        """
+        Gets the id of the id of the simulation in which this robot instance is
+        loaded
+
+        Returns:
+            physics_client - The id of the simulation
+        """
+        return self.physics_client
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
@@ -119,7 +140,8 @@ class RobotVirtual:
                 self.joint_dict[joint_name].getIndex(),
                 pybullet.POSITION_CONTROL,
                 targetPosition=joint_value,
-                maxVelocity=joint_speed)
+                maxVelocity=joint_speed,
+                physicsClientId=self.physics_client)
 
     def getAnglesPosition(self, joint_names):
         """
@@ -137,7 +159,8 @@ class RobotVirtual:
         for joint_name in joint_names:
             joint_positions.append(pybullet.getJointState(
                 self.robot_model,
-                self.joint_dict[joint_name].getIndex())[0])
+                self.joint_dict[joint_name].getIndex(),
+                physicsClientId=self.physics_client)[0])
 
         return joint_positions
 
@@ -151,7 +174,8 @@ class RobotVirtual:
             theta - The rotation of the robot's base on the z axis in meters
         """
         position, quaternions = pybullet.getBasePositionAndOrientation(
-            self.robot_model)
+            self.robot_model,
+            physicsClientId=self.physics_client)
 
         theta = pybullet.getEulerFromQuaternion(quaternions)[2]
         return position[0], position[1], theta

@@ -6,10 +6,6 @@ import time
 import random
 import pybullet as p
 import pybullet_data
-import matplotlib.pyplot as plt
-
-sys.path.append("../")
-
 from qibullet import PepperVirtual
 
 

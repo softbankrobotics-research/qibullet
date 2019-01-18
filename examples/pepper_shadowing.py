@@ -6,9 +6,6 @@ import sys
 import argparse
 import pybullet as p
 import pybullet_data
-
-sys.path.append("../")
-
 from qibullet import PepperVirtual
 
 

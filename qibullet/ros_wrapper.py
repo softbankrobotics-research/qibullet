@@ -169,7 +169,8 @@ class PepperRosWrapper:
         odom.pose.pose.orientation = odom_trans.transform.rotation
         odom.child_frame_id = "base_footprint"
         [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
-            self.virtual_pepper.robot_model)
+            self.virtual_pepper.robot_model,
+            self.virtual_pepper.getPhysicsClientId())
         odom.twist.twist.linear.x = vx
         odom.twist.twist.linear.y = vy
         odom.twist.twist.angular.z = wz

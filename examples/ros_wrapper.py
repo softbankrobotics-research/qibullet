@@ -5,9 +5,6 @@ import sys
 import rospy
 import pybullet as p
 import pybullet_data
-
-sys.path.append("../")
-
 from qibullet import PepperVirtual
 from qibullet import PepperRosWrapper
 

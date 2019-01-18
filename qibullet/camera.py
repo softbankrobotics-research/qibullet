@@ -50,18 +50,27 @@ class Camera:
     K_Q720p = CameraResolution(640, 360)
     K_720p = CameraResolution(1280, 720)
 
-    def __init__(self, robot_model, link, near_plane=0.01, far_plane=100):
+    def __init__(
+            self,
+            robot_model,
+            link,
+            physicsClientId=0,
+            near_plane=0.01,
+            far_plane=100):
         """
         Constructor
 
         Parameters:
             robot_model - The pybullet model of the robot
             link - The link (Link type) onto which the camera's attached
+            physicsClientId - The id of the simulated instance in which the
+            camera is to be spawned
             near_plane - The near plane distance
             far_plane - The far plane distance
         """
         atexit.register(self._resetActiveCamera)
         self.robot_model = robot_model
+        self.physics_client = physicsClientId
         self.link = link
         self.near_plane = near_plane
         self.far_plane = far_plane
@@ -165,7 +174,8 @@ class Camera:
                     self.fov,
                     self.resolution.width / self.resolution.height,
                     self.near_plane,
-                    self.far_plane)
+                    self.far_plane,
+                    physicsClientId=self.physics_client)
 
         except AssertionError as e:
             print("Cannot set camera resolution: " + str(e))
@@ -182,7 +192,8 @@ class Camera:
         _, _, _, _, pos_world, q_world = pybullet.getLinkState(
             self.robot_model,
             self.link.getParentIndex(),
-            computeForwardKinematics=True)
+            computeForwardKinematics=True,
+            physicsClientId=self.physics_client)
 
         rotation = pybullet.getMatrixFromQuaternion(q_world)
         forward_vector = [rotation[0], rotation[3], rotation[6]]
@@ -194,7 +205,10 @@ class Camera:
             pos_world[2] + forward_vector[2] * 10]
 
         view_matrix = pybullet.computeViewMatrix(
-            pos_world, camera_target, up_vector)
+            pos_world,
+            camera_target,
+            up_vector,
+            physicsClientId=self.physics_client)
 
         with self.resolution_lock:
             camera_image = pybullet.getCameraImage(
@@ -203,7 +217,8 @@ class Camera:
                 view_matrix,
                 self.projection_matrix,
                 renderer=pybullet.ER_BULLET_HARDWARE_OPENGL,
-                flags=pybullet.ER_NO_SEGMENTATION_MASK)
+                flags=pybullet.ER_NO_SEGMENTATION_MASK,
+                physicsClientId=self.physics_client)
 
         return camera_image
 
@@ -242,16 +257,28 @@ class CameraRgb(Camera):
     Class representing a virtual rgb camera
     """
 
-    def __init__(self, robot_model, link, resolution=Camera.K_QVGA):
+    def __init__(
+            self,
+            robot_model,
+            link,
+            physicsClientId=0,
+            resolution=Camera.K_QVGA):
         """
         Constructor
 
         Parameters:
             robot_model - the pybullet model of the robot
             link - The link (Link type) onto which the camera's attached
+            physicsClientId - The id of the simulated instance in which the
+            camera is to be spawned
             resolution - The resolution of the camera
         """
-        Camera.__init__(self, robot_model, link)
+        Camera.__init__(
+            self,
+            robot_model,
+            link,
+            physicsClientId=physicsClientId)
+
         self._setFov(67.4)
         self.rgb_image = None
 
@@ -320,16 +347,28 @@ class CameraDepth(Camera):
     Class representing a virtual depth camera
     """
 
-    def __init__(self, robot_model, link, resolution=Camera.K_QVGA):
+    def __init__(
+            self,
+            robot_model,
+            link,
+            physicsClientId=0,
+            resolution=Camera.K_QVGA):
         """
         Constructor
 
         Parameters:
             robot_model - the pybullet model of the robot
             link - The link (Link type) onto which the camera's attached
+            physicsClientId - The id of the simulated instance in which the
+            camera is to be spawned
             resolution - The resolution of the camera
         """
-        Camera.__init__(self, robot_model, link)
+        Camera.__init__(
+            self,
+            robot_model,
+            link,
+            physicsClientId=physicsClientId)
+
         self._setFov(70)
 
     def subscribe(self, resolution=Camera.K_QVGA):

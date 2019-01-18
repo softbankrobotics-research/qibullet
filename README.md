@@ -62,6 +62,14 @@ if __name__ == "__main__":
         pepper.isSelfColliding(["RForeArm", "LForeArm"])
 ```
 
-More examples can be found in the examples folder
+More examples can be found in the examples folder.
+
+## Troubleshooting
+
+### OpenGL driver
+If you encounter the message:
+> Workaround for some crash in the Intel OpenGL driver on Linux/Ubuntu
+
+Your computer is using the Intel OpenGL driver. Go to __Software & Updates__, __Additional Drivers__, and select a driver corresponding to your GPU.
 
 <!-- ![version](https://img.shields.io/badge/status-dev-orange.svg) -->
