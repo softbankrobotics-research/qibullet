@@ -14,6 +14,18 @@ setuptools.setup(
     url="https://github.com/ProtolabSBRE/qibullet",
     packages=setuptools.find_packages(),
     install_requires=['numpy', 'pybullet'],
+    # include_package_data=True,
+    package_data={"qibullet": [
+        "robot_data/pepper_1.7/*.urdf",
+        "robot_data/pepper_1.7/meshes/*.obj",
+        "robot_data/pepper_1.7/meshes/*.mtl",
+        "robot_data/pepper_1.7/meshes/*.stl",
+        "robot_data/pepper_1.7/meshes/*.png",
+        "robot_data/nao_V40/*.urdf",
+        "robot_data/nao_V40/meshes/*.obj",
+        "robot_data/nao_V40/meshes/*.mtl",
+        "robot_data/nao_V40/meshes/*.stl",
+        "robot_data/nao_V40/meshes/*.png"]},
     classifiers=[
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",

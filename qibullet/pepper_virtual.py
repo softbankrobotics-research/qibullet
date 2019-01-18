@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import os
 import time
 import pybullet
 from qibullet.tools import *
@@ -26,7 +27,7 @@ class PepperVirtual(RobotVirtual):
     ID_CAMERA_DEPTH = 2
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "urdf/pepper_1.7/pepper.urdf"
+    URDF_PATH = "robot_data/pepper_1.7/pepper.urdf"
 
     def __init__(self):
         """
@@ -55,7 +56,7 @@ class PepperVirtual(RobotVirtual):
         wrist). Add the cameras. Add motion constraint.
         """
         pybullet.setAdditionalSearchPath(
-            "../",
+            os.path.dirname(os.path.realpath(__file__)),
             physicsClientId=physicsClientId)
 
         RobotVirtual.loadRobot(
