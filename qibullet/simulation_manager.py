@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
 import pybullet
 import threading
 import pybullet_data
@@ -18,13 +19,17 @@ class SimulationManager:
         """
         pass
 
-    def launchSimulation(self, gui=True):
+    def launchSimulation(self, gui=True, frequency_multiplier=1):
         """
         Launches a simulation instance
 
         Parameters:
             gui - Boolean, if True the simulation is launched with a GUI, and
             with no GUI otherwise
+            frequency_multiplier - (Only taken into account when the simulation
+            is launched in DIRECT mode, without the gui) The default frequency
+            of the simulation (240Hz) is going to be multiplied by that value,
+            allowing to speed up or slow down a simulation instance
 
         Returns:
             physics_client - The id of the simulation client created
@@ -48,7 +53,7 @@ class SimulationManager:
             physics_client = pybullet.connect(pybullet.DIRECT)
             threading.Thread(
                 target=self._stepSimulation,
-                args=[physics_client]).start()
+                args=[physics_client, frequency_multiplier]).start()
 
         pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
         return physics_client
@@ -107,17 +112,22 @@ class SimulationManager:
 
         return pepper
 
-    def _stepSimulation(self, physics_client):
+    def _stepSimulation(self, physics_client, frequency_multiplier):
         """
-        INTERNAL METHOD: Steps the simulated instance corresponding to the
-        physics_client id
+        INTERNAL METHOD: This method is only used for a simulation in DIRECT
+        mode (without the gui). It steps the simulated instance corresponding
+        to the physics_client id. Additionally, the default frequency of the
+        simulation is multiplied by the frequency_multiplier
 
         Parameters:
             physics_client - The id of the simulated instance to be stepped
+            frequency_multiplier - The default frequency of the simulation
+            (240Hz) is going to be multiplied by that value, allowing to speed
+            up or slow down a simulation instance
         """
         try:
             while True:
                 pybullet.stepSimulation(physicsClientId=client_id)
-                time.sleep(0.001)
+                time.sleep(1./(240.*frequency_multiplier))
         except Exception:
             pass
