@@ -10,7 +10,7 @@ from qibullet import SimulationManager
 
 
 if __name__ == "__main__":
-    nb_clients = 2
+    nb_clients = 10
     iterations = 10
 
     simulation_manager = SimulationManager()
@@ -46,22 +46,21 @@ if __name__ == "__main__":
     i = 0
     while i < iterations:
         angles_list = [None] * nb_clients
-
-        for j in range(nb_clients):
-            angles = list()
-            for joint in values:
-                angles.append(random.uniform(
-                    joint.getLowerLimit(),
-                    joint.getUpperLimit()))
-
-            angles_list[j] = angles
-            pepper_list[j].setAngles(keys, angles, 1.0)
-
-        time.sleep(2)
         ideal_increase = nb_clients
 
-        if iterations - i < ideal_increase:
+        if ideal_increase > iterations - i:
             ideal_increase = iterations - i
+
+        for j in range(ideal_increase):
+            angles_list[j] = [0] * len(values)
+            for l in range(len(values)):
+                angles_list[j][l] = random.uniform(
+                    values[l].getLowerLimit(),
+                    values[l].getUpperLimit())
+
+            pepper_list[j].setAngles(keys, angles_list[j], 1.0)
+
+        time.sleep(2)
 
         increase = ideal_increase
         clean_move_counter = 0
@@ -76,18 +75,17 @@ if __name__ == "__main__":
 
                 measured_angles = pepper_list[j].getAnglesPosition(keys)
 
-                # print("--------------")
-                # print angles_list[j][0]
-                # print measured_angles[0]
-
                 for l in range(len(measured_angles)):
                     error = abs(angles_list[j][l] - measured_angles[l])
                     mean_errors[l] += error
 
         i += increase
 
-    for i in range(len(mean_errors)):
-        mean_errors[i] = mean_errors[i] / iterations
+    for client in client_list:
+        simulation_manager.stopSimulation(client)
+
+    for m in range(len(mean_errors)):
+        mean_errors[m] = mean_errors[m] / iterations
 
     plt.bar(range(len(mean_errors)), mean_errors)
     plt.xticks(
@@ -96,6 +94,3 @@ if __name__ == "__main__":
         rotation='vertical',
         horizontalalignment='left')
     plt.show()
-
-    for client in client_list:
-        simulation_manager.stopSimulation(client)
