@@ -127,7 +127,7 @@ class SimulationManager:
         """
         try:
             while True:
-                pybullet.stepSimulation(physicsClientId=client_id)
+                pybullet.stepSimulation(physicsClientId=physics_client)
                 time.sleep(1./(240.*frequency_multiplier))
         except Exception:
             pass

@@ -26,7 +26,7 @@ if __name__ == "__main__":
         PepperSelfCollisionTest]
 
     physics_client = simulation_manager.launchSimulation(
-        gui=True,
+        gui=False,
         frequency_multiplier=1)
 
     for test_class in test_classes:
