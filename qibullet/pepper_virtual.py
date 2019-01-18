@@ -122,7 +122,6 @@ class PepperVirtual(RobotVirtual):
         pose_requested = [x, y, 0]
         # orientation requested (quaternions)
         orn_requested = pybullet.getQuaternionFromEuler([0, 0, theta])
-
         # if we are in frame robot add position in the frame world
         if frame == 2:
             orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
@@ -157,10 +156,12 @@ class PepperVirtual(RobotVirtual):
         if distance:
             p_x = (pose_requested[0] - actual_pose[0]) / distance
             p_y = (pose_requested[1] - actual_pose[1]) / distance
-        if abs(theta):
-            p_theta = abs(theta) / theta
+        theta_to_do = getOrientation(actual_orn, orn_requested)
+        if abs(theta_to_do):
+            p_theta = abs(theta_to_do) / theta_to_do
         while getDistance(actual_pose, pose_requested) > threshold_xy\
-                or getOrientation(actual_orn, orn_requested) > threshold_theta:
+                or abs(getOrientation(actual_orn, orn_requested)) >\
+                threshold_theta:
             actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
                 self.robot_model)
             # if the robot is on the position requested, we set the
@@ -169,12 +170,9 @@ class PepperVirtual(RobotVirtual):
                 vel_x = 0
             if abs(actual_pose[1] - pose_requested[1]) <= threshold_xy / 2:
                 vel_y = 0
-            if getOrientation(actual_orn, orn_requested) <= threshold_theta:
+            if abs(getOrientation(actual_orn, orn_requested)) <=\
+                    threshold_theta:
                 vel_theta = 0
-            # TODO : This value is subjective. We need to wait a few
-            # millisecond in order to be claused to the reality and avoid
-            # a bug due to the resetBaseVelocity function.
-            time.sleep(0.02)
             # reset velocity of the robot
             pybullet.resetBaseVelocity(
                 self.robot_model,

@@ -11,4 +11,4 @@ def getDistance(point_a, point_b):
 def getOrientation(quaternion_a, quaternion_b):
     theta_a = pybullet.getEulerFromQuaternion(quaternion_a)
     theta_b = pybullet.getEulerFromQuaternion(quaternion_b)
-    return abs(theta_b[-1] - theta_a[-1])
+    return theta_b[-1] - theta_a[-1]
