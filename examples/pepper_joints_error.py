@@ -10,16 +10,14 @@ from qibullet import SimulationManager
 
 
 if __name__ == "__main__":
-    # We will realize iterations * nb_clients tests
-    nb_clients = 10
+    nb_clients = 2
     iterations = 10
 
     simulation_manager = SimulationManager()
     client_list = list()
     pepper_list = list()
-    angles_list = list()
 
-    for i in range(10):
+    for i in range(nb_clients):
         client = simulation_manager.launchSimulation(gui=False)
         pepper = simulation_manager.spawnPepper(
             client,
@@ -34,15 +32,11 @@ if __name__ == "__main__":
     collision_links = list()
 
     for name in pepper_list[0].link_dict.keys():
-        if "wrist" in name or "Shoulder" in name or "Head" in name:
+        if "wrist" in name or "Shoulder" in name:
             collision_links.append(name)
-        # if "Wheel" in name or "Finger" in name or "Thumb" in name:
-        #     continue
-        # else:
-        #     collision_links.append(name)
 
     for key, value in pepper_list[0].joint_dict.items():
-        if "Finger" in key or "Thumb" in key or "Hand" in key:
+        if "Finger" in key or "Thumb" in key or "Hand" in key or "Head" in key:
             continue
         else:
             keys.append(key)
@@ -51,7 +45,7 @@ if __name__ == "__main__":
 
     i = 0
     while i < iterations:
-        angles_list = list()
+        angles_list = [None] * nb_clients
 
         for j in range(nb_clients):
             angles = list()
@@ -60,33 +54,40 @@ if __name__ == "__main__":
                     joint.getLowerLimit(),
                     joint.getUpperLimit()))
 
-            print("Angular position " + str(i * (nb_clients) + (j+1)) +
-                  "/" + str(nb_clients * iterations))
-
-            angles_list.append(angles)
+            angles_list[j] = angles
             pepper_list[j].setAngles(keys, angles, 1.0)
 
         time.sleep(2)
+        ideal_increase = nb_clients
 
-        try:
-            for j in range(nb_clients):
-                assert not pepper_list[j].isSelfColliding(collision_links)
+        if iterations - i < ideal_increase:
+            ideal_increase = iterations - i
 
-        except AssertionError:
-            print("Self collision detected")
-            continue
+        increase = ideal_increase
+        clean_move_counter = 0
 
-        for j in range(nb_clients):
-            measured_angles = pepper_list[j].getAnglesPosition(keys)
+        for j in range(ideal_increase):
+            if pepper_list[j].isSelfColliding(collision_links):
+                increase -= 1
+            else:
+                clean_move_counter += 1
+                print("Iteration " + str(i + clean_move_counter) + "/" +
+                      str(iterations))
 
-            for l in range(len(measured_angles)):
-                error = abs(angles_list[j][l] - measured_angles[i])
-                mean_errors[l] += error
+                measured_angles = pepper_list[j].getAnglesPosition(keys)
 
-        i += 1
+                # print("--------------")
+                # print angles_list[j][0]
+                # print measured_angles[0]
+
+                for l in range(len(measured_angles)):
+                    error = abs(angles_list[j][l] - measured_angles[l])
+                    mean_errors[l] += error
+
+        i += increase
 
     for i in range(len(mean_errors)):
-        mean_errors[i] = mean_errors[i] / (iterations * nb_clients)
+        mean_errors[i] = mean_errors[i] / iterations
 
     plt.bar(range(len(mean_errors)), mean_errors)
     plt.xticks(
