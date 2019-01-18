@@ -9,8 +9,12 @@ from qibullet.robot_virtual import RobotVirtual
 
 MAX_VEL_XY = 0.55
 MIN_VEL_XY = 0.1
+MAX_ACC_XY = 0.55
+MIN_ACC_XY = 0.3
 MAX_VEL_THETA = 2.0
 MIN_VEL_THETA = 0.3
+MAX_ACC_THETA = 3.0
+MIN_ACC_THETA = 0.75
 
 
 class PepperVirtual(RobotVirtual):
@@ -35,8 +39,12 @@ class PepperVirtual(RobotVirtual):
         self.motion_constraint = None
         # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
         self.vel_xy = 0.35
+        # Default acc (in m/s^2 xy : 0.3, min : 0.1, max : 0.55
+        self.acc_xy = 0.3
         # Default speed (in rad/s) theta : 1.0, min : 0.2, max : 2.0
         self.vel_theta = 1.0
+        # Default acc (in rad/s^2 theta : 0.75, min : 0.1, max : 3.0
+        self.acc_theta = 0.3
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
@@ -136,7 +144,6 @@ class PepperVirtual(RobotVirtual):
         pose_requested = [x, y, 0]
         # orientation requested (quaternions)
         orn_requested = pybullet.getQuaternionFromEuler([0, 0, theta])
-
         # if we are in frame robot add position in the frame world
         if frame == 2:
             orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
@@ -172,25 +179,43 @@ class PepperVirtual(RobotVirtual):
         if distance:
             p_x = (pose_requested[0] - actual_pose[0]) / distance
             p_y = (pose_requested[1] - actual_pose[1]) / distance
-        if abs(theta):
-            p_theta = abs(theta) / theta
+        theta_to_do = getOrientation(actual_orn, orn_requested)
+        if abs(theta_to_do):
+            p_theta = abs(theta_to_do) / theta_to_do
+
+        pose_init = actual_pose
+        orn_init = actual_orn
         while getDistance(actual_pose, pose_requested) > threshold_xy\
-                or getOrientation(actual_orn, orn_requested) > threshold_theta:
+                or abs(getOrientation(actual_orn, orn_requested)) >\
+                threshold_theta:
+
             actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
                 self.robot_model,
                 physicsClientId=self.physics_client)
+            vel_x = computeVelocity(
+                        self.acc_xy,
+                        0.05,
+                        speed_xy,
+                        getDistance(pose_init, actual_pose),
+                        getDistance(actual_pose, pose_requested)
+                        )
+            vel_y = vel_x
+            vel_theta = computeVelocity(
+                        self.acc_theta,
+                        0.05,
+                        self.vel_theta,
+                        abs(getOrientation(orn_init, orn_requested)),
+                        abs(getOrientation(actual_orn, orn_requested))
+                        )
             # if the robot is on the position requested, we set the
             # velocity to 0.
             if abs(actual_pose[0] - pose_requested[0]) <= threshold_xy / 2:
                 vel_x = 0
             if abs(actual_pose[1] - pose_requested[1]) <= threshold_xy / 2:
                 vel_y = 0
-            if getOrientation(actual_orn, orn_requested) <= threshold_theta:
+            if abs(getOrientation(actual_orn, orn_requested)) <=\
+                    threshold_theta:
                 vel_theta = 0
-            # TODO : This value is subjective. We need to wait a few
-            # millisecond in order to be claused to the reality and avoid
-            # a bug due to the resetBaseVelocity function.
-            time.sleep(0.02)
             # reset velocity of the robot
             pybullet.resetBaseVelocity(
                 self.robot_model,
@@ -322,6 +347,34 @@ class PepperVirtual(RobotVirtual):
             self.vel_theta = MIN_VEL_THETA
         else:
             self.vel_theta = value
+
+    def setAccXY(self, value):
+        """
+        Set xy acceleration of the robot
+
+        Parameter:
+            value of the velocity in m/s^2
+        """
+        if value >= MAX_ACC_XY:
+            self.acc_xy = MAX_ACC_XY
+        elif value <= MIN_ACC_XY:
+            self.acc_xy = MIN_ACC_XY
+        else:
+            self.acc_xy = value
+
+    def setAccTheta(self, value):
+        """
+        Set theta acceleration of the robot
+
+        Parameter:
+            value of the velocity in rad/s^2
+        """
+        if value >= MAX_ACC_THETA:
+            self.acc_theta = MAX_ACC_THETA
+        elif value <= MIN_ACC_THETA:
+            self.acc_theta = MIN_ACC_THETA
+        else:
+            self.acc_theta = value
 
     def getMaxVelXY(self):
         return MAX_VEL_XY
