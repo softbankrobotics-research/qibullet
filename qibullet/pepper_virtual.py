@@ -63,7 +63,7 @@ class PepperVirtual(RobotVirtual):
             self,
             translation,
             quaternion,
-            physicsClientId=self.physics_client)
+            physicsClientId=physicsClientId)
 
         for joint_name in list(self.joint_dict):
             if 'RFinger' in joint_name or 'RThumb' in joint_name:
