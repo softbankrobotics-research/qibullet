@@ -79,7 +79,8 @@ class RobotVirtual:
                 # PYTHON 2 Version
                 joint_info = pybullet.getJointInfo(
                     self.robot_model,
-                    i, physicsClientId=self.physics_client)
+                    i,
+                    physicsClientId=self.physics_client)
 
                 self.link_dict[joint_info[12]] = Link(joint_info)
 
