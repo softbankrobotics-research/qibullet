@@ -113,10 +113,16 @@ class PepperVirtual(RobotVirtual):
 
         # TODO: motion constraint fucks up the right hand mimic behaviour
         self.motion_constraint = pybullet.createConstraint(
-            self.robot_model,
-            -1, -1, -1,
-            pybullet.JOINT_FIXED,
-            [0, 0, 0], [0, 0, 0], [0, 0, 0],
+            parentBodyUniqueId=self.robot_model,
+            parentLinkIndex=-1,
+            childBodyUniqueId=-1,
+            childLinkIndex=-1,
+            jointType=pybullet.JOINT_FIXED,
+            jointAxis=[0, 0, 0],
+            parentFramePosition=[0, 0, 0],
+            parentFrameOrientation=[0, 0, 0, 1],
+            childFramePosition=[translation[0], translation[1], 0],
+            childFrameOrientation=quaternion,
             physicsClientId=self.physics_client)
 
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None):
