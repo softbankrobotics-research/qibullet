@@ -4,9 +4,7 @@
 import qi
 import sys
 import argparse
-import pybullet as p
-import pybullet_data
-from qibullet import PepperVirtual
+from qibullet import SimulationManager
 
 
 if __name__ == "__main__":
@@ -33,18 +31,12 @@ if __name__ == "__main__":
     except RuntimeError:
         sys.exit("Cannot open a qi session")
 
-    physicsClient = p.connect(p.GUI)
-    p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, 1)
-    p.configureDebugVisualizer(p.COV_ENABLE_RGB_BUFFER_PREVIEW, 0)
-    p.configureDebugVisualizer(p.COV_ENABLE_DEPTH_BUFFER_PREVIEW, 0)
-    p.configureDebugVisualizer(p.COV_ENABLE_SEGMENTATION_MARK_PREVIEW, 0)
+    simulation_manager = SimulationManager()
+    client = simulation_manager.launchSimulation(gui=True)
 
-    p.setGravity(0, 0, -9.81)
-    p.setAdditionalSearchPath(pybullet_data.getDataPath())
-    p.loadMJCF("mjcf/ground_plane.xml")
-
-    pepper_virtual = PepperVirtual()
-    pepper_virtual.loadRobot([0, 0, 0], [0, 0, 0, 1])
+    pepper_virtual = simulation_manager.spawnPepper(
+        client,
+        spawn_ground_plane=True)
 
     angle_names = list()
     angles_values = list()
@@ -55,12 +47,14 @@ if __name__ == "__main__":
         else:
             angle_names.append(name)
 
-    p.setRealTimeSimulation(1)
-
     try:
         while True:
             angles_values = motion.getAngles(angle_names, True)
             pepper_virtual.setAngles(angle_names, angles_values, 1.0)
 
     except KeyboardInterrupt:
+        pass
+
+    finally:
+        simulation_manager.stopSimulation(client)
         sys.exit("End the shadowing example")
