@@ -1,96 +1,150 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import sys
 import time
 import random
-import pybullet as p
+from threading import Thread
 import matplotlib.pyplot as plt
 from qibullet import SimulationManager
 
 
-if __name__ == "__main__":
+class Task(Thread):
+    """
+    Threaded task thread
+    """
+
+    def __init__(self,
+                 pepper,
+                 joint_names,
+                 collision_links,
+                 iterations):
+        """
+        Constructor
+
+        Parameters:
+            pepper - Virtual Pepper model
+            joint_names - A list containing the names of the joints to be
+            tested
+            collision_links - Link tested for self collision
+            iterations - Number of iterations for the thread
+        """
+        Thread.__init__(self)
+        self.pepper = pepper
+        self.joint_names = joint_names
+        self.collision_links = collision_links
+        self.iterations = iterations
+        self.mean_error = [0] * len(joint_names)
+
+    def run(self):
+        """
+        Main method loop
+        """
+        i = 0
+
+        while i < self.iterations:
+            angles_list = list()
+
+            for name in self.joint_names:
+                angles_list.append(random.uniform(
+                    self.pepper.joint_dict[name].getLowerLimit(),
+                    self.pepper.joint_dict[name].getUpperLimit()))
+
+            self.pepper.setAngles(self.joint_names, angles_list, 1.0)
+            time.sleep(2.0)
+
+            if self.pepper.isSelfColliding(self.collision_links):
+                continue
+
+            measured_angles = self.pepper.getAnglesPosition(self.joint_names)
+
+            for l in range(len(measured_angles)):
+                error = abs(angles_list[l] - measured_angles[l])
+                self.mean_error[l] += error
+
+            i += 1
+
+    def getResult(self):
+        """
+        Returns the mean error
+
+        Returns:
+            mean_error - The mean error
+        """
+        return self.mean_error
+
+
+def main():
     nb_clients = 10
     iterations = 10
+
+    if iterations < nb_clients:
+        nb_clients = iterations
+
+    task_list = list()
+    iterations_per_task = int(iterations / nb_clients)
 
     simulation_manager = SimulationManager()
     client_list = list()
     pepper_list = list()
+    keys = list()
+    collision_links = list()
 
+    gui = False
     for i in range(nb_clients):
-        client = simulation_manager.launchSimulation(gui=False)
+        client = simulation_manager.launchSimulation(gui=gui)
         pepper = simulation_manager.spawnPepper(
             client,
             spawn_ground_plane=True)
 
+        if gui:
+            gui = False
+
         client_list.append(client)
         pepper_list.append(pepper)
 
-    keys = list()
-    values = list()
-    mean_errors = list()
-    collision_links = list()
-
-    for name in pepper_list[0].link_dict.keys():
-        if "wrist" in name or "Shoulder" in name:
-            collision_links.append(name)
+    collision_links = ['r_wrist', 'LBicep', 'l_wrist', 'RBicep', 'Head', 'Hip']
 
     for key, value in pepper_list[0].joint_dict.items():
         if "Finger" in key or "Thumb" in key or "Hand" in key or "Head" in key:
             continue
         else:
             keys.append(key)
-            values.append(value)
-            mean_errors.append(0)
 
-    i = 0
-    while i < iterations:
-        angles_list = [None] * nb_clients
-        ideal_increase = nb_clients
+    for i in range(nb_clients):
+        task_list.append(Task(
+            pepper_list[i],
+            keys,
+            collision_links,
+            iterations_per_task))
 
-        if ideal_increase > iterations - i:
-            ideal_increase = iterations - i
+    mean_error = [0] * len(keys)
 
-        for j in range(ideal_increase):
-            angles_list[j] = [0] * len(values)
-            for l in range(len(values)):
-                angles_list[j][l] = random.uniform(
-                    values[l].getLowerLimit(),
-                    values[l].getUpperLimit())
+    for task in task_list:
+        task.start()
+        print("Task " + str(task.pepper.getPhysicsClientId()) + " started")
 
-            pepper_list[j].setAngles(keys, angles_list[j], 1.0)
+    for task in task_list:
+        task.join()
+        print("Task " + str(task.pepper.getPhysicsClientId()) +
+              " finished after " + str(iterations_per_task) + " iteration(s)")
 
-        time.sleep(2)
-
-        increase = ideal_increase
-        clean_move_counter = 0
-
-        for j in range(ideal_increase):
-            if pepper_list[j].isSelfColliding(collision_links):
-                increase -= 1
-            else:
-                clean_move_counter += 1
-                print("Iteration " + str(i + clean_move_counter) + "/" +
-                      str(iterations))
-
-                measured_angles = pepper_list[j].getAnglesPosition(keys)
-
-                for l in range(len(measured_angles)):
-                    error = abs(angles_list[j][l] - measured_angles[l])
-                    mean_errors[l] += error
-
-        i += increase
+        temp_error = [sum(x) for x in zip(mean_error, task.getResult())]
+        mean_error = list(temp_error)
 
     for client in client_list:
         simulation_manager.stopSimulation(client)
 
-    for m in range(len(mean_errors)):
-        mean_errors[m] = mean_errors[m] / iterations
+    # Normalize the error given the iteration number
+    normalized_mean_error = [x / iterations for x in mean_error]
 
-    plt.bar(range(len(mean_errors)), mean_errors)
+    plt.bar(range(len(normalized_mean_error)), normalized_mean_error)
     plt.xticks(
-        range(len(mean_errors)),
+        range(len(normalized_mean_error)),
         tuple(keys),
         rotation='vertical',
         horizontalalignment='left')
     plt.show()
+
+
+if __name__ == "__main__":
+    main()
