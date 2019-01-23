@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import sys
 import time
 import random
-import pybullet as p
 from threading import Thread
 import matplotlib.pyplot as plt
 from qibullet import SimulationManager
@@ -91,9 +89,9 @@ def main():
     keys = list()
     collision_links = list()
 
-    gui = True
+    gui = False
     for i in range(nb_clients):
-        client = simulation_manager.launchSimulation(gui=(i == 7))
+        client = simulation_manager.launchSimulation(gui=gui)
         pepper = simulation_manager.spawnPepper(
             client,
             spawn_ground_plane=True)
@@ -104,17 +102,7 @@ def main():
         client_list.append(client)
         pepper_list.append(pepper)
 
-    # for name in pepper_list[0].link_dict.keys():
-    #     if "wrist" in name or "Shoulder" in name:
-    #         collision_links.append(name)
-
-    # for name in pepper_list[0].link_dict.keys():
-    #     if "Wheel" in name or "Finger" in name or "Thumb" in name:
-    #         continue
-    #     else:
-    #         collision_links.append(name)
-
-    collision_links = ['r_wrist', 'LBicep', 'l_wrist', 'RBicep', 'Head']
+    collision_links = ['r_wrist', 'LBicep', 'l_wrist', 'RBicep', 'Head', 'Hip']
 
     for key, value in pepper_list[0].joint_dict.items():
         if "Finger" in key or "Thumb" in key or "Hand" in key or "Head" in key:
