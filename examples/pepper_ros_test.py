@@ -20,6 +20,10 @@ if __name__ == "__main__":
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
     p.loadMJCF("mjcf/ground_plane.xml")
 
+    urdf = p.loadURDF(
+        "samurai.urdf",
+        globalScaling=1.0)
+
     pepper = PepperVirtual()
     pepper.loadRobot([0, 0, 0], [0, 0, 0, 1])
 
