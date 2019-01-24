@@ -4,6 +4,7 @@
 import os
 import sys
 import rospy
+import roslib
 import roslaunch
 import tf
 import tf2_ros
@@ -113,14 +114,15 @@ class PepperRosWrapper:
             self.killMoveCallback)
 
         try:
-            path = os.path.dirname(os.path.abspath(__file__))
+            package_path = roslib.packages.get_pkg_dir("naoqi_driver")
+            # path = os.path.dirname(os.path.abspath(__file__)) + "/"
 
-            with open(path + "/../" + PepperVirtual.URDF_PATH, 'r') as file:
+            with open(package_path + "/share/urdf/pepper.urdf", 'r') as file:
                 robot_description = file.read()
 
-            robot_description = robot_description.replace(
-                "meshes/pepper_1.7/",
-                "package://pepper_meshes/meshes/1.0/")
+            # robot_description = robot_description.replace(
+            #     "meshes/",
+            #     "package://pepper_meshes/meshes/1.0/")
 
             rospy.set_param("/robot_description", robot_description)
 
