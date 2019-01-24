@@ -50,7 +50,7 @@ class Task(Thread):
                     self.pepper.joint_dict[name].getUpperLimit()))
 
             self.pepper.setAngles(self.joint_names, angles_list, 1.0)
-            time.sleep(2.0)
+            time.sleep(3)
 
             if self.pepper.isSelfColliding(self.collision_links):
                 continue
@@ -102,7 +102,12 @@ def main():
         client_list.append(client)
         pepper_list.append(pepper)
 
-    collision_links = ['r_wrist', 'LBicep', 'l_wrist', 'RBicep', 'Head', 'Hip']
+    collision_links = [
+        'r_wrist',
+        'LBicep',
+        'l_wrist',
+        'RBicep',
+        'Pelvis']
 
     for key, value in pepper_list[0].joint_dict.items():
         if "Finger" in key or "Thumb" in key or "Hand" in key or "Head" in key:
