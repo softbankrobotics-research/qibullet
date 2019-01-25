@@ -23,6 +23,9 @@ from naoqi_bridge_msgs.msg import PoseStampedWithSpeed
 from geometry_msgs.msg import TransformStamped
 from nav_msgs.msg import Odometry
 
+TOP_OPTICAL_FRAME = "CameraTop_optical_frame"
+BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
+DEPTH_OPTICAL_FRAME = "CameraDepth_optical_frame"
 
 class PepperRosWrapper:
     """
@@ -235,58 +238,62 @@ class PepperRosWrapper:
         """
         Overloads the ROS spin method
         """
-        while not rospy.is_shutdown():
-            self.joint_states_pub.publish(self.getAnglesMsg())
-            self.setUpOdom()
-            resolution = self.virtual_pepper.getCameraResolution()
-            frame = self.virtual_pepper.getCameraFrame()
+        try:
+            while not rospy.is_shutdown():
+                self.joint_states_pub.publish(self.getAnglesMsg())
+                self.setUpOdom()
+                resolution = self.virtual_pepper.getCameraResolution()
+                frame = self.virtual_pepper.getCameraFrame()
 
-            if frame is None or resolution is None:
-                continue
+                if frame is None or resolution is None:
+                    continue
 
-            camera_image_msg = self.image_bridge.cv2_to_imgmsg(frame)
+                camera_image_msg = self.image_bridge.cv2_to_imgmsg(frame)
 
-            if self.virtual_pepper.camera_top.isActive():
-                camera_image_msg.encoding = "bgr8"
-                camera_image_msg.header.frame_id = "CameraTop_optical_frame"
+                if self.virtual_pepper.camera_top.isActive():
+                    camera_image_msg.encoding = "bgr8"
+                    camera_image_msg.header.frame_id = TOP_OPTICAL_FRAME
 
-                if resolution == Camera.K_VGA:
-                    camera_info_msg = self.front_info_msg["K_VGA"]
-                elif resolution == Camera.K_QVGA:
-                    camera_info_msg = self.front_info_msg["K_QVGA"]
-                elif resolution == Camera.K_QQVGA:
-                    camera_info_msg = self.front_info_msg["K_QQVGA"]
+                    if resolution == Camera.K_VGA:
+                        camera_info_msg = self.front_info_msg["K_VGA"]
+                    elif resolution == Camera.K_QVGA:
+                        camera_info_msg = self.front_info_msg["K_QVGA"]
+                    elif resolution == Camera.K_QQVGA:
+                        camera_info_msg = self.front_info_msg["K_QQVGA"]
 
-                self.front_cam_pub.publish(camera_image_msg)
-                self.front_info_pub.publish(camera_info_msg)
+                    self.front_cam_pub.publish(camera_image_msg)
+                    self.front_info_pub.publish(camera_info_msg)
 
-            elif self.virtual_pepper.camera_bottom.isActive():
-                camera_image_msg.encoding = "bgr8"
-                camera_image_msg.header.frame_id = "CameraBottom_optical_frame"
+                elif self.virtual_pepper.camera_bottom.isActive():
+                    camera_image_msg.encoding = "bgr8"
+                    camera_image_msg.header.frame_id = BOTTOM_OPTICAL_FRAME
 
-                if resolution == Camera.K_VGA:
-                    camera_info_msg = self.bottom_info_msg["K_VGA"]
-                elif resolution == Camera.K_QVGA:
-                    camera_info_msg = self.bottom_info_msg["K_QVGA"]
-                elif resolution == Camera.K_QQVGA:
-                    camera_info_msg = self.bottom_info_msg["K_QQVGA"]
+                    if resolution == Camera.K_VGA:
+                        camera_info_msg = self.bottom_info_msg["K_VGA"]
+                    elif resolution == Camera.K_QVGA:
+                        camera_info_msg = self.bottom_info_msg["K_QVGA"]
+                    elif resolution == Camera.K_QQVGA:
+                        camera_info_msg = self.bottom_info_msg["K_QQVGA"]
 
-                self.bottom_cam_pub.publish(camera_image_msg)
-                self.bottom_info_pub.publish(camera_info_msg)
+                    self.bottom_cam_pub.publish(camera_image_msg)
+                    self.bottom_info_pub.publish(camera_info_msg)
 
-            elif self.virtual_pepper.camera_depth.isActive():
-                camera_image_msg.encoding = "mono16"
-                camera_image_msg.header.frame_id = "CameraDepth_optical_frame"
+                elif self.virtual_pepper.camera_depth.isActive():
+                    camera_image_msg.encoding = "mono16"
+                    camera_image_msg.header.frame_id = DEPTH_OPTICAL_FRAME
 
-                if resolution == Camera.K_VGA:
-                    camera_info_msg = self.depth_info_msg["K_VGA"]
-                elif resolution == Camera.K_QVGA:
-                    camera_info_msg = self.depth_info_msg["K_QVGA"]
-                elif resolution == Camera.K_QQVGA:
-                    camera_info_msg = self.depth_info_msg["K_QQVGA"]
+                    if resolution == Camera.K_VGA:
+                        camera_info_msg = self.depth_info_msg["K_VGA"]
+                    elif resolution == Camera.K_QVGA:
+                        camera_info_msg = self.depth_info_msg["K_QVGA"]
+                    elif resolution == Camera.K_QQVGA:
+                        camera_info_msg = self.depth_info_msg["K_QQVGA"]
 
-                self.depth_cam_pub.publish(camera_image_msg)
-                self.depth_info_pub.publish(camera_info_msg)
+                    self.depth_cam_pub.publish(camera_image_msg)
+                    self.depth_info_pub.publish(camera_info_msg)
+
+        except Exception as e:
+            print("Stopping the ROS wrapper")
 
     def _loadCameraInfos(self):
         """
