@@ -65,7 +65,10 @@ More snippets can be found in the examples folder:
 * [Script allowing a simulated model to mimic a real robot's movements](examples/pepper_shadowing.py)
 
 ## Documentation
-
+The documentation can be generated via the following command (the __epydoc__ Python package has to be installed beforehand):
+```bash
+epydoc --html qibullet/ -o docs/ --name qibullet
+```
 
 ## Troubleshooting
 
