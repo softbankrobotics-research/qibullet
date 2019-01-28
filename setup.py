@@ -8,7 +8,7 @@ setuptools.setup(
     version="0.0.3",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
-    description="Bullet simulation for SBR robots",
+    description="Bullet-based simulation for SoftBank Robotics' robots",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ProtolabSBRE/qibullet",
@@ -26,11 +26,16 @@ setuptools.setup(
         "robot_data/nao_V40/meshes/*.stl",
         "robot_data/nao_V40/meshes/*.png"]},
     classifiers=[
+        "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Apache Software License",
+        'Intended Audience :: Science/Research',
+        'Intended Audience :: Developers',
         "Operating System :: POSIX :: Linux",
         "Operating System :: MacOS",
-        "Operating System :: Microsoft"
+        "Operating System :: Microsoft",
+        'Topic :: Games/Entertainment :: Simulation',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'Framework :: Robot Framework :: Tool'
     ]
 )
