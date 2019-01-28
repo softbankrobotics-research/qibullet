@@ -1,6 +1,6 @@
 # qibullet
 
-__Bullet-based__ python simulation interface for __SoftBank Robotics'__ robots.
+__Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
 ## Installation
 
@@ -14,8 +14,26 @@ pip install --user qibullet
 ```
 
 ## Usage
+Please note that only the Pepper robot is currently handled by this module. A robot can be spawn via the SimulationManager class:
+```python
+from qibullet import SimulationManager
 
-The following snippet demonstrates a simple use of the qibullet module:
+if __name__ == "__main__":
+    simulation_manager = SimulationManager()
+
+    # Launch a simulation instances, with using a graphical interface.
+    # Please note that only one graphical interface can be launched at a time
+    client_id = simulation_manager.launchSimulation(gui=True)
+
+    # Spawning a virtual Pepper robot, at the origin of the WORLD frame
+    pepper = simulation_manager.spawnPepper(
+        client_id,
+        [0, 0, 0],
+        [0, 0, 0, 1],
+        spawn_ground_plane=True)
+```
+
+Or via the PepperVirtual class:
 ```python
 import time
 import pybullet as p
@@ -36,33 +54,21 @@ if __name__ == "__main__":
     p.loadMJCF("mjcf/ground_plane.xml")
 
     pepper = PepperVirtual()
-    pepper.loadRobot([0, 0, 0], [0, 0, 0, 1])
-
-    joint_parameters = list()
-    pepper.subscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
-
-    # Retrieving an image that can be displayed via an imshow function from
-    # openCV
-    img = pepper.getCameraFrame()
-
-    while True:
-        # Setting joint angles
-        pepper.setAngles("HeadYaw", 0, 1.0)
-        time.sleep(0.2)
-        pepper.setAngles("HeadPitch", 1, 0.6)
-        time.sleep(0.2)
-        pepper.setAngles(["HeadPitch", "HeadYaw"], [0, 1], 0.6)
-
-        # Moving the robot's base
-        pepper.moveTo(1, 1, 0, frame=PepperVirtual.FRAME_ROBOT)
-        pepper.moveTo(-1, -1, 0, frame=PepperVirtual.FRAME_ROBOT)
-
-        # Checking for self collisions
-        pepper.isSelfColliding('l_wrist')
-        pepper.isSelfColliding(["RForeArm", "LForeArm"])
+    pepper.loadRobot([0, 0, 0], [0, 0, 0, 1], physicsClientId=physicsClient)
 ```
 
-More examples can be found in the examples folder.
+More snippets can be found in the examples folder:
+* [A basic usage of the PepperVirtual class](examples/pepper_basic.py)
+* [Launch multiple simulation instances](examples/multi_simulation.py)
+* [A script using several simulation instances to compute the error on the joint positions](examples/pepper_joints_error.py)
+* [A basic usage of the PepperRosWrapper class (bridge between qibullet and ROS)](examples/pepper_ros_test.py)
+* [Script allowing a simulated model to mimic a real robot's movements](examples/pepper_shadowing.py)
+
+## Documentation
+The documentation can be generated via the following command (the __epydoc__ Python package has to be installed beforehand):
+```bash
+epydoc --html qibullet/ -o docs/ --name qibullet
+```
 
 ## Troubleshooting
 
@@ -71,5 +77,3 @@ If you encounter the message:
 > Workaround for some crash in the Intel OpenGL driver on Linux/Ubuntu
 
 Your computer is using the Intel OpenGL driver. Go to __Software & Updates__, __Additional Drivers__, and select a driver corresponding to your GPU.
-
-<!-- ![version](https://img.shields.io/badge/status-dev-orange.svg) -->
