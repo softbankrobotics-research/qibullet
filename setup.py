@@ -25,6 +25,15 @@ setuptools.setup(
         "robot_data/nao_V40/meshes/*.mtl",
         "robot_data/nao_V40/meshes/*.stl",
         "robot_data/nao_V40/meshes/*.png"]},
+    keywords=[
+        'physics simulation',
+        'robotics',
+        'naoqi',
+        'softbank',
+        'pepper',
+        'nao',
+        'romeo',
+        'robot'],
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 2.7",
