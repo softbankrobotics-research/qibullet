@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="qibullet",
-    version="0.0.3",
+    version="0.0.4",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
