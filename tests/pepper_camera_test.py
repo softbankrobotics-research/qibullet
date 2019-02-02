@@ -26,37 +26,39 @@ class PepperCameraTest(unittest.TestCase):
         """
         Test subscribing to each of Pepper's cameras
         """
+        physics_client = PepperCameraTest.pepper_virtual.physics_client
+
         PepperCameraTest.pepper_virtual.subscribeCamera(
             PepperVirtual.ID_CAMERA_TOP)
         self.assertEqual(
-            Camera.ACTIVE_CAMERA_ID,
+            Camera.ACTIVE_CAMERA_ID[physics_client],
             id(PepperCameraTest.pepper_virtual.camera_top))
         PepperCameraTest.pepper_virtual.unsubscribeCamera(
             PepperVirtual.ID_CAMERA_TOP)
         self.assertEqual(
-            Camera.ACTIVE_CAMERA_ID,
+            Camera.ACTIVE_CAMERA_ID[physics_client],
             -1)
 
         PepperCameraTest.pepper_virtual.subscribeCamera(
             PepperVirtual.ID_CAMERA_BOTTOM)
         self.assertEqual(
-            Camera.ACTIVE_CAMERA_ID,
+            Camera.ACTIVE_CAMERA_ID[physics_client],
             id(PepperCameraTest.pepper_virtual.camera_bottom))
         PepperCameraTest.pepper_virtual.unsubscribeCamera(
             PepperVirtual.ID_CAMERA_BOTTOM)
         self.assertEqual(
-            Camera.ACTIVE_CAMERA_ID,
+            Camera.ACTIVE_CAMERA_ID[physics_client],
             -1)
 
         PepperCameraTest.pepper_virtual.subscribeCamera(
             PepperVirtual.ID_CAMERA_DEPTH)
         self.assertEqual(
-            Camera.ACTIVE_CAMERA_ID,
+            Camera.ACTIVE_CAMERA_ID[physics_client],
             id(PepperCameraTest.pepper_virtual.camera_depth))
         PepperCameraTest.pepper_virtual.unsubscribeCamera(
             PepperVirtual.ID_CAMERA_DEPTH)
         self.assertEqual(
-            Camera.ACTIVE_CAMERA_ID,
+            Camera.ACTIVE_CAMERA_ID[physics_client],
             -1)
 
     def test_camera_resolutions(self):
