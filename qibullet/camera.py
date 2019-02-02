@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import atexit
+import weakref
 import pybullet
 import threading
 import numpy as np
@@ -41,7 +42,8 @@ class Camera:
     """
     Class representing a virtual camera
     """
-    ACTIVE_CAMERA_ID = -1
+    _instances = set()
+    ACTIVE_CAMERA_ID = dict()
 
     K_QQVGA = CameraResolution(160, 120)
     K_QVGA = CameraResolution(320, 240)
@@ -68,7 +70,6 @@ class Camera:
             near_plane - The near plane distance
             far_plane - The far plane distance
         """
-        atexit.register(self._resetActiveCamera)
         self.robot_model = robot_model
         self.physics_client = physicsClientId
         self.link = link
@@ -81,6 +82,26 @@ class Camera:
         self.extraction_thread = threading.Thread()
         self.frame_lock = threading.Lock()
         self.resolution_lock = threading.Lock()
+        self._instances.add(weakref.ref(self))
+        self._resetActiveCamera()
+        atexit.register(self._resetActiveCamera)
+
+    @classmethod
+    def _getInstances(cls):
+        """
+        INTERNAL CLASSMETHOD, get all of the Camera (and daughters) instances
+        """
+        dead = set()
+
+        for ref in cls._instances:
+            obj = ref()
+
+            if obj is not None:
+                yield obj
+            else:
+                dead.add(ref)
+
+        cls._instances -= dead
 
     def subscribe(self, id, resolution):
         """
@@ -93,23 +114,16 @@ class Camera:
         """
         # Lets the extracting thread die before launching another one if the
         # same camera calls the subscribing method for a second time
-        try:
-            assert self.extraction_thread.isAlive()
-            self._resetActiveCamera()
-            self.extraction_thread.join()
-
-        except AssertionError:
-            pass
-
+        self._resetActiveCamera()
         self._setResolution(resolution)
-        Camera.ACTIVE_CAMERA_ID = id
+        Camera.ACTIVE_CAMERA_ID[self.physics_client] = id
 
     def unsubscribe(self, id):
         """
         Method stopping the frame retreival thread for a camera
         """
-        if Camera.ACTIVE_CAMERA_ID == id:
-            Camera.ACTIVE_CAMERA_ID = -1
+        if Camera.ACTIVE_CAMERA_ID[self.physics_client] == id:
+            self._resetActiveCamera()
 
     def getFrame(self):
         """
@@ -129,7 +143,7 @@ class Camera:
             is_active - Boolean, True if the camera is subscribed to, False
             otherwise
         """
-        return id(self) == Camera.ACTIVE_CAMERA_ID
+        return id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
 
     def getResolution(self):
         """
@@ -224,10 +238,14 @@ class Camera:
 
     def _resetActiveCamera(self):
         """
-        INTERNAL METHOD, sets the active camera to -1, automatically called
-        when python is exited
+        INTERNAL METHOD, called when unsubscribing from the active camera, when
+        Python is exitted or when the SimulationManager resets/stops a
+        simulation instance
         """
-        Camera.ACTIVE_CAMERA_ID = -1
+        Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
+
+        if self.extraction_thread.isAlive():
+            self.extraction_thread.join()
 
     def _waitForCorrectImageFormat(self):
         """
@@ -314,7 +332,7 @@ class CameraRgb(Camera):
 
         try:
             while True:
-                assert id(self) == Camera.ACTIVE_CAMERA_ID
+                assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
                 camera_image = self._getCameraImage()
 
                 camera_image = np.reshape(
@@ -400,7 +418,7 @@ class CameraDepth(Camera):
         near = self.near_plane / 10
         try:
             while True:
-                assert id(self) == Camera.ACTIVE_CAMERA_ID
+                assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
                 camera_image = self._getCameraImage()
                 depth_image = camera_image[3]
 
