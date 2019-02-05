@@ -70,14 +70,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c1"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -97,14 +97,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -130,14 +130,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Orange"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -157,14 +157,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Orange"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -184,14 +184,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -211,14 +211,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c3"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -238,14 +238,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Blue"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -265,14 +265,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Blue"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -300,14 +300,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -327,14 +327,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -354,14 +354,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -381,14 +381,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -408,14 +408,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -435,14 +435,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -469,14 +469,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c7"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -496,14 +496,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c8"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -523,14 +523,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c9"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -564,14 +564,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c1"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -591,14 +591,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -631,14 +631,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c3"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -658,14 +658,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -699,14 +699,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -726,14 +726,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1068,14 +1068,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1094,14 +1094,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1120,14 +1120,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1146,14 +1146,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1172,14 +1172,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1198,14 +1198,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1224,14 +1224,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1250,14 +1250,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1276,14 +1276,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1302,14 +1302,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1328,14 +1328,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1354,14 +1354,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1380,14 +1380,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1406,14 +1406,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1432,14 +1432,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1458,14 +1458,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/nao_V40/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
 </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/nao_V40/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
