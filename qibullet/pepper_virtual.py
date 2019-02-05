@@ -224,6 +224,7 @@ class PepperVirtual(RobotVirtual):
                     threshold_theta:
                 vel_theta = 0
             # reset velocity of the robot
+            time.sleep(0.02)
             pybullet.resetBaseVelocity(
                 self.robot_model,
                 [vel_x * p_x, vel_y * p_y, 0],
