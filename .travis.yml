@@ -12,8 +12,8 @@ os :
 dist:
   - xenial
 
-sudo:
-  - required
+# sudo:
+#   - required
 
 language: python
 
@@ -22,9 +22,9 @@ python:
   - "3"
 
 install:
-  - sudo pip install pybullet
-  - sudo pip install numpy
-  - sudo python setup.py install
+  - "pip install pybullet"
+  - "pip install numpy"
+  - "python setup.py install"
 
 script:
   - cd tests
