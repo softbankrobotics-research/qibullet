@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+import sys
 import time
 import unittest
 import pybullet
@@ -18,6 +19,7 @@ if __name__ == "__main__":
     test_loader = unittest.TestLoader()
     test_runner = unittest.TextTestRunner()
     test_results = list()
+    has_failed = False
 
     test_classes = [
         PepperBaseTest,
@@ -44,6 +46,11 @@ if __name__ == "__main__":
         test_errors = test_results[i].errors
         test_passed = test_count - len(test_failures)
 
+        if len(test_failures) != 0:
+            has_failed = True
+
         print(test_classes[i].__name__ + "[" + str(test_count) + " tests]:")
         print(str(test_passed) + " [\033[1m\033[92mpassed\033[0m]")
         print(str(len(test_failures)) + " [\033[1m\033[91mfailed\033[0m]")
+
+    sys.exit(has_failed)
