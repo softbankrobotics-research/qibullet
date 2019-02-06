@@ -1,0 +1,31 @@
+# branches:
+#     only:
+#       - master
+
+notifications:
+    on_success: never
+    on_failure: never
+
+os :
+  - linux
+
+dist:
+  - xenial
+
+sudo:
+  - required
+
+language: python
+
+python:
+  - "2.7"
+  - "3"
+
+install:
+  - sudo pip install pybullet
+  - sudo pip install numpy
+  - sudo python setup.py install
+
+script:
+  - cd tests
+  - python test_launcher.py
