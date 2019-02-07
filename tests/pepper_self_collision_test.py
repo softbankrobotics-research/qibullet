@@ -49,7 +49,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             "RElbowRoll",
             1.6,
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertTrue(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("r_wrist"))
@@ -58,7 +58,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             "RElbowRoll",
             0.0,
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertFalse(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("l_wrist"))
@@ -67,7 +67,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             "LElbowRoll",
             -1.6,
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertTrue(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("l_wrist"))
@@ -76,7 +76,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["RElbowRoll", "LElbowRoll"],
             [0.7, -0.7],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertTrue(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("r_wrist"))
@@ -87,7 +87,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["RElbowRoll", "LElbowRoll"],
             [0.0, 0.0],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
     def test_forearm_collision(self):
         """
@@ -102,7 +102,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["RShoulderRoll", "RElbowRoll"],
             [-0.3, 1.6],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertTrue(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("RForeArm"))
@@ -111,13 +111,13 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["RShoulderRoll", "RElbowRoll"],
             [0.0, 0.0],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         PepperSelfCollisionTest.pepper_virtual.setAngles(
             ["LShoulderRoll", "LElbowRoll"],
             [0.3, -1.6],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertTrue(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("LForeArm"))
@@ -126,7 +126,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["LShoulderRoll", "LElbowRoll"],
             [0.0, 0.0],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
     def test_head_collision(self):
         """
@@ -139,7 +139,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["RShoulderPitch", "RElbowRoll"],
             [-1.3, 1.3],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
         self.assertTrue(
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("Head"))
@@ -148,7 +148,7 @@ class PepperSelfCollisionTest(unittest.TestCase):
             ["RShoulderPitch", "RElbowRoll"],
             [0.0, 0.0],
             1.0)
-        time.sleep(0.5)
+        time.sleep(2)
 
 
 if __name__ == "__main__":
