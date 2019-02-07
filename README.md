@@ -1,4 +1,4 @@
-# qibullet ![Build Status](https://travis-ci.org/Pandhariix/ARIIA.svg?branch=master)
+# qibullet ![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
