@@ -73,7 +73,7 @@ class PepperVirtual(RobotVirtual):
                 self.joint_dict[joint_name].setMaxVelocity(
                     self.joint_dict["LHand"].getMaxVelocity())
             elif "Wheel" in joint_name:
-                    self.joint_dict.pop(joint_name)
+                self.joint_dict.pop(joint_name)
 
         for shoulder_roll_link in ["RBicep", "LBicep"]:
             pybullet.setCollisionFilterPair(
