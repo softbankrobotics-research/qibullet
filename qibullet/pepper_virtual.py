@@ -111,7 +111,6 @@ class PepperVirtual(RobotVirtual):
             self.link_dict["CameraDepth_optical_frame"],
             physicsClientId=self.physics_client)
 
-        # TODO: motion constraint fucks up the right hand mimic behaviour
         self.motion_constraint = pybullet.createConstraint(
             parentBodyUniqueId=self.robot_model,
             parentLinkIndex=-1,

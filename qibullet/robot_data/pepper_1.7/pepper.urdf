@@ -862,7 +862,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger41" type="continuous">
+  <joint name="RFinger41" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger41_link"/>
     <origin rpy="1.74402 1.04064 -0.0683394" xyz="0.074 -0.0309 0"/>
@@ -888,7 +888,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger42" type="continuous">
+  <joint name="LFinger42" type="revolute">
     <parent link="LFinger41_link"/>
     <child link="LFinger42_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -914,7 +914,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger12" type="continuous">
+  <joint name="RFinger12" type="revolute">
     <parent link="RFinger11_link"/>
     <child link="RFinger12_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -940,7 +940,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger33" type="continuous">
+  <joint name="LFinger33" type="revolute">
     <parent link="LFinger32_link"/>
     <child link="LFinger33_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -966,7 +966,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger31" type="continuous">
+  <joint name="RFinger31" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger31_link"/>
     <origin rpy="1.67523 1.04483 0.029316" xyz="0.0833 -0.0123 0.004"/>
@@ -992,7 +992,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger21" type="continuous">
+  <joint name="LFinger21" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger21_link"/>
     <origin rpy="1.5708 1.0472 -0.061086" xyz="0.0873 -0.0073 0.006"/>
@@ -1018,7 +1018,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger32" type="continuous">
+  <joint name="RFinger32" type="revolute">
     <parent link="RFinger31_link"/>
     <child link="RFinger32_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1044,7 +1044,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger13" type="continuous">
+  <joint name="LFinger13" type="revolute">
     <parent link="LFinger12_link"/>
     <child link="LFinger13_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1070,7 +1070,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger32" type="continuous">
+  <joint name="LFinger32" type="revolute">
     <parent link="LFinger31_link"/>
     <child link="LFinger32_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1096,7 +1096,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger11" type="continuous">
+  <joint name="LFinger11" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger11_link"/>
     <origin rpy="1.74402 1.04064 -0.0334335" xyz="0.0821 -0.0268 0.004"/>
@@ -1122,7 +1122,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger22" type="continuous">
+  <joint name="RFinger22" type="revolute">
     <parent link="RFinger21_link"/>
     <child link="RFinger22_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1148,7 +1148,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger13" type="continuous">
+  <joint name="RFinger13" type="revolute">
     <parent link="RFinger12_link"/>
     <child link="RFinger13_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1174,7 +1174,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger22" type="continuous">
+  <joint name="LFinger22" type="revolute">
     <parent link="LFinger21_link"/>
     <child link="LFinger22_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1200,7 +1200,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger21" type="continuous">
+  <joint name="RFinger21" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger21_link"/>
     <origin rpy="1.5708 1.0472 0.061086" xyz="0.0873 0.0073 0.006"/>
@@ -1226,7 +1226,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger41" type="continuous">
+  <joint name="LFinger41" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger41_link"/>
     <origin rpy="1.39757 1.04064 0.0683394" xyz="0.074 0.0309 0"/>
@@ -1252,7 +1252,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger12" type="continuous">
+  <joint name="LFinger12" type="revolute">
     <parent link="LFinger11_link"/>
     <child link="LFinger12_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1278,7 +1278,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger23" type="continuous">
+  <joint name="RFinger23" type="revolute">
     <parent link="RFinger22_link"/>
     <child link="RFinger23_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1304,7 +1304,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger11" type="continuous">
+  <joint name="RFinger11" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger11_link"/>
     <origin rpy="1.39757 1.04064 0.0334335" xyz="0.0821 0.0268 0.004"/>
@@ -1330,7 +1330,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger23" type="continuous">
+  <joint name="LFinger23" type="revolute">
     <parent link="LFinger22_link"/>
     <child link="LFinger23_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1356,7 +1356,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger43" type="continuous">
+  <joint name="LFinger43" type="revolute">
     <parent link="LFinger42_link"/>
     <child link="LFinger43_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1382,7 +1382,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger43" type="continuous">
+  <joint name="RFinger43" type="revolute">
     <parent link="RFinger42_link"/>
     <child link="RFinger43_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1408,7 +1408,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger42" type="continuous">
+  <joint name="RFinger42" type="revolute">
     <parent link="RFinger41_link"/>
     <child link="RFinger42_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1434,7 +1434,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger31" type="continuous">
+  <joint name="LFinger31" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger31_link"/>
     <origin rpy="1.46636 1.04483 -0.029314" xyz="0.0833 0.0123 0.004"/>
@@ -1460,7 +1460,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger33" type="continuous">
+  <joint name="RFinger33" type="revolute">
     <parent link="RFinger32_link"/>
     <child link="RFinger33_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.018 0 0"/>
@@ -1486,7 +1486,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LThumb1" type="continuous">
+  <joint name="LThumb1" type="revolute">
     <parent link="l_wrist"/>
     <child link="LThumb1_link"/>
     <origin rpy="-1.95836 0.60626 0.533978" xyz="0.0482 -0.0357 -0.0199"/>
@@ -1512,7 +1512,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RThumb2" type="continuous">
+  <joint name="RThumb2" type="revolute">
     <parent link="RThumb1_link"/>
     <child link="RThumb2_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.022 0 0"/>
@@ -1538,7 +1538,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RThumb1" type="continuous">
+  <joint name="RThumb1" type="revolute">
     <parent link="r_wrist"/>
     <child link="RThumb1_link"/>
     <origin rpy="-1.18323 0.60626 -0.533978" xyz="0.0482 0.0357 -0.0199"/>
@@ -1564,7 +1564,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LThumb2" type="continuous">
+  <joint name="LThumb2" type="revolute">
     <parent link="LThumb1_link"/>
     <child link="LThumb2_link"/>
     <origin rpy="0 0 -1.0472" xyz="0.022 0 0"/>
