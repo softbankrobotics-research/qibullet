@@ -3,29 +3,35 @@
 
 import os
 import sys
-import rospy
-import roslib
-import roslaunch
-import tf
-import tf2_ros
 import pybullet
 from qibullet.camera import Camera
 from qibullet.pepper_virtual import PepperVirtual
 from threading import Thread
-from cv_bridge import CvBridge
-from sensor_msgs.msg import Image
-from sensor_msgs.msg import CameraInfo
-from sensor_msgs.msg import JointState
-from std_msgs.msg import Header
-from std_msgs.msg import Empty
-from naoqi_bridge_msgs.msg import JointAnglesWithSpeed
-from naoqi_bridge_msgs.msg import PoseStampedWithSpeed
-from geometry_msgs.msg import TransformStamped
-from nav_msgs.msg import Odometry
+
+try:
+    import rospy
+    import roslib
+    import roslaunch
+    import tf2_ros
+    from cv_bridge import CvBridge
+    from sensor_msgs.msg import Image
+    from sensor_msgs.msg import CameraInfo
+    from sensor_msgs.msg import JointState
+    from std_msgs.msg import Header
+    from std_msgs.msg import Empty
+    from naoqi_bridge_msgs.msg import JointAnglesWithSpeed
+    from naoqi_bridge_msgs.msg import PoseStampedWithSpeed
+    from geometry_msgs.msg import TransformStamped
+    from nav_msgs.msg import Odometry
+    ROS_LIB_FOUND = True
+
+except ImportError:
+    ROS_LIB_FOUND = False
 
 TOP_OPTICAL_FRAME = "CameraTop_optical_frame"
 BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
 DEPTH_OPTICAL_FRAME = "CameraDepth_optical_frame"
+
 
 class PepperRosWrapper:
     """
@@ -36,7 +42,10 @@ class PepperRosWrapper:
         """
         Constructor
         """
-        self.spinThread = None
+        if not ROS_LIB_FOUND:
+            return
+
+        self.spin_thread = None
         self.image_bridge = CvBridge()
         self.front_info_msg = dict()
         self.bottom_info_msg = dict()
@@ -53,6 +62,9 @@ class PepperRosWrapper:
             ros_namespace - The ROS namespace to be added before the ROS topics
             advertized and subscribed
         """
+        if not ROS_LIB_FOUND:
+            return
+
         self.ros_namespace = ros_namespace
         self.virtual_pepper = virtual_pepper
 
@@ -104,17 +116,17 @@ class PepperRosWrapper:
         rospy.Subscriber(
             '/joint_angles',
             JointAnglesWithSpeed,
-            self.setAnglesCallback)
+            self._jointAnglesCallback)
 
         rospy.Subscriber(
             '/move_base_simple/goal',
             PoseStampedWithSpeed,
-            self.moveToCallback)
+            self._moveToCallback)
 
         rospy.Subscriber(
             '/move_base_simple/cancel',
             Empty,
-            self.killMoveCallback)
+            self._killMoveCallback)
 
         try:
             package_path = roslib.packages.get_pkg_dir("naoqi_driver")
@@ -137,17 +149,17 @@ class PepperRosWrapper:
             roslauncher.start()
             roslauncher.launch(robot_state_publisher)
 
-            self.spinThread = Thread(target=self.spin)
-            self.spinThread.start()
+            self.spin_thread = Thread(target=self._spin)
+            self.spin_thread.start()
 
         except IOError as e:
             print("Could not retrieve robot descrition: " + str(e))
             return
 
-    def setUpOdom(self):
+    def _broadcastOdom(self):
         """
-        Set up the odometry by broadcasting the tranform and update the
-        transform position
+        INTERNAL METHOD, updates and broadcasts the odometry by broadcasting
+        based on the robot's base tranform
         """
         # Send Transform odom
         x, y, theta = self.virtual_pepper.getPosition()
@@ -181,9 +193,9 @@ class PepperRosWrapper:
         odom.twist.twist.angular.z = wz
         self.odom_pub.publish(odom)
 
-    def getAnglesMsg(self):
+    def _getJointStateMsg(self):
         """
-        Return the JointState of each joint of the robot
+        INTERNAL METHOD, returns the JointState of each robot joint
         """
         msg_joint_state = JointState()
         msg_joint_state.header = Header()
@@ -195,24 +207,32 @@ class PepperRosWrapper:
         msg_joint_state.position += [0, 0, 0]
         return msg_joint_state
 
-    def setAnglesCallback(self, msg):
+    def _jointAnglesCallback(self, msg):
         """
-        Callback for setting the angles on a joint list
+        INTERNAL METHOD, callback triggered when a message is received on the
+        /joint_angles topic
 
         Parameters:
-            msg - naoqi_bridge_msgs JointAnglesWithSpeed
+            msg - a ROS message containing a pose stamped with a speed
+            associated to it. The type of the message is the following:
+            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
+            the ros naoqi software stack
         """
         joint_list = msg.joint_names
         position_list = list(msg.joint_angles)
         velocity = msg.speed
         self.virtual_pepper.setAngles(joint_list, position_list, velocity)
 
-    def moveToCallback(self, msg):
+    def _moveToCallback(self, msg):
         """
-        Callback to move the robot in frame world or robot
+        INTERNAL METHOD, callback triggered when a message is received on the
+        '/move_base_simple/goal' topic. It allows to move the robot's base
 
         Parameters:
-            msg - naoqi_bridge_msgs PoseStampedWithSpeed
+            msg - a ROS message containing a pose stamped with a speed
+            associated to it. The type of the message is the following:
+            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
+            the ros naoqi software stack
         """
         x = msg.pose_stamped.pose.position.x
         y = msg.pose_stamped.pose.position.y
@@ -228,20 +248,25 @@ class PepperRosWrapper:
         frame = msg.referenceFrame
         self.virtual_pepper.moveTo(x, y, theta, frame=frame, speed=speed)
 
-    def killMoveCallback(self, msg):
+    def _killMoveCallback(self, msg):
         """
-        Callback to stop the robot movement
+        INTERNAL METHOD, callback triggered when a message is received on the
+        '/move_base_simple/cancel' topic. This callback is used to stop the
+        robot's base from moving
+
+        Parameters:
+            msg - an empty ROS message, with the Empty type
         """
         self.virtual_pepper.moveTo(0, 0, 0)
 
-    def spin(self):
+    def _spin(self):
         """
-        Overloads the ROS spin method
+        INTERNAL METHOD, designed to emulate a ROS spin method
         """
         try:
             while not rospy.is_shutdown():
-                self.joint_states_pub.publish(self.getAnglesMsg())
-                self.setUpOdom()
+                self.joint_states_pub.publish(self._getJointStateMsg())
+                self._broadcastOdom()
                 resolution = self.virtual_pepper.getCameraResolution()
                 frame = self.virtual_pepper.getCameraFrame()
 
