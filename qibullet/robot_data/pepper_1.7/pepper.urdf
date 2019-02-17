@@ -67,6 +67,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="HeadPitch_milky">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/HeadPitch_milky.obj" scale="0.1 0.1 0.1"/>
@@ -80,6 +85,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="HeadPitch_ears">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/HeadPitch_ears.obj" scale="0.1 0.1 0.1"/>
@@ -93,6 +103,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="HeadPitch_shiny">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/HeadPitch_shiny.obj" scale="0.1 0.1 0.1"/>
@@ -162,6 +177,11 @@
     <child link="HipPitch_shiny"/>
   </joint>
   <link name="HipPitch_shiny">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.268"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/HipPitch_shiny.obj" scale="0.1 0.1 0.1"/>
@@ -204,6 +224,11 @@
     <child link="KneePitch_milky"/>
   </joint>
   <link name="KneePitch_milky">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/KneePitch_milky.obj" scale="0.1 0.1 0.1"/>
@@ -218,7 +243,13 @@
     <child link="Tibia"/>
     <parent link="base_footprint"/>
   </joint>
-  <link name="base_footprint"/>
+  <link name="base_footprint">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
 
   <!-- Add the torso link and additional texture links -->
   <link name="torso">
@@ -247,6 +278,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="Torso_shiny">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/Torso_shiny.obj" scale="0.1 0.1 0.1"/>
@@ -260,6 +296,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="Torso_transparent">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/Torso_transparent.obj" scale="0.1 0.1 0.1"/>
@@ -329,6 +370,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="LShoulderRoll_shiny">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LShoulderRoll_shiny.obj" scale="0.1 0.1 0.1"/>
@@ -398,6 +444,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="LElbowRoll_milky">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LElbowRoll_milky.obj" scale="0.1 0.1 0.1"/>
@@ -506,6 +557,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="RShoulderRoll_shiny">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RShoulderRoll_shiny.obj" scale="0.1 0.1 0.1"/>
@@ -575,6 +631,11 @@
     <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="RElbowRoll_milky">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RElbowRoll_milky.obj" scale="0.1 0.1 0.1"/>
@@ -623,221 +684,413 @@
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
     </inertial>
   </link>
-  <link name="SonarBack_frame"/>
+  <link name="SonarBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Sonar/Back_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SonarBack_frame"/>
     <origin rpy="-1.81761e-08 -0.209438 -3.14159" xyz="-0.0718 0 -0.0534"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraBottom_optical_frame"/>
+  <link name="CameraBottom_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraBottom_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraBottom_frame"/>
     <child link="CameraBottom_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="CameraDepth_optical_frame"/>
+  <link name="CameraDepth_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraDepth_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraDepth_frame"/>
     <child link="CameraDepth_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchBack_frame"/>
+  <link name="LHandTouchBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Back_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchBack_frame"/>
     <origin rpy="1.5708 -1.5708 -3.14159" xyz="0.0523 0 0.0304"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="VerticalLeftLaser_frame"/>
+  <link name="VerticalLeftLaser_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/VerticalLeft_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="VerticalLeftLaser_frame"/>
     <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SurroundingFrontLaser_device_frame"/>
+  <link name="SurroundingFrontLaser_device_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Front_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SurroundingFrontLaser_device_frame"/>
     <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="BumperB_frame"/>
+  <link name="BumperB_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Bumper/Back_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="BumperB_frame"/>
     <origin rpy="0 0 -3.14159" xyz="-0.251 0 -0.264"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SurroundingLeftLaser_frame"/>
+  <link name="SurroundingLeftLaser_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Left_projected_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SurroundingLeftLaser_frame"/>
     <origin rpy="0 0 1.75728" xyz="-0.018 0.0899 -0.334"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ShovelLaser_frame"/>
+  <link name="ShovelLaser_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Shovel_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="ShovelLaser_frame"/>
     <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoAccelerometer_frame"/>
+  <link name="ImuTorsoAccelerometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Accelerometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoAccelerometer_frame"/>
     <origin rpy="0 0 0" xyz="0.00239 -0.03575 0.00626"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RSpeaker_frame"/>
+  <link name="RSpeaker_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="SpeakerRight_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="RSpeaker_frame"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SurroundingRightLaser_device_frame"/>
+  <link name="SurroundingRightLaser_device_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Right_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SurroundingRightLaser_device_frame"/>
     <origin rpy="0 0.349066 -1.5708" xyz="-0.018 -0.0899 -0.0759"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LSpeaker_frame"/>
+  <link name="LSpeaker_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="SpeakerLeft_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="LSpeaker_frame"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchBack_frame"/>
+  <link name="RHandTouchBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Back_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchBack_frame"/>
     <origin rpy="1.5708 -1.5708 -3.14159" xyz="0.0523 0 0.0304"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraTop_frame"/>
+  <link name="CameraTop_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraTop_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraTop_frame"/>
     <origin rpy="0 0 0" xyz="0.08601 0 0.16284"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SurroundingLeftLaser_device_frame"/>
+  <link name="SurroundingLeftLaser_device_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Left_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SurroundingLeftLaser_device_frame"/>
     <origin rpy="0 0.349066 1.5708" xyz="-0.018 0.0899 -0.0759"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraDepth_frame"/>
+  <link name="CameraDepth_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraDepth_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraDepth_frame"/>
     <origin rpy="0 0 0" xyz="0.07618 0 0.1194"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SurroundingRightLaser_frame"/>
+  <link name="SurroundingRightLaser_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Right_projected_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SurroundingRightLaser_frame"/>
     <origin rpy="0 0 -1.75728" xyz="-0.018 -0.0899 -0.334"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchFront_frame"/>
+  <link name="HeadTouchFront_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Front_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchFront_frame"/>
     <origin rpy="0 0.20944 0" xyz="0.028175 0 0.21267"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="VerticalRightLaser_frame"/>
+  <link name="VerticalRightLaser_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/VerticalRight_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="VerticalRightLaser_frame"/>
     <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SonarFront_frame"/>
+  <link name="SonarFront_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Sonar/Front_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SonarFront_frame"/>
     <origin rpy="0 -0.322858 0" xyz="0.0699 0 -0.1023"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="BumperFL_frame"/>
+  <link name="BumperFL_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Bumper/FrontLeft_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="BumperFL_frame"/>
     <origin rpy="0 0 0.48886" xyz="0.129 0.227 -0.264"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraBottom_frame"/>
+  <link name="CameraBottom_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraBottom_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraBottom_frame"/>
     <origin rpy="0 0.698132 0" xyz="0.09262 0 0.06177"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraTop_optical_frame"/>
+  <link name="CameraTop_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraTop_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraTop_frame"/>
     <child link="CameraTop_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="ImuBaseAccelerometer_frame"/>
+  <link name="ImuBaseAccelerometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="AccelerometerBase_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="ImuBaseAccelerometer_frame"/>
     <origin rpy="0 0 0" xyz="0.0147 -0.0017 -0.26319"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoGyrometer_frame"/>
+  <link name="ImuTorsoGyrometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Gyrometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoGyrometer_frame"/>
     <origin rpy="0 0 0" xyz="0.00204 -0.03491 -0.00959"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="Tablet_frame"/>
+  <link name="Tablet_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Tablet_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="Tablet_frame"/>
     <origin rpy="0 -0.523599 0" xyz="0.0839249 0 0.06251"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchRear_frame"/>
+  <link name="HeadTouchRear_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Rear_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchRear_frame"/>
     <origin rpy="0 -0.314159 0" xyz="-0.03376 0 0.21052"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="BumperFR_frame"/>
+  <link name="BumperFR_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Bumper/FrontRight_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="BumperFR_frame"/>
     <origin rpy="0 0 -0.48886" xyz="0.129 -0.227 -0.264"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="SurroundingFrontLaser_frame"/>
+  <link name="SurroundingFrontLaser_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LaserSensor/Front_projected_sensor_fixedjoint" type="fixed">
     <parent link="Tibia"/>
     <child link="SurroundingFrontLaser_frame"/>
     <origin rpy="0 0 0" xyz="0.0562 0 -0.334"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ChestButton_frame"/>
+  <link name="ChestButton_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="ChestBoard/Button_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ChestButton_frame"/>
     <origin rpy="0 0 0" xyz="0.049871 0.001588 0.055163"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchMiddle_frame"/>
+  <link name="HeadTouchMiddle_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Middle_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchMiddle_frame"/>
