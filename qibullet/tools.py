@@ -7,7 +7,8 @@ import pybullet
 def getDistance(point_a, point_b):
     [x1, y1, z1] = point_a
     [x2, y2, z2] = point_b
-    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
+    return int(math.sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2) * 100)\
+        / 100.0
 
 
 def getOrientation(quaternion_a, quaternion_b):
