@@ -67,6 +67,7 @@ More snippets can be found in the examples folder:
 ## Documentation
 The qibullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
 ```bash
+cd docs
 doxygen
 ```
 
