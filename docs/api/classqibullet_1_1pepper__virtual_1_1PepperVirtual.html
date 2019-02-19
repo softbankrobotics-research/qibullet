@@ -125,6 +125,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7933a730408c391f04925efa5bb65cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3cc640b5db12a15a13facaca9f1a66"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#abd3cc640b5db12a15a13facaca9f1a66">getAnglesPosition</a> (self, joint_names)</td></tr>
 <tr class="separator:abd3cc640b5db12a15a13facaca9f1a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7063d345a35ade0516c3213c749f522"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#aa7063d345a35ade0516c3213c749f522">goToPosture</a> (self, posture_name, percentage_speed)</td></tr>
+<tr class="separator:aa7063d345a35ade0516c3213c749f522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a664e533a9c19f9f7e56aa266a81dd93c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a664e533a9c19f9f7e56aa266a81dd93c">setVelXY</a> (self, value)</td></tr>
 <tr class="separator:a664e533a9c19f9f7e56aa266a81dd93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf606e1417eed06a2ccfa0ab02232781"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#abf606e1417eed06a2ccfa0ab02232781">setVelTheta</a> (self, value)</td></tr>
@@ -232,6 +234,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>FRAME_ROBOT</b> = 2</t
 <tr class="memitem:a385be0a98a549dd051d7347c724182b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a385be0a98a549dd051d7347c724182b8"></a>
 string&#160;</td><td class="memItemRight" valign="bottom"><b>URDF_PATH</b> = &quot;robot_data/pepper_1.7/pepper.urdf&quot;</td></tr>
 <tr class="separator:a385be0a98a549dd051d7347c724182b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32d6f6fcc28ec2de2aab25adb53f2896"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32d6f6fcc28ec2de2aab25adb53f2896"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>P_STAND</b> = PepperPosture(&quot;Stand&quot;)</td></tr>
+<tr class="separator:a32d6f6fcc28ec2de2aab25adb53f2896"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32df3cc02ef389d4b1b803393b14047f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32df3cc02ef389d4b1b803393b14047f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>P_STAND_INIT</b> = PepperPosture(&quot;StandInit&quot;)</td></tr>
+<tr class="separator:a32df3cc02ef389d4b1b803393b14047f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07834e8b780102f40f7d1f104040536b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07834e8b780102f40f7d1f104040536b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>P_STAND_ZERO</b> = PepperPosture(&quot;StandZero&quot;)</td></tr>
+<tr class="separator:a07834e8b780102f40f7d1f104040536b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40f977fa3df8d83afe7acc2b23aa69b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40f977fa3df8d83afe7acc2b23aa69b6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>P_CROUCH</b> = PepperPosture(&quot;Crouch&quot;)</td></tr>
+<tr class="separator:a40f977fa3df8d83afe7acc2b23aa69b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">Class representing the virtual instance of the Pepper robot
@@ -332,6 +346,50 @@ returns None
 Returns:
     resolution - a CameraResolution object describing the resolution of
     the active camera
+</pre> 
+</div>
+</div>
+<a class="anchor" id="aa7063d345a35ade0516c3213c749f522"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.pepper_virtual.PepperVirtual.goToPosture </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>posture_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>percentage_speed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Position the virtual robot into a particular posture. The different
+available postures are PepperPosture objects.
+
+Parameters:
+    posture_name - String containing the name of the posture. The
+    posture name is not case-sensitive (The available postures
+    are Stand or StandInit, StandZero and Crouch)
+    percentage_speed - Percentage of the max speed to be used for the
+    movement
+
+Returns:
+    Boolean - True if the posture can be applied, False otherwise
 </pre> 
 </div>
 </div>

@@ -12,6 +12,10 @@ var searchData=
   ['getparentindex',['getParentIndex',['../classqibullet_1_1link_1_1Link.html#a797a51ae9a302fb02f3deed0874e9ba9',1,'qibullet::link::Link']]],
   ['getphysicsclientid',['getPhysicsClientId',['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a1ba7beeacc6fe352eb4ab5232f8f4d7c',1,'qibullet::robot_virtual::RobotVirtual']]],
   ['getposition',['getPosition',['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a30a5d5a37b466b660c5d48177833b7c8',1,'qibullet::robot_virtual::RobotVirtual']]],
+  ['getposturejointnames',['getPostureJointNames',['../classqibullet_1_1robot__posture_1_1RobotPosture.html#a5d261bf2669377b6e426df33657a4eaa',1,'qibullet::robot_posture::RobotPosture']]],
+  ['getposturejointvalues',['getPostureJointValues',['../classqibullet_1_1robot__posture_1_1RobotPosture.html#adb2c9b3d81230477a874bdd7c5111935',1,'qibullet::robot_posture::RobotPosture']]],
+  ['getposturename',['getPostureName',['../classqibullet_1_1robot__posture_1_1RobotPosture.html#af48c715db0c0d035b5e7fb49a4ee5432',1,'qibullet::robot_posture::RobotPosture']]],
   ['getresolution',['getResolution',['../classqibullet_1_1camera_1_1Camera.html#a0297087d2182d06cf143868c7f2634a9',1,'qibullet::camera::Camera']]],
-  ['getupperlimit',['getUpperLimit',['../classqibullet_1_1joint_1_1Joint.html#ad2f06b3c98085d13a07dca8ab31433d0',1,'qibullet::joint::Joint']]]
+  ['getupperlimit',['getUpperLimit',['../classqibullet_1_1joint_1_1Joint.html#ad2f06b3c98085d13a07dca8ab31433d0',1,'qibullet::joint::Joint']]],
+  ['gotoposture',['goToPosture',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#aa7063d345a35ade0516c3213c749f522',1,'qibullet::pepper_virtual::PepperVirtual']]]
 ];
