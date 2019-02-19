@@ -11,6 +11,7 @@ from qibullet import SimulationManager
 from pepper_base_test import PepperBaseTest
 from pepper_joint_test import PepperJointTest
 from pepper_camera_test import PepperCameraTest
+from pepper_posture_test import PepperPostureTest
 from pepper_self_collision_test import PepperSelfCollisionTest
 
 
@@ -25,6 +26,7 @@ if __name__ == "__main__":
         PepperBaseTest,
         PepperJointTest,
         PepperCameraTest,
+        PepperPostureTest,
         PepperSelfCollisionTest]
 
     physics_client = simulation_manager.launchSimulation(gui=False)
