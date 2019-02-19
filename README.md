@@ -59,6 +59,7 @@ if __name__ == "__main__":
 
 More snippets can be found in the examples folder:
 * [A basic usage of the PepperVirtual class](examples/pepper_basic.py)
+* [A "joint debug display", letting the user change joint's positions with cursors](examples/pepper_joint_control.py)
 * [Launch multiple simulation instances](examples/multi_simulation.py)
 * [A script using several simulation instances to compute the error on the joint positions](examples/pepper_joints_error.py)
 * [A basic usage of the PepperRosWrapper class (bridge between qibullet and ROS)](examples/pepper_ros_test.py)
