@@ -12,25 +12,25 @@ class RobotPosture:
     STAND_ZERO = "StandZero"
     CROUCH = "Crouch"
 
-    def __init__(self, name):
+    def __init__(self, posture_name):
         """
         Constructor
 
         Parameters:
-            name - The name of the posture
+            posture_name - The name of the posture
         """
-        self.name = name
+        self.posture_name = posture_name
         self.joint_names = None
         self.joint_values = None
 
     def getPostureName(self):
         """
-        Returns the name of the posture
+        Returns the posture_name of the posture
 
         Returns:
-            name - The name of the posture
+            posture_name - The name of the posture
         """
-        return self.name
+        return self.posture_name
 
     def getPostureJointNames(self):
         """
@@ -50,20 +50,20 @@ class RobotPosture:
         """
         return self.joint_values
 
-    def isPostureName(self, name):
+    def isPostureName(self, posture_name):
         """
         Tests if a given string is the name of the posture. The test is not
         case-sensitive
 
         Parameters:
-            name - The name to test
+            posture_name - The name to test
 
         Returns:
             boolean - True if it is the name of the posture, false otherwise
         """
-        return name.lower() == self.getPostureName().lower()
+        return posture_name.lower() == self.getPostureName().lower()
 
-    def _setPosture(joint_names, joint_values):
+    def _setPosture(self, joint_names, joint_values):
         """
         INTERNAL METHOD, sets the joint names and the joints angles of the
         posture
@@ -81,15 +81,15 @@ class PepperPosture(RobotPosture):
     Class describing a robot posture for Pepper
     """
 
-    def __init__(self, name):
+    def __init__(self, posture_name):
         """
         Constructor
 
         Parameters:
-            name - The name of the posture (the joint_names and joint_angles
-            will be deduced)
+            posture_name - The name of the posture (the joint_names and
+            joint_angles will be deduced)
         """
-        RobotPosture.__init__(name)
+        RobotPosture.__init__(self, posture_name)
         joint_names = [
             "HeadPitch",
             "HeadYaw",
@@ -109,7 +109,8 @@ class PepperPosture(RobotPosture):
             "RShoulderRoll",
             "RWristYaw"]
 
-        if self.isPostureName(STAND) or self.isPostureName(STAND_INIT):
+        if self.isPostureName(RobotPosture.STAND) or\
+           self.isPostureName(RobotPosture.STAND_INIT):
             self._setPosture(joint_names, [
                 -0.21168947219848633,
                 -0.007669925689697266,
@@ -129,7 +130,7 @@ class PepperPosture(RobotPosture):
                 -0.11504864692687988,
                 0.027570009231567383])
 
-        elif self.isPostureName(STAND_ZERO):
+        elif self.isPostureName(RobotPosture.STAND_ZERO):
             self._setPosture(joint_names, [
                 0.027611732482910156,
                 0.009203910827636719,
@@ -149,7 +150,7 @@ class PepperPosture(RobotPosture):
                 -0.03528165817260742,
                 -0.013848066329956055])
 
-        elif self.isPostureName(CROUCH):
+        elif self.isPostureName(RobotPosture.CROUCH):
             self._setPosture(joint_names, [
                 0.6370452046394348,
                 0.0,

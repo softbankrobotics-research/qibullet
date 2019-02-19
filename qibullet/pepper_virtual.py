@@ -347,8 +347,14 @@ class PepperVirtual(RobotVirtual):
         Returns:
             Boolean - True if the posture can be applied, False otherwise
         """
-        for posture in [P_STAND, P_STAND_INIT, P_STAND_ZERO, P_CROUCH]:
-            if posture.isPostureName(posture):
+        posture_list = [
+            PepperVirtual.P_STAND,
+            PepperVirtual.P_STAND_INIT,
+            PepperVirtual.P_STAND_ZERO,
+            PepperVirtual.P_CROUCH]
+
+        for posture in posture_list:
+            if posture.isPostureName(posture_name):
                 self.setAngles(
                     posture.getPostureJointNames(),
                     posture.getPostureJointValues(),
