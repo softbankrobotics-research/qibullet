@@ -6,7 +6,7 @@ import time
 import pybullet
 from qibullet.tools import *
 from qibullet.camera import *
-from robot_posture import PepperPosture
+from qibullet.robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
 
 MAX_VEL_XY = 0.55
