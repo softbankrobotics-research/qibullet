@@ -6,6 +6,7 @@ import time
 import pybullet
 from qibullet.tools import *
 from qibullet.camera import *
+from robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
 
 MAX_VEL_XY = 0.55
@@ -28,6 +29,10 @@ class PepperVirtual(RobotVirtual):
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
     URDF_PATH = "robot_data/pepper_1.7/pepper.urdf"
+    P_STAND = PepperPosture("Stand")
+    P_STAND_INIT = PepperPosture("StandInit")
+    P_STAND_ZERO = PepperPosture("StandZero")
+    P_CROUCH = PepperPosture("Crouch")
 
     def __init__(self):
         """
@@ -326,6 +331,32 @@ class PepperVirtual(RobotVirtual):
             return joint_positions.pop()
         else:
             return joint_positions
+
+    def goToPosture(self, posture_name, percentage_speed):
+        """
+        Position the virtual robot into a particular posture. The different
+        available postures are PepperPosture objects.
+
+        Parameters:
+            posture_name - String containing the name of the posture. The
+            posture name is not case-sensitive (The available postures
+            are Stand or StandInit, StandZero and Crouch)
+            percentage_speed - Percentage of the max speed to be used for the
+            movement
+
+        Returns:
+            Boolean - True if the posture can be applied, False otherwise
+        """
+        for posture in [P_STAND, P_STAND_INIT, P_STAND_ZERO, P_CROUCH]:
+            if posture.isPostureName(posture):
+                self.setAngles(
+                    posture.getPostureJointNames(),
+                    posture.getPostureJointValues(),
+                    percentage_speed)
+
+                return True
+
+        return False
 
     def setVelXY(self, value):
         """
