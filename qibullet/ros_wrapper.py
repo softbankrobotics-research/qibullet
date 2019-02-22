@@ -304,7 +304,7 @@ class PepperRosWrapper:
                     self.bottom_info_pub.publish(camera_info_msg)
 
                 elif self.virtual_pepper.camera_depth.isActive():
-                    camera_image_msg.encoding = "mono16"
+                    camera_image_msg.encoding = "16UC1"
                     camera_image_msg.header.frame_id = DEPTH_OPTICAL_FRAME
 
                     if resolution == Camera.K_VGA:

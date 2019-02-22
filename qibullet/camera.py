@@ -443,7 +443,7 @@ class CameraDepth(Camera):
                 depth_image = image_equalized.reshape(depth_image.shape)
 
                 with self.frame_lock:
-                    self.frame = depth_image.astype(np.uint16)
+                    self.frame = depth_image.astype(np.int16)
 
         except AssertionError:
             return
