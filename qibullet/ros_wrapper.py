@@ -474,15 +474,15 @@ class PepperRosWrapper:
             0.00309518737071049,
             -0.00570486993696543,
             0]
-        self.bottom_info_msg["K_VGA"].K = [
+        self.depth_info_msg["K_VGA"].K = [
             525, 0, 319.5000000,
             0, 525, 239.5000000000000,
             0, 0, 1]
-        self.bottom_info_msg["K_VGA"].R = [
+        self.depth_info_msg["K_VGA"].R = [
             1, 0, 0,
             0, 1, 0,
             0, 0, 1]
-        self.bottom_info_msg["K_VGA"].P = [
+        self.depth_info_msg["K_VGA"].P = [
             525, 0, 319.500000, 0,
             0, 525, 239.5000000000, 0,
             0, 0, 1, 0]
@@ -495,15 +495,15 @@ class PepperRosWrapper:
             0.00309518737071049,
             -0.00570486993696543,
             0]
-        self.bottom_info_msg["K_QVGA"].K = [
+        self.depth_info_msg["K_QVGA"].K = [
             525/2.0, 0, 319.5000000/2.0,
             0, 525/2.0, 239.5000000000000/2.0,
             0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].R = [
+        self.depth_info_msg["K_QVGA"].R = [
             1, 0, 0,
             0, 1, 0,
             0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].P = [
+        self.depth_info_msg["K_QVGA"].P = [
             525/2.0, 0, 319.500000/2.0, 0,
             0, 525/2.0, 239.5000000000/2.0, 0,
             0, 0, 1, 0]
@@ -516,15 +516,15 @@ class PepperRosWrapper:
             0.00309518737071049,
             -0.00570486993696543,
             0]
-        self.bottom_info_msg["K_QQVGA"].K = [
+        self.depth_info_msg["K_QQVGA"].K = [
             525/4.0, 0, 319.5000000/4.0,
             0, 525/4.0, 239.5000000000000/4.0,
             0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].R = [
+        self.depth_info_msg["K_QQVGA"].R = [
             1, 0, 0,
             0, 1, 0,
             0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].P = [
+        self.depth_info_msg["K_QQVGA"].P = [
             525/4.0, 0, 319.500000/4.0, 0,
             0, 525/4.0, 239.5000000000/4.0, 0,
             0, 0, 1, 0]
