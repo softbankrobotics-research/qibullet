@@ -385,9 +385,11 @@ class CameraDepth(Camera):
             self,
             robot_model,
             link,
+            near_plane=0.4,
+            far_plane=8,
             physicsClientId=physicsClientId)
 
-        self._setFov(70)
+        self._setFov(51.5)
 
     def subscribe(self, resolution=Camera.K_QVGA):
         """
