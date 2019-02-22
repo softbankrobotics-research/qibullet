@@ -272,7 +272,6 @@ class PepperRosWrapper:
 
                 if frame is None or resolution is None:
                     continue
-
                 camera_image_msg = self.image_bridge.cv2_to_imgmsg(frame)
 
                 if self.virtual_pepper.camera_top.isActive():
@@ -304,7 +303,7 @@ class PepperRosWrapper:
                     self.bottom_info_pub.publish(camera_info_msg)
 
                 elif self.virtual_pepper.camera_depth.isActive():
-                    camera_image_msg.encoding = "16UC1"
+                    camera_image_msg.encoding = "8UC1"
                     camera_image_msg.header.frame_id = DEPTH_OPTICAL_FRAME
 
                     if resolution == Camera.K_VGA:
@@ -318,7 +317,7 @@ class PepperRosWrapper:
                     self.depth_info_pub.publish(camera_info_msg)
 
         except Exception as e:
-            print("Stopping the ROS wrapper")
+            print("Stopping the ROS wrapper: " + str(e))
 
     def _loadCameraInfos(self):
         """
