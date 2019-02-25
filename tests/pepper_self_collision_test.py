@@ -73,19 +73,8 @@ class PepperSelfCollisionTest(unittest.TestCase):
             PepperSelfCollisionTest.pepper_virtual.isSelfColliding("l_wrist"))
 
         PepperSelfCollisionTest.pepper_virtual.setAngles(
-            ["RElbowRoll", "LElbowRoll"],
-            [0.7, -0.7],
-            1.0)
-        time.sleep(3)
-
-        self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("r_wrist"))
-        self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("l_wrist"))
-
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
-            ["RElbowRoll", "LElbowRoll"],
-            [0.0, 0.0],
+            "LElbowRoll",
+            0.0,
             1.0)
         time.sleep(3)
 
