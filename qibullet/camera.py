@@ -416,41 +416,19 @@ class CameraDepth(Camera):
         Frame extraction loop, has to be threaded. The resolution and the FOV
         have to be specified beforehand
         """
-        # far = self.far_plane / 10
-        # near = self.near_plane / 10
         try:
             while True:
                 assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
                 camera_image = self._getCameraImage()
                 depth_image = camera_image[3]
-                depth_image *= 65535
-                # depth_image = (far * near) /\
-                #     (far - (far - near) * depth_image)
-                # depth_image = (self.far_plane * self.near_plane) /\
-                #     (self.far_plane - (self.far_plane - self.near_plane) *
-                #         depth_image)
 
-                # image_histogram, bins = np.histogram(
-                #     depth_image.flatten(),
-                #     256,
-                #     normed=True)
+                depth_image = (self.far_plane * self.near_plane) /\
+                    (self.far_plane - (self.far_plane - self.near_plane) *
+                        depth_image)
 
-                # Cumulative distribution function
-                # cdf = image_histogram.cumsum()
-                # Normalize for 16 bits
-                # cdf = 65535 * cdf / cdf[-1]
-                # Normalize for 8 bits
-                # cdf = 255 * cdf / cdf[-1]
-
-                # Use linear interpolation of cdf to find new pixel values
-                # image_equalized = np.interp(
-                #     depth_image.flatten(),
-                #     bins[:-1],
-                #     cdf)
-                # depth_image = image_equalized.reshape(depth_image.shape)
+                depth_image *= 1000
 
                 with self.frame_lock:
-                    # self.frame = depth_image.astype(np.uint8)
                     self.frame = depth_image.astype(np.uint16)
 
         except AssertionError:
