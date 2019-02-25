@@ -272,7 +272,6 @@ class PepperRosWrapper:
 
                 if frame is None or resolution is None:
                     continue
-
                 camera_image_msg = self.image_bridge.cv2_to_imgmsg(frame)
 
                 if self.virtual_pepper.camera_top.isActive():
@@ -304,7 +303,7 @@ class PepperRosWrapper:
                     self.bottom_info_pub.publish(camera_info_msg)
 
                 elif self.virtual_pepper.camera_depth.isActive():
-                    camera_image_msg.encoding = "mono16"
+                    camera_image_msg.encoding = "16UC1"
                     camera_image_msg.header.frame_id = DEPTH_OPTICAL_FRAME
 
                     if resolution == Camera.K_VGA:
@@ -318,7 +317,7 @@ class PepperRosWrapper:
                     self.depth_info_pub.publish(camera_info_msg)
 
         except Exception as e:
-            print("Stopping the ROS wrapper")
+            print("Stopping the ROS wrapper: " + str(e))
 
     def _loadCameraInfos(self):
         """
@@ -474,15 +473,15 @@ class PepperRosWrapper:
             0.00309518737071049,
             -0.00570486993696543,
             0]
-        self.bottom_info_msg["K_VGA"].K = [
+        self.depth_info_msg["K_VGA"].K = [
             525, 0, 319.5000000,
             0, 525, 239.5000000000000,
             0, 0, 1]
-        self.bottom_info_msg["K_VGA"].R = [
+        self.depth_info_msg["K_VGA"].R = [
             1, 0, 0,
             0, 1, 0,
             0, 0, 1]
-        self.bottom_info_msg["K_VGA"].P = [
+        self.depth_info_msg["K_VGA"].P = [
             525, 0, 319.500000, 0,
             0, 525, 239.5000000000, 0,
             0, 0, 1, 0]
@@ -495,15 +494,15 @@ class PepperRosWrapper:
             0.00309518737071049,
             -0.00570486993696543,
             0]
-        self.bottom_info_msg["K_QVGA"].K = [
+        self.depth_info_msg["K_QVGA"].K = [
             525/2.0, 0, 319.5000000/2.0,
             0, 525/2.0, 239.5000000000000/2.0,
             0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].R = [
+        self.depth_info_msg["K_QVGA"].R = [
             1, 0, 0,
             0, 1, 0,
             0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].P = [
+        self.depth_info_msg["K_QVGA"].P = [
             525/2.0, 0, 319.500000/2.0, 0,
             0, 525/2.0, 239.5000000000/2.0, 0,
             0, 0, 1, 0]
@@ -516,15 +515,15 @@ class PepperRosWrapper:
             0.00309518737071049,
             -0.00570486993696543,
             0]
-        self.bottom_info_msg["K_QQVGA"].K = [
+        self.depth_info_msg["K_QQVGA"].K = [
             525/4.0, 0, 319.5000000/4.0,
             0, 525/4.0, 239.5000000000000/4.0,
             0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].R = [
+        self.depth_info_msg["K_QQVGA"].R = [
             1, 0, 0,
             0, 1, 0,
             0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].P = [
+        self.depth_info_msg["K_QQVGA"].P = [
             525/4.0, 0, 319.500000/4.0, 0,
             0, 525/4.0, 239.5000000000/4.0, 0,
             0, 0, 1, 0]
