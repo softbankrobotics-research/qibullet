@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
 import atexit
 import weakref
 import pybullet
@@ -427,6 +428,8 @@ class CameraDepth(Camera):
                         depth_image)
 
                 depth_image *= 1000
+
+                time.sleep(0.07)
 
                 with self.frame_lock:
                     self.frame = depth_image.astype(np.uint16)

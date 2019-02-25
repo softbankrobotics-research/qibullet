@@ -263,8 +263,12 @@ class PepperRosWrapper:
         """
         INTERNAL METHOD, designed to emulate a ROS spin method
         """
+        rate = rospy.Rate(200)
+
         try:
             while not rospy.is_shutdown():
+                rate.sleep()
+
                 self.joint_states_pub.publish(self._getJointStateMsg())
                 self._broadcastOdom()
                 resolution = self.virtual_pepper.getCameraResolution()
