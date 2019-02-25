@@ -53,7 +53,7 @@ class PepperRosWrapper:
         self._loadCameraInfos()
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
 
-    def launchWrapper(self, virtual_pepper, ros_namespace):
+    def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
         """
         Launches the ROS wrapper for the pepper_virtual instance
 
@@ -61,12 +61,15 @@ class PepperRosWrapper:
             virtual_pepper - The instance of the simulated model
             ros_namespace - The ROS namespace to be added before the ROS topics
             advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
         """
         if not ROS_LIB_FOUND:
             return
 
-        self.ros_namespace = ros_namespace
         self.virtual_pepper = virtual_pepper
+        self.ros_namespace = ros_namespace
+        self.frequency = frequency
 
         rospy.init_node(
             "pybullet_pepper",
@@ -263,8 +266,11 @@ class PepperRosWrapper:
         """
         INTERNAL METHOD, designed to emulate a ROS spin method
         """
+        rate = rospy.Rate(self.frequency)
+
         try:
             while not rospy.is_shutdown():
+                rate.sleep()
                 self.joint_states_pub.publish(self._getJointStateMsg())
                 self._broadcastOdom()
                 resolution = self.virtual_pepper.getCameraResolution()

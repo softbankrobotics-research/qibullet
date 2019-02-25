@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
 import atexit
 import weakref
 import pybullet
@@ -80,7 +81,6 @@ class Camera:
         self.resolution = None
         self.fov = None
         self.extraction_thread = threading.Thread()
-        self.frame_lock = threading.Lock()
         self.resolution_lock = threading.Lock()
         self._instances.add(weakref.ref(self))
         self._resetActiveCamera()
@@ -130,10 +130,14 @@ class Camera:
         Returns the current frame
 
         Returns:
-            frame - The current frame
+            frame_copy - a copy of the current frame
         """
-        with self.frame_lock:
-            return self.frame
+        try:
+            assert self.frame is not None
+            return self.frame.copy()
+
+        except AssertionError:
+            return None
 
     def isActive(self):
         """
@@ -206,7 +210,7 @@ class Camera:
         _, _, _, _, pos_world, q_world = pybullet.getLinkState(
             self.robot_model,
             self.link.getParentIndex(),
-            computeForwardKinematics=True,
+            computeForwardKinematics=False,
             physicsClientId=self.physics_client)
 
         rotation = pybullet.getMatrixFromQuaternion(q_world)
@@ -351,10 +355,7 @@ class CameraRgb(Camera):
                     (1 - camera_image[:, :, 3]) * camera_image[:, :, 0] +\
                     camera_image[:, :, 3] * camera_image[:, :, 0]
 
-                rgb_image = rgb_image.astype(np.uint8)
-
-                with self.frame_lock:
-                    self.frame = rgb_image.copy()
+                self.frame = rgb_image.astype(np.uint8)
 
         except AssertionError:
             return
@@ -427,9 +428,7 @@ class CameraDepth(Camera):
                         depth_image)
 
                 depth_image *= 1000
-
-                with self.frame_lock:
-                    self.frame = depth_image.astype(np.uint16)
+                self.frame = depth_image.astype(np.uint16)
 
         except AssertionError:
             return
