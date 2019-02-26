@@ -139,13 +139,15 @@ class PepperVirtual(RobotVirtual):
 
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None, _async=False):
         """
-        Move the robot in frame world or robot.
-        (FRAME_WORLD = 1, FRAME_ROBOT = 2)
+        Move the robot in frame world or robot
+        (FRAME_WORLD = 1, FRAME_ROBOT = 2). It can be launched synchonous or
+        asynchronous (with the argument _async).
 
         Parameters:
             x - float in meters
             y - float in meters
             theta - float in radians
+            _async - boolean (initate at False by default)
         """
         if speed is not None:
             self.base_controller.setVelXY(speed)

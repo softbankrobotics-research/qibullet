@@ -37,10 +37,9 @@ class BaseController(object):
         self.pose_init = {}
         self.pose_goal = {}
 
-    def _initGoal(self, x, y, theta, frame):
+    def _setGoal(self, x, y, theta, frame):
         """
-        INTERNAL METHOD, initialize the position of the goal on a specific
-        frame.
+        INTERNAL METHOD, set the position of the goal on a specific frame.
 
         Parameters:
             x - float in meters.
@@ -141,17 +140,18 @@ class PepperBaseController(BaseController):
             frame - FRAME_WORLD = 1, FRAME_ROBOT = 2.
             _async - boolean (initate at False by default)
         """
-        if _async:
-            if self.thread_process.isAlive():
-                self._updateGoal()
-                self._changeConstraint()
-            else:
-                self._initGoal(x, y, theta, frame)
-                self.thread_process =\
-                    threading.Thread(target=self._moveToProcess)
-                self.thread_process.start()
+        self._setGoal(x, y, theta, frame)
+        if self.thread_process.isAlive():
+            if _async is False:
+                print("Error : already a moveTo asynchronous. Can't launch "
+                      " moveTo synchronous")
+                return None
+            self._initProcess()
+        elif _async:
+            self.thread_process =\
+                threading.Thread(target=self._moveToProcess)
+            self.thread_process.start()
         else:
-            self._initGoal(x, y, theta, frame)
             self._moveToProcess()
 
     def _updateConstraint(self):
