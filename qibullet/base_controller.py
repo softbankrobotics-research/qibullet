@@ -143,9 +143,9 @@ class PepperBaseController(BaseController):
         self._setGoal(x, y, theta, frame)
         if self.thread_process.isAlive():
             if _async is False:
-                print("Error : already a moveTo asynchronous. Can't launch "
-                      " moveTo synchronous")
-                return None
+                raise pybullet.error(
+                        "Already a moveTo asynchronous."
+                        " Can't launch moveTo synchronous")
             self._initProcess()
         elif _async:
             self.thread_process =\

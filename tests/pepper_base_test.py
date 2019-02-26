@@ -100,6 +100,16 @@ class PepperBaseTest(unittest.TestCase):
             frame=PepperVirtual.FRAME_WORLD,
             _async=True)
         time.sleep(1)
+        # This call will raise an error
+        try:
+            PepperBaseTest.pepper_virtual.moveTo(
+                x_def,
+                y_def,
+                theta_def,
+                frame=PepperVirtual.FRAME_WORLD)
+        except Exception as e:
+            print(e)
+
         PepperBaseTest.pepper_virtual.moveTo(
             x_command,
             y_command,
