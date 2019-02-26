@@ -56,8 +56,7 @@ class RobotVirtual:
                 pybullet.URDF_USE_MATERIAL_COLORS_FROM_MTL)
 
         except pybullet.error as e:
-            print("Cannot load robot model: " + str(e))
-            return False
+            raise pybullet.error("Cannot load robot model: " + str(e))
 
         for i in range(pybullet.getNumJoints(
                 self.robot_model,
@@ -95,8 +94,6 @@ class RobotVirtual:
                 0,
                 physicsClientId=self.physics_client)
 
-        return True
-
     def getPhysicsClientId(self):
         """
         Gets the id of the id of the simulation in which this robot instance is
@@ -126,8 +123,7 @@ class RobotVirtual:
             assert percentage_speed > 0.0 and percentage_speed <= 1.0
 
         except AssertionError:
-            print("Error in the setAngles parameters")
-            return
+            raise pybullet.error("Error in the setAngles parameters")
 
         joint_speed = 0
 
