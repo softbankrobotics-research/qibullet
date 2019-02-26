@@ -99,7 +99,7 @@ class PepperBaseTest(unittest.TestCase):
             theta_def,
             frame=PepperVirtual.FRAME_WORLD,
             _async=True)
-        time.sleep(1)
+        # time.sleep(0.5)
         # This call will raise an error
         try:
             PepperBaseTest.pepper_virtual.moveTo(
@@ -107,8 +107,8 @@ class PepperBaseTest(unittest.TestCase):
                 y_def,
                 theta_def,
                 frame=PepperVirtual.FRAME_WORLD)
-        except Exception as e:
-            print(e)
+        except pybullet.error:
+            pass
 
         PepperBaseTest.pepper_virtual.moveTo(
             x_command,
@@ -116,7 +116,7 @@ class PepperBaseTest(unittest.TestCase):
             theta_command,
             frame=PepperVirtual.FRAME_WORLD,
             _async=True)
-        time.sleep(3)
+        time.sleep(1)
         x, y, theta = PepperBaseTest.pepper_virtual.getPosition()
         # TODO: uncertaineties for positions in unittests
         # self.assertEqual(x_def + x_command, x)
