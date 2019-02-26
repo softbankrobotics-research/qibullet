@@ -16,6 +16,18 @@ class BaseController(object):
                 self,
                 robot_model,
                 speed, acc, physicsClientId=0):
+        """
+        Constructor
+
+        Parameters:
+            robot_model - the pybullet model of the robot.
+            speed - list composed of velocity on xy and velocity on theta
+            [vel_xy, vel_theta].
+            acc - list composed of acceleration on xy and acceleration on theta
+            [acc_xy, acc_theta].
+            physicsClientId - The id of the simulated instance in which the
+            robot will be controlled.
+        """
         self.vel_xy, self.vel_theta = speed
         self.acc_xy, self.acc_theta = acc
         self.thread_process = threading.Thread(target=None)
@@ -26,10 +38,24 @@ class BaseController(object):
         self.pose_goal = {}
 
     def _initGoal(self, x, y, theta, frame):
+        """
+        INTERNAL METHOD, initialize the position of the goal on a specific
+        frame.
+
+        Parameters:
+            x - float in meters.
+            y - float in meters.
+            theta - float in radians.
+            frame - FRAME_WORLD = 1, FRAME_ROBOT = 2.
+        """
         self.goal = [x, y, theta]
         self.frame = frame
 
     def _updateGoal(self):
+        """
+        INTERNAL METHOD, update the position of the goal.
+        """
+        # get actual position in frame world
         actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
             self.robot_model,
             physicsClientId=self.physics_client)
@@ -57,14 +83,36 @@ class BaseController(object):
         self.pose_goal["orientation"] = orn_requested
 
     def setVelXY(self, vel_xy):
+        """
+        set the velocity on axis xy.
+
+        Parameter:
+            vel_xy : velocity on axis xy in m/s.
+        """
         self.vel_xy = vel_xy
 
 
 class PepperBaseController(BaseController):
+    """
+    Class Controlling the robot Pepper.
+    """
     def __init__(
                 self,
                 robot_model,
                 speed, acc, motion_constraint, physicsClientId=0):
+        """
+        Constructor
+
+        Parameters:
+            robot_model - the pybullet model of the robot.
+            speed - list composed of velocity on xy and velocity on theta.
+            acc - list composed of acceleration on xy and acceleration on
+            theta.
+            motion_constraint - the pybullet motion constraint applied on the
+            robot.
+            physicsClientId - The id of the simulated instance in which the
+            Pepper will be controlled.
+        """
         BaseController.__init__(
                         self,
                         robot_model,
@@ -80,6 +128,19 @@ class PepperBaseController(BaseController):
         self.motion_constraint = motion_constraint
 
     def moveTo(self, x, y, theta, frame, _async=False):
+        """
+        Move the robot in frame world or robot
+        (FRAME_WORLD = 1, FRAME_ROBOT = 2). It can be launched synchonous or
+        asynchronous. In the asynchronous mode, call the function when it's
+        already launched will update the goal of the motion.
+
+        Parameters:
+            x - float in meters.
+            y - float in meters.
+            theta - float in radians.
+            frame - FRAME_WORLD = 1, FRAME_ROBOT = 2.
+            _async - boolean (initate at False by default)
+        """
         if _async:
             if self.thread_process.isAlive():
                 self._updateGoal()
@@ -94,6 +155,9 @@ class PepperBaseController(BaseController):
             self._moveToProcess()
 
     def _updateConstraint(self):
+        """
+        INTERNAL METHOD, update the robot's constraint.
+        """
         # change the constraint to the position and orientation requested
         pybullet.changeConstraint(
             self.motion_constraint,
@@ -103,6 +167,10 @@ class PepperBaseController(BaseController):
             physicsClientId=self.physics_client)
 
     def _initProcess(self):
+        """
+        INTERNAL METHOD, initialize the motion process and all variables
+        needed.
+        """
         # get actual position in frame world
         self.pose_init["position"], self.pose_init["orientation"] =\
             pybullet.getBasePositionAndOrientation(
@@ -132,6 +200,9 @@ class PepperBaseController(BaseController):
             self.p_theta = abs(theta_to_do) / theta_to_do
 
     def _endProcess(self):
+        """
+        INTERNAL METHOD, stop the robot movement.
+        """
         # Change the constraint to the actual position and orientation in
         # order to stop the robot's motion. The force applied is huge
         # to avoid oscillation.
@@ -151,6 +222,9 @@ class PepperBaseController(BaseController):
             physicsClientId=self.physics_client)
 
     def _moveToProcess(self):
+        """
+        INTERNAL METHOD, process to move the robot's base.
+        """
         self._initProcess()
         actual_pose = self.pose_init["position"]
         actual_orn = self.pose_init["orientation"]
