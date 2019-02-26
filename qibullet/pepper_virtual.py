@@ -276,8 +276,8 @@ class PepperVirtual(RobotVirtual):
                 values = list(joint_values)
 
         except AssertionError:
-            print("Error in the parameters given to the setAngles method")
-            return
+            raise pybullet.error("Error in the parameters given to the\
+                setAngles method")
 
         for hand in ["RHand", "LHand"]:
             for i in range(names.count(hand)):
