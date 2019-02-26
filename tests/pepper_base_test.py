@@ -4,6 +4,7 @@ import sys
 import unittest
 import pybullet
 from qibullet import PepperVirtual
+import time
 
 
 class PepperBaseTest(unittest.TestCase):
@@ -71,6 +72,51 @@ class PepperBaseTest(unittest.TestCase):
             theta_command,
             frame=PepperVirtual.FRAME_ROBOT)
 
+        x, y, theta = PepperBaseTest.pepper_virtual.getPosition()
+        # TODO: uncertaineties for positions in unittests
+        # self.assertEqual(x_def + x_command, x)
+        # self.assertEqual(y_def + y_command, y)
+        # self.assertEqual(theta_def + theta_command, theta)
+
+    def test_move_base_async(self):
+        """
+        Test the set @moveTo method in the robot frame, and compare the desired
+        position to the position returned by the @getPosition method
+        """
+        x_def, y_def, theta_def = 1, 1, -1,
+        x_command, y_command, theta_command = 0, 0, 0
+
+        PepperBaseTest.pepper_virtual.moveTo(
+            0,
+            0,
+            0,
+            frame=PepperVirtual.FRAME_WORLD,
+            _async=False)
+
+        PepperBaseTest.pepper_virtual.moveTo(
+            x_def,
+            y_def,
+            theta_def,
+            frame=PepperVirtual.FRAME_WORLD,
+            _async=True)
+        time.sleep(1)
+        # This call will raise an error
+        try:
+            PepperBaseTest.pepper_virtual.moveTo(
+                x_def,
+                y_def,
+                theta_def,
+                frame=PepperVirtual.FRAME_WORLD)
+        except Exception as e:
+            print(e)
+
+        PepperBaseTest.pepper_virtual.moveTo(
+            x_command,
+            y_command,
+            theta_command,
+            frame=PepperVirtual.FRAME_WORLD,
+            _async=True)
+        time.sleep(3)
         x, y, theta = PepperBaseTest.pepper_virtual.getPosition()
         # TODO: uncertaineties for positions in unittests
         # self.assertEqual(x_def + x_command, x)
