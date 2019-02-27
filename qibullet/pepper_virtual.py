@@ -6,6 +6,7 @@ import time
 import pybullet
 from qibullet.tools import *
 from qibullet.camera import *
+from qibullet.laser import *
 from qibullet.robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -127,6 +128,10 @@ class PepperVirtual(RobotVirtual):
             parentFrameOrientation=[0, 0, 0, 1],
             childFramePosition=[translation[0], translation[1], 0],
             childFrameOrientation=quaternion,
+            physicsClientId=self.physics_client)
+        self.laser = Laser(
+            self.robot_model,
+            self.link_dict["Tibia"].getIndex(),
             physicsClientId=self.physics_client)
 
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None):
