@@ -269,8 +269,8 @@ class PepperBaseController(BaseController):
                 actual_orn,
                 self.pose_goal["orientation"]))
 
-            if translation_distance > self.threshold_xy or\
-                    rotation_distance > self.threshold_theta:
+            if translation_distance < self.threshold_xy and\
+                    rotation_distance < self.threshold_theta:
                 break
 
             actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
