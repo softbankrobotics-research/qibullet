@@ -479,7 +479,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LWristYaw.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -666,7 +666,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RWristYaw.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1110,7 +1110,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger41_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger41.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1136,7 +1136,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger42_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger42.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1162,7 +1162,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger12.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1188,7 +1188,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger33_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger33.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1214,7 +1214,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger31_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger31.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1240,7 +1240,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger21.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1266,7 +1266,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger32_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger32.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1292,7 +1292,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger13.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1318,7 +1318,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger32_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger32.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1344,7 +1344,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger11.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1370,7 +1370,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger22.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1396,7 +1396,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger13.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1422,7 +1422,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger22.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1448,7 +1448,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger21.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1474,7 +1474,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger41_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger41.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1500,7 +1500,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger12.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1526,7 +1526,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger23.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1552,7 +1552,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger11.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1578,7 +1578,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger23.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1604,7 +1604,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger43_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger43.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1630,7 +1630,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger43_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger43.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1656,7 +1656,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger42_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger42.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1682,7 +1682,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LFinger31_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger31.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1708,7 +1708,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RFinger33_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger33.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1734,7 +1734,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb1.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1760,7 +1760,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb2.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1786,7 +1786,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb1.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -1812,7 +1812,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb2.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
