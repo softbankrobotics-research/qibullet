@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
+import atexit
+import weakref
 import pybullet
 import threading
-import time
 
 from qibullet.tools import *
 
@@ -12,6 +14,8 @@ class BaseController(object):
     """
     Class controlling the robot base
     """
+    _instances = set()
+
     def __init__(
                 self,
                 robot_model,
@@ -30,12 +34,33 @@ class BaseController(object):
         """
         self.vel_xy, self.vel_theta = speed
         self.acc_xy, self.acc_theta = acc
-        self.thread_process = threading.Thread(target=None)
+        self.control_process = threading.Thread(target=None)
         self.physics_client = physicsClientId
         self.robot_model = robot_model
         self.frame = 2
         self.pose_init = {}
         self.pose_goal = {}
+        self._instances.add(weakref.ref(self))
+        self._controller_termination = False
+        atexit.register(self._terminateController)
+
+    @classmethod
+    def _getInstances(cls):
+        """
+        INTERNAL CLASSMETHOD, get all of the BaseController (and daughters)
+        instances
+        """
+        dead = set()
+
+        for ref in cls._instances:
+            obj = ref()
+
+            if obj is not None:
+                yield obj
+            else:
+                dead.add(ref)
+
+        cls._instances -= dead
 
     def _setGoal(self, x, y, theta, frame):
         """
@@ -90,6 +115,15 @@ class BaseController(object):
         """
         self.vel_xy = vel_xy
 
+    def _terminateController(self):
+        """
+        INTERNAL METHOD, can be called to terminate an asynchronous controller
+        """
+        self._controller_termination = True
+
+        if self.control_process.isAlive():
+            self.control_process.join()
+
 
 class PepperBaseController(BaseController):
     """
@@ -141,16 +175,15 @@ class PepperBaseController(BaseController):
             _async - boolean (initate at False by default)
         """
         self._setGoal(x, y, theta, frame)
-        if self.thread_process.isAlive():
+        if self.control_process.isAlive():
             if _async is False:
                 raise pybullet.error(
                         "Already a moveTo asynchronous."
                         " Can't launch moveTo synchronous")
             self._initProcess()
         elif _async:
-            self.thread_process =\
-                threading.Thread(target=self._moveToProcess)
-            self.thread_process.start()
+            self.control_process = threading.Thread(target=self._moveToProcess)
+            self.control_process.start()
         else:
             self._moveToProcess()
 
@@ -228,13 +261,18 @@ class PepperBaseController(BaseController):
         self._initProcess()
         actual_pose = self.pose_init["position"]
         actual_orn = self.pose_init["orientation"]
-        while getDistance(actual_pose, self.pose_goal["position"]) >\
-                self.threshold_xy\
-                or\
-                abs(getOrientation(
-                        actual_orn,
-                        self.pose_goal["orientation"])) >\
-                self.threshold_theta:
+
+        while not self._controller_termination:
+            translation_distance = getDistance(
+                actual_pose, self.pose_goal["position"])
+            rotation_distance = abs(getOrientation(
+                actual_orn,
+                self.pose_goal["orientation"]))
+
+            if translation_distance < self.threshold_xy and\
+                    rotation_distance < self.threshold_theta:
+                break
+
             actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
                 self.robot_model,
                 physicsClientId=self.physics_client)
@@ -277,4 +315,5 @@ class PepperBaseController(BaseController):
                 [vel_x * self.p_x, vel_y * self.p_y, 0],
                 [0, 0, vel_theta * self.p_theta],
                 physicsClientId=self.physics_client)
+
         self._endProcess()
