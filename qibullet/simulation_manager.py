@@ -7,6 +7,7 @@ import threading
 import pybullet_data
 from qibullet.camera import Camera
 from qibullet.pepper_virtual import PepperVirtual
+from qibullet.base_controller import BaseController
 
 
 class SimulationManager:
@@ -114,8 +115,7 @@ class SimulationManager:
     def _clearInstance(self, physics_client):
         """
         INTERNAL METHOD, Called to kill the processes running in a simulated
-        instance, before resetting or stopping it. For now, only the robot's
-        cameras are cleared
+        instance, before resetting or stopping it.
 
         Parameters:
             physics_client - The client id of the simulated instance that will
@@ -124,6 +124,9 @@ class SimulationManager:
         for camera in Camera._getInstances():
             if camera.physics_client == physics_client:
                 camera._resetActiveCamera()
+
+        for controller in BaseController._getInstances():
+            controller._terminateController()
 
     def _stepSimulation(self, physics_client):
         """
