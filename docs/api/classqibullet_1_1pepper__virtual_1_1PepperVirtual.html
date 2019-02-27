@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.4</span>
+   &#160;<span id="projectnumber">1.0.5</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -119,8 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a68f85b23b81af393a473386a934df209"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac37fd5ab69a0c1bd1b0886deb64c4c13"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#ac37fd5ab69a0c1bd1b0886deb64c4c13">loadRobot</a> (self, translation, quaternion, physicsClientId=0)</td></tr>
 <tr class="separator:ac37fd5ab69a0c1bd1b0886deb64c4c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe5985e8c3e4fb9920f35ee20fe35647"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#abe5985e8c3e4fb9920f35ee20fe35647">moveTo</a> (self, x, y, theta, frame=FRAME_ROBOT, speed=None)</td></tr>
-<tr class="separator:abe5985e8c3e4fb9920f35ee20fe35647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e7378584489066777430e67de4eebf"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a25e7378584489066777430e67de4eebf">moveTo</a> (self, x, y, theta, frame=FRAME_ROBOT, speed=None, _async=False)</td></tr>
+<tr class="separator:a25e7378584489066777430e67de4eebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7933a730408c391f04925efa5bb65cf3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a7933a730408c391f04925efa5bb65cf3">setAngles</a> (self, joint_names, joint_values, percentage_speed)</td></tr>
 <tr class="separator:a7933a730408c391f04925efa5bb65cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3cc640b5db12a15a13facaca9f1a66"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#abd3cc640b5db12a15a13facaca9f1a66">getAnglesPosition</a> (self, joint_names)</td></tr>
@@ -197,6 +197,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac1269fcd0d4f7551da9901c0e579b748"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1269fcd0d4f7551da9901c0e579b748"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>acc_theta</b></td></tr>
 <tr class="separator:ac1269fcd0d4f7551da9901c0e579b748"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e16c9c54035522a09bd68c85c6be84f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e16c9c54035522a09bd68c85c6be84f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>base_controller</b></td></tr>
+<tr class="separator:a4e16c9c54035522a09bd68c85c6be84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classqibullet_1_1robot__virtual_1_1RobotVirtual"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classqibullet_1_1robot__virtual_1_1RobotVirtual')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html">qibullet.robot_virtual.RobotVirtual</a></td></tr>
 <tr class="memitem:a419bebef666c154e130ddf91d7801c2c inherit pub_attribs_classqibullet_1_1robot__virtual_1_1RobotVirtual"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a419bebef666c154e130ddf91d7801c2c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>description_file</b></td></tr>
@@ -474,7 +477,7 @@ wrist). Add the cameras. Add motion constraint.
 </pre> 
 </div>
 </div>
-<a class="anchor" id="abe5985e8c3e4fb9920f35ee20fe35647"></a>
+<a class="anchor" id="a25e7378584489066777430e67de4eebf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -512,7 +515,13 @@ wrist). Add the cameras. Add motion constraint.
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>speed</em> = <code>None</code>&#160;</td>
+          <td class="paramname"><em>speed</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>_async</em> = <code>False</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -521,13 +530,15 @@ wrist). Add the cameras. Add motion constraint.
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Move the robot in frame world or robot.
-(FRAME_WORLD = 1, FRAME_ROBOT = 2)
+<pre class="fragment">Move the robot in frame world or robot
+(FRAME_WORLD = 1, FRAME_ROBOT = 2). It can be launched synchonous or
+asynchronous (with the argument _async).
 
 Parameters:
     x - float in meters
     y - float in meters
     theta - float in radians
+    _async - boolean (initate at False by default)
 </pre> 
 </div>
 </div>
