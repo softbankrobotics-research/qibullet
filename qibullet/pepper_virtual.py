@@ -10,15 +10,6 @@ from qibullet.base_controller import *
 from qibullet.robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
 
-MAX_VEL_XY = 0.55
-MIN_VEL_XY = 0.1
-MAX_ACC_XY = 0.55
-MIN_ACC_XY = 0.3
-MAX_VEL_THETA = 2.0
-MIN_VEL_THETA = 0.3
-MAX_ACC_THETA = 3.0
-MIN_ACC_THETA = 0.75
-
 
 class PepperVirtual(RobotVirtual):
     """
@@ -45,13 +36,13 @@ class PepperVirtual(RobotVirtual):
         self.camera_depth = None
         self.motion_constraint = None
         # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
-        self.vel_xy = 0.35
+        self.linear_velocity = 0.35
+        # Default speed (in rad/s) theta : 1.0, min : 0.3, max : 2.0
+        self.angular_velocity = 1.0
         # Default acc (in m/s^2 xy : 0.3, min : 0.1, max : 0.55
-        self.acc_xy = 0.3
-        # Default speed (in rad/s) theta : 1.0, min : 0.2, max : 2.0
-        self.vel_theta = 1.0
+        self.linear_acceleration = 0.3
         # Default acc (in rad/s^2 theta : 0.75, min : 0.1, max : 3.0
-        self.acc_theta = 0.3
+        self.angular_acceleration = 0.3
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
@@ -131,26 +122,32 @@ class PepperVirtual(RobotVirtual):
             physicsClientId=self.physics_client)
 
         self.base_controller = PepperBaseController(
-                                self.robot_model,
-                                [self.vel_xy, self.vel_theta],
-                                [self.acc_xy, self.acc_theta],
-                                self.motion_constraint,
-                                physicsClientId=self.physics_client)
+            self.robot_model,
+            [self.linear_velocity, self.angular_velocity],
+            [self.linear_acceleration, self.angular_acceleration],
+            self.motion_constraint,
+            physicsClientId=self.physics_client)
 
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None, _async=False):
         """
-        Move the robot in frame world or robot
-        (FRAME_WORLD = 1, FRAME_ROBOT = 2). It can be launched synchonous or
-        asynchronous (with the argument _async).
+        Move the robot in frame world or robot (FRAME_WORLD=1, FRAME_ROBOT=2).
+        This method can be called synchonously or asynchronously. In the
+        asynchronous mode, the function can be called when it's already
+        launched, this will update the goal of the motion.
 
         Parameters:
-            x - float in meters
-            y - float in meters
-            theta - float in radians
-            _async - boolean (initate at False by default)
+            x - position of the goal on the x axis, in meters
+            y - position of the goal on the y axis, in meters
+            theta - orientation of the goal around the z axis, in radians
+            frame - The frame in which the goal is expressed: FRAME_WORLD = 1,
+            FRAME_ROBOT = 2
+            speed - The desired linear velocity, in m/s
+            _async - The method is launched in async mode if True, in synch
+            mode if False (False by default)
         """
         if speed is not None:
-            self.base_controller.setVelXY(speed)
+            self.base_controller.setLinearVelocity(speed)
+
         self.base_controller.moveTo(x, y, theta, frame, _async=_async)
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
@@ -264,74 +261,6 @@ class PepperVirtual(RobotVirtual):
                 return True
 
         return False
-
-    def setVelXY(self, value):
-        """
-        Set xy velocity of the robot
-
-        Parameter:
-            value of the velocity in m/s
-        """
-        if value >= MAX_VEL_XY:
-            self.vel_xy = MAX_VEL_XY
-        elif value <= MIN_VEL_XY:
-            self.vel_xy = MIN_VEL_XY
-        else:
-            self.vel_xy = value
-
-    def setVelTheta(self, value):
-        """
-        Set theta velocity of the robot
-
-        Parameter:
-            value of the velocity in m/s
-        """
-        if value >= MAX_VEL_THETA:
-            self.vel_theta = MAX_VEL_THETA
-        elif value <= MIN_VEL_THETA:
-            self.vel_theta = MIN_VEL_THETA
-        else:
-            self.vel_theta = value
-
-    def setAccXY(self, value):
-        """
-        Set xy acceleration of the robot
-
-        Parameter:
-            value of the velocity in m/s^2
-        """
-        if value >= MAX_ACC_XY:
-            self.acc_xy = MAX_ACC_XY
-        elif value <= MIN_ACC_XY:
-            self.acc_xy = MIN_ACC_XY
-        else:
-            self.acc_xy = value
-
-    def setAccTheta(self, value):
-        """
-        Set theta acceleration of the robot
-
-        Parameter:
-            value of the velocity in rad/s^2
-        """
-        if value >= MAX_ACC_THETA:
-            self.acc_theta = MAX_ACC_THETA
-        elif value <= MIN_ACC_THETA:
-            self.acc_theta = MIN_ACC_THETA
-        else:
-            self.acc_theta = value
-
-    def getMaxVelXY(self):
-        return MAX_VEL_XY
-
-    def getMinVelXY(self):
-        return MIN_VEL_XY
-
-    def getMaxVelTheta(self):
-        return MAX_VEL_THETA
-
-    def getMinVelTheta(self):
-        return MIN_VEL_THETA
 
     def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
         """
