@@ -71,19 +71,19 @@ class Laser(object):
 
     def getFrontLaserValue(self):
         """
-        Return a list of the front laser value
+        Return a list of the front laser value (clockwise)
         """
         return self.laser_value[:NUM_RAY]
 
     def getRightLaserValue(self):
         """
-        Return a list of the right laser value
+        Return a list of the right laser value (clockwise)
         """
         return self.laser_value[NUM_RAY:2*NUM_RAY]
 
     def getLeftLaserValue(self):
         """
-        Return a list of the left laser value
+        Return a list of the left laser value (clockwise)
         """
         return self.laser_value[2*NUM_RAY:]
 
