@@ -122,7 +122,7 @@ class PepperVirtual(RobotVirtual):
             childFrameOrientation=quaternion,
             physicsClientId=self.physics_client)
 
-        self.laser = Laser(
+        self.laser_manager = Laser(
             self.robot_model,
             self.link_dict["Tibia"].getIndex(),
             physicsClientId=self.physics_client)
@@ -377,6 +377,30 @@ class PepperVirtual(RobotVirtual):
         except AssertionError:
             "Unauthorized link checking for self collisions"
             return False
+
+    def showLaser(self):
+        """
+        Display debug lines that simulate the laser
+        """
+        self.laser_manager.showLaser()
+
+    def getFrontLaserValue(self):
+        """
+        Return a list of the front laser value (clockwise)
+        """
+        return self.laser_manager.getFrontLaserValue()
+
+    def getRightLaserValue(self):
+        """
+        Return a list of the right laser value (clockwise)
+        """
+        return self.laser_manager.getRightLaserValue()
+
+    def getLeftLaserValue(self):
+        """
+        Return a list of the left laser value (clockwise)
+        """
+        return self.laser_manager.getLeftLaserValue()
 
     def _mimicHand(self, hand, value, multiplier=0.872665, offset=0):
         """
