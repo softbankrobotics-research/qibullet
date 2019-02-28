@@ -122,7 +122,6 @@ class Laser(object):
                             parentObjectUniqueId=self.robot_model,
                             parentLinkIndex=self.laser_id,
                             physicsClientId=self.physics_client)
-                print self.getRightLaserValue()
                 for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
                     hitObjectUid = results[i][0]
                     hitFraction = results[i][2]
