@@ -249,7 +249,13 @@ class PepperRosWrapper:
             + self.virtual_pepper.getMinVelXY()
 
         frame = msg.referenceFrame
-        self.virtual_pepper.moveTo(x, y, theta, frame=frame, speed=speed)
+        self.virtual_pepper.moveTo(
+            x,
+            y,
+            theta,
+            frame=frame,
+            speed=speed,
+            _async=True)
 
     def _killMoveCallback(self, msg):
         """
@@ -260,7 +266,7 @@ class PepperRosWrapper:
         Parameters:
             msg - an empty ROS message, with the Empty type
         """
-        self.virtual_pepper.moveTo(0, 0, 0)
+        self.virtual_pepper.moveTo(0, 0, 0, _async=True)
 
     def _spin(self):
         """

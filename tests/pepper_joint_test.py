@@ -47,8 +47,15 @@ class PepperJointTest(unittest.TestCase):
         """
         Test different speed limits for the @setAngles method
         """
-        PepperJointTest.pepper_virtual.setAngles("HeadYaw", 1.0, 900)
-        PepperJointTest.pepper_virtual.setAngles("HeadYaw", 1.0, -45)
+        try:
+            PepperJointTest.pepper_virtual.setAngles("HeadYaw", 1.0, 900)
+        except pybullet.error:
+            pass
+
+        try:
+            PepperJointTest.pepper_virtual.setAngles("HeadYaw", 1.0, -45)
+        except pybullet.error:
+            pass
 
     def test_angle_limits(self):
         """

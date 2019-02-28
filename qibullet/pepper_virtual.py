@@ -6,17 +6,9 @@ import time
 import pybullet
 from qibullet.tools import *
 from qibullet.camera import *
+from qibullet.base_controller import *
 from qibullet.robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
-
-MAX_VEL_XY = 0.55
-MIN_VEL_XY = 0.1
-MAX_ACC_XY = 0.55
-MIN_ACC_XY = 0.3
-MAX_VEL_THETA = 2.0
-MIN_VEL_THETA = 0.3
-MAX_ACC_THETA = 3.0
-MIN_ACC_THETA = 0.75
 
 
 class PepperVirtual(RobotVirtual):
@@ -44,13 +36,13 @@ class PepperVirtual(RobotVirtual):
         self.camera_depth = None
         self.motion_constraint = None
         # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
-        self.vel_xy = 0.35
+        self.linear_velocity = 0.35
+        # Default speed (in rad/s) theta : 1.0, min : 0.3, max : 2.0
+        self.angular_velocity = 1.0
         # Default acc (in m/s^2 xy : 0.3, min : 0.1, max : 0.55
-        self.acc_xy = 0.3
-        # Default speed (in rad/s) theta : 1.0, min : 0.2, max : 2.0
-        self.vel_theta = 1.0
+        self.linear_acceleration = 0.3
         # Default acc (in rad/s^2 theta : 0.75, min : 0.1, max : 3.0
-        self.acc_theta = 0.3
+        self.angular_acceleration = 0.3
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
@@ -129,128 +121,34 @@ class PepperVirtual(RobotVirtual):
             childFrameOrientation=quaternion,
             physicsClientId=self.physics_client)
 
-    def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None):
+        self.base_controller = PepperBaseController(
+            self.robot_model,
+            [self.linear_velocity, self.angular_velocity],
+            [self.linear_acceleration, self.angular_acceleration],
+            self.motion_constraint,
+            physicsClientId=self.physics_client)
+
+    def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None, _async=False):
         """
-        Move the robot in frame world or robot.
-        (FRAME_WORLD = 1, FRAME_ROBOT = 2)
+        Move the robot in frame world or robot (FRAME_WORLD=1, FRAME_ROBOT=2).
+        This method can be called synchonously or asynchronously. In the
+        asynchronous mode, the function can be called when it's already
+        launched, this will update the goal of the motion.
 
         Parameters:
-            x - float in meters
-            y - float in meters
-            theta - float in radians
+            x - position of the goal on the x axis, in meters
+            y - position of the goal on the y axis, in meters
+            theta - orientation of the goal around the z axis, in radians
+            frame - The frame in which the goal is expressed: FRAME_WORLD = 1,
+            FRAME_ROBOT = 2
+            speed - The desired linear velocity, in m/s
+            _async - The method is launched in async mode if True, in synch
+            mode if False (False by default)
         """
-
-        # force applied in the movement
-        force = 100
-        # The robot will stop the movement with a precision
-        # of 0.01 m and 0.02 rads
-        threshold_xy = 0.01
-        threshold_theta = 0.02
-
-        # get actual position in frame world
-        actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
-            self.robot_model,
-            physicsClientId=self.physics_client)
-        # pose x, y, z
-        pose_requested = [x, y, 0]
-        # orientation requested (quaternions)
-        orn_requested = pybullet.getQuaternionFromEuler([0, 0, theta])
-        # if we are in frame robot add position in the frame world
-        if frame == 2:
-            orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
-            pose_requested = [
-                pose_requested[0] * math.cos(orn_euler[2])
-                - pose_requested[1] * math.sin(orn_euler[2])
-                + actual_pose[0],
-                pose_requested[0] * math.sin(orn_euler[2])
-                + pose_requested[1] * math.cos(orn_euler[2])
-                + actual_pose[1],
-                0]
-            orn_requested = pybullet.getQuaternionFromEuler(
-                [orn_euler[0],
-                 orn_euler[1],
-                 orn_euler[2] + theta])
-        # change the constraint to the position and orientation requested
-        pybullet.changeConstraint(
-            self.motion_constraint,
-            pose_requested,
-            jointChildFrameOrientation=orn_requested,
-            maxForce=force,
-            physicsClientId=self.physics_client)
-        # init robot speed
-        speed_xy = self.vel_xy
         if speed is not None:
-            speed_xy = speed
-        vel_x, vel_y, vel_theta = [speed_xy, speed_xy, self.vel_theta]
-        # Compute the ratio distance requested on distance total
-        distance = getDistance(actual_pose, pose_requested)
-        p_x = 0
-        p_y = 0
-        p_theta = 0
-        if distance:
-            p_x = (pose_requested[0] - actual_pose[0]) / distance
-            p_y = (pose_requested[1] - actual_pose[1]) / distance
-        theta_to_do = getOrientation(actual_orn, orn_requested)
-        if abs(theta_to_do):
-            p_theta = abs(theta_to_do) / theta_to_do
+            self.base_controller.setLinearVelocity(speed)
 
-        pose_init = actual_pose
-        orn_init = actual_orn
-        while getDistance(actual_pose, pose_requested) > threshold_xy\
-                or abs(getOrientation(actual_orn, orn_requested)) >\
-                threshold_theta:
-
-            actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
-                self.robot_model,
-                physicsClientId=self.physics_client)
-            vel_x = computeVelocity(
-                        self.acc_xy,
-                        0.05,
-                        speed_xy,
-                        getDistance(pose_init, actual_pose),
-                        getDistance(actual_pose, pose_requested)
-                        )
-            vel_y = vel_x
-            vel_theta = computeVelocity(
-                        self.acc_theta,
-                        0.05,
-                        self.vel_theta,
-                        abs(getOrientation(orn_init, orn_requested)),
-                        abs(getOrientation(actual_orn, orn_requested))
-                        )
-            # if the robot is on the position requested, we set the
-            # velocity to 0.
-            if abs(actual_pose[0] - pose_requested[0]) <= threshold_xy / 2:
-                vel_x = 0
-            if abs(actual_pose[1] - pose_requested[1]) <= threshold_xy / 2:
-                vel_y = 0
-            if abs(getOrientation(actual_orn, orn_requested)) <=\
-                    threshold_theta:
-                vel_theta = 0
-            # reset velocity of the robot
-            time.sleep(0.02)
-            pybullet.resetBaseVelocity(
-                self.robot_model,
-                [vel_x * p_x, vel_y * p_y, 0],
-                [0, 0, vel_theta * p_theta],
-                physicsClientId=self.physics_client)
-        # Change the constraint to the actual position and orientation in
-        # order to stop the robot's motion. The force applied is huge
-        # to avoid oscillation.
-        actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
-            self.robot_model,
-            physicsClientId=self.physics_client)
-        pybullet.changeConstraint(
-            self.motion_constraint,
-            actual_pose,
-            jointChildFrameOrientation=actual_orn,
-            maxForce=force * 10,
-            physicsClientId=self.physics_client)
-        pybullet.resetBaseVelocity(
-            self.robot_model,
-            [0, 0, 0],
-            [0, 0, 0],
-            physicsClientId=self.physics_client)
+        self.base_controller.moveTo(x, y, theta, frame, _async=_async)
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
@@ -276,8 +174,8 @@ class PepperVirtual(RobotVirtual):
                 values = list(joint_values)
 
         except AssertionError:
-            print("Error in the parameters given to the setAngles method")
-            return
+            raise pybullet.error("Error in the parameters given to the\
+                setAngles method")
 
         for hand in ["RHand", "LHand"]:
             for i in range(names.count(hand)):
@@ -363,74 +261,6 @@ class PepperVirtual(RobotVirtual):
                 return True
 
         return False
-
-    def setVelXY(self, value):
-        """
-        Set xy velocity of the robot
-
-        Parameter:
-            value of the velocity in m/s
-        """
-        if value >= MAX_VEL_XY:
-            self.vel_xy = MAX_VEL_XY
-        elif value <= MIN_VEL_XY:
-            self.vel_xy = MIN_VEL_XY
-        else:
-            self.vel_xy = value
-
-    def setVelTheta(self, value):
-        """
-        Set theta velocity of the robot
-
-        Parameter:
-            value of the velocity in m/s
-        """
-        if value >= MAX_VEL_THETA:
-            self.vel_theta = MAX_VEL_THETA
-        elif value <= MIN_VEL_THETA:
-            self.vel_theta = MIN_VEL_THETA
-        else:
-            self.vel_theta = value
-
-    def setAccXY(self, value):
-        """
-        Set xy acceleration of the robot
-
-        Parameter:
-            value of the velocity in m/s^2
-        """
-        if value >= MAX_ACC_XY:
-            self.acc_xy = MAX_ACC_XY
-        elif value <= MIN_ACC_XY:
-            self.acc_xy = MIN_ACC_XY
-        else:
-            self.acc_xy = value
-
-    def setAccTheta(self, value):
-        """
-        Set theta acceleration of the robot
-
-        Parameter:
-            value of the velocity in rad/s^2
-        """
-        if value >= MAX_ACC_THETA:
-            self.acc_theta = MAX_ACC_THETA
-        elif value <= MIN_ACC_THETA:
-            self.acc_theta = MIN_ACC_THETA
-        else:
-            self.acc_theta = value
-
-    def getMaxVelXY(self):
-        return MAX_VEL_XY
-
-    def getMinVelXY(self):
-        return MIN_VEL_XY
-
-    def getMaxVelTheta(self):
-        return MAX_VEL_THETA
-
-    def getMinVelTheta(self):
-        return MIN_VEL_THETA
 
     def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
         """

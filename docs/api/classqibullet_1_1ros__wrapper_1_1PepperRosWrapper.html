@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.4</span>
+   &#160;<span id="projectnumber">1.0.5</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -100,8 +100,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5d1bd1dead6efe768ebbab9a979df4c1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html#a5d1bd1dead6efe768ebbab9a979df4c1">__init__</a> (self)</td></tr>
 <tr class="separator:a5d1bd1dead6efe768ebbab9a979df4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25cdfe763e2178f352add2d89a6e1c9b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html#a25cdfe763e2178f352add2d89a6e1c9b">launchWrapper</a> (self, virtual_pepper, ros_namespace)</td></tr>
-<tr class="separator:a25cdfe763e2178f352add2d89a6e1c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab457357f9559c81d277f0776b963d072"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html#ab457357f9559c81d277f0776b963d072">launchWrapper</a> (self, virtual_pepper, ros_namespace, frequency=200)</td></tr>
+<tr class="separator:ab457357f9559c81d277f0776b963d072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -123,12 +123,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a34d0018cb2bb33406fe1b9ef7d9b4c12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34d0018cb2bb33406fe1b9ef7d9b4c12"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>transform_broadcaster</b></td></tr>
 <tr class="separator:a34d0018cb2bb33406fe1b9ef7d9b4c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14d71971c44813302e4f70c40881b20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad14d71971c44813302e4f70c40881b20"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ros_namespace</b></td></tr>
-<tr class="separator:ad14d71971c44813302e4f70c40881b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab67e5ea1955c901656ae59b97db2f7cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab67e5ea1955c901656ae59b97db2f7cd"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>virtual_pepper</b></td></tr>
 <tr class="separator:ab67e5ea1955c901656ae59b97db2f7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad14d71971c44813302e4f70c40881b20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad14d71971c44813302e4f70c40881b20"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ros_namespace</b></td></tr>
+<tr class="separator:ad14d71971c44813302e4f70c40881b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bdfb1820bb8813c64fdbe73e22efff9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6bdfb1820bb8813c64fdbe73e22efff9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>frequency</b></td></tr>
+<tr class="separator:a6bdfb1820bb8813c64fdbe73e22efff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1922160b68744f8322e1d59def0e0c9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1922160b68744f8322e1d59def0e0c9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>front_cam_pub</b></td></tr>
 <tr class="separator:aa1922160b68744f8322e1d59def0e0c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,7 +178,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a25cdfe763e2178f352add2d89a6e1c9b"></a>
+<a class="anchor" id="ab457357f9559c81d277f0776b963d072"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -195,7 +198,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>ros_namespace</em>&#160;</td>
+          <td class="paramname"><em>ros_namespace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>frequency</em> = <code>200</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -210,6 +219,8 @@ Parameters:
     virtual_pepper - The instance of the simulated model
     ros_namespace - The ROS namespace to be added before the ROS topics
     advertized and subscribed
+    frequency - The frequency of the ROS rate that will be used to pace
+    the wrapper's main loop
 </pre> 
 </div>
 </div>
