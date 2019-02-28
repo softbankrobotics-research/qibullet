@@ -6,6 +6,7 @@ import sys
 import pybullet
 from qibullet.camera import Camera
 from qibullet.pepper_virtual import PepperVirtual
+from qibullet.base_controller import PepperBaseController
 from threading import Thread
 
 try:
@@ -245,8 +246,9 @@ class PepperRosWrapper:
             msg.pose_stamped.pose.orientation.z,
             msg.pose_stamped.pose.orientation.w])[-1]
 
-        speed = msg.speed_percentage * self.virtual_pepper.getMaxVelXY()\
-            + self.virtual_pepper.getMinVelXY()
+        speed = msg.speed_percentage *\
+            PepperBaseController.MAX_LINEAR_VELOCITY +\
+            PepperBaseController.MIN_LINEAR_VELOCITY
 
         frame = msg.referenceFrame
         self.virtual_pepper.moveTo(
