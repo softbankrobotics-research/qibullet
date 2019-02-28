@@ -11,7 +11,6 @@ RAY_MISS_COLOR = [0, 1, 0]
 RAY_HIT_COLOR = [1, 0, 0]
 NUM_RAY = 15
 RAY_LENGTH = 5.6
-RAY_START_LENGTH = 0.1
 LASER_ANGLE = 60
 LASER_POSITION = [
     [0.0562, 0, -0.334],  # Front laser
@@ -96,12 +95,8 @@ class Laser(object):
             angle = ANGLE_LIST_POSITION[index]
             for i in range(NUM_RAY):
                 self.ray_from.append(
-                    [LASER_POSITION[index][0] + (RAY_START_LENGTH) *
-                     math.cos(float(i) *
-                     math.radians(-LASER_ANGLE)/NUM_RAY + angle),
-                     LASER_POSITION[index][1] + (RAY_START_LENGTH) *
-                     math.sin(float(i) *
-                     math.radians(-LASER_ANGLE)/NUM_RAY + angle),
+                    [LASER_POSITION[index][0],
+                     LASER_POSITION[index][1],
                      LASER_POSITION[index][2]])
                 self.ray_to.append(
                     [LASER_POSITION[index][0] + (RAY_LENGTH) *
@@ -127,6 +122,7 @@ class Laser(object):
                             parentObjectUniqueId=self.robot_model,
                             parentLinkIndex=self.laser_id,
                             physicsClientId=self.physics_client)
+                print self.getRightLaserValue()
                 for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
                     hitObjectUid = results[i][0]
                     hitFraction = results[i][2]
