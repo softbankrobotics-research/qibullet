@@ -18,6 +18,7 @@ try:
     from sensor_msgs.msg import Image
     from sensor_msgs.msg import CameraInfo
     from sensor_msgs.msg import JointState
+    from sensor_msgs.msg import LaserScan
     from std_msgs.msg import Header
     from std_msgs.msg import Empty
     from naoqi_bridge_msgs.msg import JointAnglesWithSpeed
@@ -107,6 +108,11 @@ class PepperRosWrapper:
             CameraInfo,
             queue_size=10)
 
+        self.laser_pub = rospy.Publisher(
+            self.ros_namespace + "/laser",
+            LaserScan,
+            queue_size=10)
+
         self.joint_states_pub = rospy.Publisher(
             '/joint_states',
             JointState,
@@ -159,6 +165,35 @@ class PepperRosWrapper:
         except IOError as e:
             print("Could not retrieve robot descrition: " + str(e))
             return
+
+    def _updateLasers(self):
+        """
+        INTERNAL METHOD, updates the laser values in the ROS framework
+        """
+        scan = LaserScan()
+        scan.header.stamp = rospy.get_rostime()
+        scan.header.frame_id = "Tibia"
+        # -120 degres, 120 degres
+        scan.angle_min = -2.0944
+        scan.angle_max = 2.0944
+
+        # 240 degres FoV, 61 points (blind zones inc)
+        scan.angle_increment = (2 * 2.0944) / (15.0 + 15.0 + 15.0 + 8.0 + 8.0)
+
+        # Detection ranges for the lasers in meters
+        scan.range_min = 0.1
+        scan.range_max = 1.5
+
+        # self.virtual_pepper.showLaser()
+
+        # print self.virtual_pepper.getFrontLaserValue()
+
+        # Fill the lasers information
+        scan.ranges.extend(self.virtual_pepper.getLeftLaserValue())
+        scan.ranges.extend(self.virtual_pepper.getFrontLaserValue())
+        scan.ranges.extend(self.virtual_pepper.getRightLaserValue())
+
+        self.laser_pub.publish(scan)
 
     def _broadcastOdom(self):
         """
@@ -280,6 +315,7 @@ class PepperRosWrapper:
             while not rospy.is_shutdown():
                 rate.sleep()
                 self.joint_states_pub.publish(self._getJointStateMsg())
+                self._updateLasers()
                 self._broadcastOdom()
                 resolution = self.virtual_pepper.getCameraResolution()
                 frame = self.virtual_pepper.getCameraFrame()
