@@ -121,6 +121,7 @@ class PepperVirtual(RobotVirtual):
             childFramePosition=[translation[0], translation[1], 0],
             childFrameOrientation=quaternion,
             physicsClientId=self.physics_client)
+
         self.laser = Laser(
             self.robot_model,
             self.link_dict["Tibia"].getIndex(),
