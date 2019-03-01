@@ -172,7 +172,7 @@ class PepperRosWrapper:
         """
         scan = LaserScan()
         scan.header.stamp = rospy.get_rostime()
-        scan.header.frame_id = "Tibia"
+        scan.header.frame_id = "base_footprint"
         # -120 degres, 120 degres
         scan.angle_min = -2.0944
         scan.angle_max = 2.0944
@@ -184,14 +184,19 @@ class PepperRosWrapper:
         scan.range_min = 0.1
         scan.range_max = 1.5
 
-        # self.virtual_pepper.showLaser()
-
-        # print self.virtual_pepper.getFrontLaserValue()
-
         # Fill the lasers information
-        scan.ranges.extend(self.virtual_pepper.getLeftLaserValue())
-        scan.ranges.extend(self.virtual_pepper.getFrontLaserValue())
-        scan.ranges.extend(self.virtual_pepper.getRightLaserValue())
+        right_scan = self.virtual_pepper.getRightLaserValue()
+        front_scan = self.virtual_pepper.getFrontLaserValue()
+        left_scan = self.virtual_pepper.getLeftLaserValue()
+
+        if isinstance(right_scan, list):
+            scan.ranges.extend(list(reversed(right_scan)))
+            scan.ranges.extend([-1]*8)
+        if isinstance(front_scan, list):
+            scan.ranges.extend(list(reversed(front_scan)))
+            scan.ranges.extend([-1]*8)
+        if isinstance(left_scan, list):
+            scan.ranges.extend(list(reversed(left_scan)))
 
         self.laser_pub.publish(scan)
 
