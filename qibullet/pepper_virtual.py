@@ -378,11 +378,11 @@ class PepperVirtual(RobotVirtual):
             "Unauthorized link checking for self collisions"
             return False
 
-    def showLaser(self):
+    def showLaser(self, display):
         """
         Display debug lines that simulate the laser
         """
-        self.laser_manager.showLaser()
+        self.laser_manager.showLaser(display)
 
     def getFrontLaserValue(self):
         """

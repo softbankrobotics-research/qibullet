@@ -63,11 +63,11 @@ class Laser(object):
         self.laser_thread.start()
         atexit.register(self._resetActiveLaser)
 
-    def showLaser(self):
+    def showLaser(self, display):
         """
         Display debug lines that simulate the laser
         """
-        self.display = True
+        self.display = display
 
     def getFrontLaserValue(self):
         """
@@ -116,9 +116,8 @@ class Laser(object):
         while 1:
             nowLidarTime = time.time()
             if (nowLidarTime-lastLidarTime > 1/LASER_FRAMERATE):
-                numThreads = 0
                 results = pybullet.rayTestBatch(
-                            self.ray_from, self.ray_to, numThreads,
+                            self.ray_from, self.ray_to,
                             parentObjectUniqueId=self.robot_model,
                             parentLinkIndex=self.laser_id,
                             physicsClientId=self.physics_client)
@@ -153,6 +152,9 @@ class Laser(object):
                                        parentObjectUniqueId=self.robot_model,
                                        parentLinkIndex=self.laser_id,
                                        physicsClientId=self.physics_client)
+                    else:
+                        if self.ray_ids:
+                            self._resetDebugLine()
                 lastLidarTime = nowLidarTime
 
     def _createDebugLine(self):
@@ -167,6 +169,14 @@ class Laser(object):
                 parentObjectUniqueId=self.robot_model,
                 parentLinkIndex=self.laser_id,
                 physicsClientId=self.physics_client))
+
+    def _resetDebugLine(self):
+        """
+        INTERNAL METHOD, remove all debug lines
+        """
+        for i in range(len(self.ray_ids)):
+            pybullet.removeUserDebugItem(self.ray_ids[i], self.physics_client)
+        self.ray_ids = []
 
     def _resetActiveLaser(self):
         """
