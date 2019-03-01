@@ -63,16 +63,6 @@ class PepperVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
-        for joint_name in list(self.joint_dict):
-            if 'RFinger' in joint_name or 'RThumb' in joint_name:
-                self.joint_dict[joint_name].setMaxVelocity(
-                    self.joint_dict["RHand"].getMaxVelocity())
-            elif 'LFinger' in joint_name or 'LThumb' in joint_name:
-                self.joint_dict[joint_name].setMaxVelocity(
-                    self.joint_dict["LHand"].getMaxVelocity())
-            elif "Wheel" in joint_name:
-                self.joint_dict.pop(joint_name)
-
         for base_link in ["Hip", "Pelvis"]:
             pybullet.setCollisionFilterPair(
                 self.robot_model,
@@ -102,6 +92,16 @@ class PepperVirtual(RobotVirtual):
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
+
+        for joint_name in list(self.joint_dict):
+            if 'RFinger' in joint_name or 'RThumb' in joint_name:
+                self.joint_dict[joint_name].setMaxVelocity(
+                    self.joint_dict["RHand"].getMaxVelocity())
+            elif 'LFinger' in joint_name or 'LThumb' in joint_name:
+                self.joint_dict[joint_name].setMaxVelocity(
+                    self.joint_dict["LHand"].getMaxVelocity())
+            elif "Wheel" in joint_name:
+                self.joint_dict.pop(joint_name)
 
         self.camera_top = CameraRgb(
             self.robot_model,
