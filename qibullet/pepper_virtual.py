@@ -73,13 +73,14 @@ class PepperVirtual(RobotVirtual):
             elif "Wheel" in joint_name:
                 self.joint_dict.pop(joint_name)
 
-        pybullet.setCollisionFilterPair(
-            self.robot_model,
-            self.robot_model,
-            self.link_dict["torso"].getIndex(),
-            self.link_dict["Hip"].getIndex(),
-            0,
-            physicsClientId=self.physics_client)
+        for base_link in ["Hip", "Pelvis"]:
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict["torso"].getIndex(),
+                self.link_dict[base_link].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
 
         for shoulder_roll_link in ["RBicep", "LBicep"]:
             pybullet.setCollisionFilterPair(
