@@ -117,9 +117,10 @@
   </link>
   <!-- End links for the Head -->
 
+  <!-- HipRoll link, adding a fake link to have a better display of the HipRoll rotation -->
   <joint name="HipRoll" type="revolute">
-    <origin rpy="0 0 0" xyz="-2e-05 0 0.218"/>
-    <child link="torso"/>
+    <origin rpy="0 0 0" xyz="-2e-05 0 0.079"/>
+    <child link="HipOffset"/>
     <parent link="Hip"/>
     <axis xyz="-1.0 0 0"/>
     <limit effort="10.1884" lower="-0.514872" upper="0.514872" velocity="2.27032"/>
@@ -143,6 +144,19 @@
       <origin rpy="0 0 0" xyz="0 0 0.079"/>
     </collision>
   </link>
+
+  <joint name="HipOffset_fixed" type="fixed">
+   <origin rpy="0 0 0" xyz="0 0 0.139"/>
+   <child link="torso"/>
+   <parent link="HipOffset"/>
+ </joint>
+ <link name="HipOffset">
+   <inertial>
+     <mass value="0"/>
+     <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+     <origin rpy="0 0 0" xyz="0 0 0"/>
+   </inertial>
+ </link>
 
   <!-- Create Pelvis link and additional link for texture -->
   <joint name="HipPitch" type="revolute">
