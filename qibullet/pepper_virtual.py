@@ -5,9 +5,9 @@ import os
 import time
 import pybullet
 from qibullet.tools import *
+from qibullet.laser import *
 from qibullet.camera import *
 from qibullet.base_controller import *
-from qibullet.laser import *
 from qibullet.robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -343,6 +343,45 @@ class PepperVirtual(RobotVirtual):
         elif self.camera_depth.isActive():
             return self.camera_depth.getResolution()
 
+    def subscribeLaser(self):
+        """
+        Subscribe to the robot's lasers. Calling this method will launch the
+        laser scan process: note that you need the laser scan to be enabled to
+        successfully retrieve laser data
+        """
+        self.laser_manager.subscribe()
+
+    def unsubscribeLaser(self):
+        """
+        Unsubscribe from the robot's lasers. Calling this method will stop the
+        laser scan process
+        """
+        self.laser_manager.unsubscribe()
+
+    def showLaser(self, display):
+        """
+        Display debug lines that simulate the laser
+        """
+        self.laser_manager.showLaser(display)
+
+    def getFrontLaserValue(self):
+        """
+        Return a list of the front laser value (clockwise)
+        """
+        return self.laser_manager.getFrontLaserValue()
+
+    def getRightLaserValue(self):
+        """
+        Return a list of the right laser value (clockwise)
+        """
+        return self.laser_manager.getRightLaserValue()
+
+    def getLeftLaserValue(self):
+        """
+        Return a list of the left laser value (clockwise)
+        """
+        return self.laser_manager.getLeftLaserValue()
+
     def isSelfColliding(self, link_names):
         """
         Specifies if a link is colliding with the rest of the virtual Pepper
@@ -386,30 +425,6 @@ class PepperVirtual(RobotVirtual):
         except AssertionError:
             "Unauthorized link checking for self collisions"
             return False
-
-    def showLaser(self, display):
-        """
-        Display debug lines that simulate the laser
-        """
-        self.laser_manager.showLaser(display)
-
-    def getFrontLaserValue(self):
-        """
-        Return a list of the front laser value (clockwise)
-        """
-        return self.laser_manager.getFrontLaserValue()
-
-    def getRightLaserValue(self):
-        """
-        Return a list of the right laser value (clockwise)
-        """
-        return self.laser_manager.getRightLaserValue()
-
-    def getLeftLaserValue(self):
-        """
-        Return a list of the left laser value (clockwise)
-        """
-        return self.laser_manager.getLeftLaserValue()
 
     def _mimicHand(self, hand, value, multiplier=0.872665, offset=0):
         """
