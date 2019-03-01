@@ -5,6 +5,7 @@ import time
 import pybullet
 import threading
 import pybullet_data
+from qibullet.laser import Laser
 from qibullet.camera import Camera
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.base_controller import BaseController
@@ -121,6 +122,10 @@ class SimulationManager:
             physics_client - The client id of the simulated instance that will
             be cleared
         """
+        for laser in Laser._getInstances():
+            if laser.physics_client == physics_client:
+                laser._terminateScan()
+
         for camera in Camera._getInstances():
             if camera.physics_client == physics_client:
                 camera._resetActiveCamera()
