@@ -145,7 +145,8 @@ class BaseController(object):
 
     def _terminateController(self):
         """
-        INTERNAL METHOD, can be called to terminate an asynchronous controller
+        INTERNAL METHOD, can be called to terminate an asynchronous controller.
+        Should only be used when killing the simulation
         """
         self._controller_termination = True
 
@@ -301,6 +302,39 @@ class PepperBaseController(BaseController):
             self.control_process.start()
         else:
             self._moveToProcess()
+
+    def move(self, x, y, theta):
+        """
+        Apply a speed on the robot's base.
+
+        Parameters:
+            x - Speed on the x axis, in m/s
+            y - Speed on the y axis, in m/s
+            theta - Rotational speed around the z axis, in rad/s
+        """
+        # Kill any previous moveTo process running
+        self.moveTo(0, 0, 0, frame=BaseController.FRAME_ROBOT, _async=True)
+
+        # TODO: The acceleration distances are not taken into account, to be
+        # modified. The speed limits should be specified differently
+        if x > PepperBaseController.MAX_LINEAR_VELOCITY:
+            x = PepperBaseController.MAX_LINEAR_VELOCITY
+        elif x < PepperBaseController.MIN_LINEAR_VELOCITY:
+            x = PepperBaseController.MIN_LINEAR_VELOCITY
+        if y > PepperBaseController.MAX_LINEAR_VELOCITY:
+            y = PepperBaseController.MAX_LINEAR_VELOCITY
+        elif y < PepperBaseController.MIN_LINEAR_VELOCITY:
+            y = PepperBaseController.MIN_LINEAR_VELOCITY
+        if theta > PepperBaseController.MAX_ANGULAR_VELOCITY:
+            theta = PepperBaseController.MAX_ANGULAR_VELOCITY
+        elif theta < PepperBaseController.MIN_ANGULAR_VELOCITY:
+            theta = PepperBaseController.MIN_ANGULAR_VELOCITY
+
+        pybullet.resetBaseVelocity(
+            self.robot_model,
+            [x, y, 0],
+            [0, 0, theta],
+            physicsClientId=self.physics_client)
 
     def _updateConstraint(self):
         """

@@ -165,6 +165,17 @@ class PepperVirtual(RobotVirtual):
 
         self.base_controller.moveTo(x, y, theta, frame, _async=_async)
 
+    def move(self, x, y, theta):
+        """
+        Apply a speed on the robot's base.
+
+        Parameters:
+            x - Speed on the x axis, in m/s
+            y - Speed on the y axis, in m/s
+            theta - Rotational speed around the z axis, in rad/s
+        """
+        self.base_controller.move(x, y, theta)
+
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
         Overload @setAngles from the @RobotVirtual class. Handles the finger
