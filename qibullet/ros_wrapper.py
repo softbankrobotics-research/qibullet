@@ -165,6 +165,10 @@ class PepperRosWrapper:
             roslauncher.start()
             roslauncher.launch(robot_state_publisher)
 
+            # By default, the robot's lasers are activated
+            self.virtual_pepper.subscribeLaser()
+
+            # Launch the wrapper's main loop
             self.spin_thread = Thread(target=self._spin)
             self.spin_thread.start()
 
