@@ -315,24 +315,33 @@ class PepperBaseController(BaseController):
         # Kill any previous moveTo process running
         self.moveTo(0, 0, 0, frame=BaseController.FRAME_ROBOT, _async=True)
 
-        # TODO: The acceleration distances are not taken into account, to be
-        # modified. The speed limits should be specified differently
-        if x > PepperBaseController.MAX_LINEAR_VELOCITY:
-            x = PepperBaseController.MAX_LINEAR_VELOCITY
-        elif x < PepperBaseController.MIN_LINEAR_VELOCITY:
-            x = PepperBaseController.MIN_LINEAR_VELOCITY
-        if y > PepperBaseController.MAX_LINEAR_VELOCITY:
-            y = PepperBaseController.MAX_LINEAR_VELOCITY
-        elif y < PepperBaseController.MIN_LINEAR_VELOCITY:
-            y = PepperBaseController.MIN_LINEAR_VELOCITY
-        if theta > PepperBaseController.MAX_ANGULAR_VELOCITY:
-            theta = PepperBaseController.MAX_ANGULAR_VELOCITY
-        elif theta < PepperBaseController.MIN_ANGULAR_VELOCITY:
-            theta = PepperBaseController.MIN_ANGULAR_VELOCITY
+        # Bound the velocity. The max acceleration is not taken into account
+        # here, this is a potential improvment
+        if abs(x) > PepperBaseController.MAX_LINEAR_VELOCITY:
+            x = PepperBaseController.MAX_LINEAR_VELOCITY * (x/abs(x))
+        if abs(y) > PepperBaseController.MAX_LINEAR_VELOCITY:
+            y = PepperBaseController.MAX_LINEAR_VELOCITY * (y/abs(y))
+        if abs(theta) > PepperBaseController.MAX_ANGULAR_VELOCITY:
+            theta = PepperBaseController.MAX_ANGULAR_VELOCITY *\
+                (theta/abs(theta))
 
+        actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
+            self.robot_model,
+            physicsClientId=self.physics_client)
+
+        orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
+
+        linear_world_velocity = [
+            x * math.cos(orn_euler[2]) - y * math.sin(orn_euler[2]),
+            x * math.sin(orn_euler[2]) + y * math.cos(orn_euler[2]),
+            0]
+
+        time.sleep(0.02)
+        print linear_world_velocity
+        print theta
         pybullet.resetBaseVelocity(
             self.robot_model,
-            [x, y, 0],
+            linear_world_velocity,
             [0, 0, theta],
             physicsClientId=self.physics_client)
 
