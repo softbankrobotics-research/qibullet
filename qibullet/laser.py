@@ -134,10 +134,10 @@ class Laser:
         for index in range(NUM_LASER):
             angle = ANGLE_LIST_POSITION[index]
             for i in range(NUM_RAY):
-                self.ray_from.append(
-                    [LASER_POSITION[index][0],
-                     LASER_POSITION[index][1],
-                     LASER_POSITION[index][2]])
+                self.ray_from.append([
+                    LASER_POSITION[index][0],
+                    LASER_POSITION[index][1],
+                    LASER_POSITION[index][2]])
                 self.ray_to.append(
                     [LASER_POSITION[index][0] + (RAY_LENGTH) *
                      math.cos(float(i) *
@@ -153,25 +153,32 @@ class Laser:
         value of each laser
         """
         lastLidarTime = time.time()
+
         while 1:
             nowLidarTime = time.time()
+
             if (nowLidarTime-lastLidarTime > 1/LASER_FRAMERATE):
                 results = pybullet.rayTestBatch(
-                            self.ray_from, self.ray_to,
-                            parentObjectUniqueId=self.robot_model,
-                            parentLinkIndex=self.laser_id,
-                            physicsClientId=self.physics_client)
+                    self.ray_from,
+                    self.ray_to,
+                    parentObjectUniqueId=self.robot_model,
+                    parentLinkIndex=self.laser_id,
+                    physicsClientId=self.physics_client)
+
                 for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
                     hitObjectUid = results[i][0]
                     hitFraction = results[i][2]
                     hitPosition = results[i][3]
                     self.laser_value[i] = hitFraction * RAY_LENGTH
+
                     if self.display:
                         if not self.ray_ids:
                             self._createDebugLine()
+
                         if (hitFraction == 1.):
                             pybullet.addUserDebugLine(
-                                self.ray_from[i], self.ray_to[i],
+                                self.ray_from[i],
+                                self.ray_to[i],
                                 RAY_MISS_COLOR,
                                 replaceItemUniqueId=self.ray_ids[i],
                                 parentObjectUniqueId=self.robot_model,
@@ -185,16 +192,18 @@ class Laser:
                                          self.ray_from[i][2]+hitFraction*(
                                         self.ray_to[i][2]-self.ray_from[i][2])]
                             pybullet.addUserDebugLine(
-                                       self.ray_from[i],
-                                       localHitTo,
-                                       RAY_HIT_COLOR,
-                                       replaceItemUniqueId=self.ray_ids[i],
-                                       parentObjectUniqueId=self.robot_model,
-                                       parentLinkIndex=self.laser_id,
-                                       physicsClientId=self.physics_client)
+                                self.ray_from[i],
+                                localHitTo,
+                                RAY_HIT_COLOR,
+                                replaceItemUniqueId=self.ray_ids[i],
+                                parentObjectUniqueId=self.robot_model,
+                                parentLinkIndex=self.laser_id,
+                                physicsClientId=self.physics_client)
+
                     else:
                         if self.ray_ids:
                             self._resetDebugLine()
+
                 lastLidarTime = nowLidarTime
 
     def _createDebugLine(self):
@@ -204,7 +213,8 @@ class Laser:
         """
         for i in range(NUM_RAY * NUM_LASER):
             self.ray_ids.append(pybullet.addUserDebugLine(
-                self.ray_from[i], self.ray_to[i],
+                self.ray_from[i],
+                self.ray_to[i],
                 RAY_MISS_COLOR,
                 parentObjectUniqueId=self.robot_model,
                 parentLinkIndex=self.laser_id,
@@ -216,6 +226,7 @@ class Laser:
         """
         for i in range(len(self.ray_ids)):
             pybullet.removeUserDebugItem(self.ray_ids[i], self.physics_client)
+
         self.ray_ids = []
 
     def _terminateScan(self):
