@@ -337,8 +337,6 @@ class PepperBaseController(BaseController):
             0]
 
         time.sleep(0.02)
-        print linear_world_velocity
-        print theta
         pybullet.resetBaseVelocity(
             self.robot_model,
             linear_world_velocity,
