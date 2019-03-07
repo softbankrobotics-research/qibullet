@@ -24,6 +24,7 @@ try:
     from naoqi_bridge_msgs.msg import JointAnglesWithSpeed
     from naoqi_bridge_msgs.msg import PoseStampedWithSpeed
     from geometry_msgs.msg import TransformStamped
+    from geometry_msgs.msg import Twist
     from nav_msgs.msg import Odometry
     ROS_LIB_FOUND = True
 
@@ -127,6 +128,11 @@ class PepperRosWrapper:
             '/joint_angles',
             JointAnglesWithSpeed,
             self._jointAnglesCallback)
+
+        rospy.Subscriber(
+            '/cmd_vel',
+            Twist,
+            self._velocityCallback)
 
         rospy.Subscriber(
             '/move_base_simple/goal',
@@ -266,6 +272,16 @@ class PepperRosWrapper:
         position_list = list(msg.joint_angles)
         velocity = msg.speed
         self.virtual_pepper.setAngles(joint_list, position_list, velocity)
+
+    def _velocityCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        /cmd_vel topic
+
+        Parameters:
+            msg - a ROS message containing a Twist command
+        """
+        self.virtual_pepper.move(msg.linear.x, msg.linear.y, msg.angular.z)
 
     def _moveToCallback(self, msg):
         """
