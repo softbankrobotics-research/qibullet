@@ -10,6 +10,7 @@ import pybullet_data
 from qibullet import SimulationManager
 from pepper_base_test import PepperBaseTest
 from pepper_joint_test import PepperJointTest
+from pepper_laser_test import PepperLaserTest
 from pepper_camera_test import PepperCameraTest
 from pepper_posture_test import PepperPostureTest
 from pepper_self_collision_test import PepperSelfCollisionTest
@@ -25,6 +26,7 @@ if __name__ == "__main__":
     test_classes = [
         PepperBaseTest,
         PepperJointTest,
+        PepperLaserTest,
         PepperCameraTest,
         PepperPostureTest,
         PepperSelfCollisionTest]

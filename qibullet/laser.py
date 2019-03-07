@@ -154,7 +154,7 @@ class Laser:
         """
         lastLidarTime = time.time()
 
-        while 1:
+        while not self._scan_termination:
             nowLidarTime = time.time()
 
             if (nowLidarTime-lastLidarTime > 1/LASER_FRAMERATE):
