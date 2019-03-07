@@ -22,7 +22,7 @@ class PepperBaseTest(unittest.TestCase):
             [0, 0, 0],
             [0, 0, 0, 1])
 
-    def test_move_base_world_frame(self):
+    def test_move_to_base_world_frame(self):
         """
         Test the set @moveTo method in the world frame, and compare the
         desired position to the position returned by the @getPosition method
@@ -46,7 +46,7 @@ class PepperBaseTest(unittest.TestCase):
         # self.assertEqual(y_command, y)
         # self.assertEqual(theta_command, theta)
 
-    def test_move_base_robot_frame(self):
+    def test_move_to_base_robot_frame(self):
         """
         Test the set @moveTo method in the robot frame, and compare the desired
         position to the position returned by the @getPosition method
@@ -78,7 +78,7 @@ class PepperBaseTest(unittest.TestCase):
         # self.assertEqual(y_def + y_command, y)
         # self.assertEqual(theta_def + theta_command, theta)
 
-    def test_move_base_async(self):
+    def test_move_to_base_async(self):
         """
         Test the set @moveTo method in the robot frame, and compare the desired
         position to the position returned by the @getPosition method
@@ -122,6 +122,14 @@ class PepperBaseTest(unittest.TestCase):
         # self.assertEqual(x_def + x_command, x)
         # self.assertEqual(y_def + y_command, y)
         # self.assertEqual(theta_def + theta_command, theta)
+
+    def test_move_base(self):
+        """
+        Test the set @move method
+        """
+        PepperBaseTest.pepper_virtual.move(0.5, 0.5, 0.5)
+        PepperBaseTest.pepper_virtual.move(33, -3, 67)
+        PepperBaseTest.pepper_virtual.move(0, 0, 0)
 
 
 if __name__ == "__main__":
