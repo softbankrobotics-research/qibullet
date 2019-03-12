@@ -4,7 +4,9 @@ var searchData=
   ['getcameraframe',['getCameraFrame',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#aafff7aac45c286cb931fe1cd6b523927',1,'qibullet::pepper_virtual::PepperVirtual']]],
   ['getcameraresolution',['getCameraResolution',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a26042cb92c91ee36fbec907532358aa8',1,'qibullet::pepper_virtual::PepperVirtual']]],
   ['getframe',['getFrame',['../classqibullet_1_1camera_1_1Camera.html#a307a6b686f59289ae538c7723ae34aa3',1,'qibullet::camera::Camera']]],
+  ['getfrontlaservalue',['getFrontLaserValue',['../classqibullet_1_1laser_1_1Laser.html#ae6acafb4d9405f9febf564b7720cc901',1,'qibullet.laser.Laser.getFrontLaserValue()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a35a74dab10851e73894c61e0d5a98774',1,'qibullet.pepper_virtual.PepperVirtual.getFrontLaserValue()']]],
   ['getindex',['getIndex',['../classqibullet_1_1joint_1_1Joint.html#a39e26326adcffc8009d6c29367013d54',1,'qibullet.joint.Joint.getIndex()'],['../classqibullet_1_1link_1_1Link.html#a538ea4b97a25205160cec2a9e02c0a5d',1,'qibullet.link.Link.getIndex()']]],
+  ['getleftlaservalue',['getLeftLaserValue',['../classqibullet_1_1laser_1_1Laser.html#a81670c8e31d830a157cd3b8013593630',1,'qibullet.laser.Laser.getLeftLaserValue()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#ae2bafdfc7ed0481227345c792117f671',1,'qibullet.pepper_virtual.PepperVirtual.getLeftLaserValue()']]],
   ['getlowerlimit',['getLowerLimit',['../classqibullet_1_1joint_1_1Joint.html#ad2f86d463d3d5154c7f288228f045caf',1,'qibullet::joint::Joint']]],
   ['getmaxforce',['getMaxForce',['../classqibullet_1_1joint_1_1Joint.html#a98d66d02ad22562bbf77ad8c496c1915',1,'qibullet::joint::Joint']]],
   ['getmaxvelocity',['getMaxVelocity',['../classqibullet_1_1joint_1_1Joint.html#a3fb886c65bd53182023a068bb5a10692',1,'qibullet::joint::Joint']]],
@@ -16,6 +18,7 @@ var searchData=
   ['getposturejointvalues',['getPostureJointValues',['../classqibullet_1_1robot__posture_1_1RobotPosture.html#adb2c9b3d81230477a874bdd7c5111935',1,'qibullet::robot_posture::RobotPosture']]],
   ['getposturename',['getPostureName',['../classqibullet_1_1robot__posture_1_1RobotPosture.html#af48c715db0c0d035b5e7fb49a4ee5432',1,'qibullet::robot_posture::RobotPosture']]],
   ['getresolution',['getResolution',['../classqibullet_1_1camera_1_1Camera.html#a0297087d2182d06cf143868c7f2634a9',1,'qibullet::camera::Camera']]],
+  ['getrightlaservalue',['getRightLaserValue',['../classqibullet_1_1laser_1_1Laser.html#a170bf6e72344356058fb70769f0c2706',1,'qibullet.laser.Laser.getRightLaserValue()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a640abbe7e7223f5b942d7f3636a8ccd9',1,'qibullet.pepper_virtual.PepperVirtual.getRightLaserValue()']]],
   ['getupperlimit',['getUpperLimit',['../classqibullet_1_1joint_1_1Joint.html#ad2f06b3c98085d13a07dca8ab31433d0',1,'qibullet::joint::Joint']]],
   ['gotoposture',['goToPosture',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#aa7063d345a35ade0516c3213c749f522',1,'qibullet::pepper_virtual::PepperVirtual']]]
 ];

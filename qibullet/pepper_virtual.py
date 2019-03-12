@@ -5,6 +5,7 @@ import os
 import time
 import pybullet
 from qibullet.tools import *
+from qibullet.laser import *
 from qibullet.camera import *
 from qibullet.base_controller import *
 from qibullet.robot_posture import PepperPosture
@@ -62,15 +63,14 @@ class PepperVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
-        for joint_name in list(self.joint_dict):
-            if 'RFinger' in joint_name or 'RThumb' in joint_name:
-                self.joint_dict[joint_name].setMaxVelocity(
-                    self.joint_dict["RHand"].getMaxVelocity())
-            elif 'LFinger' in joint_name or 'LThumb' in joint_name:
-                self.joint_dict[joint_name].setMaxVelocity(
-                    self.joint_dict["LHand"].getMaxVelocity())
-            elif "Wheel" in joint_name:
-                self.joint_dict.pop(joint_name)
+        for base_link in ["Hip", "Pelvis"]:
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict["torso"].getIndex(),
+                self.link_dict[base_link].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
 
         for shoulder_roll_link in ["RBicep", "LBicep"]:
             pybullet.setCollisionFilterPair(
@@ -92,6 +92,16 @@ class PepperVirtual(RobotVirtual):
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
+
+        for joint_name in list(self.joint_dict):
+            if 'RFinger' in joint_name or 'RThumb' in joint_name:
+                self.joint_dict[joint_name].setMaxVelocity(
+                    self.joint_dict["RHand"].getMaxVelocity())
+            elif 'LFinger' in joint_name or 'LThumb' in joint_name:
+                self.joint_dict[joint_name].setMaxVelocity(
+                    self.joint_dict["LHand"].getMaxVelocity())
+            elif "Wheel" in joint_name:
+                self.joint_dict.pop(joint_name)
 
         self.camera_top = CameraRgb(
             self.robot_model,
@@ -119,6 +129,11 @@ class PepperVirtual(RobotVirtual):
             parentFrameOrientation=[0, 0, 0, 1],
             childFramePosition=[translation[0], translation[1], 0],
             childFrameOrientation=quaternion,
+            physicsClientId=self.physics_client)
+
+        self.laser_manager = Laser(
+            self.robot_model,
+            self.link_dict["Tibia"].getIndex(),
             physicsClientId=self.physics_client)
 
         self.base_controller = PepperBaseController(
@@ -149,6 +164,17 @@ class PepperVirtual(RobotVirtual):
             self.base_controller.setLinearVelocity(speed)
 
         self.base_controller.moveTo(x, y, theta, frame, _async=_async)
+
+    def move(self, x, y, theta):
+        """
+        Apply a speed on the robot's base.
+
+        Parameters:
+            x - Speed on the x axis, in m/s
+            y - Speed on the y axis, in m/s
+            theta - Rotational speed around the z axis, in rad/s
+        """
+        self.base_controller.move(x, y, theta)
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
@@ -327,6 +353,45 @@ class PepperVirtual(RobotVirtual):
             return self.camera_bottom.getResolution()
         elif self.camera_depth.isActive():
             return self.camera_depth.getResolution()
+
+    def subscribeLaser(self):
+        """
+        Subscribe to the robot's lasers. Calling this method will launch the
+        laser scan process: note that you need the laser scan to be enabled to
+        successfully retrieve laser data
+        """
+        self.laser_manager.subscribe()
+
+    def unsubscribeLaser(self):
+        """
+        Unsubscribe from the robot's lasers. Calling this method will stop the
+        laser scan process
+        """
+        self.laser_manager.unsubscribe()
+
+    def showLaser(self, display):
+        """
+        Display debug lines that simulate the laser
+        """
+        self.laser_manager.showLaser(display)
+
+    def getFrontLaserValue(self):
+        """
+        Return a list of the front laser value (clockwise)
+        """
+        return self.laser_manager.getFrontLaserValue()
+
+    def getRightLaserValue(self):
+        """
+        Return a list of the right laser value (clockwise)
+        """
+        return self.laser_manager.getRightLaserValue()
+
+    def getLeftLaserValue(self):
+        """
+        Return a list of the left laser value (clockwise)
+        """
+        return self.laser_manager.getLeftLaserValue()
 
     def isSelfColliding(self, link_names):
         """

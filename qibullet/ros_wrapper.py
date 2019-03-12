@@ -18,11 +18,13 @@ try:
     from sensor_msgs.msg import Image
     from sensor_msgs.msg import CameraInfo
     from sensor_msgs.msg import JointState
+    from sensor_msgs.msg import LaserScan
     from std_msgs.msg import Header
     from std_msgs.msg import Empty
     from naoqi_bridge_msgs.msg import JointAnglesWithSpeed
     from naoqi_bridge_msgs.msg import PoseStampedWithSpeed
     from geometry_msgs.msg import TransformStamped
+    from geometry_msgs.msg import Twist
     from nav_msgs.msg import Odometry
     ROS_LIB_FOUND = True
 
@@ -107,6 +109,11 @@ class PepperRosWrapper:
             CameraInfo,
             queue_size=10)
 
+        self.laser_pub = rospy.Publisher(
+            self.ros_namespace + "/laser",
+            LaserScan,
+            queue_size=10)
+
         self.joint_states_pub = rospy.Publisher(
             '/joint_states',
             JointState,
@@ -121,6 +128,11 @@ class PepperRosWrapper:
             '/joint_angles',
             JointAnglesWithSpeed,
             self._jointAnglesCallback)
+
+        rospy.Subscriber(
+            '/cmd_vel',
+            Twist,
+            self._velocityCallback)
 
         rospy.Subscriber(
             '/move_base_simple/goal',
@@ -153,12 +165,50 @@ class PepperRosWrapper:
             roslauncher.start()
             roslauncher.launch(robot_state_publisher)
 
+            # Launch the wrapper's main loop
             self.spin_thread = Thread(target=self._spin)
             self.spin_thread.start()
 
         except IOError as e:
             print("Could not retrieve robot descrition: " + str(e))
             return
+
+    def _updateLasers(self):
+        """
+        INTERNAL METHOD, updates the laser values in the ROS framework
+        """
+        if not self.virtual_pepper.laser_manager.isActive():
+            return
+
+        scan = LaserScan()
+        scan.header.stamp = rospy.get_rostime()
+        scan.header.frame_id = "base_footprint"
+        # -120 degres, 120 degres
+        scan.angle_min = -2.0944
+        scan.angle_max = 2.0944
+
+        # 240 degres FoV, 61 points (blind zones inc)
+        scan.angle_increment = (2 * 2.0944) / (15.0 + 15.0 + 15.0 + 8.0 + 8.0)
+
+        # Detection ranges for the lasers in meters
+        scan.range_min = 0.1
+        scan.range_max = 1.5
+
+        # Fill the lasers information
+        right_scan = self.virtual_pepper.getRightLaserValue()
+        front_scan = self.virtual_pepper.getFrontLaserValue()
+        left_scan = self.virtual_pepper.getLeftLaserValue()
+
+        if isinstance(right_scan, list):
+            scan.ranges.extend(list(reversed(right_scan)))
+            scan.ranges.extend([-1]*8)
+        if isinstance(front_scan, list):
+            scan.ranges.extend(list(reversed(front_scan)))
+            scan.ranges.extend([-1]*8)
+        if isinstance(left_scan, list):
+            scan.ranges.extend(list(reversed(left_scan)))
+
+        self.laser_pub.publish(scan)
 
     def _broadcastOdom(self):
         """
@@ -227,6 +277,16 @@ class PepperRosWrapper:
         velocity = msg.speed
         self.virtual_pepper.setAngles(joint_list, position_list, velocity)
 
+    def _velocityCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        /cmd_vel topic
+
+        Parameters:
+            msg - a ROS message containing a Twist command
+        """
+        self.virtual_pepper.move(msg.linear.x, msg.linear.y, msg.angular.z)
+
     def _moveToCallback(self, msg):
         """
         INTERNAL METHOD, callback triggered when a message is received on the
@@ -280,6 +340,7 @@ class PepperRosWrapper:
             while not rospy.is_shutdown():
                 rate.sleep()
                 self.joint_states_pub.publish(self._getJointStateMsg())
+                self._updateLasers()
                 self._broadcastOdom()
                 resolution = self.virtual_pepper.getCameraResolution()
                 frame = self.virtual_pepper.getCameraFrame()
