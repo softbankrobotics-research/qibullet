@@ -81,13 +81,23 @@ class Laser:
 
         cls._instances -= dead
 
+    def isActive(self):
+        """
+        Check if the lasers are subscribed or not (if the laser thread process
+        is active or not)
+
+        Returns:
+            boolean - True if the lasers are subscribed, false otherwise
+        """
+        return self.laser_thread.isAlive()
+
     def subscribe(self):
         """
         Subscribe to the laser scan (this will activate the laser scan
         process).
         """
         # No need to subscribe to the laser scan if the lasers are activated
-        if self.laser_thread.isAlive():
+        if self.isActive():
             return
 
         self._scan_termination = False
@@ -100,7 +110,7 @@ class Laser:
         Unsubscribe from the laser scan (this will deactivate the laser scan
         process)
         """
-        if self.laser_thread.isAlive():
+        if self.isActive():
             self._terminateScan()
 
     def showLaser(self, display):
