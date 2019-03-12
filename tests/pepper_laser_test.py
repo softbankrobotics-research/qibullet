@@ -46,6 +46,19 @@ class PepperLaserTest(unittest.TestCase):
         PepperLaserTest.pepper_virtual.showLaser(False)
         PepperLaserTest.pepper_virtual.unsubscribeLaser()
 
+    def test_lasers_alive(self):
+        """
+        Test the isAlive method for the laser extraction process
+        """
+        self.assertFalse(
+            PepperLaserTest.pepper_virtual.laser_manager.isActive())
+        PepperLaserTest.pepper_virtual.subscribeLaser()
+        self.assertTrue(
+            PepperLaserTest.pepper_virtual.laser_manager.isActive())
+        PepperLaserTest.pepper_virtual.unsubscribeLaser()
+        self.assertFalse(
+            PepperLaserTest.pepper_virtual.laser_manager.isActive())
+
 
 if __name__ == "__main__":
     unittest.main()
