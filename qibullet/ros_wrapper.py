@@ -165,9 +165,6 @@ class PepperRosWrapper:
             roslauncher.start()
             roslauncher.launch(robot_state_publisher)
 
-            # By default, the robot's lasers are activated
-            self.virtual_pepper.subscribeLaser()
-
             # Launch the wrapper's main loop
             self.spin_thread = Thread(target=self._spin)
             self.spin_thread.start()
@@ -180,6 +177,9 @@ class PepperRosWrapper:
         """
         INTERNAL METHOD, updates the laser values in the ROS framework
         """
+        if not self.virtual_pepper.laser_manager.isActive():
+            return
+
         scan = LaserScan()
         scan.header.stamp = rospy.get_rostime()
         scan.header.frame_id = "base_footprint"
