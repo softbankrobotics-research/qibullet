@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.6</span>
+   &#160;<span id="projectnumber">1.0.7</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -121,6 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a390f4cd9f1084259dd6caf960c24d50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac89e926706e8e95a0d426c82263932cb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1base__controller_1_1PepperBaseController.html#ac89e926706e8e95a0d426c82263932cb">moveTo</a> (self, x, y, theta, frame, _async=False)</td></tr>
 <tr class="separator:ac89e926706e8e95a0d426c82263932cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d224cb83cdb244c1e48a46db84ecf06"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1base__controller_1_1PepperBaseController.html#a5d224cb83cdb244c1e48a46db84ecf06">move</a> (self, x, y, theta)</td></tr>
+<tr class="separator:a5d224cb83cdb244c1e48a46db84ecf06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classqibullet_1_1base__controller_1_1BaseController"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classqibullet_1_1base__controller_1_1BaseController')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classqibullet_1_1base__controller_1_1BaseController.html">qibullet.base_controller.BaseController</a></td></tr>
 <tr class="memitem:a875caeb35cb82c313069f03953936a87 inherit pub_methods_classqibullet_1_1base__controller_1_1BaseController"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1base__controller_1_1BaseController.html#a875caeb35cb82c313069f03953936a87">__init__</a> (self, robot_model, physicsClientId=0)</td></tr>
 <tr class="separator:a875caeb35cb82c313069f03953936a87 inherit pub_methods_classqibullet_1_1base__controller_1_1BaseController"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -288,6 +290,50 @@ Parameters:
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a5d224cb83cdb244c1e48a46db84ecf06"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.base_controller.PepperBaseController.move </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>theta</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Apply a speed on the robot's base.
+
+Parameters:
+    x - Speed on the x axis, in m/s
+    y - Speed on the y axis, in m/s
+    theta - Rotational speed around the z axis, in rad/s
+</pre> 
+</div>
+</div>
 <a class="anchor" id="ac89e926706e8e95a0d426c82263932cb"></a>
 <div class="memitem">
 <div class="memproto">
