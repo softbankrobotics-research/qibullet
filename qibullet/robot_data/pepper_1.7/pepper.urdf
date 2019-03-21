@@ -808,7 +808,6 @@
   <joint name="Accelerometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoAccelerometer_frame"/>
-    <!-- <origin rpy="0 0 0" xyz="0.00239 -0.03575 0.00626"/> -->
     <origin rpy="0 0 0" xyz="0.00239 -0.03575 0.14526"/>
     <axis xyz="0 0 0"/>
   </joint>
