@@ -104,7 +104,7 @@ class RobotVirtual:
         """
         return self.physics_client
 
-    def setAngles(self, joint_names, joint_values, percentage_speed):
+    def setAngles(self, joint_names, joint_values, percentage_speeds):
         """
         Set angles on the robot's joints. Tests have to be performed by the
         child class to guarantee the validity of the input parameters
@@ -114,20 +114,26 @@ class RobotVirtual:
             to be controlled
             joint_values - List of values corresponding to the angles in
             radians to be applied
-            percentage_speed - Percentage of the max speed to be used for the
-            movement, has to be strictly superior to 0 and inferior or equal to
-            1
+            percentage_speeds - Percentages of the max speed to be used for
+            each joint, has to be strictly superior to 0 and inferior or equal
+            to 1
         """
         try:
-            assert len(joint_names) == len(joint_values)
-            assert percentage_speed > 0.0 and percentage_speed <= 1.0
+            assert len(joint_names) ==\
+                len(joint_values) ==\
+                len(percentage_speeds)
+
+            assert all(
+                speed >= 0.0 and speed <= 1.0 for speed in percentage_speeds)
 
         except AssertionError:
             raise pybullet.error("Error in the setAngles parameters")
 
-        joint_speed = 0
+        for joint_name, joint_value, percentage_speed in zip(
+                joint_names,
+                joint_values,
+                percentage_speeds):
 
-        for joint_name, joint_value in zip(joint_names, joint_values):
             joint_speed =\
                 self.joint_dict[joint_name].getMaxVelocity() *\
                 percentage_speed

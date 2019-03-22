@@ -29,6 +29,20 @@ class PepperJointTest(unittest.TestCase):
         """
         iterations = 10
 
+        PepperJointTest.pepper_virtual.setAngles(
+            ["HeadYaw", "HeadPitch"],
+            [0.5, 0.3],
+            0.1)
+
+        time.sleep(0.2)
+
+        PepperJointTest.pepper_virtual.setAngles(
+            ["HeadYaw", "HeadPitch"],
+            [0.1, 0.0],
+            [0.8, 0.6])
+
+        time.sleep(0.2)
+
         for i in range(iterations):
             angles = list()
 

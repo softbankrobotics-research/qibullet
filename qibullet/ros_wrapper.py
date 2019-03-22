@@ -274,7 +274,12 @@ class PepperRosWrapper:
         """
         joint_list = msg.joint_names
         position_list = list(msg.joint_angles)
-        velocity = msg.speed
+
+        if len(msg.speeds) != 0:
+            velocity = list(msg.speeds)
+        else:
+            velocity = msg.speed
+
         self.virtual_pepper.setAngles(joint_list, position_list, velocity)
 
     def _velocityCallback(self, msg):
