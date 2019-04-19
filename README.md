@@ -3,12 +3,12 @@
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
 <p align="middle">
-	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/short_top_cam.gif" width="46%" />
-	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/pepper_depth_camera.gif" width="49%" />
+	<img src="ressources/short_top_cam.gif" width="46%" />
+	<img src="ressources/pepper_depth_camera.gif" width="49%" />
 </p>
 <p align="middle">
-	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/pepper_moveTo.gif" width="33%" />
-	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/ros_compat.gif" width="62%" />
+	<img src="ressources/pepper_moveTo.gif" width="33%" />
+	<img src="ressources/ros_compat.gif" width="62%" />
 </p>
 
 ## Installation
