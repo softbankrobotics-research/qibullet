@@ -1,16 +1,18 @@
 import setuptools
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    readme = fh.read()
+    readme = readme[:readme.index("<!-- start -->")] +\
+        readme[(readme.index("<!-- end -->") + len("<!-- end -->")):]
 
 
 setuptools.setup(
     name="qibullet",
-    version="1.0.9",
+    version="1.0.10",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
-    long_description=long_description,
+    long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/ProtolabSBRE/qibullet",
     packages=setuptools.find_packages(),

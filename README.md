@@ -2,6 +2,7 @@
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
+<!-- start -->
 <p align="middle">
 	<img src="ressources/short_top_cam.gif" width="46%" />
 	<img src="ressources/pepper_depth_camera.gif" width="49%" />
@@ -10,6 +11,7 @@ __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 	<img src="ressources/pepper_moveTo.gif" width="33%" />
 	<img src="ressources/ros_compat.gif" width="62%" />
 </p>
+<!-- end -->
 
 ## Installation
 
@@ -53,7 +55,7 @@ Or using loadRobot from the PepperVirtual class if you already have a simulated 
       physicsClientId=client_id)
 ```
 
-More snippets can be found in the [examples folder](examples/).
+More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples).
 
 ## Documentation
 The qibullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
