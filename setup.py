@@ -2,7 +2,6 @@ import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
-    long_description[:long_description.index("<!-- start images -->")] + long_description[(long_description.index("<!-- end images -->")-5):]
 
 
 setuptools.setup(
