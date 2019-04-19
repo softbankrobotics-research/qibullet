@@ -10,7 +10,7 @@
   <joint name="HeadYaw" type="revolute">
     <parent link="torso"/>
     <child link="Neck"/>
-    <origin rpy="0 0 0" xyz="-0.038 0 0.1699"/>
+    <origin rpy="0 0 0" xyz="-0.038 0 0.3089"/>
     <axis xyz="0 0 1.0"/>
     <limit effort="5.428" lower="-2.08567" upper="2.08567" velocity="7.33998"/>
   </joint>
@@ -117,10 +117,9 @@
   </link>
   <!-- End links for the Head -->
 
-  <!-- HipRoll link, adding a fake link to have a better display of the HipRoll rotation -->
   <joint name="HipRoll" type="revolute">
     <origin rpy="0 0 0" xyz="-2e-05 0 0.079"/>
-    <child link="HipOffset"/>
+    <child link="torso"/>
     <parent link="Hip"/>
     <axis xyz="-1.0 0 0"/>
     <limit effort="10.1884" lower="-0.514872" upper="0.514872" velocity="2.27032"/>
@@ -144,19 +143,6 @@
       <origin rpy="0 0 0" xyz="0 0 0.079"/>
     </collision>
   </link>
-
-  <joint name="HipOffset_fixed" type="fixed">
-   <origin rpy="0 0 0" xyz="0 0 0.139"/>
-   <child link="torso"/>
-   <parent link="HipOffset"/>
- </joint>
- <link name="HipOffset">
-   <inertial>
-     <mass value="0"/>
-     <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-     <origin rpy="0 0 0" xyz="0 0 0"/>
-   </inertial>
- </link>
 
   <!-- Create Pelvis link and additional link for texture -->
   <joint name="HipPitch" type="revolute">
@@ -270,56 +256,55 @@
     <inertial>
       <mass value="3.99533"/>
       <inertia ixx="0.0452761" ixy="0" ixz="0.00499091" iyy="0.0432702" iyz="-0.000266886" izz="0.0258881"/>
-      <origin rpy="0 0 0" xyz="0.00322 0 -0.01029"/>
+      <origin rpy="0 0 0" xyz="0.00322 0 0.12871"/>
     </inertial>
     <visual>
       <geometry>
-        <!-- <mesh filename="meshes/Torso.obj" scale="0.1 0.1 0.1"/> -->
         <mesh filename="meshes/Torso_milky.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.139"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.139"/>
     </collision>
   </link>
   <joint name="Torso_shiny_joint" type="fixed">
     <parent link="torso"/>
     <child link="Torso_shiny"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0695"/>
   </joint>
   <link name="Torso_shiny">
     <inertial>
       <mass value="0"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0695"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/Torso_shiny.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0695"/>
     </visual>
   </link>
   <joint name="Torso_transparent_joint" type="fixed">
     <parent link="torso"/>
     <child link="Torso_transparent"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0695"/>
   </joint>
   <link name="Torso_transparent">
     <inertial>
       <mass value="0"/>
       <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0695"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/Torso_transparent.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0695"/>
     </visual>
   </link>
   <!-- End torso links -->
@@ -327,7 +312,7 @@
   <joint name="LShoulderPitch" type="revolute">
     <parent link="torso"/>
     <child link="LShoulder"/>
-    <origin rpy="0 0 0" xyz="-0.057 0.14974 0.08682"/>
+    <origin rpy="0 0 0" xyz="-0.057 0.14974 0.22582"/>
     <axis xyz="0 1.0 0"/>
     <limit effort="5.428" lower="-2.08567" upper="2.08567" velocity="7.33998"/>
   </joint>
@@ -514,7 +499,7 @@
   <joint name="RShoulderPitch" type="revolute">
     <parent link="torso"/>
     <child link="RShoulder"/>
-    <origin rpy="0 0 0" xyz="-0.057 -0.14974 0.08682"/>
+    <origin rpy="0 0 0" xyz="-0.057 -0.14974 0.22582"/>
     <axis xyz="0 1.0 0"/>
     <limit effort="5.428" lower="-2.08567" upper="2.08567" velocity="7.33998"/>
   </joint>
@@ -823,7 +808,7 @@
   <joint name="Accelerometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoAccelerometer_frame"/>
-    <origin rpy="0 0 0" xyz="0.00239 -0.03575 0.00626"/>
+    <origin rpy="0 0 0" xyz="0.00239 -0.03575 0.14526"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="RSpeaker_frame">
@@ -1030,7 +1015,7 @@
   <joint name="Gyrometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoGyrometer_frame"/>
-    <origin rpy="0 0 0" xyz="0.00204 -0.03491 -0.00959"/>
+    <origin rpy="0 0 0" xyz="0.00204 -0.03491 0.12941"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="Tablet_frame">
@@ -1043,7 +1028,7 @@
   <joint name="Tablet_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="Tablet_frame"/>
-    <origin rpy="0 -0.523599 0" xyz="0.0839249 0 0.06251"/>
+    <origin rpy="0 -0.523599 0" xyz="0.0839249 0 0.20151"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="HeadTouchRear_frame">
@@ -1095,7 +1080,7 @@
   <joint name="ChestBoard/Button_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ChestButton_frame"/>
-    <origin rpy="0 0 0" xyz="0.049871 0.001588 0.055163"/>
+    <origin rpy="0 0 0" xyz="0.049871 0.001588 0.194163"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="HeadTouchMiddle_frame">

@@ -186,8 +186,8 @@ class PepperVirtual(RobotVirtual):
             containing the name of the joints to be controlled
             joint_values - List of values (or value if only one joint)
             corresponding to the angles in radians to be applied
-            percentage_speed - Percentage of the max speed to be used for the
-            movement
+            percentage_speed - Percentage (or percentages) of the max speed to
+            be used for the movement
         """
         try:
             if type(joint_names) is str:
@@ -199,6 +199,11 @@ class PepperVirtual(RobotVirtual):
                 names = list(joint_names)
                 values = list(joint_values)
 
+            if isinstance(percentage_speed, list):
+                speeds = list(percentage_speed)
+            else:
+                speeds = [percentage_speed]*len(names)
+
         except AssertionError:
             raise pybullet.error("Error in the parameters given to the\
                 setAngles method")
@@ -207,17 +212,20 @@ class PepperVirtual(RobotVirtual):
             for i in range(names.count(hand)):
                 index = names.index(hand)
                 value = values[index]
+                speed = speeds[index]
                 names.pop(index)
                 values.pop(index)
+                speeds.pop(index)
                 finger_names, finger_values = self._mimicHand(hand, value)
                 names.extend(finger_names)
                 values.extend(finger_values)
+                speeds.extend([speed]*len(finger_names))
 
         RobotVirtual.setAngles(
             self,
             names,
             values,
-            percentage_speed)
+            speeds)
 
     def getAnglesPosition(self, joint_names):
         """

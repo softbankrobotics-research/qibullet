@@ -301,7 +301,7 @@ class CameraRgb(Camera):
             link,
             physicsClientId=physicsClientId)
 
-        self._setFov(67.4)
+        self._setFov(50.0)
         self.rgb_image = None
 
     def subscribe(self, resolution=Camera.K_QVGA):
