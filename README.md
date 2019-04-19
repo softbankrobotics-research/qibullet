@@ -2,6 +2,7 @@
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
+<!-- start images -->
 <p align="middle">
 	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/short_top_cam.gif" width="46%" />
 	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/pepper_depth_camera.gif" width="49%" />
@@ -10,6 +11,7 @@ __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/pepper_moveTo.gif" width="33%" />
 	<img src="https://raw.githubusercontent.com/ProtolabSBRE/qibullet/readme/ressources/ros_compat.gif" width="62%" />
 </p>
+<!-- end images -->
 
 ## Installation
 
