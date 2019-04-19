@@ -25,45 +25,26 @@ if __name__ == "__main__":
     # Please note that only one graphical interface can be launched at a time
     client_id = simulation_manager.launchSimulation(gui=True)
 
-    # Spawning a virtual Pepper robot, at the origin of the WORLD frame
+    # Spawning a virtual Pepper robot, at the origin of the WORLD frame, and a
+    # ground plane
     pepper = simulation_manager.spawnPepper(
         client_id,
-        [0, 0, 0],
-        [0, 0, 0, 1],
+        translation=[0, 0, 0],
+        quaternion=[0, 0, 0, 1],
         spawn_ground_plane=True)
 ```
 
-Or via the PepperVirtual class:
+Or using loadRobot from the PepperVirtual class if you already have a simulated environment:
 ```python
-import time
-import pybullet as p
-import pybullet_data
-from qibullet import PepperVirtual
-
-if __name__ == "__main__":
-    physicsClient = p.connect(p.GUI)
-    p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, 1)
-    p.configureDebugVisualizer(p.COV_ENABLE_RGB_BUFFER_PREVIEW, 0)
-    p.configureDebugVisualizer(p.COV_ENABLE_DEPTH_BUFFER_PREVIEW, 0)
-    p.configureDebugVisualizer(p.COV_ENABLE_SEGMENTATION_MARK_PREVIEW, 0)
-
-    p.setRealTimeSimulation(1)
-    p.setGravity(0, 0, -9.81)
-
-    p.setAdditionalSearchPath(pybullet_data.getDataPath())
-    p.loadMJCF("mjcf/ground_plane.xml")
-
     pepper = PepperVirtual()
-    pepper.loadRobot([0, 0, 0], [0, 0, 0, 1], physicsClientId=physicsClient)
+
+    pepper.loadRobot(
+      translation=[0, 0, 0],
+      quaternion=[0, 0, 0, 1],
+      physicsClientId=client_id)
 ```
 
-More snippets can be found in the examples folder:
-* [A basic usage of the PepperVirtual class](examples/pepper_basic.py)
-* [A "joint debug display", letting the user change joint's positions with cursors](examples/pepper_joint_control.py)
-* [Launch multiple simulation instances](examples/multi_simulation.py)
-* [A script using several simulation instances to compute the error on the joint positions](examples/pepper_joints_error.py)
-* [A basic usage of the PepperRosWrapper class (bridge between qibullet and ROS)](examples/pepper_ros_test.py)
-* [Script allowing a simulated model to mimic a real robot's movements](examples/pepper_shadowing.py)
+More snippets can be found in the [examples folder](examples/).
 
 ## Documentation
 The qibullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
