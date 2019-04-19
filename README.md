@@ -2,6 +2,8 @@
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
+[![RGB top camera](ressources/short_top_cam.gif)]
+
 ## Installation
 
 The following modules are required:
