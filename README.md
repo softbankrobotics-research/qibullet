@@ -64,6 +64,12 @@ cd docs
 doxygen
 ```
 
+## Citations
+Please cite qibullet if you use this repository in your publications:
+```
+Paper coming soon...
+```
+
 ## Troubleshooting
 
 ### OpenGL driver
@@ -71,3 +77,6 @@ If you encounter the message:
 > Workaround for some crash in the Intel OpenGL driver on Linux/Ubuntu
 
 Your computer is using the Intel OpenGL driver. Go to __Software & Updates__, __Additional Drivers__, and select a driver corresponding to your GPU.
+
+## License
+Licensed under the [Apache-2.0 License](LICENSE)
