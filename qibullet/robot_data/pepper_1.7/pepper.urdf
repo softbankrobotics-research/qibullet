@@ -899,7 +899,7 @@
   <joint name="CameraDepth_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraDepth_frame"/>
-    <origin rpy="0 0 0" xyz="0.07618 0 0.1194"/>
+    <origin rpy="0 0 0" xyz="0.05138 0.039 0.1194"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="SurroundingRightLaser_frame">
