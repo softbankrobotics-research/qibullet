@@ -78,7 +78,7 @@ class BaseController(object):
         INTERNAL METHOD, update the position of the goal.
         """
         # get actual position in frame world
-        actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
+        actual_pos, actual_orn = pybullet.getBasePositionAndOrientation(
             self.robot_model,
             physicsClientId=self.physics_client)
 
@@ -95,10 +95,10 @@ class BaseController(object):
             pose_requested = [
                 pose_requested[0] * math.cos(orn_euler[2])
                 - pose_requested[1] * math.sin(orn_euler[2])
-                + actual_pose[0],
+                + actual_pos[0],
                 pose_requested[0] * math.sin(orn_euler[2])
                 + pose_requested[1] * math.cos(orn_euler[2])
-                + actual_pose[1],
+                + actual_pos[1],
                 0]
             orn_requested = pybullet.getQuaternionFromEuler([
                 orn_euler[0],
@@ -325,7 +325,7 @@ class PepperBaseController(BaseController):
             theta = PepperBaseController.MAX_ANGULAR_VELOCITY *\
                 (theta/abs(theta))
 
-        actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
+        actual_pos, actual_orn = pybullet.getBasePositionAndOrientation(
             self.robot_model,
             physicsClientId=self.physics_client)
 
@@ -399,12 +399,12 @@ class PepperBaseController(BaseController):
         # Change the constraint to the actual position and orientation in
         # order to stop the robot's motion. The force applied is purposely huge
         # to avoid oscillations.
-        actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
+        actual_pos, actual_orn = pybullet.getBasePositionAndOrientation(
             self.robot_model,
             physicsClientId=self.physics_client)
         pybullet.changeConstraint(
             self.motion_constraint,
-            actual_pose,
+            actual_pos,
             jointChildFrameOrientation=actual_orn,
             maxForce=self.force * 10,
             physicsClientId=self.physics_client)
@@ -419,12 +419,16 @@ class PepperBaseController(BaseController):
         INTERNAL METHOD, process allowing to move the robot's base.
         """
         self._initProcess()
-        actual_pose = self.pose_init["position"]
-        actual_orn = self.pose_init["orientation"]
+        # actual_pos = self.pose_init["position"]
+        # actual_orn = self.pose_init["orientation"]
+        init_pos = self.pose_init["position"]
+        init_orn = self.pose_init["orientation"]
+        actual_pos = init_pos
+        actual_orn = init_orn
 
         while not self._controller_termination:
             translation_distance = getDistance(
-                actual_pose,
+                actual_pos,
                 self.pose_goal["position"])
             rotation_distance = abs(getOrientation(
                 actual_orn,
@@ -434,7 +438,7 @@ class PepperBaseController(BaseController):
                     rotation_distance < self.angular_threshold:
                 break
 
-            actual_pose, actual_orn = pybullet.getBasePositionAndOrientation(
+            actual_pos, actual_orn = pybullet.getBasePositionAndOrientation(
                 self.robot_model,
                 physicsClientId=self.physics_client)
 
@@ -442,12 +446,8 @@ class PepperBaseController(BaseController):
                 self.linear_acceleration,
                 0.05,
                 self.linear_velocity,
-                getDistance(
-                    self.pose_init["position"],
-                    actual_pose),
-                getDistance(
-                    actual_pose,
-                    self.pose_goal["position"]))
+                getDistance(actual_pos, init_pos),
+                getDistance(actual_pos, self.pose_goal["position"]))
 
             linear_vel_y = linear_vel_x
 
@@ -456,7 +456,7 @@ class PepperBaseController(BaseController):
                 0.05,
                 self.angular_velocity,
                 abs(getOrientation(
-                    self.pose_init["orientation"],
+                    init_orn,
                     self.pose_goal["orientation"])),
                 abs(getOrientation(
                     actual_orn,
@@ -464,11 +464,11 @@ class PepperBaseController(BaseController):
 
             # If the robot is on the requested position, we set the velocity to
             # 0.
-            if abs(actual_pose[0] - self.pose_goal["position"][0]) <=\
+            if abs(actual_pos[0] - self.pose_goal["position"][0]) <=\
                     self.linear_threshold / 2:
                 linear_vel_x = 0
 
-            if abs(actual_pose[1] - self.pose_goal["position"][1]) <=\
+            if abs(actual_pos[1] - self.pose_goal["position"][1]) <=\
                     self.linear_threshold / 2:
                 linear_vel_y = 0
 
