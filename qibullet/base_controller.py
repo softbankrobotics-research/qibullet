@@ -90,14 +90,19 @@ class BaseController(object):
         orn_requested = [0, 0, theta]
         # if we are in frame robot express the position in the frame world
         if self.frame == BaseController.FRAME_ROBOT:
+            orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
             pose_requested = [
-                pose_requested[0] * math.cos(orn_requested[2])
-                - pose_requested[1] * math.sin(orn_requested[2])
+                pose_requested[0] * math.cos(orn_euler[2])
+                - pose_requested[1] * math.sin(orn_euler[2])
                 + actual_pos[0],
-                pose_requested[0] * math.sin(orn_requested[2])
-                + pose_requested[1] * math.cos(orn_requested[2])
+                pose_requested[0] * math.sin(orn_euler[2])
+                + pose_requested[1] * math.cos(orn_euler[2])
                 + actual_pos[1],
                 0]
+            orn_requested = [
+                orn_euler[0],
+                orn_euler[1],
+                orn_euler[2] + theta]
         self.pose_goal["position"] = pose_requested
         self.pose_goal["orientation"] = orn_requested
 
