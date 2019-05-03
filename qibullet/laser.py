@@ -11,7 +11,7 @@ import threading
 RAY_MISS_COLOR = [0, 1, 0]
 RAY_HIT_COLOR = [1, 0, 0]
 NUM_RAY = 15
-RAY_LENGTH = 5.6
+RAY_LENGTH = 3.0  # The theoretical length is 5.6, closer to 3.0 in reality
 LASER_ANGLE = 60
 LASER_POSITION = [
     [0.0562, 0, -0.334],  # Front laser

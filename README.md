@@ -55,7 +55,7 @@ Or using loadRobot from the PepperVirtual class if you already have a simulated 
       physicsClientId=client_id)
 ```
 
-More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples).
+More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples), or in the repository [wiki](https://github.com/ProtolabSBRE/qibullet/wiki)
 
 ## Documentation
 The qibullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
@@ -63,6 +63,8 @@ The qibullet __API documentation__ can be found [here](https://protolabsbre.gith
 cd docs
 doxygen
 ```
+
+The repository also contains a [wiki](https://github.com/ProtolabSBRE/qibullet/wiki), providing some tutorials.
 
 ## Citations
 Please cite qibullet if you use this repository in your publications:

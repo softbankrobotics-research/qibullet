@@ -86,9 +86,8 @@ class BaseController(object):
         # pose x, y, z
         pose_requested = [x, y, 0]
 
-        # orientation requested (quaternions)
-        orn_requested = pybullet.getQuaternionFromEuler([0, 0, theta])
-
+        # orientation requested (euler)
+        orn_requested = [0, 0, theta]
         # if we are in frame robot express the position in the frame world
         if self.frame == BaseController.FRAME_ROBOT:
             orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
@@ -100,10 +99,10 @@ class BaseController(object):
                 + pose_requested[1] * math.cos(orn_euler[2])
                 + actual_pos[1],
                 0]
-            orn_requested = pybullet.getQuaternionFromEuler([
+            orn_requested = [
                 orn_euler[0],
                 orn_euler[1],
-                orn_euler[2] + theta])
+                orn_euler[2] + theta]
         self.pose_goal["position"] = pose_requested
         self.pose_goal["orientation"] = orn_requested
 
@@ -329,11 +328,12 @@ class PepperBaseController(BaseController):
             self.robot_model,
             physicsClientId=self.physics_client)
 
-        orn_euler = pybullet.getEulerFromQuaternion(actual_orn)
+        # convert actual_orn into euler
+        actual_orn = pybullet.getEulerFromQuaternion(actual_orn)
 
         linear_world_velocity = [
-            x * math.cos(orn_euler[2]) - y * math.sin(orn_euler[2]),
-            x * math.sin(orn_euler[2]) + y * math.cos(orn_euler[2]),
+            x * math.cos(actual_orn[2]) - y * math.sin(actual_orn[2]),
+            x * math.sin(actual_orn[2]) + y * math.cos(actual_orn[2]),
             0]
 
         time.sleep(0.02)
@@ -351,7 +351,8 @@ class PepperBaseController(BaseController):
         pybullet.changeConstraint(
             self.motion_constraint,
             self.pose_goal["position"],
-            jointChildFrameOrientation=self.pose_goal["orientation"],
+            jointChildFrameOrientation=pybullet.getQuaternionFromEuler(
+                self.pose_goal["orientation"]),
             maxForce=self.force,
             physicsClientId=self.physics_client)
 
@@ -365,6 +366,11 @@ class PepperBaseController(BaseController):
             pybullet.getBasePositionAndOrientation(
                 self.robot_model,
                 physicsClientId=self.physics_client)
+
+        # convert pose_init orientation in orn_euler
+        self.pose_init["orientation"] = pybullet.getEulerFromQuaternion(
+            self.pose_init["orientation"]
+        )
         self._updateGoal()
         self._updateConstraint()
 
@@ -430,9 +436,16 @@ class PepperBaseController(BaseController):
             translation_distance = getDistance(
                 actual_pos,
                 self.pose_goal["position"])
+
+            # Modulo the orientation pose goal with conversion in quaternion
+            modulo_quater_pose_goal = pybullet.getQuaternionFromEuler(
+                self.pose_goal["orientation"])
+            # Conversion into euler
+            modulo_euler_pose_goal = pybullet.getEulerFromQuaternion(
+                modulo_quater_pose_goal)
             rotation_distance = abs(getOrientation(
                 actual_orn,
-                self.pose_goal["orientation"]))
+                modulo_euler_pose_goal))
 
             if translation_distance < self.linear_threshold and\
                     rotation_distance < self.angular_threshold:
@@ -441,6 +454,8 @@ class PepperBaseController(BaseController):
             actual_pos, actual_orn = pybullet.getBasePositionAndOrientation(
                 self.robot_model,
                 physicsClientId=self.physics_client)
+            # convert actual_orn into euler
+            actual_orn = pybullet.getEulerFromQuaternion(actual_orn)
 
             linear_vel_x = computeVelocity(
                 self.linear_acceleration,
@@ -457,7 +472,7 @@ class PepperBaseController(BaseController):
                 self.angular_velocity,
                 abs(getOrientation(
                     init_orn,
-                    self.pose_goal["orientation"])),
+                    actual_orn)),
                 abs(getOrientation(
                     actual_orn,
                     self.pose_goal["orientation"])))

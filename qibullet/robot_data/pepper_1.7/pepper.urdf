@@ -238,6 +238,19 @@
   </link>
   <!-- End KneePitch link -->
 
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child link="base_footprint"/>
+    <parent link="base_link"/>
+  </joint>
+  <link name="base_link">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+
   <joint name="base_footprint_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.334"/>
     <child link="Tibia"/>
