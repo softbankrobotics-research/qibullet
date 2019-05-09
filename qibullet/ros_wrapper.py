@@ -219,7 +219,7 @@ class PepperRosWrapper:
         x, y, theta = self.virtual_pepper.getPosition()
         odom_trans = TransformStamped()
         odom_trans.header.frame_id = "odom"
-        odom_trans.child_frame_id = "base_footprint"
+        odom_trans.child_frame_id = "base_link"
         odom_trans.header.stamp = rospy.get_rostime()
         odom_trans.transform.translation.x = x
         odom_trans.transform.translation.y = y
@@ -238,7 +238,7 @@ class PepperRosWrapper:
         odom.pose.pose.position.y = y
         odom.pose.pose.position.z = 0.0
         odom.pose.pose.orientation = odom_trans.transform.rotation
-        odom.child_frame_id = "base_footprint"
+        odom.child_frame_id = "base_link"
         [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
             self.virtual_pepper.robot_model,
             self.virtual_pepper.getPhysicsClientId())
