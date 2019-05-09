@@ -26,10 +26,10 @@ try:
     from geometry_msgs.msg import TransformStamped
     from geometry_msgs.msg import Twist
     from nav_msgs.msg import Odometry
-    ROS_LIB_FOUND = True
+    MISSING_IMPORT = None
 
-except ImportError:
-    ROS_LIB_FOUND = False
+except ImportError as e:
+    MISSING_IMPORT = str(e)
 
 TOP_OPTICAL_FRAME = "CameraTop_optical_frame"
 BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
@@ -45,8 +45,8 @@ class PepperRosWrapper:
         """
         Constructor
         """
-        if not ROS_LIB_FOUND:
-            return
+        if MISSING_IMPORT is not None:
+            raise pybullet.error(MISSING_IMPORT)
 
         self.spin_thread = None
         self.image_bridge = CvBridge()
@@ -67,8 +67,8 @@ class PepperRosWrapper:
             frequency - The frequency of the ROS rate that will be used to pace
             the wrapper's main loop
         """
-        if not ROS_LIB_FOUND:
-            return
+        if MISSING_IMPORT is not None:
+            raise pybullet.error(MISSING_IMPORT)
 
         self.virtual_pepper = virtual_pepper
         self.ros_namespace = ros_namespace
