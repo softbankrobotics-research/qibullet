@@ -1,4 +1,4 @@
-# qibullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/)
+# qibullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Gitter chat](https://badges.gitter.im/ProtolabSBRE/qibullet.png)](https://gitter.im/ProtolabSBRE/qibullet "Gitter chat")
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
