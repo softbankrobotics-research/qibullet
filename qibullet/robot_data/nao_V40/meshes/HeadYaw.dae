@@ -1,0 +1,396 @@
+<?xml version="1.0" ?><COLLADA version="1.4.1" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.71.0 commit date:2014-06-25, commit time:18:36, hash:9337574</authoring_tool>
+    </contributor>
+    <created>2014-08-18T14:36:55</created>
+    <modified>2014-08-18T14:36:55</modified>
+    <unit meter="1" name="meter"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images>
+    <image id="textureNAO_png_002" name="textureNAO_png_002">
+      <init_from>../../texture/textureNAO.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="NaoMat_Leye-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="NaoMat_Hear-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="NaoMat_SecondarySkin2-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="NaoMat_Structure-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="NaoMat_MainSkin-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="NaoMat_Reye-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="NaoMat_Pupil-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.4 0.4 0.4 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">9</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="HeadYawuv-effect">
+      <profile_COMMON>
+        <newparam sid="textureNAO_png_002-surface">
+          <surface type="2D">
+            <init_from>textureNAO_png_002</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="textureNAO_png_002-sampler">
+          <sampler2D>
+            <source>textureNAO_png_002-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="UVTex" texture="textureNAO_png_002-sampler"/>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="NaoMat_Leye-material" name="NaoMat_Leye">
+      <instance_effect url="#NaoMat_Leye-effect"/>
+    </material>
+    <material id="NaoMat_Hear-material" name="NaoMat_Hear">
+      <instance_effect url="#NaoMat_Hear-effect"/>
+    </material>
+    <material id="NaoMat_SecondarySkin2-material" name="NaoMat_SecondarySkin2">
+      <instance_effect url="#NaoMat_SecondarySkin2-effect"/>
+    </material>
+    <material id="NaoMat_Structure-material" name="NaoMat_Structure">
+      <instance_effect url="#NaoMat_Structure-effect"/>
+    </material>
+    <material id="NaoMat_MainSkin-material" name="NaoMat_MainSkin">
+      <instance_effect url="#NaoMat_MainSkin-effect"/>
+    </material>
+    <material id="NaoMat_Reye-material" name="NaoMat_Reye">
+      <instance_effect url="#NaoMat_Reye-effect"/>
+    </material>
+    <material id="NaoMat_Pupil-material" name="NaoMat_Pupil">
+      <instance_effect url="#NaoMat_Pupil-effect"/>
+    </material>
+    <material id="HeadYawuv-material" name="HeadYawuv">
+      <instance_effect url="#HeadYawuv-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Neck-mesh" name="Neck">
+      <mesh>
+        <source id="Neck-mesh-positions">
+          <float_array count="24" id="Neck-mesh-positions-array">12.60001 12.59997 -12.47716 12.60001 -12.60002 -12.47714 12.60001 -12.60002 12.72286 12.60001 12.59999 12.72285 -12.6 -12.6 12.72286 -12.59999 -12.60001 -12.47714 -12.59999 12.59999 -12.47715 -12.59999 12.6 12.72285</float_array>
+          <technique_common>
+            <accessor count="8" source="#Neck-mesh-positions-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Neck-mesh-normals">
+          <float_array count="24" id="Neck-mesh-normals-array">-0.7070834 -0.7070834 0 0.7070834 -0.7070834 0 0.7070834 -0.7070834 0 -0.7070834 0.7070834 0 -0.7070834 0.7070834 0 0.7070834 0.7070834 0 0.7070834 0.7070834 0 -0.7070834 -0.7070834 0</float_array>
+          <technique_common>
+            <accessor count="8" source="#Neck-mesh-normals-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Neck-mesh-map-0">
+          <float_array count="48" id="Neck-mesh-map-0-array">0.1111484 0.1368112 0.1117857 0.1389018 0.07133668 0.1749687 0.1117486 0.1345446 0.1438508 0.1068909 0.1447283 0.171428 0.1117857 0.1389018 0.1138673 0.1369085 0.1447283 0.171428 0.1117486 0.1345446 0.1111484 0.1368112 0.07133853 0.0850315 0.07133853 0.0850315 0.1111484 0.1368112 0.07133668 0.1749687 0.1138673 0.1369085 0.1117486 0.1345446 0.1447283 0.171428 0.07133668 0.1749687 0.1117857 0.1389018 0.1447283 0.171428 0.1438508 0.1068909 0.1117486 0.1345446 0.07133853 0.0850315</float_array>
+          <technique_common>
+            <accessor count="24" source="#Neck-mesh-map-0-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Neck-mesh-vertices">
+          <input semantic="POSITION" source="#Neck-mesh-positions"/>
+        </vertices>
+        <polylist count="8" material="HeadYawuv-material">
+          <input offset="0" semantic="VERTEX" source="#Neck-mesh-vertices"/>
+          <input offset="1" semantic="NORMAL" source="#Neck-mesh-normals"/>
+          <input offset="2" semantic="TEXCOORD" set="0" source="#Neck-mesh-map-0"/>
+          <vcount>3 3 3 3 3 3 3 3 </vcount>
+          <p>5 0 0 1 1 1 2 2 2 6 3 3 7 4 4 3 5 5 1 1 6 0 6 7 3 5 8 6 3 9 5 0 10 4 7 11 4 7 12 5 0 13 2 2 14 0 6 15 6 3 16 3 5 17 2 2 18 1 1 19 3 5 20 7 4 21 6 3 22 4 7 23</p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="HeadYaw" name="HeadYaw" type="NODE">
+        <matrix sid="transform">0.01 0 0 0 0 0.01 0 0 0 0 0.01 0 0 0 0 1</matrix>
+        <instance_geometry url="#Neck-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="NaoMat_Leye-material" target="#NaoMat_Leye-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="NaoMat_Hear-material" target="#NaoMat_Hear-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="NaoMat_SecondarySkin2-material" target="#NaoMat_SecondarySkin2-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="NaoMat_Structure-material" target="#NaoMat_Structure-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="NaoMat_MainSkin-material" target="#NaoMat_MainSkin-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="NaoMat_Reye-material" target="#NaoMat_Reye-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="NaoMat_Pupil-material" target="#NaoMat_Pupil-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+              <instance_material symbol="HeadYawuv-material" target="#HeadYawuv-material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="UVTex"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

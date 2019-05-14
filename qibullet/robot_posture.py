@@ -169,3 +169,75 @@ class PepperPosture(RobotPosture):
                 1.1029322147369385,
                 -0.018407821655273438,
                 0.7869000434875488])
+
+
+class NaoPosture(RobotPosture):
+    """
+    Class describing a robot posture for Nao
+    """
+
+    def __init__(self, posture_name):
+        """
+        Constructor
+
+        Parameters:
+            posture_name - The name of the posture (the joint_names and
+            joint_angles will be deduced)
+        """
+        RobotPosture.__init__(self, posture_name)
+        joint_names = [
+            "HeadYaw",
+            "HeadPitch",
+            "LShoulderPitch",
+            "LShoulderRoll",
+            "LElbowYaw",
+            "LElbowRoll",
+            "LWristYaw",
+            "LHand",
+            "LHipYawPitch",
+            "LHipRoll",
+            "LHipPitch",
+            "LKneePitch",
+            "LAnklePitch",
+            "LAnkleRoll",
+            "RHipYawPitch",
+            "RHipRoll",
+            "RHipPitch",
+            "RKneePitch",
+            "RAnklePitch",
+            "RAnkleRoll",
+            "RShoulderPitch",
+            "RShoulderRoll",
+            "RElbowYaw",
+            "RElbowRoll",
+            "RWristYaw",
+            "RHand"]
+
+        if self.isPostureName(RobotPosture.STAND):
+            self._setPosture(joint_names, [
+                0.0,
+                -0.170000032,
+                1.4425844,
+                0.224456817,
+                -1.20227683,
+                -0.417271525,
+                0.0999999791,
+                0.300000012,
+                -0.170009688,
+                0.119108438,
+                0.12741895,
+                -0.0923279151,
+                0.0874193981,
+                -0.110793173,
+                -0.170009688,
+                -0.119102433,
+                0.127419189,
+                -0.0923279151,
+                0.0874193311,
+                0.110789023,
+                1.44258487,
+                -0.224456757,
+                1.20227683,
+                0.417271346,
+                0.099999994,
+                0.300000012])

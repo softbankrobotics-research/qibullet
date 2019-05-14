@@ -3,53 +3,37 @@
 
 import os
 import pybullet
-from qibullet.laser import *
 from qibullet.camera import *
 from qibullet.base_controller import *
-from qibullet.robot_posture import PepperPosture
+from qibullet.robot_posture import NaoPosture
 from qibullet.robot_virtual import RobotVirtual
 
 
-class PepperVirtual(RobotVirtual):
+class NaoVirtual(RobotVirtual):
     """
-    Class representing the virtual instance of the Pepper robot
+    Class representing the virtual instance of the NAO robot
     """
     ID_CAMERA_TOP = 0
     ID_CAMERA_BOTTOM = 1
-    ID_CAMERA_DEPTH = 2
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/pepper_1.7/pepper.urdf"
-    P_STAND = PepperPosture("Stand")
-    P_STAND_INIT = PepperPosture("StandInit")
-    P_STAND_ZERO = PepperPosture("StandZero")
-    P_CROUCH = PepperPosture("Crouch")
+    URDF_PATH = "robot_data/nao_V40/nao.urdf"
+    P_STAND = NaoPosture("Stand")
 
     def __init__(self):
         """
         Constructor
         """
-        RobotVirtual.__init__(self, PepperVirtual.URDF_PATH)
+        RobotVirtual.__init__(self, NaoVirtual.URDF_PATH)
         self.camera_top = None
         self.camera_bottom = None
-        self.camera_depth = None
-        self.motion_constraint = None
-        # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
-        self.linear_velocity = 0.35
-        # Default speed (in rad/s) theta : 1.0, min : 0.3, max : 2.0
-        self.angular_velocity = 1.0
-        # Default acc (in m/s^2 xy : 0.3, min : 0.1, max : 0.55
-        self.linear_acceleration = 0.3
-        # Default acc (in rad/s^2 theta : 0.75, min : 0.1, max : 3.0
-        self.angular_acceleration = 0.3
+        # TODO: add constraints and speeds
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
         Overloads @loadRobot from the @RobotVirtual class. Update max velocity
         for the fingers and thumbs, based on the hand joints. Add self
-        collision exceptions (The biceps won't autocollide with the torso, the
-        fingers and thumbs of a hand won't autocollide with the corresponding
-        wrist). Add the cameras. Add motion constraint.
+        collision exceptions. Add the cameras.
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
@@ -61,21 +45,64 @@ class PepperVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
-        for base_link in ["Hip", "Pelvis"]:
+        pybullet.setCollisionFilterPair(
+            self.robot_model,
+            self.robot_model,
+            self.link_dict["torso"].getIndex(),
+            self.link_dict["Head"].getIndex(),
+            0,
+            physicsClientId=self.physics_client)
+
+        for side in ["R", "L"]:
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "Thigh"].getIndex(),
+                self.link_dict[side + "Hip"].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "Bicep"].getIndex(),
+                self.link_dict[side + "ForeArm"].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "Pelvis"].getIndex(),
+                self.link_dict[side + "Thigh"].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "Tibia"].getIndex(),
+                self.link_dict[side.lower() + "_ankle"].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "Finger11_link"].getIndex(),
+                self.link_dict[side + "Finger13_link"].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "Finger21_link"].getIndex(),
+                self.link_dict[side + "Finger23_link"].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+
+        for base_link in ["RThigh", "LThigh", "RBicep", "LBicep"]:
             pybullet.setCollisionFilterPair(
                 self.robot_model,
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
                 self.link_dict[base_link].getIndex(),
-                0,
-                physicsClientId=self.physics_client)
-
-        for shoulder_roll_link in ["RBicep", "LBicep"]:
-            pybullet.setCollisionFilterPair(
-                self.robot_model,
-                self.robot_model,
-                self.link_dict["torso"].getIndex(),
-                self.link_dict[shoulder_roll_link].getIndex(),
                 0,
                 physicsClientId=self.physics_client)
 
@@ -98,8 +125,6 @@ class PepperVirtual(RobotVirtual):
             elif 'LFinger' in joint_name or 'LThumb' in joint_name:
                 self.joint_dict[joint_name].setMaxVelocity(
                     self.joint_dict["LHand"].getMaxVelocity())
-            elif "Wheel" in joint_name:
-                self.joint_dict.pop(joint_name)
 
         self.camera_top = CameraRgb(
             self.robot_model,
@@ -111,68 +136,10 @@ class PepperVirtual(RobotVirtual):
             self.link_dict["CameraBottom_optical_frame"],
             physicsClientId=self.physics_client)
 
-        self.camera_depth = CameraDepth(
-            self.robot_model,
-            self.link_dict["CameraDepth_optical_frame"],
-            physicsClientId=self.physics_client)
+        # eventual constraints and lasers
 
-        self.motion_constraint = pybullet.createConstraint(
-            parentBodyUniqueId=self.robot_model,
-            parentLinkIndex=-1,
-            childBodyUniqueId=-1,
-            childLinkIndex=-1,
-            jointType=pybullet.JOINT_FIXED,
-            jointAxis=[0, 0, 0],
-            parentFramePosition=[0, 0, 0],
-            parentFrameOrientation=[0, 0, 0, 1],
-            childFramePosition=[translation[0], translation[1], 0],
-            childFrameOrientation=quaternion,
-            physicsClientId=self.physics_client)
-
-        self.laser_manager = Laser(
-            self.robot_model,
-            self.link_dict["Tibia"].getIndex(),
-            physicsClientId=self.physics_client)
-
-        self.base_controller = PepperBaseController(
-            self.robot_model,
-            [self.linear_velocity, self.angular_velocity],
-            [self.linear_acceleration, self.angular_acceleration],
-            self.motion_constraint,
-            physicsClientId=self.physics_client)
-
-    def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None, _async=False):
-        """
-        Move the robot in frame world or robot (FRAME_WORLD=1, FRAME_ROBOT=2).
-        This method can be called synchonously or asynchronously. In the
-        asynchronous mode, the function can be called when it's already
-        launched, this will update the goal of the motion.
-
-        Parameters:
-            x - position of the goal on the x axis, in meters
-            y - position of the goal on the y axis, in meters
-            theta - orientation of the goal around the z axis, in radians
-            frame - The frame in which the goal is expressed: FRAME_WORLD = 1,
-            FRAME_ROBOT = 2
-            speed - The desired linear velocity, in m/s
-            _async - The method is launched in async mode if True, in synch
-            mode if False (False by default)
-        """
-        if speed is not None:
-            self.base_controller.setLinearVelocity(speed)
-
-        self.base_controller.moveTo(x, y, theta, frame, _async=_async)
-
-    def move(self, x, y, theta):
-        """
-        Apply a speed on the robot's base.
-
-        Parameters:
-            x - Speed on the x axis, in m/s
-            y - Speed on the y axis, in m/s
-            theta - Rotational speed around the z axis, in rad/s
-        """
-        self.base_controller.move(x, y, theta)
+    # TODO: implement a moveTo
+    # TODO: implement a move
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
@@ -265,12 +232,11 @@ class PepperVirtual(RobotVirtual):
     def goToPosture(self, posture_name, percentage_speed):
         """
         Position the virtual robot into a particular posture. The different
-        available postures are PepperPosture objects.
+        available postures are NaoPosture objects.
 
         Parameters:
             posture_name - String containing the name of the posture. The
-            posture name is not case-sensitive (The available postures
-            are Stand or StandInit, StandZero and Crouch)
+            posture name is not case-sensitive
             percentage_speed - Percentage of the max speed to be used for the
             movement
 
@@ -278,10 +244,7 @@ class PepperVirtual(RobotVirtual):
             Boolean - True if the posture can be applied, False otherwise
         """
         posture_list = [
-            PepperVirtual.P_STAND,
-            PepperVirtual.P_STAND_INIT,
-            PepperVirtual.P_STAND_ZERO,
-            PepperVirtual.P_CROUCH]
+            NaoVirtual.P_STAND]
 
         for posture in posture_list:
             if posture.isPostureName(posture_name):
@@ -303,14 +266,11 @@ class PepperVirtual(RobotVirtual):
             camera_id - The id of the camera to be subscribed
             resolution - CameraResolution object, the resolution of the camera
         """
-        if camera_id == PepperVirtual.ID_CAMERA_TOP:
+        if camera_id == NaoVirtual.ID_CAMERA_TOP:
             self.camera_top.subscribe(resolution=resolution)
 
-        elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
+        elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.subscribe(resolution=resolution)
-
-        elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
-            self.camera_depth.subscribe(resolution=resolution)
 
     def unsubscribeCamera(self, camera_id):
         """
@@ -319,14 +279,11 @@ class PepperVirtual(RobotVirtual):
         Parameters:
             camera_id - The id of the camera to be unsubscribed
         """
-        if camera_id == PepperVirtual.ID_CAMERA_TOP:
+        if camera_id == NaoVirtual.ID_CAMERA_TOP:
             self.camera_top.unsubscribe()
 
-        elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
+        elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.unsubscribe()
-
-        elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
-            self.camera_depth.unsubscribe()
 
     def getCameraFrame(self):
         """
@@ -341,8 +298,6 @@ class PepperVirtual(RobotVirtual):
             return self.camera_top.getFrame()
         elif self.camera_bottom.isActive():
             return self.camera_bottom.getFrame()
-        elif self.camera_depth.isActive():
-            return self.camera_depth.getFrame()
 
     def getCameraResolution(self):
         """
@@ -357,51 +312,10 @@ class PepperVirtual(RobotVirtual):
             return self.camera_top.getResolution()
         elif self.camera_bottom.isActive():
             return self.camera_bottom.getResolution()
-        elif self.camera_depth.isActive():
-            return self.camera_depth.getResolution()
-
-    def subscribeLaser(self):
-        """
-        Subscribe to the robot's lasers. Calling this method will launch the
-        laser scan process: note that you need the laser scan to be enabled to
-        successfully retrieve laser data
-        """
-        self.laser_manager.subscribe()
-
-    def unsubscribeLaser(self):
-        """
-        Unsubscribe from the robot's lasers. Calling this method will stop the
-        laser scan process
-        """
-        self.laser_manager.unsubscribe()
-
-    def showLaser(self, display):
-        """
-        Display debug lines that simulate the laser
-        """
-        self.laser_manager.showLaser(display)
-
-    def getFrontLaserValue(self):
-        """
-        Return a list of the front laser value (clockwise)
-        """
-        return self.laser_manager.getFrontLaserValue()
-
-    def getRightLaserValue(self):
-        """
-        Return a list of the right laser value (clockwise)
-        """
-        return self.laser_manager.getRightLaserValue()
-
-    def getLeftLaserValue(self):
-        """
-        Return a list of the left laser value (clockwise)
-        """
-        return self.laser_manager.getLeftLaserValue()
 
     def isSelfColliding(self, link_names):
         """
-        Specifies if a link is colliding with the rest of the virtual Pepper
+        Specifies if a link is colliding with the rest of the virtual NAO
         robot.
 
         Parameters:
