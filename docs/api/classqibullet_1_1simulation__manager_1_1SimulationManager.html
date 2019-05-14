@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.11</span>
+   &#160;<span id="projectnumber">1.0.12</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -107,6 +107,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7c3a6687ff2c6e7649e3b080bcce4f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeac971c9a89aab4625031beb947cc088"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aeac971c9a89aab4625031beb947cc088">spawnPepper</a> (self, physics_client, translation=[0, quaternion=[0, spawn_ground_plane=False)</td></tr>
 <tr class="separator:aeac971c9a89aab4625031beb947cc088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af88a89ed9dd37eb1209c4df0ed73aa51"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#af88a89ed9dd37eb1209c4df0ed73aa51">removePepper</a> (self, pepper_virtual)</td></tr>
+<tr class="separator:af88a89ed9dd37eb1209c4df0ed73aa51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">Class allowing to handle the different parameters of a pybullet simulation
@@ -160,6 +162,36 @@ Parameters:
 
 Returns:
     physics_client - The id of the simulation client created
+</pre> 
+</div>
+</div>
+<a class="anchor" id="af88a89ed9dd37eb1209c4df0ed73aa51"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.removePepper </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>pepper_virtual</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Removes a Pepper from a simulated instance
+
+Parameters:
+    pepper_virtual - The virtual Pepper robot to be removed
 </pre> 
 </div>
 </div>
