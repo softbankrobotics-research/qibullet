@@ -113,6 +113,21 @@ class SimulationManager:
 
         return pepper
 
+    def removePepper(self, pepper_virtual):
+        """
+        Removes a Pepper from a simulated instance
+
+        Parameters:
+            pepper_virtual - The virtual Pepper robot to be removed
+        """
+        pepper_virtual.laser_manager._terminateScan()
+        pepper_virtual.base_controller._terminateController()
+        pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_TOP)
+        pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
+        pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_DEPTH)
+
+        pybullet.removeBody(pepper_virtual.robot_model)
+
     def _clearInstance(self, physics_client):
         """
         INTERNAL METHOD, Called to kill the processes running in a simulated
