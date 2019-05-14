@@ -45,6 +45,21 @@ class NaoVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
+        balance_constraint = pybullet.createConstraint(
+            parentBodyUniqueId=self.robot_model,
+            parentLinkIndex=-1,
+            childBodyUniqueId=-1,
+            childLinkIndex=-1,
+            jointType=pybullet.JOINT_FIXED,
+            jointAxis=[0, 0, 0],
+            parentFramePosition=[0, 0, 0],
+            parentFrameOrientation=[0, 0, 0, 1],
+            childFramePosition=translation,
+            childFrameOrientation=quaternion,
+            physicsClientId=self.physics_client)
+
+        self.goToPosture("Stand", 1.0)
+
         pybullet.setCollisionFilterPair(
             self.robot_model,
             self.robot_model,
@@ -117,6 +132,10 @@ class NaoVirtual(RobotVirtual):
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
+
+        pybullet.removeConstraint(
+            balance_constraint,
+            physicsClientId=self.physics_client)
 
         for joint_name in list(self.joint_dict):
             if 'RFinger' in joint_name or 'RThumb' in joint_name:
