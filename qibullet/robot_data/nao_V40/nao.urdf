@@ -101,7 +101,7 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -114,7 +114,13 @@
     <child link="gaze"/>
     <origin rpy="0 0 0" xyz="0.05871 0 0.06364"/>
   </joint>
-  <link name="gaze"/>
+  <link name="gaze">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHipYawPitch" type="revolute">
     <parent link="torso"/>
     <child link="LPelvis"/>
@@ -283,7 +289,13 @@
     <origin rpy="0 0 0" xyz="0 0 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="l_sole"/>
+  <link name="l_sole">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHipYawPitch" type="revolute">
     <parent link="torso"/>
     <child link="RPelvis"/>
@@ -453,8 +465,20 @@
     <origin rpy="0 0 0" xyz="0 0 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="r_sole"/>
-  <link name="base_link"/>
+  <link name="r_sole">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+  <link name="base_link">
+    <inertial>
+      <mass value="0.0000000001"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="base_link_fixedjoint" type="fixed">
     <parent link="base_link"/>
     <child link="torso"/>
@@ -751,7 +775,13 @@
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
     </inertial>
   </link>
-  <link name="LFootBumperRight_frame"/>
+  <link name="LFootBumperRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LFoot/Bumper/Right_sensor_fixedjoint" type="fixed">
     <parent link="l_ankle"/>
     <child link="LFootBumperRight_frame"/>
@@ -776,7 +806,13 @@
     <origin rpy="0 0 0" xyz="-0.03025 0.0191 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraBottom_optical_frame"/>
+  <link name="CameraBottom_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraBottom_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraBottom_frame"/>
     <child link="CameraBottom_optical_frame"/>
@@ -818,14 +854,26 @@
     <origin rpy="0 0 0" xyz="0.07025 -0.0231 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchLeft_frame"/>
+  <link name="LHandTouchLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Left_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchLeft_frame"/>
     <origin rpy="0 0 1.5708" xyz="0.032 0.025 0.003"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RFootBumperRight_frame"/>
+  <link name="RFootBumperRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RFoot/Bumper/Right_sensor_fixedjoint" type="fixed">
     <parent link="r_ankle"/>
     <child link="RFootBumperRight_frame"/>
@@ -868,42 +916,78 @@
     <origin rpy="0 0 0" xyz="-0.02965 -0.0191 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoAccelerometer_frame"/>
+  <link name="ImuTorsoAccelerometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Accelerometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoAccelerometer_frame"/>
     <origin rpy="0 0 0" xyz="-0.008 0.00606 0.027"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchFront_frame"/>
+  <link name="HeadTouchFront_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Front_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchFront_frame"/>
     <origin rpy="0 -1.1861 0" xyz="0.0312 0 0.1014"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RFootBumperLeft_frame"/>
+  <link name="RFootBumperLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RFoot/Bumper/Left_sensor_fixedjoint" type="fixed">
     <parent link="r_ankle"/>
     <child link="RFootBumperLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.0876 0.014 -0.0353"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RSonar_frame"/>
+  <link name="RSonar_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Sonar/Right_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="RSonar_frame"/>
     <origin rpy="0.00478508 0.0436497 -0.392441" xyz="0.00558253 -0.0192068 0.0623853"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchRight_frame"/>
+  <link name="RHandTouchRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Right_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchRight_frame"/>
     <origin rpy="0 0 -1.5708" xyz="0.035 -0.025 0.0035"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchBack_frame"/>
+  <link name="RHandTouchBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Back_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchBack_frame"/>
@@ -928,7 +1012,13 @@
     <origin rpy="0 0 0" xyz="0.07025 0.0231 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LSonar_frame"/>
+  <link name="LSonar_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Sonar/Left_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="LSonar_frame"/>
@@ -971,90 +1061,168 @@
     <origin rpy="0 0 0" xyz="-0.03025 0.0299 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchLeft_frame"/>
+  <link name="RHandTouchLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Left_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchLeft_frame"/>
     <origin rpy="0 0 1.5708" xyz="0.032 0.025 0.003"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraBottom_frame"/>
+  <link name="CameraBottom_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraBottom_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraBottom_frame"/>
     <origin rpy="0 0.692896 0" xyz="0.05071 0 0.01774"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraTop_frame"/>
+  <link name="CameraTop_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraTop_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraTop_frame"/>
     <origin rpy="0 0.0209435 0" xyz="0.05871 0 0.06364"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraTop_optical_frame"/>
+  <link name="CameraTop_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraTop_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraTop_frame"/>
     <child link="CameraTop_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchBack_frame"/>
+  <link name="LHandTouchBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Back_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchBack_frame"/>
     <origin rpy="3.14159 -1.5708 3.14159" xyz="0.038 0 0.025"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LInfraRed_frame"/>
+  <link name="LInfraRed_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="InfraredL_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="LInfraRed_frame"/>
     <origin rpy="0 0 0" xyz="0.0441 0.0257 0.0466"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoGyrometer_frame"/>
+  <link name="ImuTorsoGyrometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Gyrometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoGyrometer_frame"/>
     <origin rpy="0 0 0" xyz="-0.008 0.006 0.029"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchRear_frame"/>
+  <link name="HeadTouchRear_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Rear_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchRear_frame"/>
     <origin rpy="3.14159 -1.33319 -3.14159" xyz="-0.0257 0 0.1045"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchMiddle_frame"/>
+  <link name="HeadTouchMiddle_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Middle_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchMiddle_frame"/>
     <origin rpy="3.14159 -1.57079 -3.14159" xyz="0.001 0 0.1099"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RInfraRed_frame"/>
+  <link name="RInfraRed_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="InfraredR_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="RInfraRed_frame"/>
     <origin rpy="0 0 0" xyz="0.0441 -0.0257 0.0466"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ChestButton_frame"/>
+  <link name="ChestButton_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="ChestBoard/Button_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ChestButton_frame"/>
     <origin rpy="0 0 0" xyz="0.049871 0.001588 0.055163"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LFootBumperLeft_frame"/>
+  <link name="LFootBumperLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LFoot/Bumper/Left_sensor_fixedjoint" type="fixed">
     <parent link="l_ankle"/>
     <child link="LFootBumperLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.0876 0.019 -0.0353"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchRight_frame"/>
+  <link name="LHandTouchRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Right_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchRight_frame"/>
