@@ -7,11 +7,11 @@
     <created>2014-08-18T14:36:55</created>
     <modified>2014-08-18T14:36:55</modified>
     <unit meter="1" name="meter"/>
-    <up_axis>Z_UP</up_axis>
+    <up_axis>Y_UP</up_axis>
   </asset>
   <library_images>
     <image id="textureNAO_png_002" name="textureNAO_png_002">
-      <init_from>../../texture/textureNAO.png</init_from>
+      <init_from>textureNAO.png</init_from>
     </image>
   </library_images>
   <library_effects>

@@ -11,7 +11,7 @@
   </asset>
   <library_images>
     <image id="textureNAO_png_002" name="textureNAO_png_002">
-      <init_from>../../texture/textureNAO.png</init_from>
+      <init_from>textureNAO.png</init_from>
     </image>
   </library_images>
   <library_effects>
