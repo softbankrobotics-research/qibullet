@@ -19,6 +19,13 @@ class NaoVirtual(RobotVirtual):
     FRAME_ROBOT = 2
     URDF_PATH = "robot_data/nao_V40/nao.urdf"
     P_STAND = NaoPosture("Stand")
+    P_STAND_INIT = NaoPosture("StandInit")
+    P_STAND_ZERO = NaoPosture("StandZero")
+    P_CROUCH = NaoPosture("Crouch")
+    P_SIT = NaoPosture("Sit")
+    P_SIT_RELAX = NaoPosture("SitRelax")
+    P_LYING_BELLY = NaoPosture("LyingBelly")
+    P_LYING_BACK = NaoPosture("LyingBack")
 
     def __init__(self):
         """
@@ -38,6 +45,9 @@ class NaoVirtual(RobotVirtual):
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
             physicsClientId=physicsClientId)
+
+        # Add 0.36 meters on the z component, avoing to spawn NAO in the ground
+        translation = [translation[0], translation[1], translation[2] + 0.36]
 
         RobotVirtual.loadRobot(
             self,
@@ -263,7 +273,14 @@ class NaoVirtual(RobotVirtual):
             Boolean - True if the posture can be applied, False otherwise
         """
         posture_list = [
-            NaoVirtual.P_STAND]
+            NaoVirtual.P_STAND,
+            NaoVirtual.P_STAND_INIT,
+            NaoVirtual.P_STAND_ZERO,
+            NaoVirtual.P_CROUCH,
+            NaoVirtual.P_SIT,
+            NaoVirtual.P_SIT_RELAX,
+            NaoVirtual.P_LYING_BELLY,
+            NaoVirtual.P_LYING_BACK]
 
         for posture in posture_list:
             if posture.isPostureName(posture_name):
