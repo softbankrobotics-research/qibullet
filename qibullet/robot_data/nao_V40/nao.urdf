@@ -70,14 +70,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadYaw.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c1"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadYaw.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -97,7 +97,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
@@ -136,14 +136,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipYawPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Orange"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipYawPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -163,7 +163,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Orange"/>
@@ -190,7 +190,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
@@ -217,7 +217,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LKneePitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c3"/>
@@ -244,7 +244,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnklePitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Blue"/>
@@ -271,7 +271,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnkleRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Blue"/>
@@ -312,7 +312,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipYawPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
@@ -339,7 +339,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
@@ -366,7 +366,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
@@ -393,7 +393,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RKneePitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
@@ -420,7 +420,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnklePitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
@@ -447,7 +447,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnkleRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
@@ -493,7 +493,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/Torso.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c7"/>
@@ -520,7 +520,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c8"/>
@@ -547,7 +547,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c9"/>
@@ -588,7 +588,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LElbowRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c1"/>
@@ -615,7 +615,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LWristYaw.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
@@ -655,7 +655,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderPitch.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c3"/>
@@ -682,7 +682,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
@@ -723,7 +723,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RElbowRoll.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
@@ -750,7 +750,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RWristYaw.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
@@ -1236,7 +1236,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger13.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1262,7 +1262,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger12.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1288,7 +1288,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger21.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1314,7 +1314,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger13.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1340,7 +1340,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger11.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1366,7 +1366,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger22.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1392,7 +1392,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger22.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1418,7 +1418,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger21.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1444,7 +1444,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger12.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1470,7 +1470,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger23.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1496,7 +1496,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger11.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1522,7 +1522,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger23.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1548,7 +1548,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb1.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1574,7 +1574,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb1.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1600,7 +1600,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb2.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
@@ -1626,7 +1626,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb2.dae" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
