@@ -1287,19 +1287,20 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger21" type="continuous">
@@ -1313,19 +1314,20 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger13" type="continuous">
@@ -1339,19 +1341,20 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger11" type="continuous">
@@ -1392,19 +1395,20 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger22" type="continuous">
@@ -1445,19 +1449,20 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger12" type="continuous">
@@ -1525,19 +1530,20 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger23" type="continuous">
