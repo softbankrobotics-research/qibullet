@@ -393,11 +393,16 @@ class NaoVirtual(RobotVirtual):
             "Unauthorized link checking for self collisions"
             return False
 
-    def _mimicHand(self, hand, value, multiplier=0.872665, offset=0):
+    def _mimicHand(
+            self,
+            hand,
+            value,
+            multiplier=0.999899,
+            offset=0.0):
         """
         Used to propagate a joint value on the fingers attached to the hand.
         The formula used to mimic a joint is the following (with a multiplier
-        of 0.872665 and an offset of 0):
+        of 0.999899 and an offset of 0.0):
 
         finger_value = (hand_value * multiplier) + offset
 
