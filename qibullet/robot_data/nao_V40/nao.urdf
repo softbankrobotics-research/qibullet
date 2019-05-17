@@ -1249,12 +1249,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger13" type="continuous">
+  <joint name="RFinger13" type="revolute">
     <parent link="RFinger12_link"/>
     <child link="RFinger13_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger12_link">
     <inertial>
@@ -1276,12 +1277,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger12" type="continuous">
+  <joint name="RFinger12" type="revolute">
     <parent link="RFinger11_link"/>
     <child link="RFinger12_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger21_link">
     <inertial>
@@ -1303,12 +1305,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger21" type="continuous">
+  <joint name="LFinger21" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger21_link"/>
     <origin rpy="1.25539 0.976662 -0.264067" xyz="0.06907 -0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger13_link">
     <inertial>
@@ -1330,12 +1333,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger13" type="continuous">
+  <joint name="LFinger13" type="revolute">
     <parent link="LFinger12_link"/>
     <child link="LFinger13_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger11_link">
     <inertial>
@@ -1357,12 +1361,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger11" type="continuous">
+  <joint name="LFinger11" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger11_link"/>
     <origin rpy="1.8862 0.976662 0.264067" xyz="0.06907 0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger22_link">
     <inertial>
@@ -1384,12 +1389,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger22" type="continuous">
+  <joint name="RFinger22" type="revolute">
     <parent link="RFinger21_link"/>
     <child link="RFinger22_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger22_link">
     <inertial>
@@ -1411,12 +1417,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger22" type="continuous">
+  <joint name="LFinger22" type="revolute">
     <parent link="LFinger21_link"/>
     <child link="LFinger22_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger21_link">
     <inertial>
@@ -1438,12 +1445,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger21" type="continuous">
+  <joint name="RFinger21" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger21_link"/>
     <origin rpy="1.25539 0.976662 -0.264067" xyz="0.06907 -0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger12_link">
     <inertial>
@@ -1465,12 +1473,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger12" type="continuous">
+  <joint name="LFinger12" type="revolute">
     <parent link="LFinger11_link"/>
     <child link="LFinger12_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger23_link">
     <inertial>
@@ -1492,12 +1501,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger23" type="continuous">
+  <joint name="RFinger23" type="revolute">
     <parent link="RFinger22_link"/>
     <child link="RFinger23_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger11_link">
     <inertial>
@@ -1519,12 +1529,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger11" type="continuous">
+  <joint name="RFinger11" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger11_link"/>
     <origin rpy="1.8862 0.976662 0.264067" xyz="0.06907 0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger23_link">
     <inertial>
@@ -1546,12 +1557,13 @@
       <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger23" type="continuous">
+  <joint name="LFinger23" type="revolute">
     <parent link="LFinger22_link"/>
     <child link="LFinger23_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LThumb1_link">
     <inertial>
@@ -1575,12 +1587,13 @@
       <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LThumb1" type="continuous">
+  <joint name="LThumb1" type="revolute">
     <parent link="l_wrist"/>
     <child link="LThumb1_link"/>
     <origin rpy="-1.5708 0.0472984 -3.26826e-08" xyz="0.04895 0 -0.02638"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RThumb1_link">
     <inertial>
@@ -1604,12 +1617,13 @@
       <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RThumb1" type="continuous">
+  <joint name="RThumb1" type="revolute">
     <parent link="r_wrist"/>
     <child link="RThumb1_link"/>
     <origin rpy="-1.5708 0.0472984 -3.26826e-08" xyz="0.04895 0 -0.02638"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RThumb2_link">
     <inertial>
@@ -1634,13 +1648,14 @@
       <!-- <origin rpy="1.57 0 0" xyz="0 0 0"/> -->
     </collision>
   </link>
-  <joint name="RThumb2" type="continuous">
+  <joint name="RThumb2" type="revolute">
     <parent link="RThumb1_link"/>
     <child link="RThumb2_link"/>
     <!-- <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/> -->
     <origin rpy="0 0 -0.999899" xyz="0.01236 -0.0015 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LThumb2_link">
     <inertial>
@@ -1665,13 +1680,14 @@
       <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LThumb2" type="continuous">
+  <joint name="LThumb2" type="revolute">
     <parent link="LThumb1_link"/>
     <child link="LThumb2_link"/>
     <!-- <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/> -->
     <origin rpy="0 0 -0.999899" xyz="0.01236 -0.0015 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
 
   <!-- HEAD -->
