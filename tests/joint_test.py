@@ -5,23 +5,13 @@ import time
 import random
 import unittest
 import pybullet
-from qibullet import PepperVirtual
+from qibullet import NaoVirtual, PepperVirtual
 
 
-class PepperJointTest(unittest.TestCase):
+class JointTest(unittest.TestCase):
     """
-    Unittests for the control of Pepper virtual's joints
+    Unittests for the virtual joints (virtual class don't use directly)
     """
-
-    @classmethod
-    def setUpClass(cls):
-        """
-        Launches a simulation and spawns the Pepper virtual robot
-        """
-        cls.pepper_virtual = PepperVirtual()
-        cls.pepper_virtual.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
 
     def test_set_angles(self):
         """
@@ -29,14 +19,14 @@ class PepperJointTest(unittest.TestCase):
         """
         iterations = 10
 
-        PepperJointTest.pepper_virtual.setAngles(
+        JointTest.robot.setAngles(
             ["HeadYaw", "HeadPitch"],
             [0.5, 0.3],
             0.1)
 
         time.sleep(0.2)
 
-        PepperJointTest.pepper_virtual.setAngles(
+        JointTest.robot.setAngles(
             ["HeadYaw", "HeadPitch"],
             [0.1, 0.0],
             [0.8, 0.6])
@@ -46,12 +36,12 @@ class PepperJointTest(unittest.TestCase):
         for i in range(iterations):
             angles = list()
 
-            for joint in PepperJointTest.pepper_virtual.joint_dict.values():
+            for joint in JointTest.robot.joint_dict.values():
                 angles.append(random.uniform(
                     joint.getLowerLimit(),
                     joint.getUpperLimit()))
-            PepperJointTest.pepper_virtual.setAngles(
-                list(PepperJointTest.pepper_virtual.joint_dict),
+            JointTest.robot.setAngles(
+                list(JointTest.robot.joint_dict),
                 angles,
                 random.uniform(0.0, 1.0))
 
@@ -62,12 +52,12 @@ class PepperJointTest(unittest.TestCase):
         Test different speed limits for the @setAngles method
         """
         try:
-            PepperJointTest.pepper_virtual.setAngles("HeadYaw", 1.0, 900)
+            JointTest.robot.setAngles("HeadYaw", 1.0, 900)
         except pybullet.error:
             pass
 
         try:
-            PepperJointTest.pepper_virtual.setAngles("HeadYaw", 1.0, -45)
+            JointTest.robot.setAngles("HeadYaw", 1.0, -45)
         except pybullet.error:
             pass
 
@@ -75,16 +65,72 @@ class PepperJointTest(unittest.TestCase):
         """
         Test different angle limits for the @setAngles method
         """
-        PepperJointTest.pepper_virtual.setAngles("HeadPitch", -900, 0.5)
-        PepperJointTest.pepper_virtual.setAngles("HeadPitch", 900, 0.5)
+        JointTest.robot.setAngles("HeadPitch", -900, 0.5)
+        JointTest.robot.setAngles("HeadPitch", 900, 0.5)
 
     def test_get_angles_position(self):
         """
         Test the @getAnglesPosition method
         """
-        PepperJointTest.pepper_virtual.getAnglesPosition("HeadYaw")
-        PepperJointTest.pepper_virtual.getAnglesPosition(
-            PepperJointTest.pepper_virtual.joint_dict.keys())
+        JointTest.robot.getAnglesPosition("HeadYaw")
+        JointTest.robot.getAnglesPosition(
+            JointTest.robot.joint_dict.keys())
+
+
+class PepperJointTest(JointTest):
+    """
+    Unittests for the control of Pepper virtual's joints
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Launches a simulation and spawns the Pepper virtual robot
+        """
+        JointTest.robot = PepperVirtual()
+        JointTest.robot.loadRobot(
+            [0, 0, 0],
+            [0, 0, 0, 1])
+
+    def test_set_angles(self):
+        JointTest.test_set_angles(self)
+
+    def test_speed_limits(self):
+        JointTest.test_speed_limits(self)
+
+    def test_angle_limits(self):
+        JointTest.test_angle_limits(self)
+
+    def test_get_angles_position(self):
+        JointTest.test_get_angles_position(self)
+
+
+class NaoJointTest(JointTest):
+    """
+    Unittests for the control of Nao virtual's joints
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Launches a simulation and spawns the Nao virtual robot
+        """
+        JointTest.robot = NaoVirtual()
+        JointTest.robot.loadRobot(
+            [0, 0, 0],
+            [0, 0, 0, 1])
+
+    def test_set_angles(self):
+        JointTest.test_set_angles(self)
+
+    def test_speed_limits(self):
+        JointTest.test_speed_limits(self)
+
+    def test_angle_limits(self):
+        JointTest.test_angle_limits(self)
+
+    def test_get_angles_position(self):
+        JointTest.test_get_angles_position(self)
 
 
 if __name__ == "__main__":

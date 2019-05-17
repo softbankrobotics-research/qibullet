@@ -4,37 +4,27 @@ import sys
 import time
 import unittest
 import pybullet
-from qibullet import PepperVirtual
+from qibullet import NaoVirtual, PepperVirtual
 
 
-class PepperSelfCollisionTest(unittest.TestCase):
+class SelfCollisionTest(unittest.TestCase):
     """
-    Unittests for the detection of PepperVirtual's self collisions
+    Unittests for the detection of self collisions
     """
-
-    @classmethod
-    def setUpClass(cls):
-        """
-        Launches a simulation and spawns the Pepper virtual robot
-        """
-        cls.pepper_virtual = PepperVirtual()
-        cls.pepper_virtual.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
 
     def test_method_parameters(self):
         """
         Test the @isSelfColliding method parameters (passing list or str,
         giving unauthorized links)
         """
-        PepperSelfCollisionTest.pepper_virtual.isSelfColliding("Head")
-        PepperSelfCollisionTest.pepper_virtual.isSelfColliding("r_wrist")
-        PepperSelfCollisionTest.pepper_virtual.isSelfColliding([
+        SelfCollisionTest.robot.isSelfColliding("Head")
+        SelfCollisionTest.robot.isSelfColliding("r_wrist")
+        SelfCollisionTest.robot.isSelfColliding([
             "RForeArm",
             "LForeArm"])
-        PepperSelfCollisionTest.pepper_virtual.isSelfColliding(
+        SelfCollisionTest.robot.isSelfColliding(
             "non_existing_link")
-        PepperSelfCollisionTest.pepper_virtual.isSelfColliding([
+        SelfCollisionTest.robot.isSelfColliding([
             "non_existing_link_first",
             "non_existing_link_second"])
 
@@ -43,36 +33,39 @@ class PepperSelfCollisionTest(unittest.TestCase):
         Test self collisions for the wrists
         """
         self.assertFalse(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("r_wrist"))
+            SelfCollisionTest.robot.isSelfColliding("r_wrist"))
+        self.assertFalse(
+            SelfCollisionTest.robot.isSelfColliding("l_wrist"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        # Don't need any further tests for NAO
+        if isinstance(SelfCollisionTest.robot, NaoVirtual):
+            return
+
+        SelfCollisionTest.robot.setAngles(
             "RElbowRoll",
             1.6,
             1.0)
         time.sleep(3)
 
         self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("r_wrist"))
+            SelfCollisionTest.robot.isSelfColliding("r_wrist"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             "RElbowRoll",
             0.0,
             1.0)
         time.sleep(3)
 
-        self.assertFalse(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("l_wrist"))
-
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             "LElbowRoll",
             -1.6,
             1.0)
         time.sleep(3)
 
         self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("l_wrist"))
+            SelfCollisionTest.robot.isSelfColliding("l_wrist"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             "LElbowRoll",
             0.0,
             1.0)
@@ -83,35 +76,39 @@ class PepperSelfCollisionTest(unittest.TestCase):
         Test self collisions for the forearms
         """
         self.assertFalse(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("RForeArm"))
+            SelfCollisionTest.robot.isSelfColliding("RForeArm"))
         self.assertFalse(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("LForeArm"))
+            SelfCollisionTest.robot.isSelfColliding("LForeArm"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        # Don't need any further tests for NAO
+        if isinstance(SelfCollisionTest.robot, NaoVirtual):
+            return
+
+        SelfCollisionTest.robot.setAngles(
             ["RShoulderRoll", "RElbowRoll"],
             [-0.3, 1.6],
             1.0)
         time.sleep(3)
 
         self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("RForeArm"))
+            SelfCollisionTest.robot.isSelfColliding("RForeArm"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             ["RShoulderRoll", "RElbowRoll"],
             [0.0, 0.0],
             1.0)
         time.sleep(3)
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             ["LShoulderRoll", "LElbowRoll"],
             [0.3, -1.6],
             1.0)
         time.sleep(3)
 
         self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("LForeArm"))
+            SelfCollisionTest.robot.isSelfColliding("LForeArm"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             ["LShoulderRoll", "LElbowRoll"],
             [0.0, 0.0],
             1.0)
@@ -122,22 +119,58 @@ class PepperSelfCollisionTest(unittest.TestCase):
         Test self collisions for the head
         """
         self.assertFalse(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("Head"))
+            SelfCollisionTest.robot.isSelfColliding("Head"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        # Don't need any further tests for NAO
+        if isinstance(SelfCollisionTest.robot, NaoVirtual):
+            return
+
+        SelfCollisionTest.robot.setAngles(
             ["RShoulderPitch", "RElbowRoll"],
             [-1.3, 1.3],
             1.0)
         time.sleep(3)
 
         self.assertTrue(
-            PepperSelfCollisionTest.pepper_virtual.isSelfColliding("Head"))
+            SelfCollisionTest.robot.isSelfColliding("Head"))
 
-        PepperSelfCollisionTest.pepper_virtual.setAngles(
+        SelfCollisionTest.robot.setAngles(
             ["RShoulderPitch", "RElbowRoll"],
             [0.0, 0.0],
             1.0)
         time.sleep(3)
+
+
+class PepperSelfCollisionTest(SelfCollisionTest):
+    """
+    Unittests for the detection of Pepper's self collisions
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Launches a simulation and spawns the Pepper virtual robot
+        """
+        SelfCollisionTest.robot = PepperVirtual()
+        SelfCollisionTest.robot.loadRobot(
+            [0, 0, 0],
+            [0, 0, 0, 1])
+
+
+class NaoSelfCollisionTest(SelfCollisionTest):
+    """
+    Unittests for the detection of Nao's self collisions
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Launches a simulation and spawns the Nao virtual robot
+        """
+        SelfCollisionTest.robot = NaoVirtual()
+        SelfCollisionTest.robot.loadRobot(
+            [0, 0, 0],
+            [0, 0, 0, 1])
 
 
 if __name__ == "__main__":

@@ -1,10 +1,59 @@
 #!/usr/bin/env python
 # coding: utf-8
 import unittest
-from qibullet import PepperVirtual
+from qibullet import NaoVirtual, PepperVirtual
 
 
-class PepperPostureTest(unittest.TestCase):
+class PostureTest(unittest.TestCase):
+    """
+    Unittests for Pepper's postures
+    """
+
+    def test_go_to_posture_method(self):
+        """
+        Test the robustness of the @goToPosture method
+        """
+        self.assertFalse(
+            PostureTest.robot.goToPosture("invalid", 0.5))
+
+    def test_stand_posture(self):
+        """
+        Test the Stand posture
+        """
+        self.assertTrue(
+            PostureTest.robot.goToPosture("Stand", 0.5))
+        self.assertTrue(
+            PostureTest.robot.goToPosture("stand", 0.5))
+
+    def test_stand_init_posture(self):
+        """
+        Test the StandInit posture
+        """
+        self.assertTrue(
+            PostureTest.robot.goToPosture("StandInit", 0.5))
+        self.assertTrue(
+            PostureTest.robot.goToPosture("standInit", 0.5))
+
+    def test_stand_zero_posture(self):
+        """
+        Test the StandZero posture
+        """
+        self.assertTrue(
+            PostureTest.robot.goToPosture("StandZero", 0.5))
+        self.assertTrue(
+            PostureTest.robot.goToPosture("standZero", 0.5))
+
+    def test_crouch_posture(self):
+        """
+        Test the Crouch posture
+        """
+        self.assertTrue(
+            PostureTest.robot.goToPosture("Crouch", 0.5))
+        self.assertTrue(
+            PostureTest.robot.goToPosture("crouch", 0.5))
+
+
+class PepperPostureTest(PostureTest):
     """
     Unittests for Pepper's postures
     """
@@ -14,48 +63,50 @@ class PepperPostureTest(unittest.TestCase):
         """
         Launches a simulation and spawns the Pepper virtual robot
         """
-        cls.pepper_virtual = PepperVirtual()
-        cls.pepper_virtual.loadRobot(
+        PostureTest.robot = PepperVirtual()
+        PostureTest.robot.loadRobot(
             [0, 0, 0],
             [0, 0, 0, 1])
 
     def test_go_to_posture_method(self):
-        """
-        Test the robustness of the @goToPosture method
-        """
-        self.assertFalse(
-            PepperPostureTest.pepper_virtual.goToPosture("invalid", 0.5))
+        PostureTest.test_go_to_posture_method(self)
 
     def test_stand_posture(self):
-        """
-        Test the Stand / StandInit posture
-        """
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("Stand", 0.5))
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("StandInit", 0.5))
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("stand", 0.5))
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("standInit", 0.5))
+        PostureTest.test_stand_posture(self)
 
     def test_stand_zero_posture(self):
-        """
-        Test the StandZero posture
-        """
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("StandZero", 0.5))
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("standZero", 0.5))
+        PostureTest.test_stand_zero_posture(self)
 
     def test_crouch_posture(self):
+        PostureTest.test_crouch_posture(self)
+
+
+class NaoPostureTest(PostureTest):
+    """
+    Unittests for Nao's postures
+    """
+
+    @classmethod
+    def setUpClass(cls):
         """
-        Test the Crouch posture
+        Launches a simulation and spawns the Nao virtual robot
         """
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("Crouch", 0.5))
-        self.assertTrue(
-            PepperPostureTest.pepper_virtual.goToPosture("crouch", 0.5))
+        PostureTest.robot = NaoVirtual()
+        PostureTest.robot.loadRobot(
+            [0, 0, 0],
+            [0, 0, 0, 1])
+
+    def test_go_to_posture_method(self):
+        PostureTest.test_go_to_posture_method(self)
+
+    def test_stand_posture(self):
+        PostureTest.test_stand_posture(self)
+
+    def test_stand_zero_posture(self):
+        PostureTest.test_stand_zero_posture(self)
+
+    def test_crouch_posture(self):
+        PostureTest.test_crouch_posture(self)
 
 
 if __name__ == "__main__":
