@@ -61,8 +61,6 @@ class PepperVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
-        self.goToPosture("Stand", 1.0)
-
         for base_link in ["Hip", "Pelvis"]:
             pybullet.setCollisionFilterPair(
                 self.robot_model,
