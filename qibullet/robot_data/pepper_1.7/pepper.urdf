@@ -1779,7 +1779,8 @@
   <joint name="LThumb1" type="revolute">
     <parent link="l_wrist"/>
     <child link="LThumb1_link"/>
-    <origin rpy="-1.95836 0.60626 0.533978" xyz="0.0482 -0.0357 -0.0199"/>
+    <!-- <origin rpy="-1.95836 0.60626 0.533978" xyz="0.0482 -0.0357 -0.0199"/> -->
+    <origin rpy="-2.55836 0.80626 0.533978" xyz="0.0482 -0.0357 -0.0199"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.872665" offset="0"/>
     <limit effort="0.144" lower="0.0" upper="0.872665" velocity="12.56"/>
@@ -1833,7 +1834,8 @@
   <joint name="RThumb1" type="revolute">
     <parent link="r_wrist"/>
     <child link="RThumb1_link"/>
-    <origin rpy="-1.18323 0.60626 -0.533978" xyz="0.0482 0.0357 -0.0199"/>
+    <!-- <origin rpy="-1.18323 0.60626 -0.533978" xyz="0.0482 0.0357 -0.0199"/> -->
+    <origin rpy="-0.58323 0.80626 -0.533978" xyz="0.0482 0.0357 -0.0199"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.872665" offset="0"/>
     <limit effort="0.144" lower="0.0" upper="0.872665" velocity="12.56"/>
