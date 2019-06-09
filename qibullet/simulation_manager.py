@@ -9,7 +9,7 @@ from qibullet.laser import Laser
 from qibullet.camera import Camera
 from qibullet.nao_virtual import NaoVirtual
 from qibullet.pepper_virtual import PepperVirtual
-from qibullet.base_controller import BaseController
+from qibullet.controller import Controller
 
 
 class SimulationManager:
@@ -190,7 +190,7 @@ class SimulationManager:
             if camera.physics_client == physics_client:
                 camera._resetActiveCamera()
 
-        for controller in BaseController._getInstances():
+        for controller in Controller._getInstances():
             controller._terminateController()
 
     def _stepSimulation(self, physics_client):
