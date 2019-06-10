@@ -4,10 +4,11 @@
 from qibullet.robot_module import RobotModule
 
 
-class Controller(RobotModule):
+class Sensor(RobotModule):
     """
-    Abstract class describing a virtual controller
+    Abstract class describing a virtual sensor
     """
+
     def __init__(self, robot_model, physics_client):
         """
         Constructor

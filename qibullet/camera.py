@@ -8,6 +8,7 @@ import pybullet
 import threading
 import numpy as np
 from qibullet.link import Link
+from qibullet.sensor import Sensor
 
 
 class CameraResolution:
@@ -39,11 +40,10 @@ class CameraResolution:
             return False
 
 
-class Camera:
+class Camera(Sensor):
     """
     Class representing a virtual camera
     """
-    _instances = set()
     ACTIVE_CAMERA_ID = dict()
 
     K_QQVGA = CameraResolution(160, 120)
@@ -71,8 +71,7 @@ class Camera:
             near_plane - The near plane distance
             far_plane - The far plane distance
         """
-        self.robot_model = robot_model
-        self.physics_client = physicsClientId
+        Sensor.__init__(self, robot_model, physicsClientId)
         self.link = link
         self.near_plane = near_plane
         self.far_plane = far_plane
@@ -80,28 +79,8 @@ class Camera:
         self.projection_matrix = None
         self.resolution = None
         self.fov = None
-        self.extraction_thread = threading.Thread()
         self.resolution_lock = threading.Lock()
-        self._instances.add(weakref.ref(self))
         self._resetActiveCamera()
-        atexit.register(self._resetActiveCamera)
-
-    @classmethod
-    def _getInstances(cls):
-        """
-        INTERNAL CLASSMETHOD, get all of the Camera (and daughters) instances
-        """
-        dead = set()
-
-        for ref in cls._instances:
-            obj = ref()
-
-            if obj is not None:
-                yield obj
-            else:
-                dead.add(ref)
-
-        cls._instances -= dead
 
     def subscribe(self, id, resolution):
         """

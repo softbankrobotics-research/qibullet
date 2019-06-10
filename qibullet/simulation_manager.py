@@ -9,7 +9,7 @@ from qibullet.laser import Laser
 from qibullet.camera import Camera
 from qibullet.nao_virtual import NaoVirtual
 from qibullet.pepper_virtual import PepperVirtual
-from qibullet.controller import Controller
+from qibullet.robot_module import RobotModule
 
 
 class SimulationManager:
@@ -175,8 +175,8 @@ class SimulationManager:
 
     def _clearInstance(self, physics_client):
         """
-        INTERNAL METHOD, Called to kill the processes running in a simulated
-        instance, before resetting or stopping it.
+        INTERNAL METHOD, Called to kill the processes of modules running in a
+        simulated instance, before resetting or stopping it.
 
         Parameters:
             physics_client - The client id of the simulated instance that will
@@ -190,8 +190,9 @@ class SimulationManager:
             if camera.physics_client == physics_client:
                 camera._resetActiveCamera()
 
-        for controller in Controller._getInstances():
-            controller._terminateController()
+        for module in RobotModule._getInstances():
+            if module.getPhysicsClientId() == physics_client:
+                module._terminateModule()
 
     def _stepSimulation(self, physics_client):
         """

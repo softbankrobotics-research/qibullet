@@ -28,9 +28,7 @@ class BaseController(Controller):
             physicsClientId - The id of the simulated instance in which the
             robot will be controlled
         """
-        Controller.__init__(self)
-        self.robot_model = robot_model
-        self.physics_client = physicsClientId
+        Controller.__init__(self, robot_model, physicsClientId)
         self.linear_velocity = 0
         self.angular_velocity = 0
         self.linear_acceleration = 0
@@ -260,15 +258,15 @@ class PepperBaseController(BaseController):
         """
         self._setGoal(x, y, theta, frame)
 
-        if self.control_process.isAlive():
+        if self.module_process.isAlive():
             if _async is False:
                 raise pybullet.error(
                     "Already a moveTo asynchronous. Can't "
                     "launch moveTo synchronous")
             self._initProcess()
         elif _async:
-            self.control_process = threading.Thread(target=self._moveToProcess)
-            self.control_process.start()
+            self.module_process = threading.Thread(target=self._moveToProcess)
+            self.module_process.start()
         else:
             self._moveToProcess()
 
@@ -402,7 +400,7 @@ class PepperBaseController(BaseController):
         actual_pos = init_pos
         actual_orn = init_orn
 
-        while not self._controller_termination:
+        while not self._module_termination:
             translation_distance = getDistance(
                 actual_pos,
                 self.pose_goal["position"])
