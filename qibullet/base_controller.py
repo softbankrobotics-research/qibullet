@@ -8,13 +8,14 @@ import pybullet
 import threading
 
 from qibullet.tools import *
+from qibullet.controller import Controller
 
 
-class BaseController(object):
+class BaseController(Controller):
     """
     Class describing a robot base controller
     """
-    _instances = set()
+    # _instances = set()
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
 
@@ -27,37 +28,14 @@ class BaseController(object):
             physicsClientId - The id of the simulated instance in which the
             robot will be controlled
         """
-        self.robot_model = robot_model
-        self.physics_client = physicsClientId
+        Controller.__init__(self, robot_model, physicsClientId)
         self.linear_velocity = 0
         self.angular_velocity = 0
         self.linear_acceleration = 0
         self.angular_acceleration = 0
-        self.control_process = threading.Thread(target=None)
         self.frame = BaseController.FRAME_ROBOT
         self.pose_init = {}
         self.pose_goal = {}
-        self._instances.add(weakref.ref(self))
-        self._controller_termination = False
-        atexit.register(self._terminateController)
-
-    @classmethod
-    def _getInstances(cls):
-        """
-        INTERNAL CLASSMETHOD, get all of the BaseController (and daughters)
-        instances
-        """
-        dead = set()
-
-        for ref in cls._instances:
-            obj = ref()
-
-            if obj is not None:
-                yield obj
-            else:
-                dead.add(ref)
-
-        cls._instances -= dead
 
     def _setGoal(self, x, y, theta, frame):
         """
@@ -141,16 +119,6 @@ class BaseController(object):
             angular_acceleration : The angular acceleration value in rad/s^2
         """
         self.angular_acceleration = angular_acceleration
-
-    def _terminateController(self):
-        """
-        INTERNAL METHOD, can be called to terminate an asynchronous controller.
-        Should only be used when killing the simulation
-        """
-        self._controller_termination = True
-
-        if self.control_process.isAlive():
-            self.control_process.join()
 
 
 class PepperBaseController(BaseController):
@@ -290,15 +258,15 @@ class PepperBaseController(BaseController):
         """
         self._setGoal(x, y, theta, frame)
 
-        if self.control_process.isAlive():
+        if self.module_process.isAlive():
             if _async is False:
                 raise pybullet.error(
                     "Already a moveTo asynchronous. Can't "
                     "launch moveTo synchronous")
             self._initProcess()
         elif _async:
-            self.control_process = threading.Thread(target=self._moveToProcess)
-            self.control_process.start()
+            self.module_process = threading.Thread(target=self._moveToProcess)
+            self.module_process.start()
         else:
             self._moveToProcess()
 
@@ -432,7 +400,7 @@ class PepperBaseController(BaseController):
         actual_pos = init_pos
         actual_orn = init_orn
 
-        while not self._controller_termination:
+        while not self._module_termination:
             translation_distance = getDistance(
                 actual_pos,
                 self.pose_goal["position"])

@@ -2,9 +2,7 @@
 # coding: utf-8
 
 import os
-import time
 import pybullet
-from qibullet.tools import *
 from qibullet.laser import *
 from qibullet.camera import *
 from qibullet.base_controller import *
@@ -47,7 +45,7 @@ class PepperVirtual(RobotVirtual):
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
-        Overload @loadRobot from the @RobotVirtual class. Update max velocity
+        Overloads @loadRobot from the @RobotVirtual class. Update max velocity
         for the fingers and thumbs, based on the hand joints. Add self
         collision exceptions (The biceps won't autocollide with the torso, the
         fingers and thumbs of a hand won't autocollide with the corresponding
@@ -178,7 +176,7 @@ class PepperVirtual(RobotVirtual):
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
-        Overload @setAngles from the @RobotVirtual class. Handles the finger
+        Overloads @setAngles from the @RobotVirtual class. Handles the finger
         mimic behaviour.
 
         Parameters:
@@ -229,7 +227,7 @@ class PepperVirtual(RobotVirtual):
 
     def getAnglesPosition(self, joint_names):
         """
-        Overload @getAnglesPosition from the @RobotVirtual class. Handles the
+        Overloads @getAnglesPosition from the @RobotVirtual class. Handles the
         finger mimicked position for the hands (when getting the position of
         RHand or LHand, will return the hand's opening percentage).
 
@@ -400,50 +398,6 @@ class PepperVirtual(RobotVirtual):
         Return a list of the left laser value (clockwise)
         """
         return self.laser_manager.getLeftLaserValue()
-
-    def isSelfColliding(self, link_names):
-        """
-        Specifies if a link is colliding with the rest of the virtual Pepper
-        robot.
-
-        Parameters:
-            link_names - String or list of string containing the names of the
-            links to be checked for self collision. WARNING: only the links
-            with corresponding meshes should be used, otherwise the link cannot
-            self collide
-
-        Returns:
-            self_colliding - Boolean, if True at least one of the links is self
-            colliding
-        """
-        try:
-            if type(link_names) is str:
-                assert link_names in self.link_dict.keys()
-                names = [link_names]
-            else:
-                assert set(link_names).issubset(self.link_dict.keys())
-                names = list(link_names)
-
-            for name in names:
-                contact_tuple = pybullet.getContactPoints(
-                    bodyA=self.robot_model,
-                    bodyB=self.robot_model,
-                    linkIndexA=self.link_dict[name].getIndex(),
-                    physicsClientId=self.physics_client)
-                contact_tuple += pybullet.getContactPoints(
-                    bodyA=self.robot_model,
-                    bodyB=self.robot_model,
-                    linkIndexB=self.link_dict[name].getIndex(),
-                    physicsClientId=self.physics_client)
-
-                if len(contact_tuple) != 0:
-                    return True
-
-            return False
-
-        except AssertionError:
-            "Unauthorized link checking for self collisions"
-            return False
 
     def _mimicHand(self, hand, value, multiplier=0.872665, offset=0):
         """

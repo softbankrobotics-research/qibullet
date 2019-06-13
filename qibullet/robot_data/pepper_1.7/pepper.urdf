@@ -1113,18 +1113,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger41.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger41.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger41" type="revolute">
@@ -1139,18 +1140,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger42.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger42.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger42" type="revolute">
@@ -1165,18 +1167,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger12.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger12" type="revolute">
@@ -1191,18 +1194,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger33.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger33.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger33" type="revolute">
@@ -1217,18 +1221,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger31.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger31.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger31" type="revolute">
@@ -1243,18 +1248,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger21.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger21" type="revolute">
@@ -1269,18 +1275,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger32.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger32.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger32" type="revolute">
@@ -1295,18 +1302,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger13.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger13" type="revolute">
@@ -1321,18 +1329,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger32.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger32.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger32" type="revolute">
@@ -1347,18 +1356,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger11.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger11" type="revolute">
@@ -1373,18 +1383,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger22.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger22" type="revolute">
@@ -1399,18 +1410,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger13.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger13" type="revolute">
@@ -1425,18 +1437,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger22.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger22" type="revolute">
@@ -1451,18 +1464,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger21.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger21" type="revolute">
@@ -1477,18 +1491,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger41.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger41.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger41" type="revolute">
@@ -1503,18 +1518,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger12.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger12" type="revolute">
@@ -1529,18 +1545,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger23.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger23" type="revolute">
@@ -1555,18 +1572,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger11.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger11" type="revolute">
@@ -1581,18 +1599,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger23.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger23" type="revolute">
@@ -1607,18 +1626,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger43.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger43.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger43" type="revolute">
@@ -1633,18 +1653,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger43.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger43.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger43" type="revolute">
@@ -1659,18 +1680,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger42.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger42.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger42" type="revolute">
@@ -1685,18 +1707,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LFinger31.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger31.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LFinger31" type="revolute">
@@ -1711,18 +1734,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RFinger33.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger33.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RFinger33" type="revolute">
@@ -1737,24 +1761,26 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LThumb1.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LThumb1" type="revolute">
     <parent link="l_wrist"/>
     <child link="LThumb1_link"/>
-    <origin rpy="-1.95836 0.60626 0.533978" xyz="0.0482 -0.0357 -0.0199"/>
+    <!-- <origin rpy="-1.95836 0.60626 0.533978" xyz="0.0482 -0.0357 -0.0199"/> -->
+    <origin rpy="-2.55836 0.80626 0.533978" xyz="0.0482 -0.0357 -0.0199"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.872665" offset="0"/>
     <limit effort="0.144" lower="0.0" upper="0.872665" velocity="12.56"/>
@@ -1763,18 +1789,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RThumb2.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RThumb2" type="revolute">
@@ -1789,24 +1816,26 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/RThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RThumb1.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="RThumb1" type="revolute">
     <parent link="r_wrist"/>
     <child link="RThumb1_link"/>
-    <origin rpy="-1.18323 0.60626 -0.533978" xyz="0.0482 0.0357 -0.0199"/>
+    <!-- <origin rpy="-1.18323 0.60626 -0.533978" xyz="0.0482 0.0357 -0.0199"/> -->
+    <origin rpy="-0.58323 0.80626 -0.533978" xyz="0.0482 0.0357 -0.0199"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.872665" offset="0"/>
     <limit effort="0.144" lower="0.0" upper="0.872665" velocity="12.56"/>
@@ -1815,18 +1844,19 @@
     <inertial>
       <mass value="2e-03"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
         <mesh filename="meshes/LThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LThumb2.dae" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
   <joint name="LThumb2" type="revolute">

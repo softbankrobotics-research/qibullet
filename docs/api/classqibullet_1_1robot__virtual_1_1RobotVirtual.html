@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.12</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -100,7 +100,8 @@ Inheritance diagram for qibullet.robot_virtual.RobotVirtual:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqibullet_1_1robot__virtual_1_1RobotVirtual__inherit__graph.png" border="0" usemap="#qibullet_8robot__virtual_8RobotVirtual_inherit__map" alt="Inheritance graph"/></div>
 <map name="qibullet_8robot__virtual_8RobotVirtual_inherit__map" id="qibullet_8robot__virtual_8RobotVirtual_inherit__map">
-<area shape="rect" id="node2" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html" title="qibullet.pepper_virtual.\lPepperVirtual" alt="" coords="18,95,170,136"/>
+<area shape="rect" id="node2" href="classqibullet_1_1nao__virtual_1_1NaoVirtual.html" title="qibullet.nao_virtual.Nao\lVirtual" alt="" coords="5,95,164,136"/>
+<area shape="rect" id="node3" href="classqibullet_1_1pepper__virtual_1_1PepperVirtual.html" title="qibullet.pepper_virtual.\lPepperVirtual" alt="" coords="189,95,341,136"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -110,6 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a21b5970850cfae33a6523b7257ee8066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d1c3970afd58f1c2742be3956c4732b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a9d1c3970afd58f1c2742be3956c4732b">loadRobot</a> (self, translation, quaternion, physicsClientId=0)</td></tr>
 <tr class="separator:a9d1c3970afd58f1c2742be3956c4732b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ae7f7ed784a8e8aa645c07fa07a9914"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a7ae7f7ed784a8e8aa645c07fa07a9914">getRobotModel</a> (self)</td></tr>
+<tr class="separator:a7ae7f7ed784a8e8aa645c07fa07a9914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ba7beeacc6fe352eb4ab5232f8f4d7c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a1ba7beeacc6fe352eb4ab5232f8f4d7c">getPhysicsClientId</a> (self)</td></tr>
 <tr class="separator:a1ba7beeacc6fe352eb4ab5232f8f4d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd188e15e0ad3e28adc613a139c66a7e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#afd188e15e0ad3e28adc613a139c66a7e">setAngles</a> (self, joint_names, joint_values, percentage_speeds)</td></tr>
@@ -118,6 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa8124c8dd4ab6a64182dbbc1f8358cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a5d5a37b466b660c5d48177833b7c8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a30a5d5a37b466b660c5d48177833b7c8">getPosition</a> (self)</td></tr>
 <tr class="separator:a30a5d5a37b466b660c5d48177833b7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e9ca43ecce246d82c5607f3156cbc74"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a8e9ca43ecce246d82c5607f3156cbc74">isSelfColliding</a> (self, link_names)</td></tr>
+<tr class="separator:a8e9ca43ecce246d82c5607f3156cbc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -219,11 +224,11 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Gets the id of the id of the simulation in which this robot instance is
-loaded
+<pre class="fragment">Returns the id of the simulated instance in which the module is loaded
 
 Returns:
-    physics_client - The id of the simulation
+    physics_client - The id of the simulation in which the robot
+    (possessing the module) is spawned
 </pre> 
 </div>
 </div>
@@ -246,6 +251,63 @@ Returns:
     x - The position of the robot's base on the x axis, in meters
     y - The positions of the robot's base on the y axis in meters
     theta - The rotation of the robot's base on the z axis in meters
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a7ae7f7ed784a8e8aa645c07fa07a9914"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getRobotModel </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the pybullet model to which the module is associated
+
+Returns:
+    robot_model - The pybullet model of the robot
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a8e9ca43ecce246d82c5607f3156cbc74"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.isSelfColliding </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>link_names</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Specifies if a link is colliding with the rest of the virtual robot.
+
+Parameters:
+    link_names - String or list of string containing the names of the
+    links to be checked for self collision. WARNING: only the links
+    with corresponding meshes should be used, otherwise the link cannot
+    self collide
+
+Returns:
+    self_colliding - Boolean, if True at least one of the links is self
+    colliding
 </pre> 
 </div>
 </div>

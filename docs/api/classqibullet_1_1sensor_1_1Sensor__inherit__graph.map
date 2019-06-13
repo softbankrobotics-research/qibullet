@@ -1,0 +1,7 @@
+<map id="qibullet.sensor.Sensor" name="qibullet.sensor.Sensor">
+<area shape="rect" id="node3" href="$classqibullet_1_1camera_1_1Camera.html" title="qibullet.camera.Camera" alt="" coords="129,169,289,196"/>
+<area shape="rect" id="node6" href="$classqibullet_1_1laser_1_1Laser.html" title="qibullet.laser.Laser" alt="" coords="313,169,444,196"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1robot__module_1_1RobotModule.html" title="qibullet.robot_module.Robot\lModule" alt="" coords="201,5,385,47"/>
+<area shape="rect" id="node4" href="$classqibullet_1_1camera_1_1CameraDepth.html" title="qibullet.camera.CameraDepth" alt="" coords="5,244,200,271"/>
+<area shape="rect" id="node5" href="$classqibullet_1_1camera_1_1CameraRgb.html" title="qibullet.camera.CameraRgb" alt="" coords="224,244,408,271"/>
+</map>

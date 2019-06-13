@@ -7,8 +7,9 @@ import threading
 import pybullet_data
 from qibullet.laser import Laser
 from qibullet.camera import Camera
+from qibullet.nao_virtual import NaoVirtual
 from qibullet.pepper_virtual import PepperVirtual
-from qibullet.base_controller import BaseController
+from qibullet.robot_module import RobotModule
 
 
 class SimulationManager:
@@ -96,22 +97,54 @@ class SimulationManager:
             be spawned
 
         Returns:
-            pepper - A PepperVirtual object, the Pepper simulated instance
+            pepper_virtual - A PepperVirtual object, the Pepper simulated
+            instance
         """
-        pepper = PepperVirtual()
+        pepper_virtual = PepperVirtual()
 
         if spawn_ground_plane:
-            pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
-            pybullet.loadMJCF(
-                "mjcf/ground_plane.xml",
-                physicsClientId=physics_client)
+            self._spawnGroundPlane(physics_client)
 
-        pepper.loadRobot(
+        pepper_virtual.loadRobot(
             translation,
             quaternion,
             physicsClientId=physics_client)
 
-        return pepper
+        return pepper_virtual
+
+    def spawnNao(
+            self,
+            physics_client,
+            translation=[0, 0, 0],
+            quaternion=[0, 0, 0, 1],
+            spawn_ground_plane=False):
+        """
+        Loads a NAO model in the simulation
+
+        Parameters:
+            physics_client - The id of the simulated instance in which the
+            robot is supposed to be spawned
+            translation - List containing 3 elements, the spawning translation
+            [x, y, z] in the WORLD frame
+            quaternions - List containing 4 elements, the spawning rotation as
+            a quaternion [x, y, z, w] in the WORLD frame
+            spawn_ground_plane - If True, the pybullet_data ground plane will
+            be spawned
+
+        Returns:
+            nao_virtual - A NaoVirtual object, the NAO simulated instance
+        """
+        nao_virtual = NaoVirtual()
+
+        if spawn_ground_plane:
+            self._spawnGroundPlane(physics_client)
+
+        nao_virtual.loadRobot(
+            translation,
+            quaternion,
+            physicsClientId=physics_client)
+
+        return nao_virtual
 
     def removePepper(self, pepper_virtual):
         """
@@ -120,33 +153,40 @@ class SimulationManager:
         Parameters:
             pepper_virtual - The virtual Pepper robot to be removed
         """
-        pepper_virtual.laser_manager._terminateScan()
-        pepper_virtual.base_controller._terminateController()
+        pepper_virtual.laser_manager._terminateModule()
+        pepper_virtual.base_controller._terminateModule()
         pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_TOP)
         pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
         pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_DEPTH)
 
-        pybullet.removeBody(pepper_virtual.robot_model)
+        pybullet.removeBody(pepper_virtual.getRobotModel())
+
+    def removeNao(self, nao_virtual):
+        """
+        Removes a NAO from a simulated instance
+
+        Parameters:
+            nao_virtual - The virtual NAO robot to be removed
+        """
+        nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_TOP)
+        nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_BOTTOM)
+
+        pybullet.removeBody(nao_virtual.getRobotModel())
 
     def _clearInstance(self, physics_client):
         """
-        INTERNAL METHOD, Called to kill the processes running in a simulated
-        instance, before resetting or stopping it.
+        INTERNAL METHOD, Called to kill the processes of modules running in a
+        simulated instance, before resetting or stopping it.
 
         Parameters:
             physics_client - The client id of the simulated instance that will
             be cleared
         """
-        for laser in Laser._getInstances():
-            if laser.physics_client == physics_client:
-                laser._terminateScan()
+        Camera.ACTIVE_CAMERA_ID[physics_client] = -1
 
-        for camera in Camera._getInstances():
-            if camera.physics_client == physics_client:
-                camera._resetActiveCamera()
-
-        for controller in BaseController._getInstances():
-            controller._terminateController()
+        for module in RobotModule._getInstances():
+            if module.getPhysicsClientId() == physics_client:
+                module._terminateModule()
 
     def _stepSimulation(self, physics_client):
         """
@@ -162,3 +202,16 @@ class SimulationManager:
                 time.sleep(1./240.)
         except Exception:
             pass
+
+    def _spawnGroundPlane(self, physics_client):
+        """
+        INTERNAL METHOD, Loads a ground plane
+
+        Parameters:
+            physics_client - The id of the simulated instance in which the
+            ground plane is supposed to be spawned
+        """
+        pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
+        pybullet.loadMJCF(
+            "mjcf/ground_plane.xml",
+            physicsClientId=physics_client)

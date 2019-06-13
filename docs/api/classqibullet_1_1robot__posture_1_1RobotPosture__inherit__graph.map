@@ -1,3 +1,4 @@
 <map id="qibullet.robot_posture.RobotPosture" name="qibullet.robot_posture.RobotPosture">
-<area shape="rect" id="node2" href="$classqibullet_1_1robot__posture_1_1PepperPosture.html" title="qibullet.robot_posture.Pepper\lPosture" alt="" coords="5,95,196,136"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1robot__posture_1_1NaoPosture.html" title="qibullet.robot_posture.Nao\lPosture" alt="" coords="5,95,180,136"/>
+<area shape="rect" id="node3" href="$classqibullet_1_1robot__posture_1_1PepperPosture.html" title="qibullet.robot_posture.Pepper\lPosture" alt="" coords="204,95,395,136"/>
 </map>

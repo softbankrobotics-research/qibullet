@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classqibullet_1_1link_1_1Link.html" title="qibullet.link.Link" alt="" coords="5,5,120,32"/>
+<area shape="rect" id="node1" href="$classqibullet_1_1robot__virtual_1_1RobotVirtual.html" title="qibullet.robot_virtual.Robot\lVirtual" alt="" coords="5,39,183,80"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1nao__virtual_1_1NaoVirtual.html" title="qibullet.nao_virtual.Nao\lVirtual" alt="" coords="231,5,389,47"/>
+<area shape="rect" id="node3" href="$classqibullet_1_1pepper__virtual_1_1PepperVirtual.html" title="qibullet.pepper_virtual.\lPepperVirtual" alt="" coords="234,71,386,112"/>
 </map>

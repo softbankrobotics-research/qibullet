@@ -70,14 +70,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c1"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/HeadYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -97,11 +97,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/HeadPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -114,7 +114,13 @@
     <child link="gaze"/>
     <origin rpy="0 0 0" xyz="0.05871 0 0.06364"/>
   </joint>
-  <link name="gaze"/>
+  <link name="gaze">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHipYawPitch" type="revolute">
     <parent link="torso"/>
     <child link="LPelvis"/>
@@ -130,14 +136,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipYawPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Orange"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipYawPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -157,11 +163,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Orange"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -184,11 +190,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LHipPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -211,11 +217,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LKneePitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c3"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -238,11 +244,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnklePitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Blue"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -265,11 +271,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LAnkleRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Blue"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -283,7 +289,13 @@
     <origin rpy="0 0 0" xyz="0 0 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="l_sole"/>
+  <link name="l_sole">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHipYawPitch" type="revolute">
     <parent link="torso"/>
     <child link="RPelvis"/>
@@ -300,11 +312,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipYawPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RHipYawPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -327,11 +339,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RHipRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -354,11 +366,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RHipPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RHipPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -381,11 +393,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RKneePitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RKneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -408,11 +420,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnklePitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RAnklePitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -435,11 +447,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RAnkleRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RAnkleRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -453,8 +465,20 @@
     <origin rpy="0 0 0" xyz="0 0 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="r_sole"/>
-  <link name="base_link"/>
+  <link name="r_sole">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+  <link name="base_link">
+    <inertial>
+      <mass value="0.0000000001"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="base_link_fixedjoint" type="fixed">
     <parent link="base_link"/>
     <child link="torso"/>
@@ -469,11 +493,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/Torso.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c7"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/Torso_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -496,11 +520,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c8"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -523,11 +547,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LShoulderRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c9"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -564,11 +588,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LElbowRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c1"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -591,11 +615,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LWristYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c2"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -631,11 +655,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderPitch.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c3"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RShoulderPitch_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -658,11 +682,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RShoulderRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c4"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RShoulderRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -699,11 +723,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RElbowRoll.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c5"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RElbowRoll_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -726,11 +750,11 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RWristYaw.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="c6"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RWristYaw_0.10.stl" scale="0.1 0.1 0.1"/>
@@ -751,7 +775,13 @@
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
     </inertial>
   </link>
-  <link name="LFootBumperRight_frame"/>
+  <link name="LFootBumperRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LFoot/Bumper/Right_sensor_fixedjoint" type="fixed">
     <parent link="l_ankle"/>
     <child link="LFootBumperRight_frame"/>
@@ -776,7 +806,13 @@
     <origin rpy="0 0 0" xyz="-0.03025 0.0191 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraBottom_optical_frame"/>
+  <link name="CameraBottom_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraBottom_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraBottom_frame"/>
     <child link="CameraBottom_optical_frame"/>
@@ -818,14 +854,26 @@
     <origin rpy="0 0 0" xyz="0.07025 -0.0231 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchLeft_frame"/>
+  <link name="LHandTouchLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Left_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchLeft_frame"/>
     <origin rpy="0 0 1.5708" xyz="0.032 0.025 0.003"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RFootBumperRight_frame"/>
+  <link name="RFootBumperRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RFoot/Bumper/Right_sensor_fixedjoint" type="fixed">
     <parent link="r_ankle"/>
     <child link="RFootBumperRight_frame"/>
@@ -868,42 +916,78 @@
     <origin rpy="0 0 0" xyz="-0.02965 -0.0191 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoAccelerometer_frame"/>
+  <link name="ImuTorsoAccelerometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Accelerometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoAccelerometer_frame"/>
     <origin rpy="0 0 0" xyz="-0.008 0.00606 0.027"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchFront_frame"/>
+  <link name="HeadTouchFront_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Front_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchFront_frame"/>
     <origin rpy="0 -1.1861 0" xyz="0.0312 0 0.1014"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RFootBumperLeft_frame"/>
+  <link name="RFootBumperLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RFoot/Bumper/Left_sensor_fixedjoint" type="fixed">
     <parent link="r_ankle"/>
     <child link="RFootBumperLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.0876 0.014 -0.0353"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RSonar_frame"/>
+  <link name="RSonar_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Sonar/Right_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="RSonar_frame"/>
     <origin rpy="0.00478508 0.0436497 -0.392441" xyz="0.00558253 -0.0192068 0.0623853"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchRight_frame"/>
+  <link name="RHandTouchRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Right_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchRight_frame"/>
     <origin rpy="0 0 -1.5708" xyz="0.035 -0.025 0.0035"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchBack_frame"/>
+  <link name="RHandTouchBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Back_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchBack_frame"/>
@@ -928,7 +1012,13 @@
     <origin rpy="0 0 0" xyz="0.07025 0.0231 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LSonar_frame"/>
+  <link name="LSonar_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Sonar/Left_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="LSonar_frame"/>
@@ -971,90 +1061,168 @@
     <origin rpy="0 0 0" xyz="-0.03025 0.0299 -0.04511"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RHandTouchLeft_frame"/>
+  <link name="RHandTouchLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHand/Touch/Left_sensor_fixedjoint" type="fixed">
     <parent link="r_wrist"/>
     <child link="RHandTouchLeft_frame"/>
     <origin rpy="0 0 1.5708" xyz="0.032 0.025 0.003"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraBottom_frame"/>
+  <link name="CameraBottom_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraBottom_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraBottom_frame"/>
     <origin rpy="0 0.692896 0" xyz="0.05071 0 0.01774"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraTop_frame"/>
+  <link name="CameraTop_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraTop_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="CameraTop_frame"/>
     <origin rpy="0 0.0209435 0" xyz="0.05871 0 0.06364"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraTop_optical_frame"/>
+  <link name="CameraTop_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraTop_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraTop_frame"/>
     <child link="CameraTop_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchBack_frame"/>
+  <link name="LHandTouchBack_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Back_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchBack_frame"/>
     <origin rpy="3.14159 -1.5708 3.14159" xyz="0.038 0 0.025"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LInfraRed_frame"/>
+  <link name="LInfraRed_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="InfraredL_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="LInfraRed_frame"/>
     <origin rpy="0 0 0" xyz="0.0441 0.0257 0.0466"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoGyrometer_frame"/>
+  <link name="ImuTorsoGyrometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Gyrometer_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ImuTorsoGyrometer_frame"/>
     <origin rpy="0 0 0" xyz="-0.008 0.006 0.029"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchRear_frame"/>
+  <link name="HeadTouchRear_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Rear_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchRear_frame"/>
     <origin rpy="3.14159 -1.33319 -3.14159" xyz="-0.0257 0 0.1045"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="HeadTouchMiddle_frame"/>
+  <link name="HeadTouchMiddle_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="Head/Touch/Middle_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="HeadTouchMiddle_frame"/>
     <origin rpy="3.14159 -1.57079 -3.14159" xyz="0.001 0 0.1099"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RInfraRed_frame"/>
+  <link name="RInfraRed_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="InfraredR_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
     <child link="RInfraRed_frame"/>
     <origin rpy="0 0 0" xyz="0.0441 -0.0257 0.0466"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ChestButton_frame"/>
+  <link name="ChestButton_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="ChestBoard/Button_sensor_fixedjoint" type="fixed">
     <parent link="torso"/>
     <child link="ChestButton_frame"/>
     <origin rpy="0 0 0" xyz="0.049871 0.001588 0.055163"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LFootBumperLeft_frame"/>
+  <link name="LFootBumperLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LFoot/Bumper/Left_sensor_fixedjoint" type="fixed">
     <parent link="l_ankle"/>
     <child link="LFootBumperLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.0876 0.019 -0.0353"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LHandTouchRight_frame"/>
+  <link name="LHandTouchRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHand/Touch/Right_sensor_fixedjoint" type="fixed">
     <parent link="l_wrist"/>
     <child link="LHandTouchRight_frame"/>
@@ -1065,1326 +1233,463 @@
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger13" type="continuous">
+  <joint name="RFinger13" type="revolute">
     <parent link="RFinger12_link"/>
     <child link="RFinger13_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger12_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger12" type="continuous">
+  <joint name="RFinger12" type="revolute">
     <parent link="RFinger11_link"/>
     <child link="RFinger12_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger21_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger21" type="continuous">
+  <joint name="LFinger21" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger21_link"/>
     <origin rpy="1.25539 0.976662 -0.264067" xyz="0.06907 -0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger13_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger13.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger13_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger13" type="continuous">
+  <joint name="LFinger13" type="revolute">
     <parent link="LFinger12_link"/>
     <child link="LFinger13_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger11_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger11" type="continuous">
+  <joint name="LFinger11" type="revolute">
     <parent link="l_wrist"/>
     <child link="LFinger11_link"/>
     <origin rpy="1.8862 0.976662 0.264067" xyz="0.06907 0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger22_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger22" type="continuous">
+  <joint name="RFinger22" type="revolute">
     <parent link="RFinger21_link"/>
     <child link="RFinger22_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger22_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger22.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger22_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger22" type="continuous">
+  <joint name="LFinger22" type="revolute">
     <parent link="LFinger21_link"/>
     <child link="LFinger22_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger21_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger21.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger21_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger21" type="continuous">
+  <joint name="RFinger21" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger21_link"/>
     <origin rpy="1.25539 0.976662 -0.264067" xyz="0.06907 -0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger12_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger12.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger12_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger12" type="continuous">
+  <joint name="LFinger12" type="revolute">
     <parent link="LFinger11_link"/>
     <child link="LFinger12_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger23_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger23" type="continuous">
+  <joint name="RFinger23" type="revolute">
     <parent link="RFinger22_link"/>
     <child link="RFinger23_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RFinger11_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RFinger11.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RFinger11_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RFinger11" type="continuous">
+  <joint name="RFinger11" type="revolute">
     <parent link="r_wrist"/>
     <child link="RFinger11_link"/>
     <origin rpy="1.8862 0.976662 0.264067" xyz="0.06907 0.01157 -0.00304"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LFinger23_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LFinger23.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LFinger23_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="-1.57 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LFinger23" type="continuous">
+  <joint name="LFinger23" type="revolute">
     <parent link="LFinger22_link"/>
     <child link="LFinger23_link"/>
     <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LThumb1_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LThumb1" type="continuous">
+  <joint name="LThumb1" type="revolute">
     <parent link="l_wrist"/>
     <child link="LThumb1_link"/>
     <origin rpy="-1.5708 0.0472984 -3.26826e-08" xyz="0.04895 0 -0.02638"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RThumb1_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb1.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RThumb1_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="RThumb1" type="continuous">
+  <joint name="RThumb1" type="revolute">
     <parent link="r_wrist"/>
     <child link="RThumb1_link"/>
     <origin rpy="-1.5708 0.0472984 -3.26826e-08" xyz="0.04895 0 -0.02638"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="RThumb2_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
+      <!-- <origin rpy="1.57 0 0" xyz="0 0 0"/> -->
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
+      <!-- <origin rpy="1.57 0 0" xyz="0 0 0"/> -->
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/RThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
+      <!-- <origin rpy="1.57 0 0" xyz="0 0 0"/> -->
     </collision>
   </link>
-  <joint name="RThumb2" type="continuous">
+  <joint name="RThumb2" type="revolute">
     <parent link="RThumb1_link"/>
     <child link="RThumb2_link"/>
-    <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
+    <!-- <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/> -->
+    <origin rpy="0 0 -0.999899" xyz="0.01236 -0.0015 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="RHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
   <link name="LThumb2_link">
     <inertial>
       <mass value="2e-06"/>
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LThumb2.obj" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
       <material name="Grey"/>
-</visual>
+    </visual>
     <collision>
       <geometry>
         <mesh filename="meshes/LThumb2_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+      <origin rpy="1.57 0 -0.999899" xyz="0 0 0"/>
     </collision>
   </link>
-  <joint name="LThumb2" type="continuous">
+  <joint name="LThumb2" type="revolute">
     <parent link="LThumb1_link"/>
     <child link="LThumb2_link"/>
-    <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/>
+    <!-- <origin rpy="0 0 -0.999899" xyz="0.01436 0 0"/> -->
+    <origin rpy="0 0 -0.999899" xyz="0.01236 -0.0015 0"/>
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.999899" offset="0"/>
+    <limit effort="0.144" lower="0.0" upper="0.999899" velocity="12.56"/>
   </joint>
-  <!-- GAZEBO ROS CONTROL AND IMU PLUGIN -->
-  <gazebo>
-    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-      <robotNamespace>/nao_dcm</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-    <!--        <plugin filename="libgazebo_ros_imu.so" name="gazebo_ros_imu_controller">
-            <robotNamespace>/nao_dcm</robotNamespace>
-            <topicName>imu_data</topicName>
-            <bodyName>imu</bodyName>
-            <frameId>ImuAccelerometer_frame</frameId>
-            <gaussianNoise>2.89e-08</gaussianNoise>
-            <accelGaussianNoise>2.89e-08 2.89e-08 2.89e-08</accelGaussianNoise>
-            <rateGaussianNoise>2.89e-08 2.89e-08 2.89e-08</rateGaussianNoise>
-            <headingGaussianNoise>2.89e-08 2.89e-08 2.89e-08</headingGaussianNoise>
-            <xyzOffsets>0 0 0</xyzOffsets>
-            <rpyOffsets>0 0 0</rpyOffsets>
-            <updateRate>30.0</updateRate>
-            <alwaysOn>true</alwaysOn>
-        </plugin>
--->
-    <!--        <plugin name="gazebo_ros_imu_controller" filename="${imu_plugin}">
-            <robotNamespace>/nao_dcm</robotNamespace>
-            <topicName>imu_data</topicName>
-            <bodyName>imu</bodyName>
-            <frameId>imu</frameId>
-            <gaussianNoise>2.89e-08</gaussianNoise>
-            <accelGaussianNoise>2.89e-08 2.89e-08 2.89e-08</accelGaussianNoise>
-            <rateGaussianNoise>2.89e-08 2.89e-08 2.89e-08</rateGaussianNoise>
-            <headingGaussianNoise>2.89e-08 2.89e-08 2.89e-08</headingGaussianNoise>
-            <xyzOffsets>0 0 0</xyzOffsets>
-            <rpyOffsets>0 0 0</rpyOffsets>
-            <updateRate>30.0</updateRate>
-            <alwaysOn>true</alwaysOn>
-        </plugin>
--->
-    <!-- Mimic joints through plugin develop by costashatz based on implementation by Goncalo Cabrita -->
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_hipyawpitch">
-      <joint>LHipYawPitch</joint>
-      <mimicJoint>RHipYawPitch</mimicJoint>
-      <multiplier>1.0</multiplier>
-      <offset>0.0</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_LFinger11">
-      <joint>LHand</joint>
-      <mimicJoint>LFinger11</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_LFinger12">
-      <joint>LHand</joint>
-      <mimicJoint>LFinger12</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_LFinger13">
-      <joint>LHand</joint>
-      <mimicJoint>LFinger13</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_LFinger21">
-      <joint>LHand</joint>
-      <mimicJoint>LFinger21</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_LFinger22">
-      <joint>LHand</joint>
-      <mimicJoint>LFinger22</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_LFinger23">
-      <joint>LHand</joint>
-      <mimicJoint>LFinger23</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_RFinger11">
-      <joint>RHand</joint>
-      <mimicJoint>RFinger11</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_RFinger12">
-      <joint>RHand</joint>
-      <mimicJoint>RFinger12</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_RFinger13">
-      <joint>RHand</joint>
-      <mimicJoint>RFinger13</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_RFinger21">
-      <joint>RHand</joint>
-      <mimicJoint>RFinger21</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_RFinger22">
-      <joint>RHand</joint>
-      <mimicJoint>RFinger22</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="mimic_RFinger23">
-      <joint>RHand</joint>
-      <mimicJoint>RFinger23</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="LThumb1">
-      <joint>LHand</joint>
-      <mimicJoint>LThumb1</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="LThumb2">
-      <joint>LHand</joint>
-      <mimicJoint>LThumb2</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="RThumb1">
-      <joint>RHand</joint>
-      <mimicJoint>RThumb1</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_mimic_joint_plugin.so" name="RThumb2">
-      <joint>RHand</joint>
-      <mimicJoint>RThumb2</mimicJoint>
-      <multiplier>-0.785398163398</multiplier>
-      <offset>0.785398163398</offset>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LFinger11_link">
-      <link>LFinger11_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LFinger12_link">
-      <link>LFinger12_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LFinger13_link">
-      <link>LFinger13_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LFinger21_link">
-      <link>LFinger21_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LFinger22_link">
-      <link>LFinger22_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LFinger23_link">
-      <link>LFinger23_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LThumb1_link">
-      <link>LThumb1_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="LThumb2_link">
-      <link>LThumb2_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="l_gripper">
-      <link>l_gripper</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RFinger11_link">
-      <link>RFinger11_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RFinger12_link">
-      <link>RFinger12_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RFinger13_link">
-      <link>RFinger13_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RFinger21_link">
-      <link>RFinger21_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RFinger22_link">
-      <link>RFinger22_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RFinger23_link">
-      <link>RFinger23_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RThumb1_link">
-      <link>RThumb1_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="RThumb2_link">
-      <link>RThumb2_link</link>
-    </plugin>
-    <plugin filename="libroboticsgroup_gazebo_disable_link_plugin.so" name="r_gripper">
-      <link>r_gripper</link>
-    </plugin>
-  </gazebo>
-  <!-- END OF GAZEBO ROS CONTROL PLUGIN -->
-  <!-- GAZEBO MATERIALS -->
-  <gazebo reference="torso">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="Neck">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="Head">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="gaze">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <!--    <gazebo reference="LShoulderDummy">
-        <mu1>0.5</mu1>
-        <mu2>0.5</mu2>
-        <selfCollide>false</selfCollide>
-        <turnGravityOff>false</turnGravityOff>
-    </gazebo>
-    <gazebo reference="RShoulderDummy">
-        <mu1>0.5</mu1>
-        <mu2>0.5</mu2>
-        <selfCollide>false</selfCollide>
-        <turnGravityOff>false</turnGravityOff>
-    </gazebo> -->
-  <!-- ARMS -->
-  <gazebo reference="LShoulder">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LBicep">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LElbow">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LForeArm">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="l_wrist">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="l_gripper">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RShoulder">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RBicep">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RElbow">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RForeArm">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="r_wrist">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="r_gripper">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <!--    <gazebo reference="LElbowDummy">
-        <mu1>0.5</mu1>
-        <mu2>0.5</mu2>
-        <selfCollide>false</selfCollide>
-        <turnGravityOff>false</turnGravityOff>
-    </gazebo>
--->
-  <gazebo reference="LFinger11_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LFinger12_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LFinger13_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LFinger21_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LFinger22_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LFinger23_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LThumb1_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LThumb2_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LPelvis">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LHip">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LThigh">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LTibia">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="LAnklePitch">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="l_ankle">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-  </gazebo>
-  <gazebo reference="RPelvis">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RHip">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RThigh">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RTibia">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RAnklePitch">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  <gazebo reference="r_ankle">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-  </gazebo>
-  <gazebo reference="RFinger11_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RFinger12_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RFinger13_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RFinger21_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RFinger22_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RFinger23_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RThumb1_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <gazebo reference="RThumb2_link">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>true</turnGravityOff>
-  </gazebo>
-  <!--
 
-        RGB CAMERAS: Working
--->
-  <gazebo reference="CameraTop_frame">
-    <sensor name="CameraTop" type="camera">
-      <update_rate>5.0</update_rate>
-      <camera name="camera_top">
-        <horizontal_fov>1.06290551</horizontal_fov>
-        <image>
-          <width>640</width>
-          <height>480</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.3</near>
-          <far>500</far>
-        </clip>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.007</stddev>
-        </noise>
-      </camera>
-      <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <updateRate>5.0</updateRate>
-        <cameraName>camera/top</cameraName>
-        <imageTopicName>image_raw</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>CameraTop_optical_frame</frameName>
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>-0.0545211</distortionK1>
-        <distortionK2>0.06919734</distortionK2>
-        <distortionK3>-0.0241095</distortionK3>
-        <distortionT1>-0.0112245</distortionT1>
-        <distortionT2>0.0</distortionT2>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="CameraBottom_frame">
-    <sensor name="CameraBottom" type="camera">
-      <update_rate>5.0</update_rate>
-      <camera name="camera_bottom">
-        <horizontal_fov>1.06290551</horizontal_fov>
-        <image>
-          <width>640</width>
-          <height>480</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.05</near>
-          <far>500</far>
-        </clip>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.007</stddev>
-        </noise>
-      </camera>
-      <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
-        <robotNamespace>/nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <updateRate>5.0</updateRate>
-        <cameraName>camera_bottom</cameraName>
-        <imageTopicName>image_raw</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>CameraBottom_optical_frame</frameName>
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>-0.0648764</distortionK1>
-        <distortionK2>0.06125202</distortionK2>
-        <distortionK3>0.00382815</distortionK3>
-        <distortionT1>-0.00551104</distortionT1>
-        <distortionT2>0.0</distortionT2>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <!--
-
-        CameraDepth : not displayed at the right spot
-
-<gazebo reference="CameraDepth3_frame">
-    <sensor type="depth" name="openni_camera_camera2">
-        <always_on>1</always_on>
-        <visualize>true</visualize>
-        <camera>
-            <horizontal_fov>1.01229</horizontal_fov>
-            <image>
-                <width>320</width>
-                <height>240</height>
-                <format>R8G8B8</format>
-            </image>
-            <depth_camera>
-
-            </depth_camera>
-            <clip>
-                <near>0.1</near>
-                <far>100</far>
-            </clip>
-        </camera>
-        <plugin name="depth_cam_controller2" filename="libgazebo_ros_openni_kinect.so">
-            <baseline>0.2</baseline>
-            <alwaysOn>true</alwaysOn>
-            <updateRate>0.1</updateRate>
-            <cameraName>xtion2</cameraName>
-            <imageTopicName>/xtion2/ir/image_raw</imageTopicName>
-            <cameraInfoTopicName>/xtion2/ir/camera_info</cameraInfoTopicName>
-            <depthImageTopicName>/xtion2/depth/image_raw</depthImageTopicName>
-            <depthImageInfoTopicName>/xtion2/depth/camera_info</depthImageInfoTopicName>
-            <pointCloudTopicName>/xtion2/depth/points</pointCloudTopicName>
-            <frameName>CameraDepth2_frame</frameName>
-            <pointCloudCutoff>0.5</pointCloudCutoff>
-            <distortionK1>0.00000001</distortionK1>
-            <distortionK2>0.00000001</distortionK2>
-            <distortionK3>0.00000001</distortionK3>
-            <distortionT1>0.00000001</distortionT1>
-            <distortionT2>0.00000001</distortionT2>
-            <CxPrime>0</CxPrime>
-            <Cx>0</Cx>
-            <Cy>0</Cy>
-            <focalLength>0</focalLength>
-            <hackBaseline>0</hackBaseline>
-        </plugin>
-    </sensor>
-</gazebo>
--->
-  <!--
-    BUMPERS + FSR
-libgazebo_ros_bumper.so bugged right now, waiting for new release
-
-
-<gazebo reference="LFootBumper_frame">
-  <sensor type="contact" name="LFootBumper">
-    <update_rate>10</update_rate>
-    <contact>
-      <collision>LFootBumper_frame_collision</collision>
-    </contact>
-    <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_ros_bumper">
-      <alwaysOn>true</alwaysOn>
-      <bumperTopicName>LFootBumper</bumperTopicName>
-      <frameName>LFootBumper_frame</frameName>
-    </plugin>
-  </sensor>
-</gazebo>
--->
-  <gazebo reference="RFsrFL_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="RFsrFL" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>RFsrFL_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_RFsrFL">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/RFoot/FrontLeft</bumperTopicName>
-        <frameName>RFsrFL_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="RFsrFR_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="RFsrFR" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>RFsrFR_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_RFsrFR">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/RFoot/FrontRight</bumperTopicName>
-        <frameName>RFsrFR_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="RFsrRL_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="RFsrRL" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>RFsrRL_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_RFsrRL">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/RFoot/RearLeft</bumperTopicName>
-        <frameName>RFsrRL_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="RFsrRR_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="RFsrRR" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>RFsrRR_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_RFsrRR">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/RFoot/RearRight</bumperTopicName>
-        <frameName>RFsrRR_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="LFsrFL_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="LFsrFL" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>LFsrFL_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_LFsrFL">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/LFoot/FrontLeft</bumperTopicName>
-        <frameName>RFsrFL_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="LFsrFR_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="LFsrFR" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>LFsrFR_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_ros_bumper">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/LFoot/FrontRight</bumperTopicName>
-        <frameName>LFsrFR_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="LFsrRL_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="LFsrRL" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>LFsrRL_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_ros_bumper">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/LFoot/RearLeft</bumperTopicName>
-        <frameName>LFsrRL_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="LFsrRR_frame">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-    <selfCollide>false</selfCollide>
-    <turnGravityOff>false</turnGravityOff>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>0.1</maxVel>
-    <minDepth>0.003</minDepth>
-    <sensor name="LFsrRR" type="contact">
-      <always_on>1</always_on>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <contact>
-        <collision>LFsrRR_frame_collision</collision>
-      </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="gazebo_nao_ros_bumper">
-        <robotNamespace>nao_robot</robotNamespace>
-        <alwaysOn>true</alwaysOn>
-        <bumperTopicName>FSR/LFoot/RearRight</bumperTopicName>
-        <frameName>LFsrRR_frame</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <!--
-    Sonars
--->
-  <gazebo reference="LSonar_frame">
-    <sensor name="LSonar" type="ray">
-      <pose>0 0 0 0 0 0</pose>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>5</samples>
-            <resolution>1</resolution>
-            <min_angle>-0.2617993877991494</min_angle>
-            <max_angle>0.2617993877991494</max_angle>
-            <!--
-          <min_angle>-0.10</min_angle>
-          <max_angle>0.10</max_angle>
--->
-          </horizontal>
-          <vertical>
-            <samples>5</samples>
-            <resolution>1</resolution>
-            <min_angle>-0.13</min_angle>
-            <max_angle>0.13</max_angle>
-            <!--
-          <min_angle>-0.2617993877991494</min_angle>
-          <max_angle>0.2617993877991494</max_angle>
--->
-          </vertical>
-        </scan>
-        <range>
-          <min>0.025</min>
-          <max>2.55</max>
-          <resolution>1</resolution>
-        </range>
-      </ray>
-      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-        <robotNamespace>nao_robot</robotNamespace>
-        <gaussianNoise>0.05</gaussianNoise>
-        <alwaysOn>true</alwaysOn>
-        <updateRate>20</updateRate>
-        <topicName>sonar_left</topicName>
-        <frameName>LSonar_frame</frameName>
-        <minRange>0.025</minRange>
-        <maxRange>2.55</maxRange>
-        <fov>0.5235987755982988</fov>
-        <!--      <fov>0.1</fov> -->
-        <radiation>ultrasound</radiation>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <gazebo reference="RSonar_frame">
-    <sensor name="RSonar" type="ray">
-      <pose>0 0 0 0 0 0</pose>
-      <update_rate>20</update_rate>
-      <visualize>false</visualize>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>5</samples>
-            <resolution>1</resolution>
-            <min_angle>-0.2617993877991494</min_angle>
-            <max_angle>0.2617993877991494</max_angle>
-          </horizontal>
-          <vertical>
-            <samples>5</samples>
-            <resolution>1</resolution>
-            <min_angle>-0.13</min_angle>
-            <max_angle>0.13</max_angle>
-          </vertical>
-        </scan>
-        <range>
-          <min>0.025</min>
-          <max>2.55</max>
-          <resolution>1</resolution>
-        </range>
-      </ray>
-      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-        <robotNamespace>nao_robot</robotNamespace>
-        <gaussianNoise>0.05</gaussianNoise>
-        <alwaysOn>true</alwaysOn>
-        <updateRate>20</updateRate>
-        <topicName>sonar_right</topicName>
-        <frameName>RSonar_frame</frameName>
-        <minRange>0.025</minRange>
-        <maxRange>2.55</maxRange>
-        <fov>0.5235987755982988</fov>
-        <radiation>ultrasound</radiation>
-      </plugin>
-    </sensor>
-  </gazebo>
   <!-- HEAD -->
   <transmission name="HeadYaw_Transmission">
     <type>transmission_interface/SimpleTransmission</type>

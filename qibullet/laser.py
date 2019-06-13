@@ -3,10 +3,9 @@
 
 import time
 import math
-import atexit
-import weakref
 import pybullet
 import threading
+from qibullet.sensor import Sensor
 
 RAY_MISS_COLOR = [0, 1, 0]
 RAY_HIT_COLOR = [1, 0, 0]
@@ -28,11 +27,10 @@ NUM_LASER = len(LASER_POSITION)
 LASER_FRAMERATE = 6.25
 
 
-class Laser:
+class Laser(Sensor):
     """
     Class representing a virtual laser
     """
-    _instances = set()
 
     def __init__(
             self,
@@ -51,18 +49,13 @@ class Laser:
             lasers are to be spawned
             display - boolean that allow the display of the laser
         """
-        self.robot_model = robot_model
-        self.physics_client = physicsClientId
-        self.laser_thread = threading.Thread()
+        Sensor.__init__(self, robot_model, physicsClientId)
         self.ray_from = []
         self.ray_to = []
         self.ray_ids = []
         self.laser_value = [0] * NUM_RAY * NUM_LASER
         self.laser_id = laser_id
         self.display = display
-        self._instances.add(weakref.ref(self))
-        self._scan_termination = False
-        atexit.register(self._terminateScan)
 
     @classmethod
     def _getInstances(cls):
@@ -89,7 +82,7 @@ class Laser:
         Returns:
             boolean - True if the lasers are subscribed, false otherwise
         """
-        return self.laser_thread.isAlive()
+        return self.module_process.isAlive()
 
     def subscribe(self):
         """
@@ -100,10 +93,10 @@ class Laser:
         if self.isActive():
             return
 
-        self._scan_termination = False
+        self._module_termination = False
         self._initializeRays()
-        self.laser_thread = threading.Thread(target=self._laserScan)
-        self.laser_thread.start()
+        self.module_process = threading.Thread(target=self._laserScan)
+        self.module_process.start()
 
     def unsubscribe(self):
         """
@@ -111,7 +104,7 @@ class Laser:
         process)
         """
         if self.isActive():
-            self._terminateScan()
+            self._terminateModule()
 
     def showLaser(self, display):
         """
@@ -164,7 +157,7 @@ class Laser:
         """
         lastLidarTime = time.time()
 
-        while not self._scan_termination:
+        while not self._module_termination:
             nowLidarTime = time.time()
 
             if (nowLidarTime-lastLidarTime > 1/LASER_FRAMERATE):
@@ -238,14 +231,3 @@ class Laser:
             pybullet.removeUserDebugItem(self.ray_ids[i], self.physics_client)
 
         self.ray_ids = []
-
-    def _terminateScan(self):
-        """
-        INTERNAL METHOD, called when unsubscribing from the active laser, when
-        Python is exitted or when the SimulationManager resets/stops a
-        simulation instance
-        """
-        self._scan_termination = True
-
-        if self.laser_thread.isAlive():
-            self.laser_thread.join()
