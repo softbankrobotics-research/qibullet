@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classqibullet_1_1laser_1_1Laser.html" title="qibullet.laser.Laser" alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node1" href="$classqibullet_1_1robot__posture_1_1RobotPosture.html" title="qibullet.robot_posture.Robot\lPosture" alt="" coords="5,39,191,80"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1robot__posture_1_1NaoPosture.html" title="qibullet.robot_posture.Nao\lPosture" alt="" coords="247,5,421,47"/>
+<area shape="rect" id="node3" href="$classqibullet_1_1robot__posture_1_1PepperPosture.html" title="qibullet.robot_posture.Pepper\lPosture" alt="" coords="239,71,429,112"/>
 </map>
