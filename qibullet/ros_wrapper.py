@@ -3,6 +3,7 @@
 
 import os
 import sys
+import atexit
 import pybullet
 from qibullet.camera import Camera
 from qibullet.pepper_virtual import PepperVirtual
@@ -49,12 +50,15 @@ class PepperRosWrapper:
             raise pybullet.error(MISSING_IMPORT)
 
         self.spin_thread = None
+        self._wrapper_termination = False
         self.image_bridge = CvBridge()
         self.front_info_msg = dict()
         self.bottom_info_msg = dict()
         self.depth_info_msg = dict()
         self._loadCameraInfos()
+        self.roslauncher = None
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
+        atexit.register(self.stopWrapper)
 
     def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
         """
@@ -160,18 +164,32 @@ class PepperRosWrapper:
             robot_state_publisher = roslaunch.core.Node(
                 "robot_state_publisher",
                 "robot_state_publisher")
-            roslauncher = roslaunch.scriptapi.ROSLaunch()
 
-            roslauncher.start()
-            roslauncher.launch(robot_state_publisher)
+            self.roslauncher = roslaunch.scriptapi.ROSLaunch()
+            self.roslauncher.start()
+            self.roslauncher.launch(robot_state_publisher)
 
             # Launch the wrapper's main loop
+            self._wrapper_termination = False
             self.spin_thread = Thread(target=self._spin)
             self.spin_thread.start()
 
         except IOError as e:
             print("Could not retrieve robot descrition: " + str(e))
             return
+
+    def stopWrapper(self):
+        """
+        Stops the ROS wrapper
+        """
+        self._wrapper_termination = True
+
+        if self.spin_thread.isAlive():
+            self.spin_thread.join()
+
+        if self.roslauncher is not None:
+            self.roslauncher.stop()
+            print("stopping roslauncher")
 
     def _updateLasers(self):
         """
@@ -342,7 +360,7 @@ class PepperRosWrapper:
         rate = rospy.Rate(self.frequency)
 
         try:
-            while not rospy.is_shutdown():
+            while not self._wrapper_termination:
                 rate.sleep()
                 self.joint_states_pub.publish(self._getJointStateMsg())
                 self._updateLasers()
