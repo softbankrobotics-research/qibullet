@@ -25,7 +25,7 @@ pip install --user qibullet
 ```
 
 ## Usage
-Please note that only the Pepper robot is currently handled by this module. A robot can be spawn via the SimulationManager class:
+A robot can be spawned via the SimulationManager class:
 ```python
 from qibullet import SimulationManager
 
@@ -42,6 +42,11 @@ if __name__ == "__main__":
         client_id,
         translation=[0, 0, 0],
         quaternion=[0, 0, 0, 1],
+        spawn_ground_plane=True)
+
+    # Or a NAO robot, at a default position
+    pepper = simulation_manager.spawnNao(
+        client_id,
         spawn_ground_plane=True)
 ```
 

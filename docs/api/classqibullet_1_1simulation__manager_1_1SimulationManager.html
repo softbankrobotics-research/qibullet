@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.12</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -107,8 +107,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7c3a6687ff2c6e7649e3b080bcce4f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeac971c9a89aab4625031beb947cc088"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aeac971c9a89aab4625031beb947cc088">spawnPepper</a> (self, physics_client, translation=[0, quaternion=[0, spawn_ground_plane=False)</td></tr>
 <tr class="separator:aeac971c9a89aab4625031beb947cc088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac2f8b0a8912b2857c40de855a8d702"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aaac2f8b0a8912b2857c40de855a8d702">spawnNao</a> (self, physics_client, translation=[0, quaternion=[0, spawn_ground_plane=False)</td></tr>
+<tr class="separator:aaac2f8b0a8912b2857c40de855a8d702"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af88a89ed9dd37eb1209c4df0ed73aa51"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#af88a89ed9dd37eb1209c4df0ed73aa51">removePepper</a> (self, pepper_virtual)</td></tr>
 <tr class="separator:af88a89ed9dd37eb1209c4df0ed73aa51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5141efd57313c9ca1eb362d77f330bc5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a5141efd57313c9ca1eb362d77f330bc5">removeNao</a> (self, nao_virtual)</td></tr>
+<tr class="separator:a5141efd57313c9ca1eb362d77f330bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">Class allowing to handle the different parameters of a pybullet simulation
@@ -162,6 +166,36 @@ Parameters:
 
 Returns:
     physics_client - The id of the simulation client created
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a5141efd57313c9ca1eb362d77f330bc5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.removeNao </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>nao_virtual</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Removes a NAO from a simulated instance
+
+Parameters:
+    nao_virtual - The virtual NAO robot to be removed
 </pre> 
 </div>
 </div>
@@ -224,6 +258,64 @@ instance will still be running
 </pre> 
 </div>
 </div>
+<a class="anchor" id="aaac2f8b0a8912b2857c40de855a8d702"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.spawnNao </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>physics_client</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>translation</em> = <code>[0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>quaternion</em> = <code>[0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>spawn_ground_plane</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Loads a NAO model in the simulation
+
+Parameters:
+    physics_client - The id of the simulated instance in which the
+    robot is supposed to be spawned
+    translation - List containing 3 elements, the spawning translation
+    [x, y, z] in the WORLD frame
+    quaternions - List containing 4 elements, the spawning rotation as
+    a quaternion [x, y, z, w] in the WORLD frame
+    spawn_ground_plane - If True, the pybullet_data ground plane will
+    be spawned
+
+Returns:
+    nao_virtual - A NaoVirtual object, the NAO simulated instance
+</pre> 
+</div>
+</div>
 <a class="anchor" id="aeac971c9a89aab4625031beb947cc088"></a>
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +370,8 @@ Parameters:
     be spawned
 
 Returns:
-    pepper - A PepperVirtual object, the Pepper simulated instance
+    pepper_virtual - A PepperVirtual object, the Pepper simulated
+    instance
 </pre> 
 </div>
 </div>

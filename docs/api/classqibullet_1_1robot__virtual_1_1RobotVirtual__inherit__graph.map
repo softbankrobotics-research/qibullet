@@ -1,3 +1,4 @@
 <map id="qibullet.robot_virtual.RobotVirtual" name="qibullet.robot_virtual.RobotVirtual">
-<area shape="rect" id="node2" href="$classqibullet_1_1pepper__virtual_1_1PepperVirtual.html" title="qibullet.pepper_virtual.\lPepperVirtual" alt="" coords="18,95,170,136"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1nao__virtual_1_1NaoVirtual.html" title="qibullet.nao_virtual.Nao\lVirtual" alt="" coords="5,95,164,136"/>
+<area shape="rect" id="node3" href="$classqibullet_1_1pepper__virtual_1_1PepperVirtual.html" title="qibullet.pepper_virtual.\lPepperVirtual" alt="" coords="189,95,341,136"/>
 </map>

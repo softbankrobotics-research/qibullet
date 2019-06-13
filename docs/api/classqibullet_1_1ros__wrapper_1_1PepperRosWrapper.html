@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.0.12</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -102,6 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5d1bd1dead6efe768ebbab9a979df4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab457357f9559c81d277f0776b963d072"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html#ab457357f9559c81d277f0776b963d072">launchWrapper</a> (self, virtual_pepper, ros_namespace, frequency=200)</td></tr>
 <tr class="separator:ab457357f9559c81d277f0776b963d072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a659dce65d100c284ede158dd4483d4ab"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html#a659dce65d100c284ede158dd4483d4ab">stopWrapper</a> (self)</td></tr>
+<tr class="separator:a659dce65d100c284ede158dd4483d4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -120,6 +122,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a79a2ec9e125d4049e7d74758eb1080e0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a79a2ec9e125d4049e7d74758eb1080e0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>depth_info_msg</b></td></tr>
 <tr class="separator:a79a2ec9e125d4049e7d74758eb1080e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74b76d31d9b212faa5dfd2cc8e3d12b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74b76d31d9b212faa5dfd2cc8e3d12b0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>roslauncher</b></td></tr>
+<tr class="separator:a74b76d31d9b212faa5dfd2cc8e3d12b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34d0018cb2bb33406fe1b9ef7d9b4c12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34d0018cb2bb33406fe1b9ef7d9b4c12"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>transform_broadcaster</b></td></tr>
 <tr class="separator:a34d0018cb2bb33406fe1b9ef7d9b4c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,6 +229,23 @@ Parameters:
     advertized and subscribed
     frequency - The frequency of the ROS rate that will be used to pace
     the wrapper's main loop
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a659dce65d100c284ede158dd4483d4ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.ros_wrapper.PepperRosWrapper.stopWrapper </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Stops the ROS wrapper
 </pre> 
 </div>
 </div>

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['removepepper',['removePepper',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#af88a89ed9dd37eb1209c4df0ed73aa51',1,'qibullet::simulation_manager::SimulationManager']]],
-  ['resetsimulation',['resetSimulation',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#aff85f8e6738a675779e07d466f9ca159',1,'qibullet::simulation_manager::SimulationManager']]],
-  ['robotposture',['RobotPosture',['../classqibullet_1_1robot__posture_1_1RobotPosture.html',1,'qibullet::robot_posture']]],
-  ['robotvirtual',['RobotVirtual',['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html',1,'qibullet::robot_virtual']]]
+  ['pepperbasecontroller',['PepperBaseController',['../classqibullet_1_1base__controller_1_1PepperBaseController.html',1,'qibullet::base_controller']]],
+  ['pepperposture',['PepperPosture',['../classqibullet_1_1robot__posture_1_1PepperPosture.html',1,'qibullet::robot_posture']]],
+  ['pepperroswrapper',['PepperRosWrapper',['../classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html',1,'qibullet::ros_wrapper']]],
+  ['peppervirtual',['PepperVirtual',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html',1,'qibullet::pepper_virtual']]]
 ];
