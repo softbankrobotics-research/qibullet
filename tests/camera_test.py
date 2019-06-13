@@ -16,7 +16,7 @@ class CameraTest(unittest.TestCase):
         """
         Test subscribing to each of Pepper's cameras
         """
-        physics_client = CameraTest.robot.physics_client
+        physics_client = CameraTest.robot.getPhysicsClientId()
 
         CameraTest.robot.subscribeCamera(
             CameraTest.robot.__class__.ID_CAMERA_TOP)

@@ -349,50 +349,6 @@ class NaoVirtual(RobotVirtual):
         elif self.camera_bottom.isActive():
             return self.camera_bottom.getResolution()
 
-    def isSelfColliding(self, link_names):
-        """
-        Specifies if a link is colliding with the rest of the virtual NAO
-        robot.
-
-        Parameters:
-            link_names - String or list of string containing the names of the
-            links to be checked for self collision. WARNING: only the links
-            with corresponding meshes should be used, otherwise the link cannot
-            self collide
-
-        Returns:
-            self_colliding - Boolean, if True at least one of the links is self
-            colliding
-        """
-        try:
-            if type(link_names) is str:
-                assert link_names in self.link_dict.keys()
-                names = [link_names]
-            else:
-                assert set(link_names).issubset(self.link_dict.keys())
-                names = list(link_names)
-
-            for name in names:
-                contact_tuple = pybullet.getContactPoints(
-                    bodyA=self.robot_model,
-                    bodyB=self.robot_model,
-                    linkIndexA=self.link_dict[name].getIndex(),
-                    physicsClientId=self.physics_client)
-                contact_tuple += pybullet.getContactPoints(
-                    bodyA=self.robot_model,
-                    bodyB=self.robot_model,
-                    linkIndexB=self.link_dict[name].getIndex(),
-                    physicsClientId=self.physics_client)
-
-                if len(contact_tuple) != 0:
-                    return True
-
-            return False
-
-        except AssertionError:
-            "Unauthorized link checking for self collisions"
-            return False
-
     def _mimicHand(
             self,
             hand,
