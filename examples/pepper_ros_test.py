@@ -23,4 +23,14 @@ if __name__ == "__main__":
     wrap.launchWrapper(pepper, "/naoqi_driver")
 
     pepper.subscribeCamera(PepperVirtual.ID_CAMERA_TOP)
-    rospy.spin()
+
+    try:
+        rospy.spin()
+
+    except KeyboardInterrupt:
+        pass
+    except rospy.ROSInterruptException:
+        pass
+    finally:
+        wrap.stopWrapper()
+        simulation_manager.stopSimulation(client)
