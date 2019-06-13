@@ -153,13 +153,13 @@ class SimulationManager:
         Parameters:
             pepper_virtual - The virtual Pepper robot to be removed
         """
-        pepper_virtual.laser_manager._terminateScan()
-        pepper_virtual.base_controller._terminateController()
+        pepper_virtual.laser_manager._terminateModule()
+        pepper_virtual.base_controller._terminateModule()
         pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_TOP)
         pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
         pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_DEPTH)
 
-        pybullet.removeBody(pepper_virtual.robot_model)
+        pybullet.removeBody(pepper_virtual.getRobotModel())
 
     def removeNao(self, nao_virtual):
         """
@@ -171,7 +171,7 @@ class SimulationManager:
         nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_TOP)
         nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_BOTTOM)
 
-        pybullet.removeBody(nao_virtual.robot_model)
+        pybullet.removeBody(nao_virtual.getRobotModel())
 
     def _clearInstance(self, physics_client):
         """
@@ -182,13 +182,7 @@ class SimulationManager:
             physics_client - The client id of the simulated instance that will
             be cleared
         """
-        for laser in Laser._getInstances():
-            if laser.physics_client == physics_client:
-                laser._terminateScan()
-
-        for camera in Camera._getInstances():
-            if camera.physics_client == physics_client:
-                camera._resetActiveCamera()
+        Camera.ACTIVE_CAMERA_ID[physics_client] = -1
 
         for module in RobotModule._getInstances():
             if module.getPhysicsClientId() == physics_client:

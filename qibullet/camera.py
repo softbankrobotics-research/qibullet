@@ -80,29 +80,30 @@ class Camera(Sensor):
         self.resolution = None
         self.fov = None
         self.resolution_lock = threading.Lock()
-        self._resetActiveCamera()
 
-    def subscribe(self, id, resolution):
+        if self.physics_client not in Camera.ACTIVE_CAMERA_ID.keys():
+            Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
+
+    def subscribe(self, resolution):
         """
         Subscribing method for the camera. The FOV has to be specified
         beforehand
-
-        Parameters:
-            id - The id of the Python object calling the method
-            resolution - CameraResolution object, the resolution of the camera
         """
-        # Lets the extracting thread die before launching another one if the
-        # same camera calls the subscribing method for a second time
-        self._resetActiveCamera()
-        self._setResolution(resolution)
-        Camera.ACTIVE_CAMERA_ID[self.physics_client] = id
+        # Lets the module process thread die before launching another one if
+        # the same camera calls the subscribing method for a second time
+        self._terminateModule()
+        self._module_termination = False
 
-    def unsubscribe(self, id):
+        self._setResolution(resolution)
+        Camera.ACTIVE_CAMERA_ID[self.physics_client] = id(self)
+
+    def unsubscribe(self):
         """
         Method stopping the frame retreival thread for a camera
         """
-        if Camera.ACTIVE_CAMERA_ID[self.physics_client] == id:
-            self._resetActiveCamera()
+        if Camera.ACTIVE_CAMERA_ID[self.physics_client] == id(self):
+            Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
+            self._terminateModule()
 
     def getFrame(self):
         """
@@ -227,8 +228,8 @@ class Camera(Sensor):
         """
         Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
 
-        if self.extraction_thread.isAlive():
-            self.extraction_thread.join()
+        if self.module_process.isAlive():
+            self.module_process.join()
 
     def _waitForCorrectImageFormat(self):
         """
@@ -238,7 +239,7 @@ class Camera(Sensor):
         resolution
         """
         try:
-            assert self.extraction_thread.isAlive()
+            assert self.module_process.isAlive()
 
             while self.getFrame() is None:
                 continue
@@ -291,17 +292,17 @@ class CameraRgb(Camera):
             resolution - CameraResolution object, the resolution of the camera.
             By default, the resolution is QVGA
         """
-        Camera.subscribe(self, id(self), resolution)
-        self.extraction_thread =\
+        Camera.subscribe(self, resolution)
+        self.module_process =\
             threading.Thread(target=self._frameExtractionLoop)
-        self.extraction_thread.start()
+        self.module_process.start()
         self._waitForCorrectImageFormat()
 
     def unsubscribe(self):
         """
         Overload @unsubscribe from @Camera
         """
-        Camera.unsubscribe(self, id(self))
+        Camera.unsubscribe(self)
 
     def _frameExtractionLoop(self):
         """
@@ -314,7 +315,7 @@ class CameraRgb(Camera):
             3))
 
         try:
-            while True:
+            while not self._module_termination:
                 assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
                 camera_image = self._getCameraImage()
 
@@ -379,17 +380,17 @@ class CameraDepth(Camera):
             resolution - CameraResolution object, the resolution of the camera.
             By default, the resolution is QVGA
         """
-        Camera.subscribe(self, id(self), resolution)
-        self.extraction_thread =\
+        Camera.subscribe(self, resolution)
+        self.module_process =\
             threading.Thread(target=self._frameExtractionLoop)
-        self.extraction_thread.start()
+        self.module_process.start()
         self._waitForCorrectImageFormat()
 
     def unsubscribe(self):
         """
         Overload @unsubscribe from @Camera
         """
-        Camera.unsubscribe(self, id(self))
+        Camera.unsubscribe(self)
 
     def _frameExtractionLoop(self):
         """
@@ -397,7 +398,7 @@ class CameraDepth(Camera):
         have to be specified beforehand
         """
         try:
-            while True:
+            while not self._module_termination:
                 assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
                 camera_image = self._getCameraImage()
                 depth_image = camera_image[3]

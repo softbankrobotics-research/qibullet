@@ -87,13 +87,22 @@ class RobotVirtual:
                         joint_info[2] == pybullet.JOINT_REVOLUTE:
                     self.joint_dict[joint_info[1]] = Joint(joint_info)
 
-    def getPhysicsClientId(self):
+    def getRobotModel(self):
         """
-        Gets the id of the id of the simulation in which this robot instance is
-        loaded
+        Returns the pybullet model to which the module is associated
 
         Returns:
-            physics_client - The id of the simulation
+            robot_model - The pybullet model of the robot
+        """
+        return self.robot_model
+
+    def getPhysicsClientId(self):
+        """
+        Returns the id of the simulated instance in which the module is loaded
+
+        Returns:
+            physics_client - The id of the simulation in which the robot
+            (possessing the module) is spawned
         """
         return self.physics_client
 
