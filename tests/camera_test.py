@@ -3,6 +3,7 @@
 import sys
 import unittest
 import pybullet
+from qibullet import SimulationManager
 from qibullet import NaoVirtual, PepperVirtual
 from qibullet import Camera, CameraRgb, CameraDepth, CameraResolution
 
@@ -16,7 +17,7 @@ class CameraTest(unittest.TestCase):
         """
         Test subscribing to each of Pepper's cameras
         """
-        physics_client = CameraTest.robot.getPhysicsClientId()
+        physics_client = CameraTest.client
 
         CameraTest.robot.subscribeCamera(
             CameraTest.robot.__class__.ID_CAMERA_TOP)
@@ -106,10 +107,21 @@ class PepperCameraTest(CameraTest):
         """
         Launches a simulation and spawns the Pepper virtual robot
         """
-        CameraTest.robot = PepperVirtual()
-        CameraTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        CameraTest.simulation = SimulationManager()
+        CameraTest.client = CameraTest.simulation.launchSimulation(
+            gui=False)
+
+        CameraTest.robot = CameraTest.simulation.spawnPepper(
+            CameraTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        CameraTest.simulation.stopSimulation(
+            CameraTest.client)
 
     def test_camera_subscribe(self):
         CameraTest.test_camera_subscribe(self)
@@ -129,12 +141,23 @@ class NaoCameraTest(CameraTest):
     @classmethod
     def setUpClass(cls):
         """
-        Launches a simulation and spawns the Nao virtual robot
+        Launches a simulation and spawns the NAO virtual robot
         """
-        CameraTest.robot = NaoVirtual()
-        CameraTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        CameraTest.simulation = SimulationManager()
+        CameraTest.client = CameraTest.simulation.launchSimulation(
+            gui=False)
+
+        CameraTest.robot = CameraTest.simulation.spawnNao(
+            CameraTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        CameraTest.simulation.stopSimulation(
+            CameraTest.client)
 
     def test_camera_subscribe(self):
         CameraTest.test_camera_subscribe(self)

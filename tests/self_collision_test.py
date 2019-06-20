@@ -4,6 +4,7 @@ import sys
 import time
 import unittest
 import pybullet
+from qibullet import SimulationManager
 from qibullet import NaoVirtual, PepperVirtual
 
 
@@ -151,10 +152,21 @@ class PepperSelfCollisionTest(SelfCollisionTest):
         """
         Launches a simulation and spawns the Pepper virtual robot
         """
-        SelfCollisionTest.robot = PepperVirtual()
-        SelfCollisionTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        SelfCollisionTest.simulation = SimulationManager()
+        SelfCollisionTest.client = SelfCollisionTest.simulation.launchSimulation(
+            gui=False)
+
+        SelfCollisionTest.robot = SelfCollisionTest.simulation.spawnPepper(
+            SelfCollisionTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        SelfCollisionTest.simulation.stopSimulation(
+            SelfCollisionTest.client)
 
 
 class NaoSelfCollisionTest(SelfCollisionTest):
@@ -165,12 +177,23 @@ class NaoSelfCollisionTest(SelfCollisionTest):
     @classmethod
     def setUpClass(cls):
         """
-        Launches a simulation and spawns the Nao virtual robot
+        Launches a simulation and spawns the NAO virtual robot
         """
-        SelfCollisionTest.robot = NaoVirtual()
-        SelfCollisionTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        SelfCollisionTest.simulation = SimulationManager()
+        SelfCollisionTest.client = SelfCollisionTest.simulation.launchSimulation(
+            gui=False)
+
+        SelfCollisionTest.robot = SelfCollisionTest.simulation.spawnNao(
+            SelfCollisionTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        SelfCollisionTest.simulation.stopSimulation(
+            SelfCollisionTest.client)
 
 
 if __name__ == "__main__":
