@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qibullet
-   &#160;<span id="projectnumber">1.1.0</span>
+   &#160;<span id="projectnumber">1.1.1</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -105,6 +105,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aff85f8e6738a675779e07d466f9ca159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c3a6687ff2c6e7649e3b080bcce4f3c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a7c3a6687ff2c6e7649e3b080bcce4f3c">stopSimulation</a> (self, physics_client)</td></tr>
 <tr class="separator:a7c3a6687ff2c6e7649e3b080bcce4f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946cf13e4badfe9dad24ef995a9b1cd3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a946cf13e4badfe9dad24ef995a9b1cd3">setLightPosition</a> (self, physics_client, light_position)</td></tr>
+<tr class="separator:a946cf13e4badfe9dad24ef995a9b1cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeac971c9a89aab4625031beb947cc088"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aeac971c9a89aab4625031beb947cc088">spawnPepper</a> (self, physics_client, translation=[0, quaternion=[0, spawn_ground_plane=False)</td></tr>
 <tr class="separator:aeac971c9a89aab4625031beb947cc088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaac2f8b0a8912b2857c40de855a8d702"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aaac2f8b0a8912b2857c40de855a8d702">spawnNao</a> (self, physics_client, translation=[0, quaternion=[0, spawn_ground_plane=False)</td></tr>
@@ -255,6 +257,43 @@ Parameters:
 <pre class="fragment">Resets the simulated instance corresponding to the physics client id.
 All of the objects loaded in the simulation will be destroyed, but the
 instance will still be running
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a946cf13e4badfe9dad24ef995a9b1cd3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.setLightPosition </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>physics_client</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>light_position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Set the position of the GUI's light (does not work in DIRECT mode)
+
+Parameters:
+    light_position - List containing the 3D positions [x, y, z] along
+    the X, Y, and Z axis in the world frame, in meters
 </pre> 
 </div>
 </div>
