@@ -5,6 +5,7 @@ import time
 import random
 import unittest
 import pybullet
+from qibullet import SimulationManager
 from qibullet import NaoVirtual, PepperVirtual
 
 
@@ -87,10 +88,21 @@ class PepperJointTest(JointTest):
         """
         Launches a simulation and spawns the Pepper virtual robot
         """
-        JointTest.robot = PepperVirtual()
-        JointTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        JointTest.simulation = SimulationManager()
+        JointTest.client = JointTest.simulation.launchSimulation(
+            gui=False)
+
+        JointTest.robot = JointTest.simulation.spawnPepper(
+            JointTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        JointTest.simulation.stopSimulation(
+            JointTest.client)
 
     def test_set_angles(self):
         JointTest.test_set_angles(self)
@@ -113,12 +125,23 @@ class NaoJointTest(JointTest):
     @classmethod
     def setUpClass(cls):
         """
-        Launches a simulation and spawns the Nao virtual robot
+        Launches a simulation and spawns the NAO virtual robot
         """
-        JointTest.robot = NaoVirtual()
-        JointTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        JointTest.simulation = SimulationManager()
+        JointTest.client = JointTest.simulation.launchSimulation(
+            gui=False)
+
+        JointTest.robot = JointTest.simulation.spawnNao(
+            JointTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        JointTest.simulation.stopSimulation(
+            JointTest.client)
 
     def test_set_angles(self):
         JointTest.test_set_angles(self)

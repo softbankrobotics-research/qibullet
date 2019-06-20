@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 import unittest
+from qibullet import SimulationManager
 from qibullet import NaoVirtual, PepperVirtual
 
 
@@ -63,10 +64,21 @@ class PepperPostureTest(PostureTest):
         """
         Launches a simulation and spawns the Pepper virtual robot
         """
-        PostureTest.robot = PepperVirtual()
-        PostureTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        PostureTest.simulation = SimulationManager()
+        PostureTest.client = PostureTest.simulation.launchSimulation(
+            gui=False)
+
+        PostureTest.robot = PostureTest.simulation.spawnPepper(
+            PostureTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        PostureTest.simulation.stopSimulation(
+            PostureTest.client)
 
     def test_go_to_posture_method(self):
         PostureTest.test_go_to_posture_method(self)
@@ -89,12 +101,23 @@ class NaoPostureTest(PostureTest):
     @classmethod
     def setUpClass(cls):
         """
-        Launches a simulation and spawns the Nao virtual robot
+        Launches a simulation and spawns the NAO virtual robot
         """
-        PostureTest.robot = NaoVirtual()
-        PostureTest.robot.loadRobot(
-            [0, 0, 0],
-            [0, 0, 0, 1])
+        PostureTest.simulation = SimulationManager()
+        PostureTest.client = PostureTest.simulation.launchSimulation(
+            gui=False)
+
+        PostureTest.robot = PostureTest.simulation.spawnNao(
+            PostureTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        PostureTest.simulation.stopSimulation(
+            PostureTest.client)
 
     def test_go_to_posture_method(self):
         PostureTest.test_go_to_posture_method(self)

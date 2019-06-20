@@ -77,6 +77,25 @@ class SimulationManager:
         self._clearInstance(physics_client)
         pybullet.disconnect(physicsClientId=physics_client)
 
+    def setLightPosition(self, physics_client, light_position):
+        """
+        Set the position of the GUI's light (does not work in DIRECT mode)
+
+        Parameters:
+            light_position - List containing the 3D positions [x, y, z] along
+            the X, Y, and Z axis in the world frame, in meters
+        """
+        try:
+            assert isinstance(position, list)
+            assert len(position) == 3
+
+            pybullet.configureDebugVisualizer(
+                lightPosition=light_position,
+                physicsClientId=physics_client)
+
+        except AssertionError:
+            raise pybullet.error("Incorrect light position format")
+
     def spawnPepper(
             self,
             physics_client,
