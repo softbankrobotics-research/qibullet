@@ -86,8 +86,8 @@ class SimulationManager:
             the X, Y, and Z axis in the world frame, in meters
         """
         try:
-            assert isinstance(position, list)
-            assert len(position) == 3
+            assert isinstance(light_position, list)
+            assert len(light_position) == 3
 
             pybullet.configureDebugVisualizer(
                 lightPosition=light_position,
