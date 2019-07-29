@@ -52,6 +52,5 @@ setuptools.setup(
         "Operating System :: Microsoft",
         'Topic :: Games/Entertainment :: Simulation',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
-        'Framework :: Robot Framework :: Tool'
     ]
 )
