@@ -491,7 +491,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/LWristYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/LWristYaw_vahcd.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -678,7 +678,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="meshes/RWristYaw.dae" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/RWristYaw_vahcd.obj" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
