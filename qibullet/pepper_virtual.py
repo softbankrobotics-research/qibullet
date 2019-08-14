@@ -141,6 +141,8 @@ class PepperVirtual(RobotVirtual):
             self.motion_constraint,
             physicsClientId=self.physics_client)
 
+        self.goToPosture("StandZero", 1.0)
+
     def moveTo(self, x, y, theta, frame=FRAME_ROBOT, speed=None, _async=False):
         """
         Move the robot in frame world or robot (FRAME_WORLD=1, FRAME_ROBOT=2).
