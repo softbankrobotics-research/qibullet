@@ -149,7 +149,7 @@ class Camera(Sensor):
             fov - The value of the field of view
         """
         try:
-            assert isinstance(fov, list) or type(fov) is float
+            assert isinstance(fov, list)
             assert len(fov) == 2
             assert all(type(i) is int or type(i) is float for i in fov)
             self.hfov = fov[0]
@@ -183,8 +183,8 @@ class Camera(Sensor):
                     right=math.tan((math.pi * self.hfov) / 180.0) * self.near_plane,
                     bottom=-math.tan((math.pi * self.vfov) / 180.0) * self.near_plane,
                     top=math.tan((math.pi * self.vfov) / 180.0) * self.near_plane,
-                    near=self.near_plane,
-                    far=self.far_plane,
+                    nearVal=self.near_plane,
+                    farVal=self.far_plane,
                     physicsClientId=self.physics_client)
 
         except AssertionError as e:
