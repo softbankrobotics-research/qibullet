@@ -45,7 +45,7 @@ if __name__ == "__main__":
         spawn_ground_plane=True)
 
     # Or a NAO robot, at a default position
-    pepper = simulation_manager.spawnNao(
+    nao = simulation_manager.spawnNao(
         client_id,
         spawn_ground_plane=True)
 ```
