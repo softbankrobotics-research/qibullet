@@ -104,16 +104,22 @@ class PepperVirtual(RobotVirtual):
         self.camera_top = CameraRgb(
             self.robot_model,
             self.link_dict["CameraTop_optical_frame"],
+            hfov=56.3,
+            vfov=43.7,
             physicsClientId=self.physics_client)
 
         self.camera_bottom = CameraRgb(
             self.robot_model,
             self.link_dict["CameraBottom_optical_frame"],
+            hfov=56.3,
+            vfov=43.7,
             physicsClientId=self.physics_client)
 
         self.camera_depth = CameraDepth(
             self.robot_model,
             self.link_dict["CameraDepth_optical_frame"],
+            hfov=58.0,
+            vfov=45.0,
             physicsClientId=self.physics_client)
 
         self.motion_constraint = pybullet.createConstraint(

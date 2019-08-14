@@ -58,6 +58,8 @@ class Camera(Sensor):
             self,
             robot_model,
             link,
+            hfov,
+            vfov,
             physicsClientId=0,
             near_plane=0.01,
             far_plane=100):
@@ -67,6 +69,8 @@ class Camera(Sensor):
         Parameters:
             robot_model - The pybullet model of the robot
             link - The link (Link type) onto which the camera's attached
+            hfov - The value of the horizontal field of view angle (in degrees)
+            vfov - The value of the vertical field of view angle (in degrees)
             physicsClientId - The id of the simulated instance in which the
             camera is to be spawned
             near_plane - The near plane distance
@@ -79,8 +83,10 @@ class Camera(Sensor):
         self.frame = None
         self.projection_matrix = None
         self.resolution = None
-        self.fov = None
+        self.hfov = None
+        self.vfov = None
         self.resolution_lock = threading.Lock()
+        self._setFov(hfov, vfov)
 
         if self.physics_client not in Camera.ACTIVE_CAMERA_ID.keys():
             Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
@@ -141,19 +147,19 @@ class Camera(Sensor):
         with self.resolution_lock:
             return self.resolution
 
-    def _setFov(self, fov):
+    def _setFov(self, hfov, vfov):
         """
         INTERNAL METHOD, sets the field of view of the camera
 
         Parameters:
-            fov - The value of the field of view
+            hfov - The value of the horizontal field of view angle (in degrees)
+            vfov - The value of the vertical field of view angle (in degrees)
         """
         try:
-            assert isinstance(fov, list)
-            assert len(fov) == 2
-            assert all(type(i) is int or type(i) is float for i in fov)
-            self.hfov = fov[0]
-            self.vfov = fov[1]
+            assert isinstance(hfov, float) or isinstance(hfov, int)
+            assert isinstance(vfov, float) or isinstance(vfov, int)
+            self.hfov = hfov
+            self.vfov = vfov
 
         except AssertionError as e:
             print("Cannot set the camera FOV: " + str(e))
@@ -269,6 +275,8 @@ class CameraRgb(Camera):
             self,
             robot_model,
             link,
+            hfov,
+            vfov,
             physicsClientId=0,
             resolution=Camera.K_QVGA):
         """
@@ -277,6 +285,8 @@ class CameraRgb(Camera):
         Parameters:
             robot_model - the pybullet model of the robot
             link - The link (Link type) onto which the camera's attached
+            hfov - The value of the horizontal field of view angle (in degrees)
+            vfov - The value of the vertical field of view angle (in degrees)
             physicsClientId - The id of the simulated instance in which the
             camera is to be spawned
             resolution - The resolution of the camera
@@ -285,10 +295,9 @@ class CameraRgb(Camera):
             self,
             robot_model,
             link,
+            hfov,
+            vfov,
             physicsClientId=physicsClientId)
-
-        self._setFov([56.3, 43.7])
-        self.rgb_image = None
 
     def subscribe(self, resolution=Camera.K_QVGA):
         """
@@ -356,6 +365,8 @@ class CameraDepth(Camera):
             self,
             robot_model,
             link,
+            hfov,
+            vfov,
             physicsClientId=0,
             resolution=Camera.K_QVGA):
         """
@@ -364,6 +375,8 @@ class CameraDepth(Camera):
         Parameters:
             robot_model - the pybullet model of the robot
             link - The link (Link type) onto which the camera's attached
+            hfov - The value of the horizontal field of view angle (in degrees)
+            vfov - The value of the vertical field of view angle (in degrees)
             physicsClientId - The id of the simulated instance in which the
             camera is to be spawned
             resolution - The resolution of the camera
@@ -372,11 +385,11 @@ class CameraDepth(Camera):
             self,
             robot_model,
             link,
+            hfov,
+            vfov,
             near_plane=0.4,
             far_plane=8,
             physicsClientId=physicsClientId)
-
-        self._setFov([58.0, 45.0])
 
     def subscribe(self, resolution=Camera.K_QVGA):
         """
