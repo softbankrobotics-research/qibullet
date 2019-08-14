@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import math
 import time
 import atexit
 import weakref
@@ -148,8 +149,11 @@ class Camera(Sensor):
             fov - The value of the field of view
         """
         try:
-            assert type(fov) is int or type(fov) is float
-            self.fov = fov
+            assert isinstance(fov, list)
+            assert len(fov) == 2
+            assert all(type(i) is int or type(i) is float for i in fov)
+            self.hfov = fov[0]
+            self.vfov = fov[1]
 
         except AssertionError as e:
             print("Cannot set the camera FOV: " + str(e))
@@ -165,14 +169,16 @@ class Camera(Sensor):
         try:
             with self.resolution_lock:
                 assert isinstance(resolution, CameraResolution)
-                assert self.fov is not None
+                assert self.hfov is not None and self.vfov is not None
 
                 self.resolution = resolution
-                self.projection_matrix = pybullet.computeProjectionMatrixFOV(
-                    self.fov,
-                    self.resolution.width / self.resolution.height,
-                    self.near_plane,
-                    self.far_plane,
+                self.projection_matrix = pybullet.computeProjectionMatrix(
+                    left=-math.tan(math.pi*self.hfov/360.0)*self.near_plane,
+                    right=math.tan(math.pi*self.hfov/360.0)*self.near_plane,
+                    bottom=-math.tan(math.pi*self.vfov/360.0)*self.near_plane,
+                    top=math.tan(math.pi*self.vfov/360.0)*self.near_plane,
+                    nearVal=self.near_plane,
+                    farVal=self.far_plane,
                     physicsClientId=self.physics_client)
 
         except AssertionError as e:
@@ -281,7 +287,7 @@ class CameraRgb(Camera):
             link,
             physicsClientId=physicsClientId)
 
-        self._setFov(50.0)
+        self._setFov([56.3, 43.7])
         self.rgb_image = None
 
     def subscribe(self, resolution=Camera.K_QVGA):
@@ -370,7 +376,7 @@ class CameraDepth(Camera):
             far_plane=8,
             physicsClientId=physicsClientId)
 
-        self._setFov(51.5)
+        self._setFov([58.0, 45.0])
 
     def subscribe(self, resolution=Camera.K_QVGA):
         """
