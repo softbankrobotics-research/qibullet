@@ -172,17 +172,11 @@ class Camera(Sensor):
                 assert self.hfov is not None and self.vfov is not None
 
                 self.resolution = resolution
-                # self.projection_matrix = pybullet.computeProjectionMatrixFOV(
-                #     self.fov,
-                #     self.resolution.width / self.resolution.height,
-                #     self.near_plane,
-                #     self.far_plane,
-                #     physicsClientId=self.physics_client)
                 self.projection_matrix = pybullet.computeProjectionMatrix(
-                    left=-math.tan((math.pi * self.hfov) / 180.0) * self.near_plane,
-                    right=math.tan((math.pi * self.hfov) / 180.0) * self.near_plane,
-                    bottom=-math.tan((math.pi * self.vfov) / 180.0) * self.near_plane,
-                    top=math.tan((math.pi * self.vfov) / 180.0) * self.near_plane,
+                    left=-math.tan((math.pi * self.hfov) / 360.0) * self.near_plane,
+                    right=math.tan((math.pi * self.hfov) / 360.0) * self.near_plane,
+                    bottom=-math.tan((math.pi * self.vfov) / 360.0) * self.near_plane,
+                    top=math.tan((math.pi * self.vfov) / 360.0) * self.near_plane,
                     nearVal=self.near_plane,
                     farVal=self.far_plane,
                     physicsClientId=self.physics_client)
