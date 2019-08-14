@@ -158,11 +158,15 @@ class NaoVirtual(RobotVirtual):
         self.camera_top = CameraRgb(
             self.robot_model,
             self.link_dict["CameraTop_optical_frame"],
+            hfov=60.9,
+            vfov=47.6,
             physicsClientId=self.physics_client)
 
         self.camera_bottom = CameraRgb(
             self.robot_model,
             self.link_dict["CameraBottom_optical_frame"],
+            hfov=60.9,
+            vfov=47.6,
             physicsClientId=self.physics_client)
 
         # eventual constraints and lasers
