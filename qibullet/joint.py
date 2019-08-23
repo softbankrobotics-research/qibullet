@@ -24,6 +24,7 @@ class Joint:
         self.upper_limit = joint_info[9]
         self.max_effort = joint_info[10]
         self.max_velocity = joint_info[11]
+
         if IS_VERSION_PYTHON_3:
             self.name.decode('utf-8')
 
