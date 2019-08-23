@@ -22,7 +22,7 @@ class Joint:
         self.name = joint_info[1]
         self.lower_limit = joint_info[8]
         self.upper_limit = joint_info[9]
-        self.max_force = joint_info[10]
+        self.max_effort = joint_info[10]
         self.max_velocity = joint_info[11]
         if IS_VERSION_PYTHON_3:
             self.name.decode('utf-8')
@@ -63,14 +63,14 @@ class Joint:
         """
         return self.upper_limit
 
-    def getMaxForce(self):
+    def getMaxEffort(self):
         """
-        Getter for the max force parameter
+        Getter for the max effort parameter
 
         Returns:
-            max_force - The max force for the joint
+            max_effort - The max effort for the joint
         """
-        return self.max_force
+        return self.max_effort
 
     def getMaxVelocity(self):
         """
