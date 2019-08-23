@@ -73,6 +73,15 @@ class Joint:
         """
         return self.max_effort
 
+    def setMaxEffort(self, max_effort):
+        """
+        Setter for the max effort parameter
+
+        Parameters:
+            max_effort - The max effort for the joint in N.m
+        """
+        self.max_effort = max_effort
+
     def getMaxVelocity(self):
         """
         Getter for the max velocity parameter
