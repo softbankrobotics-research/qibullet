@@ -146,6 +146,7 @@ class RobotVirtual:
                 pybullet.POSITION_CONTROL,
                 targetPosition=joint_value,
                 maxVelocity=joint_speed,
+                force=self.joint_dict[joint_name].getMaxEffort(),
                 physicsClientId=self.physics_client)
 
     def getAnglesPosition(self, joint_names):
