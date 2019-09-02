@@ -14,6 +14,26 @@ class JointTest(unittest.TestCase):
     Unittests for the virtual joints (virtual class don't use directly)
     """
 
+    def test_joints_characteristics(self):
+        """
+        Test the behaviour of the Joint class with the robot's characteristics
+        """
+        for key, value in JointTest.robot.joint_dict.items():
+            index = value.index
+            name = value.name
+            lower_limit = value.lower_limit
+            upper_limit = value.upper_limit
+            max_effort = value.max_effort
+            max_velocity = value.max_velocity
+
+            self.assertEqual(key, value.getName())
+            self.assertEqual(index, value.getIndex())
+            self.assertEqual(name, value.getName())
+            self.assertEqual(lower_limit, value.getLowerLimit())
+            self.assertEqual(upper_limit, value.getUpperLimit())
+            self.assertEqual(max_effort, value.getMaxEffort())
+            self.assertEqual(max_velocity, value.getMaxVelocity())
+
     def test_set_angles(self):
         """
         Test the set @setAngles method
@@ -104,6 +124,9 @@ class PepperJointTest(JointTest):
         JointTest.simulation.stopSimulation(
             JointTest.client)
 
+    def test_joints_characteristics(self):
+        JointTest.test_joints_characteristics(self)
+
     def test_set_angles(self):
         JointTest.test_set_angles(self)
 
@@ -142,6 +165,9 @@ class NaoJointTest(JointTest):
         """
         JointTest.simulation.stopSimulation(
             JointTest.client)
+
+    def test_joints_characteristics(self):
+        JointTest.test_joints_characteristics(self)
 
     def test_set_angles(self):
         JointTest.test_set_angles(self)

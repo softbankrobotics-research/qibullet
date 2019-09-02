@@ -22,8 +22,9 @@ class Joint:
         self.name = joint_info[1]
         self.lower_limit = joint_info[8]
         self.upper_limit = joint_info[9]
-        self.max_force = joint_info[10]
+        self.max_effort = joint_info[10]
         self.max_velocity = joint_info[11]
+
         if IS_VERSION_PYTHON_3:
             self.name.decode('utf-8')
 
@@ -50,7 +51,7 @@ class Joint:
         Getter for the lower limit parameter
 
         Returns:
-            lower_limit - The lower limit of the joint
+            lower_limit - The lower limit of the joint in rad
         """
         return self.lower_limit
 
@@ -59,25 +60,34 @@ class Joint:
         Getter for the upper limit parameter
 
         Returns:
-            upper_limit - The upper limit of the joint
+            upper_limit - The upper limit of the joint in rad
         """
         return self.upper_limit
 
-    def getMaxForce(self):
+    def getMaxEffort(self):
         """
-        Getter for the max force parameter
+        Getter for the max effort parameter
 
         Returns:
-            max_force - The max force for the joint
+            max_effort - The max effort for the joint in N.m
         """
-        return self.max_force
+        return self.max_effort
+
+    def setMaxEffort(self, max_effort):
+        """
+        Setter for the max effort parameter
+
+        Parameters:
+            max_effort - The max effort for the joint in N.m
+        """
+        self.max_effort = max_effort
 
     def getMaxVelocity(self):
         """
         Getter for the max velocity parameter
 
         Returns:
-            max_velocity - The max velocity of the joint
+            max_velocity - The max velocity of the joint in rad/s
         """
         return self.max_velocity
 
@@ -86,6 +96,6 @@ class Joint:
         Setter for the max velocity parameter
 
         Parameters:
-            max_velocity - The max velocity for the current joint
+            max_velocity - The max velocity for the current joint in rad/s
         """
         self.max_velocity = max_velocity
