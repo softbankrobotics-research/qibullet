@@ -1,4 +1,4 @@
-# qibullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
+# qiBullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
@@ -19,7 +19,7 @@ The following modules are required:
 * __numpy__
 * __pybullet__
 
-The __qibullet__ module can be installed via pip, for python 2.7 and python 3:
+The __qiBullet__ module can be installed via pip, for python 2.7 and python 3:
 ```bash
 pip install --user qibullet
 ```
@@ -63,7 +63,7 @@ Or using loadRobot from the PepperVirtual class if you already have a simulated 
 More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples), or in the repository [wiki](https://github.com/ProtolabSBRE/qibullet/wiki)
 
 ## Documentation
-The qibullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
+The qiBullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
 ```bash
 cd docs
 doxygen
@@ -72,7 +72,7 @@ doxygen
 The repository also contains a [wiki](https://github.com/ProtolabSBRE/qibullet/wiki), providing some tutorials.
 
 ## Citations
-Please cite qibullet if you use this repository in your publications:
+Please cite qiBullet if you use this repository in your publications:
 ```
 Paper coming soon...
 ```
