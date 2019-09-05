@@ -93,9 +93,27 @@ class JointTest(unittest.TestCase):
         """
         Test the @getAnglesPosition method
         """
-        JointTest.robot.getAnglesPosition("HeadYaw")
-        JointTest.robot.getAnglesPosition(
+        self.assertTrue(isinstance(
+            JointTest.robot.getAnglesPosition("HeadYaw"),
+            float))
+
+        positions = JointTest.robot.getAnglesPosition(
             JointTest.robot.joint_dict.keys())
+
+        self.assertTrue(isinstance(positions, list))
+
+    def test_get_angles_velocity(self):
+        """
+        Test the @getAnglesVelocity method
+        """
+        self.assertTrue(isinstance(
+            JointTest.robot.getAnglesVelocity("HeadYaw"),
+            float))
+
+        velocities = JointTest.robot.getAnglesVelocity(
+            JointTest.robot.joint_dict.keys())
+
+        self.assertTrue(isinstance(velocities, list))
 
 
 class PepperJointTest(JointTest):
@@ -139,6 +157,9 @@ class PepperJointTest(JointTest):
     def test_get_angles_position(self):
         JointTest.test_get_angles_position(self)
 
+    def test_get_angles_velocity(self):
+        JointTest.test_get_angles_velocity(self)
+
 
 class NaoJointTest(JointTest):
     """
@@ -180,6 +201,9 @@ class NaoJointTest(JointTest):
 
     def test_get_angles_position(self):
         JointTest.test_get_angles_position(self)
+
+    def test_get_angles_velocity(self):
+        JointTest.test_get_angles_velocity(self)
 
 
 if __name__ == "__main__":

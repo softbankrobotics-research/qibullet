@@ -262,7 +262,7 @@ class NaoVirtual(RobotVirtual):
         else:
             return joint_positions
 
-    def getAnglesVelocity(self, joint_name):
+    def getAnglesVelocity(self, joint_names):
         """
         Overloads @getAnglesVelocity from the @RobotVirtual class. The method
         won't return the velocity of RHand and LHand joints.
