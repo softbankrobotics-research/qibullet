@@ -170,6 +170,27 @@ class RobotVirtual:
 
         return joint_positions
 
+    def getAnglesVelocity(self, joint_names):
+        """
+        Gets the velocity of the robot's joints in rad/s. If one of the joint
+        doesn't exist, the method will raise a KeyError
+
+        Parameters:
+            joint_names - List of string containing the names of the joints
+
+        Returns:
+            joint_velocities - List of floats containing the joint's velocities
+        """
+        joint_velocities = list()
+
+        for joint_name in joint_names:
+            joint_velocities.append(pybullet.getJointState(
+                self.robot_model,
+                self.joint_dict[joint_name].getIndex(),
+                physicsClientId=self.physics_client)[1])
+
+        return joint_velocities
+
     def getPosition(self):
         """
         Gets the position of the robot's base in the world frame
