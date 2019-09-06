@@ -262,6 +262,31 @@ class NaoVirtual(RobotVirtual):
         else:
             return joint_positions
 
+    def getAnglesVelocity(self, joint_names):
+        """
+        Overloads @getAnglesVelocity from the @RobotVirtual class. The method
+        won't return the velocity of RHand and LHand joints.
+
+        Parameters:
+            joint_names - List of string (or string if only one joint)
+            containing the name of the joints
+
+        Returns:
+            joint_velocities - List of float (or float if only one joint)
+            containing the joint's velocities in rad/s
+        """
+        if type(joint_names) is str:
+            names = [joint_names]
+        else:
+            names = list(joint_names)
+
+        joint_velocities = RobotVirtual.getAnglesVelocity(self, names)
+
+        if len(joint_velocities) == 1:
+            return joint_velocities.pop()
+        else:
+            return joint_velocities
+
     def goToPosture(self, posture_name, percentage_speed):
         """
         Position the virtual robot into a particular posture. The different

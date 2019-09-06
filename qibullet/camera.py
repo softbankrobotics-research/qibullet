@@ -111,6 +111,7 @@ class Camera(Sensor):
         if Camera.ACTIVE_CAMERA_ID[self.physics_client] == id(self):
             Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
             self._terminateModule()
+            self.frame = None
 
     def getFrame(self):
         """

@@ -14,6 +14,26 @@ class JointTest(unittest.TestCase):
     Unittests for the virtual joints (virtual class don't use directly)
     """
 
+    def test_joints_characteristics(self):
+        """
+        Test the behaviour of the Joint class with the robot's characteristics
+        """
+        for key, value in JointTest.robot.joint_dict.items():
+            index = value.index
+            name = value.name
+            lower_limit = value.lower_limit
+            upper_limit = value.upper_limit
+            max_effort = value.max_effort
+            max_velocity = value.max_velocity
+
+            self.assertEqual(key, value.getName())
+            self.assertEqual(index, value.getIndex())
+            self.assertEqual(name, value.getName())
+            self.assertEqual(lower_limit, value.getLowerLimit())
+            self.assertEqual(upper_limit, value.getUpperLimit())
+            self.assertEqual(max_effort, value.getMaxEffort())
+            self.assertEqual(max_velocity, value.getMaxVelocity())
+
     def test_set_angles(self):
         """
         Test the set @setAngles method
@@ -73,9 +93,27 @@ class JointTest(unittest.TestCase):
         """
         Test the @getAnglesPosition method
         """
-        JointTest.robot.getAnglesPosition("HeadYaw")
-        JointTest.robot.getAnglesPosition(
+        self.assertTrue(isinstance(
+            JointTest.robot.getAnglesPosition("HeadYaw"),
+            float))
+
+        positions = JointTest.robot.getAnglesPosition(
             JointTest.robot.joint_dict.keys())
+
+        self.assertTrue(isinstance(positions, list))
+
+    def test_get_angles_velocity(self):
+        """
+        Test the @getAnglesVelocity method
+        """
+        self.assertTrue(isinstance(
+            JointTest.robot.getAnglesVelocity("HeadYaw"),
+            float))
+
+        velocities = JointTest.robot.getAnglesVelocity(
+            JointTest.robot.joint_dict.keys())
+
+        self.assertTrue(isinstance(velocities, list))
 
 
 class PepperJointTest(JointTest):
@@ -104,6 +142,9 @@ class PepperJointTest(JointTest):
         JointTest.simulation.stopSimulation(
             JointTest.client)
 
+    def test_joints_characteristics(self):
+        JointTest.test_joints_characteristics(self)
+
     def test_set_angles(self):
         JointTest.test_set_angles(self)
 
@@ -115,6 +156,9 @@ class PepperJointTest(JointTest):
 
     def test_get_angles_position(self):
         JointTest.test_get_angles_position(self)
+
+    def test_get_angles_velocity(self):
+        JointTest.test_get_angles_velocity(self)
 
 
 class NaoJointTest(JointTest):
@@ -143,6 +187,9 @@ class NaoJointTest(JointTest):
         JointTest.simulation.stopSimulation(
             JointTest.client)
 
+    def test_joints_characteristics(self):
+        JointTest.test_joints_characteristics(self)
+
     def test_set_angles(self):
         JointTest.test_set_angles(self)
 
@@ -154,6 +201,9 @@ class NaoJointTest(JointTest):
 
     def test_get_angles_position(self):
         JointTest.test_get_angles_position(self)
+
+    def test_get_angles_velocity(self):
+        JointTest.test_get_angles_velocity(self)
 
 
 if __name__ == "__main__":
