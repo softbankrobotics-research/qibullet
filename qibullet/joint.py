@@ -26,7 +26,7 @@ class Joint:
         self.max_velocity = joint_info[11]
 
         if IS_VERSION_PYTHON_3:
-            self.name.decode('utf-8')
+            self.name = self.name.decode('utf-8')
 
     def getIndex(self):
         """
