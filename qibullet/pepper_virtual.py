@@ -45,11 +45,21 @@ class PepperVirtual(RobotVirtual):
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
-        Overloads @loadRobot from the @RobotVirtual class. Update max velocity
-        for the fingers and thumbs, based on the hand joints. Add self
-        collision exceptions (The biceps won't autocollide with the torso, the
-        fingers and thumbs of a hand won't autocollide with the corresponding
-        wrist). Add the cameras. Add motion constraint.
+        Overloads @loadRobot from the @RobotVirtual class, loads the robot into
+        the simulated instance. This method also updates the max velocity of
+        the robot's fingers, adds self collision filters to the model, adds a
+        motion constraint to the model and defines the cameras of the model.
+
+        Parameters:
+            translation - List containing 3 elements, the translation [x, y, z]
+            of the robot in the WORLD frame
+            quaternion - List containing 4 elements, the quaternion
+            [x, y, z, q] of the robot in the WORLD frame
+            physicsClientId - The id of the simulated instance in which the
+            robot is supposed to be loaded
+
+        Returns:
+            boolean - True if the method ran correctly, False otherwise
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
