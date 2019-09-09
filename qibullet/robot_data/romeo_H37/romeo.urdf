@@ -821,7 +821,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
-  <link name="RFsrFToeRearRight_frame">
+  <!-- <link name="RFsrFToeRearRight_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -838,7 +838,7 @@
     <child link="RFsrFToeRearRight_frame"/>
     <origin rpy="0 0 0" xyz="0.11898 -0.0335 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="CameraLeftEye_frame"/>
   <joint name="CameraLeftEye_sensor_fixedjoint" type="fixed">
     <parent link="LEye"/>
@@ -853,7 +853,7 @@
     <origin rpy="0 0 1.5708" xyz="-0.01135 -0.04225 0.16011"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="RFsrRearCenter_frame">
+  <!-- <link name="RFsrRearCenter_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -870,8 +870,8 @@
     <child link="RFsrRearCenter_frame"/>
     <origin rpy="0 0 0" xyz="0.01448 -0.0145 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RFsrFrontCenter_frame">
+  </joint> -->
+  <!-- <link name="RFsrFrontCenter_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -888,14 +888,14 @@
     <child link="RFsrFrontCenter_frame"/>
     <origin rpy="0 0 0" xyz="0.07498 -0.01275 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="CameraLeftEye_optical_frame"/>
   <joint name="CameraLeftEye_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraLeftEye_frame"/>
     <child link="CameraLeftEye_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="LFsrHeelRight_frame">
+  <!-- <link name="LFsrHeelRight_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -912,7 +912,7 @@
     <child link="LFsrHeelRight_frame"/>
     <origin rpy="0 0 0" xyz="-0.04602 -0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="CameraRightEye_frame"/>
   <joint name="CameraRightEye_sensor_fixedjoint" type="fixed">
     <parent link="REye"/>
@@ -932,7 +932,7 @@
     <child link="CameraRightEye_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="RFsrFToeFrontRight_frame">
+  <!-- <link name="RFsrFToeFrontRight_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -949,8 +949,8 @@
     <child link="RFsrFToeFrontRight_frame"/>
     <origin rpy="0 0 0" xyz="0.16098 -0.024 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RFsrHeelRight_frame">
+  </joint> -->
+  <!-- <link name="RFsrHeelRight_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -967,8 +967,8 @@
     <child link="RFsrHeelRight_frame"/>
     <origin rpy="0 0 0" xyz="-0.04602 -0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RFsrFToeRearLeft_frame">
+  </joint> -->
+  <!-- <link name="RFsrFToeRearLeft_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -985,7 +985,7 @@
     <child link="RFsrFToeRearLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.12698 0.0315 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="ImuTorsoAccelerometer_frame"/>
   <joint name="AccelerometerDownTorso_sensor_fixedjoint" type="fixed">
     <parent link="body"/>
@@ -993,7 +993,7 @@
     <origin rpy="0 0 0" xyz="0.06185 0.0087 -0.1582"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LFsrFToeRearRight_frame">
+  <!-- <link name="LFsrFToeRearRight_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1010,8 +1010,8 @@
     <child link="LFsrFToeRearRight_frame"/>
     <origin rpy="0 0 0" xyz="0.12698 -0.0315 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="LFsrHeelLeft_frame">
+  </joint> -->
+  <!-- <link name="LFsrHeelLeft_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1028,7 +1028,7 @@
     <child link="LFsrHeelLeft_frame"/>
     <origin rpy="0 0 0" xyz="-0.04602 0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="CameraRight_frame"/>
   <joint name="CameraRight_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
@@ -1043,7 +1043,7 @@
     <origin rpy="0 0 0" xyz="0.06185 0.0087 -0.1582"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LFsrFToeRearLeft_frame">
+  <!-- <link name="LFsrFToeRearLeft_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1060,8 +1060,8 @@
     <child link="LFsrFToeRearLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.11898 0.0335 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="LFsrRearCenter_frame">
+  </joint> -->
+  <!-- <link name="LFsrRearCenter_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1078,7 +1078,7 @@
     <child link="LFsrRearCenter_frame"/>
     <origin rpy="0 0 0" xyz="0.01448 0.0145 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="CameraLeft_frame"/>
   <joint name="CameraLeft_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
@@ -1092,7 +1092,7 @@
     <child link="CameraLeft_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="LFsrFToeFrontRight_frame">
+  <!-- <link name="LFsrFToeFrontRight_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1109,8 +1109,8 @@
     <child link="LFsrFToeFrontRight_frame"/>
     <origin rpy="0 0 0" xyz="0.17298 -0.023 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RFsrHeelLeft_frame">
+  </joint> -->
+  <!-- <link name="RFsrHeelLeft_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1127,7 +1127,7 @@
     <child link="RFsrHeelLeft_frame"/>
     <origin rpy="0 0 0" xyz="-0.04602 0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="ImuHeadAccelerometer_frame"/>
   <joint name="AccelerometerHead_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
@@ -1135,7 +1135,7 @@
     <origin rpy="0 0 1.5708" xyz="-0.01135 -0.04225 0.16011"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="LFsrFrontCenter_frame">
+  <!-- <link name="LFsrFrontCenter_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1152,8 +1152,8 @@
     <child link="LFsrFrontCenter_frame"/>
     <origin rpy="0 0 0" xyz="0.07498 0.01275 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RFsrFToeFrontLeft_frame">
+  </joint> -->
+  <!-- <link name="RFsrFToeFrontLeft_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1170,8 +1170,8 @@
     <child link="RFsrFToeFrontLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.17298 0.023 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
-  <link name="LFsrFToeFrontLeft_frame">
+  </joint> -->
+  <!-- <link name="LFsrFToeFrontLeft_frame">
     <collision>
       <geometry>
         <box size="0.01 0.01 0.005"/>
@@ -1188,7 +1188,7 @@
     <child link="LFsrFToeFrontLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.16098 0.024 -0.06226"/>
     <axis xyz="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="RFinger13_link">
     <inertial>
       <mass value="2e-06"/>
