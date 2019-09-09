@@ -348,10 +348,8 @@ class PepperVirtual(RobotVirtual):
         """
         if camera_id == PepperVirtual.ID_CAMERA_TOP:
             self.camera_top.subscribe(resolution=resolution)
-
         elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.subscribe(resolution=resolution)
-
         elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
             self.camera_depth.subscribe(resolution=resolution)
 
@@ -364,10 +362,8 @@ class PepperVirtual(RobotVirtual):
         """
         if camera_id == PepperVirtual.ID_CAMERA_TOP:
             self.camera_top.unsubscribe()
-
         elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.unsubscribe()
-
         elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
             self.camera_depth.unsubscribe()
 

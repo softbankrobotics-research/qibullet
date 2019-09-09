@@ -345,7 +345,6 @@ class NaoVirtual(RobotVirtual):
         """
         if camera_id == NaoVirtual.ID_CAMERA_TOP:
             self.camera_top.subscribe(resolution=resolution)
-
         elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.subscribe(resolution=resolution)
 
@@ -358,7 +357,6 @@ class NaoVirtual(RobotVirtual):
         """
         if camera_id == NaoVirtual.ID_CAMERA_TOP:
             self.camera_top.unsubscribe()
-
         elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.unsubscribe()
 
