@@ -8,6 +8,7 @@ import pybullet_data
 from qibullet.laser import Laser
 from qibullet.camera import Camera
 from qibullet.nao_virtual import NaoVirtual
+from qibullet.romeo_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.robot_module import RobotModule
 
@@ -165,6 +166,40 @@ class SimulationManager:
 
         return nao_virtual
 
+    def spawnRomeo(
+            self,
+            physics_client,
+            translation=[0, 0, 0],
+            quaternion=[0, 0, 0, 1],
+            spawn_ground_plane=False):
+        """
+        Loads a Romeo model in the simulation
+
+        Parameters:
+            physics_client - The id of the simulated instance in which the
+            robot is supposed to be spawned
+            translation - List containing 3 elements, the spawning translation
+            [x, y, z] in the WORLD frame
+            quaternions - List containing 4 elements, the spawning rotation as
+            a quaternion [x, y, z, w] in the WORLD frame
+            spawn_ground_plane - If True, the pybullet_data ground plane will
+            be spawned
+
+        Returns:
+            romeo_virtual - A RomeoVirtual object, the Romeo simulated instance
+        """
+        romeo_virtual = RomeoVirtual()
+
+        if spawn_ground_plane:
+            self._spawnGroundPlane(physics_client)
+
+        romeo_virtual.loadRobot(
+            translation,
+            quaternion,
+            physicsClientId=physics_client)
+
+        return romeo_virtual
+
     def removePepper(self, pepper_virtual):
         """
         Removes a Pepper from a simulated instance
@@ -191,6 +226,18 @@ class SimulationManager:
         nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_BOTTOM)
 
         pybullet.removeBody(nao_virtual.getRobotModel())
+
+    def removeRomeo(self, romeo_virtual):
+        """
+        Removes a Romeo from a simulated instance
+
+        Parameters:
+            romeo_virtual - The virtual Romeo to be removed
+        """
+        # TODO unsunbscribe cameras later
+        pass
+
+        pybullet.removeBody(romeo_virtual.getRobotModel())
 
     def _clearInstance(self, physics_client):
         """

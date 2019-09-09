@@ -46,3 +46,12 @@ class RomeoVirtual(RobotVirtual):
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
             physicsClientId=physicsClientId)
+
+        # Add 0.50 meters on the z component, avoing to spawn NAO in the ground
+        translation = [translation[0], translation[1], translation[2] + 0.50]
+
+        RobotVirtual.loadRobot(
+            self,
+            translation,
+            quaternion,
+            physicsClientId=physicsClientId)
