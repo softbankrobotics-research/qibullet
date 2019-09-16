@@ -441,14 +441,15 @@ class PepperVirtual(RobotVirtual):
     def _mimicHand(self, hand, value, multiplier=0.872665, offset=0):
         """
         Used to propagate a joint value on the fingers attached to the hand.
-        The formula used to mimic a joint is the following (with a multiplier
-        of 0.872665 and an offset of 0):
+        The formula used to mimic a joint is the following:
 
         finger_value = (hand_value * multiplier) + offset
 
         Parameters:
             hand - String, RHand or LHand
-            value - the joint value to be propagated
+            value - The joint value to be propagated
+            multiplier - The multiplier coefficient (0.872665 by default)
+            offset - The offset coefficient (0.0 by default)
 
         Returns:
             finger_names - Names of the finger to be controlled
