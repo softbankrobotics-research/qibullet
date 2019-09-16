@@ -78,7 +78,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadRoll.dae" scale="1 1 1"/>
+        <mesh filename="meshes/HeadRoll_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -89,6 +89,43 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="HeadRoll_logo_joint" type="fixed">
+    <parent link="HeadRoll_link"/>
+    <child link="HeadRoll_logo"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="HeadRoll_logo">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/HeadRoll_logo.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="HeadRoll_shell_joint" type="fixed">
+    <parent link="HeadRoll_link"/>
+    <child link="HeadRoll_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="HeadRoll_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/HeadRoll_shell.obj" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="gaze_joint" type="fixed">
     <parent link="HeadRoll_link"/>
     <child link="gaze"/>
