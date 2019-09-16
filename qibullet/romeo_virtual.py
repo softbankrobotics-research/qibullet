@@ -78,6 +78,14 @@ class RomeoVirtual(RobotVirtual):
 
         self.goToPosture("Stand", 1.0)
 
+        pybullet.setCollisionFilterPair(
+            self.robot_model,
+            self.robot_model,
+            self.link_dict["REye"].getIndex(),
+            self.link_dict["LEye"].getIndex(),
+            0,
+            physicsClientId=self.physics_client)
+
         for link in ["torso", "HeadRoll_link"]:
             pybullet.setCollisionFilterPair(
                 self.robot_model,
@@ -143,6 +151,12 @@ class RomeoVirtual(RobotVirtual):
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
+
+        for joint in self.joint_dict.values():
+            pybullet.resetJointState(
+                self.robot_model,
+                joint.getIndex(),
+                0.0)
 
         pybullet.removeConstraint(
             balance_constraint,
@@ -404,6 +418,7 @@ class RomeoVirtual(RobotVirtual):
             finger_names - Names of the finger to be controlled
             finger_values - Values of the fingers to be controlled
         """
+        # TODO multipliers for thumbs
         finger_names = list()
         finger_values = list()
 
