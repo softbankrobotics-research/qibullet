@@ -402,29 +402,36 @@ class RomeoVirtual(RobotVirtual):
             hand,
             value,
             multiplier=0.988205,
+            thumb_multiplier=1.74533,
             offset=0.0):
         """
         Used to propagate a joint value on the fingers attached to the hand.
-        The formula used to mimic a joint is the following (with a multiplier
-        of 0.999899 and an offset of 0.0):
+        The formula used to mimic a joint is the following:
 
         finger_value = (hand_value * multiplier) + offset
 
         Parameters:
             hand - String, RHand or LHand
-            value - the joint value to be propagated
+            value - The joint value to be propagated
+            multiplier - The multiplier coefficient for the fingers and the
+            sections 2 and 3 of the thumbs (0.988205 by default)
+            thumb_multiplier - The multiplier coefficient for the first section
+            of the thumb (1.74533 by default)
+            offset - The offset coefficient (0.0 by default)
 
         Returns:
             finger_names - Names of the finger to be controlled
             finger_values - Values of the fingers to be controlled
         """
-        # TODO multipliers for thumbs
         finger_names = list()
         finger_values = list()
 
         for joint_name in self.joint_dict.keys():
-            if (hand[0] + "Finger") in joint_name or\
-               (hand[0] + "Thumb") in joint_name:
+            if hand[0] + "Thumb1" in joint_name:
+                finger_names.append(joint_name)
+                finger_values.append((value * thumb_multiplier) + offset)
+            elif (hand[0] + "Finger") in joint_name or\
+                 (hand[0] + "Thumb") in joint_name:
                 finger_names.append(joint_name)
                 finger_values.append((value * multiplier) + offset)
 
