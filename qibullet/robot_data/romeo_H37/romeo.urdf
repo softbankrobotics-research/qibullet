@@ -102,7 +102,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadRoll_logo.obj" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadRoll_logo.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -120,7 +120,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/HeadRoll_shell.obj" scale="0.1 0.1 0.1"/>
+        <mesh filename="meshes/HeadRoll_shell.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -160,6 +160,8 @@
       <origin rpy="0 0 0" xyz="0.00249 -0.00205 -0.00147"/>
     </inertial>
   </link>
+
+  <!-- LHipPitch joints and links -->
   <joint name="LHipPitch" type="revolute">
     <parent link="LHip"/>
     <child link="LThigh"/>
@@ -175,7 +177,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LHipPitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LHipPitch_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -186,6 +188,62 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LHipPitch_shell_joint" type="fixed">
+    <parent link="LThigh"/>
+    <child link="LHipPitch_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LHipPitch_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LHipPitch_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="LHipPitch_flexibleskin_joint" type="fixed">
+    <parent link="LThigh"/>
+    <child link="LHipPitch_flexibleskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LHipPitch_flexibleskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LHipPitch_flexibleskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="LHipPitch_secondaryskin_joint" type="fixed">
+    <parent link="LThigh"/>
+    <child link="LHipPitch_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LHipPitch_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LHipPitch_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <!-- LKneePitch joints and links -->
   <joint name="LKneePitch" type="revolute">
     <parent link="LThigh"/>
     <child link="LTibia"/>
@@ -201,7 +259,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LKneePitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LKneePitch_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -212,6 +270,79 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LKneePitch_secondaryskin_joint" type="fixed">
+    <parent link="LTibia"/>
+    <child link="LKneePitch_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LKneePitch_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LKneePitch_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="LKneePitch_shell_joint" type="fixed">
+    <parent link="LTibia"/>
+    <child link="LKneePitch_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LKneePitch_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LKneePitch_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="LKneePitch_secondaryskin2_joint" type="fixed">
+    <parent link="LTibia"/>
+    <child link="LKneePitch_secondaryskin2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LKneePitch_secondaryskin2">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LKneePitch_secondaryskin2.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="LKneePitch_secondaryskin3_joint" type="fixed">
+    <parent link="LTibia"/>
+    <child link="LKneePitch_secondaryskin3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LKneePitch_secondaryskin3">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LKneePitch_secondaryskin3.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="LAnklePitch" type="revolute">
     <parent link="LTibia"/>
     <child link="LAnklePitch_link"/>
@@ -226,6 +357,8 @@
       <origin rpy="0 0 0" xyz="0.00132 -0.00117 0.00015"/>
     </inertial>
   </link>
+
+  <!-- LAnkleRoll joints and links -->
   <joint name="LAnkleRoll" type="revolute">
     <parent link="LAnklePitch_link"/>
     <child link="l_ankle"/>
@@ -241,7 +374,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LAnkleRoll.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LAnkleRoll_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -252,6 +385,44 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LAnkleRoll_secondaryskin_joint" type="fixed">
+    <parent link="l_ankle"/>
+    <child link="LAnkleRoll_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LAnkleRoll_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LAnkleRoll_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="LAnkleRoll_secondaryskin2_joint" type="fixed">
+    <parent link="l_ankle"/>
+    <child link="LAnkleRoll_secondaryskin2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LAnkleRoll_secondaryskin2">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LAnkleRoll_secondaryskin2.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+
   <joint name="LLeg_effector_fixedjoint" type="fixed">
     <parent link="l_ankle"/>
     <child link="l_sole"/>
@@ -452,6 +623,8 @@
       <origin rpy="0 0 0" xyz="-0.0112798 -0.0260712 0.00468882"/>
     </inertial>
   </link>
+
+  <!-- LShoulderYaw links and joints -->
   <joint name="LShoulderYaw" type="revolute">
     <parent link="LShoulder"/>
     <child link="LShoulderYaw_link"/>
@@ -467,7 +640,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LShoulderYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LShoulderYaw_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -478,6 +651,25 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LShoulderYaw_shell_joint" type="fixed">
+    <parent link="LShoulderYaw_link"/>
+    <child link="LShoulderYaw_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LShoulderYaw_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LShoulderYaw_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="LElbowRoll" type="revolute">
     <parent link="LShoulderYaw_link"/>
     <child link="LForeArm"/>
@@ -492,6 +684,8 @@
       <origin rpy="0 0 0" xyz="-0.0348859 -0.0011589 -0.00148134"/>
     </inertial>
   </link>
+
+  <!-- LElbowYaw joints and links -->
   <joint name="LElbowYaw" type="revolute">
     <parent link="LForeArm"/>
     <child link="LElbow"/>
@@ -507,7 +701,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LElbowYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LElbowYaw_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -518,6 +712,25 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="LElbowYaw_shell_joint" type="fixed">
+    <parent link="LElbow"/>
+    <child link="LElbowYaw_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="LElbowYaw_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/LElbowYaw_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="LWristRoll" type="revolute">
     <parent link="LElbow"/>
     <child link="LWristRoll_link"/>
@@ -809,7 +1022,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LEyePitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LEyePitch.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1287,7 +1500,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger33.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger33.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1365,7 +1578,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger21.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger21.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1391,7 +1604,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger13.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger13.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1417,7 +1630,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger32.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger32.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1443,7 +1656,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger11.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger11.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1495,7 +1708,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger22.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger22.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1547,7 +1760,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger12.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger12.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1625,7 +1838,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger23.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger23.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1651,7 +1864,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LFinger31.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LFinger31.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
