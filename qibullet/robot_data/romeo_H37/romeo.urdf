@@ -36,7 +36,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/NeckPitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/NeckPitch.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -524,6 +524,8 @@
       <origin rpy="0 0 0" xyz="0.00132 0.00117 0.00015"/>
     </inertial>
   </link>
+
+  <!-- RAnkleRoll joints and links -->
   <joint name="RAnkleRoll" type="revolute">
     <parent link="RAnklePitch_link"/>
     <child link="r_ankle"/>
@@ -539,7 +541,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RAnkleRoll.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RAnkleRoll_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -550,6 +552,43 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RAnkleRoll_secondaryskin_joint" type="fixed">
+    <parent link="r_ankle"/>
+    <child link="RAnkleRoll_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RAnkleRoll_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RAnkleRoll_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="RAnkleRoll_secondaryskin2_joint" type="fixed">
+    <parent link="r_ankle"/>
+    <child link="RAnkleRoll_secondaryskin2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RAnkleRoll_secondaryskin2">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RAnkleRoll_secondaryskin2.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="RLeg_effector_fixedjoint" type="fixed">
     <parent link="r_ankle"/>
     <child link="r_sole"/>
@@ -746,7 +785,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LWristRoll.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LWristRoll.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -772,7 +811,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LWristYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LWristYaw.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -798,7 +837,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LWristPitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LWristPitch.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1916,7 +1955,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb3.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LThumb3.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1942,7 +1981,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb1.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LThumb1.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -2020,7 +2059,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/LThumb2.dae" scale="1 1 1"/>
+        <mesh filename="meshes/LThumb2.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
