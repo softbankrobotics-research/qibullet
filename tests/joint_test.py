@@ -77,21 +77,17 @@ class JointTest(unittest.TestCase):
         """
         Test different speed limits for the @setAngles method
         """
-        try:
+        with self.assertRaises(pybullet.error):
             if isinstance(JointTest.robot, RomeoVirtual):
                 JointTest.robot.setAngles("HeadRoll", 0.4, 900)
             else:
                 JointTest.robot.setAngles("HeadYaw", 1.0, 900)
-        except pybullet.error:
-            pass
 
-        try:
+        with self.assertRaises(pybullet.error):
             if isinstance(JointTest.robot, RomeoVirtual):
                 JointTest.robot.setAngles("HeadRoll", 0.4, -45)
             else:
                 JointTest.robot.setAngles("HeadYaw", 1.0, -45)
-        except pybullet.error:
-            pass
 
     def test_angle_limits(self):
         """
