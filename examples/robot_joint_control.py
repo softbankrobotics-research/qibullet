@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import sys
+import time
 import pybullet as p
 from qibullet import SimulationManager
 from qibullet import PepperVirtual
@@ -39,6 +40,8 @@ if __name__ == "__main__":
                     joint.getLowerLimit(),
                     joint.getUpperLimit(), 0),
                 name))
+
+    time.sleep(1.0)
 
     while True:
         for joint_parameter in joint_parameters:
