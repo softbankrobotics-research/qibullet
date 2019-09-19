@@ -3,10 +3,11 @@
 import sys
 import unittest
 
+from simulation_manager_test import SimulationManagerTest
 from base_test import PepperBaseTest
-from joint_test import NaoJointTest, PepperJointTest
+from joint_test import NaoJointTest, RomeoJointTest, PepperJointTest
 from laser_test import PepperLaserTest
-from camera_test import NaoCameraTest, PepperCameraTest
+from camera_test import NaoCameraTest, RomeoCameraTest, PepperCameraTest
 from posture_test import NaoPostureTest, PepperPostureTest
 from self_collision_test import NaoSelfCollisionTest, PepperSelfCollisionTest
 
@@ -18,11 +19,14 @@ if __name__ == "__main__":
     has_failed = False
 
     test_classes = [
+        SimulationManagerTest,
         PepperBaseTest,
         NaoJointTest,
+        RomeoJointTest,
         PepperJointTest,
         PepperLaserTest,
         NaoCameraTest,
+        RomeoCameraTest,
         PepperCameraTest,
         NaoPostureTest,
         PepperPostureTest,
