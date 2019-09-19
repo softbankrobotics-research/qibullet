@@ -234,8 +234,9 @@ class SimulationManager:
         Parameters:
             romeo_virtual - The virtual Romeo to be removed
         """
-        # TODO unsunbscribe cameras later
-        pass
+        romeo_virtual.unsubscribeCamera(RomeoVirtual.ID_CAMERA_LEFT)
+        romeo_virtual.unsubscribeCamera(RomeoVirtual.ID_CAMERA_RIGHT)
+        romeo_virtual.unsubscribeCamera(RomeoVirtual.ID_CAMERA_DEPTH)
 
         pybullet.removeBody(romeo_virtual.getRobotModel())
 
