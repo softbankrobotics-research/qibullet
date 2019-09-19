@@ -1,6 +1,5 @@
 from qibullet.link import Link
 from qibullet.joint import Joint
-from qibullet.robot_posture import PepperPosture
 from qibullet.nao_virtual import NaoVirtual
 from qibullet.romeo_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
