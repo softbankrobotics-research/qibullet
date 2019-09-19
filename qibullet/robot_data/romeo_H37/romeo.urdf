@@ -458,6 +458,8 @@
       <origin rpy="0 0 0" xyz="0.00249 0.00205 -0.00147"/>
     </inertial>
   </link>
+
+  <!-- RHipPitch joints and links -->
   <joint name="RHipPitch" type="revolute">
     <parent link="RHip"/>
     <child link="RThigh"/>
@@ -473,7 +475,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RHipPitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RHipPitch_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -484,6 +486,62 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RHipPitch_shell_joint" type="fixed">
+    <parent link="RThigh"/>
+    <child link="RHipPitch_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RHipPitch_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RHipPitch_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="RHipPitch_flexibleskin_joint" type="fixed">
+    <parent link="RThigh"/>
+    <child link="RHipPitch_flexibleskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RHipPitch_flexibleskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RHipPitch_flexibleskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="RHipPitch_secondaryskin_joint" type="fixed">
+    <parent link="RThigh"/>
+    <child link="RHipPitch_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RHipPitch_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RHipPitch_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <!-- RKneePitch joints and links -->
   <joint name="RKneePitch" type="revolute">
     <parent link="RThigh"/>
     <child link="RTibia"/>
@@ -499,7 +557,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RKneePitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RKneePitch_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -510,6 +568,79 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RKneePitch_secondaryskin_joint" type="fixed">
+    <parent link="RTibia"/>
+    <child link="RKneePitch_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RKneePitch_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RKneePitch_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="RKneePitch_shell_joint" type="fixed">
+    <parent link="RTibia"/>
+    <child link="RKneePitch_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RKneePitch_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RKneePitch_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="RKneePitch_secondaryskin2_joint" type="fixed">
+    <parent link="RTibia"/>
+    <child link="RKneePitch_secondaryskin2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RKneePitch_secondaryskin2">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RKneePitch_secondaryskin2.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="RKneePitch_secondaryskin3_joint" type="fixed">
+    <parent link="RTibia"/>
+    <child link="RKneePitch_secondaryskin3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RKneePitch_secondaryskin3">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RKneePitch_secondaryskin3.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="RAnklePitch" type="revolute">
     <parent link="RTibia"/>
     <child link="RAnklePitch_link"/>
@@ -597,6 +728,8 @@
   </joint>
   <link name="r_sole"/>
   <link name="base_link"/>
+
+  <!-- torso joints and links -->
   <joint name="base_link_fixedjoint" type="fixed">
     <parent link="base_link"/>
     <child link="torso"/>
@@ -611,7 +744,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/Torso.dae" scale="1 1 1"/>
+        <mesh filename="meshes/Torso_logo.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -622,6 +755,98 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="torso_secondaryskin_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="torso_secondaryskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="torso_secondaryskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/Torso_secondaryskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="torso_emergencybutton_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="torso_emergencybutton"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="torso_emergencybutton">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/Torso_emergencybutton.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="torso_flexibleskin_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="torso_flexibleskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="torso_flexibleskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/Torso_flexibleskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="torso_mainskin_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="torso_mainskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="torso_mainskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/Torso_mainskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="torso_shell_joint" type="fixed">
+    <parent link="torso"/>
+    <child link="torso_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="torso_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/Torso_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <!-- TrunkYaw joints and links -->
   <joint name="TrunkYaw" type="revolute">
     <parent link="torso"/>
     <child link="body"/>
@@ -637,7 +862,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/TrunkYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/TrunkYaw_flexibleskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -648,6 +873,43 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="TrunkYaw_shell_joint" type="fixed">
+    <parent link="body"/>
+    <child link="TrunkYaw_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="TrunkYaw_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/TrunkYaw_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="TrunkYaw_mainskin_joint" type="fixed">
+    <parent link="body"/>
+    <child link="TrunkYaw_mainskin"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="TrunkYaw_mainskin">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/TrunkYaw_mainskin.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="LShoulderPitch" type="revolute">
     <parent link="torso"/>
     <child link="LShoulder"/>
@@ -875,6 +1137,8 @@
       <origin rpy="0 0 0" xyz="-0.0112798 0.0260712 0.00468882"/>
     </inertial>
   </link>
+
+  <!-- RShoulderYaw joints and links -->
   <joint name="RShoulderYaw" type="revolute">
     <parent link="RShoulder"/>
     <child link="RShoulderYaw_link"/>
@@ -890,7 +1154,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RShoulderYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RShoulderYaw_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -901,6 +1165,25 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RShoulderYaw_shell_joint" type="fixed">
+    <parent link="RShoulderYaw_link"/>
+    <child link="RShoulderYaw_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RShoulderYaw_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RShoulderYaw_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="RElbowRoll" type="revolute">
     <parent link="RShoulderYaw_link"/>
     <child link="RForeArm"/>
@@ -915,6 +1198,8 @@
       <origin rpy="0 0 0" xyz="-0.0348859 0.0011589 -0.00148134"/>
     </inertial>
   </link>
+
+  <!-- RElbowYaw joints and links -->
   <joint name="RElbowYaw" type="revolute">
     <parent link="RForeArm"/>
     <child link="RElbow"/>
@@ -930,7 +1215,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RElbowYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RElbowYaw_mainskin.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -941,6 +1226,25 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
   </link>
+  <joint name="RElbowYaw_shell_joint" type="fixed">
+    <parent link="RElbow"/>
+    <child link="RElbowYaw_shell"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="RElbowYaw_shell">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="meshes/RElbowYaw_shell.obj" scale="1 1 1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
   <joint name="RWristRoll" type="revolute">
     <parent link="RElbow"/>
     <child link="RWristRoll_link"/>
@@ -956,7 +1260,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RWristRoll.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RWristRoll.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -982,7 +1286,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RWristYaw.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RWristYaw.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1008,7 +1312,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RWristPitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RWristPitch.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1101,7 +1405,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/REyePitch.dae" scale="1 1 1"/>
+        <mesh filename="meshes/REyePitch.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1487,7 +1791,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger13.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger13.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1513,7 +1817,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger12.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger12.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1565,7 +1869,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger31.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger31.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1591,7 +1895,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger32.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger32.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1721,7 +2025,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger22.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger22.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1773,7 +2077,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger21.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger21.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1825,7 +2129,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger23.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger23.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1851,7 +2155,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger11.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger11.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -1929,7 +2233,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RFinger33.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RFinger33.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -2007,7 +2311,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb1.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RThumb1.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -2033,7 +2337,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb2.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RThumb2.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
@@ -2085,7 +2389,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/RThumb3.dae" scale="1 1 1"/>
+        <mesh filename="meshes/RThumb3.obj" scale="1 1 1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>

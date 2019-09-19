@@ -1,0 +1,11 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.2.0)
+
+newmtl ShellParts
+Kd 0.0313728 0.181961 0.577255
+Ka 0 0 0
+Ks 0 0 0
+Ke 0 0 0
+Ns 5
+illum 2
+
