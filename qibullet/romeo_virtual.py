@@ -184,7 +184,7 @@ class RomeoVirtual(RobotVirtual):
             vfov=47.6,
             physicsClientId=self.physics_client)
 
-        self.camera_depth = CameraRgb(
+        self.camera_depth = CameraDepth(
             self.robot_model,
             self.link_dict["CameraDepth_optical_frame"],
             hfov=58.0,
