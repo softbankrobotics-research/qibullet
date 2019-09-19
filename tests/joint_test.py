@@ -6,7 +6,7 @@ import random
 import unittest
 import pybullet
 from qibullet import SimulationManager
-from qibullet import NaoVirtual, PepperVirtual
+from qibullet import NaoVirtual, PepperVirtual, RomeoVirtual
 
 
 class JointTest(unittest.TestCase):
@@ -40,15 +40,20 @@ class JointTest(unittest.TestCase):
         """
         iterations = 10
 
+        if isinstance(JointTest.robot, RomeoVirtual):
+            angle_names = ["HeadRoll", "HeadPitch"]
+        else:
+            angle_names = ["HeadYaw", "HeadPitch"]
+
         JointTest.robot.setAngles(
-            ["HeadYaw", "HeadPitch"],
-            [0.5, 0.3],
+            angle_names,
+            [0.3, 0.3],
             0.1)
 
         time.sleep(0.2)
 
         JointTest.robot.setAngles(
-            ["HeadYaw", "HeadPitch"],
+            angle_names,
             [0.1, 0.0],
             [0.8, 0.6])
 
@@ -73,12 +78,18 @@ class JointTest(unittest.TestCase):
         Test different speed limits for the @setAngles method
         """
         try:
-            JointTest.robot.setAngles("HeadYaw", 1.0, 900)
+            if isinstance(JointTest.robot, RomeoVirtual):
+                JointTest.robot.setAngles("HeadRoll", 0.4, 900)
+            else:
+                JointTest.robot.setAngles("HeadYaw", 1.0, 900)
         except pybullet.error:
             pass
 
         try:
-            JointTest.robot.setAngles("HeadYaw", 1.0, -45)
+            if isinstance(JointTest.robot, RomeoVirtual):
+                JointTest.robot.setAngles("HeadRoll", 0.4, -45)
+            else:
+                JointTest.robot.setAngles("HeadYaw", 1.0, -45)
         except pybullet.error:
             pass
 
@@ -94,7 +105,7 @@ class JointTest(unittest.TestCase):
         Test the @getAnglesPosition method
         """
         self.assertTrue(isinstance(
-            JointTest.robot.getAnglesPosition("HeadYaw"),
+            JointTest.robot.getAnglesPosition("HeadPitch"),
             float))
 
         positions = JointTest.robot.getAnglesPosition(
@@ -107,7 +118,7 @@ class JointTest(unittest.TestCase):
         Test the @getAnglesVelocity method
         """
         self.assertTrue(isinstance(
-            JointTest.robot.getAnglesVelocity("HeadYaw"),
+            JointTest.robot.getAnglesVelocity("HeadPitch"),
             float))
 
         velocities = JointTest.robot.getAnglesVelocity(
@@ -176,6 +187,51 @@ class NaoJointTest(JointTest):
             gui=False)
 
         JointTest.robot = JointTest.simulation.spawnNao(
+            JointTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        JointTest.simulation.stopSimulation(
+            JointTest.client)
+
+    def test_joints_characteristics(self):
+        JointTest.test_joints_characteristics(self)
+
+    def test_set_angles(self):
+        JointTest.test_set_angles(self)
+
+    def test_speed_limits(self):
+        JointTest.test_speed_limits(self)
+
+    def test_angle_limits(self):
+        JointTest.test_angle_limits(self)
+
+    def test_get_angles_position(self):
+        JointTest.test_get_angles_position(self)
+
+    def test_get_angles_velocity(self):
+        JointTest.test_get_angles_velocity(self)
+
+
+class RomeoJointTest(JointTest):
+    """
+    Unittests for the control of Nao virtual's joints
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Launches a simulation and spawns the NAO virtual robot
+        """
+        JointTest.simulation = SimulationManager()
+        JointTest.client = JointTest.simulation.launchSimulation(
+            gui=False)
+
+        JointTest.robot = JointTest.simulation.spawnRomeo(
             JointTest.client,
             spawn_ground_plane=True)
 
