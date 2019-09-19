@@ -55,7 +55,7 @@ class RomeoVirtual(RobotVirtual):
             physicsClientId=physicsClientId)
 
         # Add 0.50 meters on the z component, avoing to spawn NAO in the ground
-        translation = [translation[0], translation[1], translation[2] + 1.0]
+        translation = [translation[0], translation[1], translation[2] + 1.05]
 
         RobotVirtual.loadRobot(
             self,
