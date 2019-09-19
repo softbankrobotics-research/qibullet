@@ -131,7 +131,13 @@
     <child link="gaze"/>
     <origin rpy="0 0 0" xyz="0.10247 0 0.05425"/>
   </joint>
-  <link name="gaze"/>
+  <link name="gaze">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="LHipYaw" type="revolute">
     <parent link="body"/>
     <child link="LHipYaw_link"/>
@@ -429,7 +435,13 @@
     <origin rpy="0 0 0" xyz="0 0 -0.0651"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="l_sole"/>
+  <link name="l_sole">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="RHipYaw" type="revolute">
     <parent link="body"/>
     <child link="RHipYaw_link"/>
@@ -726,8 +738,20 @@
     <origin rpy="0 0 0" xyz="0 0 -0.0651"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="r_sole"/>
-  <link name="base_link"/>
+  <link name="r_sole">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+  <link name="base_link">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
 
   <!-- torso joints and links -->
   <joint name="base_link_fixedjoint" type="fixed">
@@ -1434,14 +1458,26 @@
     <origin rpy="0 0 0" xyz="0.11898 -0.0335 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="CameraLeftEye_frame"/>
+  <link name="CameraLeftEye_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraLeftEye_sensor_fixedjoint" type="fixed">
     <parent link="LEye"/>
     <child link="CameraLeftEye_frame"/>
     <origin rpy="0 0 0" xyz="0.01299 0 0"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuHeadGyrometer_frame"/>
+  <link name="ImuHeadGyrometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="GyrometerHead_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
     <child link="ImuHeadGyrometer_frame"/>
@@ -1484,7 +1520,13 @@
     <origin rpy="0 0 0" xyz="0.07498 -0.01275 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="CameraLeftEye_optical_frame"/>
+  <link name="CameraLeftEye_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraLeftEye_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraLeftEye_frame"/>
     <child link="CameraLeftEye_optical_frame"/>
@@ -1508,20 +1550,38 @@
     <origin rpy="0 0 0" xyz="-0.04602 -0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="CameraRightEye_frame"/>
+  <link name="CameraRightEye_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraRightEye_sensor_fixedjoint" type="fixed">
     <parent link="REye"/>
     <child link="CameraRightEye_frame"/>
     <origin rpy="0 0 0" xyz="0.01299 0 0"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraRight_optical_frame"/>
+  <link name="CameraRight_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraRight_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraRight_frame"/>
     <child link="CameraRight_optical_frame"/>
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
-  <link name="CameraRightEye_optical_frame"/>
+  <link name="CameraRightEye_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraRightEye_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraRightEye_frame"/>
     <child link="CameraRightEye_optical_frame"/>
@@ -1581,7 +1641,13 @@
     <origin rpy="0 0 0" xyz="0.12698 0.0315 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="ImuTorsoAccelerometer_frame"/>
+  <link name="ImuTorsoAccelerometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="AccelerometerDownTorso_sensor_fixedjoint" type="fixed">
     <parent link="body"/>
     <child link="ImuTorsoAccelerometer_frame"/>
@@ -1624,14 +1690,26 @@
     <origin rpy="0 0 0" xyz="-0.04602 0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="CameraRight_frame"/>
+  <link name="CameraRight_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraRight_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
     <child link="CameraRight_frame"/>
     <origin rpy="0 0 0" xyz="0.11229 -0.04 0.09938"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="ImuTorsoGyrometer_frame"/>
+  <link name="ImuTorsoGyrometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="GyrometerDownTorso_sensor_fixedjoint" type="fixed">
     <parent link="body"/>
     <child link="ImuTorsoGyrometer_frame"/>
@@ -1674,14 +1752,26 @@
     <origin rpy="0 0 0" xyz="0.01448 0.0145 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="CameraLeft_frame"/>
+  <link name="CameraLeft_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraLeft_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
     <child link="CameraLeft_frame"/>
     <origin rpy="0 0 0" xyz="0.11229 0.04 0.09938"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <link name="CameraLeft_optical_frame"/>
+  <link name="CameraLeft_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraLeft_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraLeft_frame"/>
     <child link="CameraLeft_optical_frame"/>
@@ -1723,7 +1813,13 @@
     <origin rpy="0 0 0" xyz="-0.04602 0.017 -0.06226"/>
     <axis xyz="0 0 0"/>
   </joint> -->
-  <link name="ImuHeadAccelerometer_frame"/>
+  <link name="ImuHeadAccelerometer_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="AccelerometerHead_sensor_fixedjoint" type="fixed">
     <parent link="HeadRoll_link"/>
     <child link="ImuHeadAccelerometer_frame"/>
@@ -2408,13 +2504,25 @@
     <mimic joint="RHand" multiplier="0.988205" offset="0"/>
     <limit effort="0.91" lower="0.0" upper="0.988205" velocity="59.8925"/>
   </joint>
-  <link name="CameraDepth_frame"/>
+  <link name="CameraDepth_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraDepth_joint" type="fixed">
     <parent link="HeadRoll_link"/>
     <child link="CameraDepth_frame"/>
     <origin rpy="0 0 0" xyz="0.1403 -0.04708 0.14655"/>
   </joint>
-  <link name="CameraDepth_optical_frame"/>
+  <link name="CameraDepth_optical_frame">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <joint name="CameraDepth_optical_frame_fixedjoint" type="fixed">
     <parent link="CameraDepth_frame"/>
     <child link="CameraDepth_optical_frame"/>
