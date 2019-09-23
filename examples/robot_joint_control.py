@@ -30,6 +30,7 @@ if __name__ == "__main__":
         simulation_manager.stopSimulation(client)
         sys.exit(1)
 
+    time.sleep(1.0)
     joint_parameters = list()
 
     for name, joint in robot.joint_dict.items():
@@ -38,10 +39,9 @@ if __name__ == "__main__":
                 p.addUserDebugParameter(
                     name,
                     joint.getLowerLimit(),
-                    joint.getUpperLimit(), 0),
+                    joint.getUpperLimit(),
+                    robot.getAnglesPosition(name)),
                 name))
-
-    time.sleep(1.0)
 
     while True:
         for joint_parameter in joint_parameters:
