@@ -38,9 +38,21 @@ class NaoVirtual(RobotVirtual):
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
-        Overloads @loadRobot from the @RobotVirtual class. Update max velocity
-        for the fingers and thumbs, based on the hand joints. Add self
-        collision exceptions. Add the cameras.
+        Overloads @loadRobot from the @RobotVirtual class, loads the robot into
+        the simulated instance. This method also updates the max velocity of
+        the robot's fingers, adds self collision filters to the model and
+        defines the cameras of the model.
+
+        Parameters:
+            translation - List containing 3 elements, the translation [x, y, z]
+            of the robot in the WORLD frame
+            quaternion - List containing 4 elements, the quaternion
+            [x, y, z, q] of the robot in the WORLD frame
+            physicsClientId - The id of the simulated instance in which the
+            robot is supposed to be loaded
+
+        Returns:
+            boolean - True if the method ran correctly, False otherwise
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
@@ -142,6 +154,12 @@ class NaoVirtual(RobotVirtual):
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
+
+        for joint in self.joint_dict.values():
+            pybullet.resetJointState(
+                self.robot_model,
+                joint.getIndex(),
+                0.0)
 
         pybullet.removeConstraint(
             balance_constraint,
@@ -333,7 +351,6 @@ class NaoVirtual(RobotVirtual):
         """
         if camera_id == NaoVirtual.ID_CAMERA_TOP:
             self.camera_top.subscribe(resolution=resolution)
-
         elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.subscribe(resolution=resolution)
 
@@ -346,7 +363,6 @@ class NaoVirtual(RobotVirtual):
         """
         if camera_id == NaoVirtual.ID_CAMERA_TOP:
             self.camera_top.unsubscribe()
-
         elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.unsubscribe()
 
@@ -386,14 +402,15 @@ class NaoVirtual(RobotVirtual):
             offset=0.0):
         """
         Used to propagate a joint value on the fingers attached to the hand.
-        The formula used to mimic a joint is the following (with a multiplier
-        of 0.999899 and an offset of 0.0):
+        The formula used to mimic a joint is the following:
 
         finger_value = (hand_value * multiplier) + offset
 
         Parameters:
             hand - String, RHand or LHand
-            value - the joint value to be propagated
+            value - The joint value to be propagated
+            multiplier - The multiplier coefficient (0.999899 by default)
+            offset - The offset coefficient (0.0 by default)
 
         Returns:
             finger_names - Names of the finger to be controlled
