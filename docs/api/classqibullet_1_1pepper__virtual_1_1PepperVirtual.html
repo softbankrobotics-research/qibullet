@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.1.4.1</span>
+   &#160;<span id="projectnumber">1.2.0</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -521,11 +521,21 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Overloads @loadRobot from the @RobotVirtual class. Update max velocity
-for the fingers and thumbs, based on the hand joints. Add self
-collision exceptions (The biceps won't autocollide with the torso, the
-fingers and thumbs of a hand won't autocollide with the corresponding
-wrist). Add the cameras. Add motion constraint.
+<pre class="fragment">Overloads @loadRobot from the @RobotVirtual class, loads the robot into
+the simulated instance. This method also updates the max velocity of
+the robot's fingers, adds self collision filters to the model, adds a
+motion constraint to the model and defines the cameras of the model.
+
+Parameters:
+    translation - List containing 3 elements, the translation [x, y, z]
+    of the robot in the WORLD frame
+    quaternion - List containing 4 elements, the quaternion
+    [x, y, z, q] of the robot in the WORLD frame
+    physicsClientId - The id of the simulated instance in which the
+    robot is supposed to be loaded
+
+Returns:
+    boolean - True if the method ran correctly, False otherwise
 </pre> 
 </div>
 </div>
