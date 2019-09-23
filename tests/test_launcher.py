@@ -3,10 +3,11 @@
 import sys
 import unittest
 
+from simulation_manager_test import SimulationManagerTest
 from base_test import PepperBaseTest
-from joint_test import NaoJointTest, PepperJointTest
+from joint_test import NaoJointTest, RomeoJointTest, PepperJointTest
 from laser_test import PepperLaserTest
-from camera_test import NaoCameraTest, PepperCameraTest
+from camera_test import NaoCameraTest, RomeoCameraTest, PepperCameraTest
 from posture_test import NaoPostureTest, PepperPostureTest
 from self_collision_test import NaoSelfCollisionTest, PepperSelfCollisionTest
 
@@ -18,11 +19,14 @@ if __name__ == "__main__":
     has_failed = False
 
     test_classes = [
+        SimulationManagerTest,
         PepperBaseTest,
         NaoJointTest,
+        RomeoJointTest,
         PepperJointTest,
         PepperLaserTest,
         NaoCameraTest,
+        RomeoCameraTest,
         PepperCameraTest,
         NaoPostureTest,
         PepperPostureTest,
@@ -33,6 +37,9 @@ if __name__ == "__main__":
         test_results.append(
             test_runner.run(test_loader.loadTestsFromTestCase(test_class)))
 
+    total_count = 0
+    total_fail = 0
+    total_success = 0
     print("------------------------------------------------------------------")
     for i in range(len(test_results)):
         test_count = test_results[i].testsRun
@@ -40,11 +47,20 @@ if __name__ == "__main__":
         test_errors = test_results[i].errors
         test_passed = test_count - len(test_failures)
 
+        total_count += test_count
+        total_fail += len(test_failures)
+        total_success += test_passed
+
         if len(test_failures) != 0:
             has_failed = True
 
         print(test_classes[i].__name__ + "[" + str(test_count) + " tests]:")
         print(str(test_passed) + " [\033[1m\033[92mpassed\033[0m]")
         print(str(len(test_failures)) + " [\033[1m\033[91mfailed\033[0m]")
+
+    print("------------------------------------------------------------------")
+    print("\033[1m\33[33mSummary: " + str(total_count) + " tests\033[0m")
+    print(str(total_success) + " [\033[1m\033[92mpassed\033[0m]")
+    print(str(total_fail) + " [\033[1m\033[91mfailed\033[0m]")
 
     sys.exit(has_failed)

@@ -45,11 +45,21 @@ class PepperVirtual(RobotVirtual):
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
-        Overloads @loadRobot from the @RobotVirtual class. Update max velocity
-        for the fingers and thumbs, based on the hand joints. Add self
-        collision exceptions (The biceps won't autocollide with the torso, the
-        fingers and thumbs of a hand won't autocollide with the corresponding
-        wrist). Add the cameras. Add motion constraint.
+        Overloads @loadRobot from the @RobotVirtual class, loads the robot into
+        the simulated instance. This method also updates the max velocity of
+        the robot's fingers, adds self collision filters to the model, adds a
+        motion constraint to the model and defines the cameras of the model.
+
+        Parameters:
+            translation - List containing 3 elements, the translation [x, y, z]
+            of the robot in the WORLD frame
+            quaternion - List containing 4 elements, the quaternion
+            [x, y, z, q] of the robot in the WORLD frame
+            physicsClientId - The id of the simulated instance in which the
+            robot is supposed to be loaded
+
+        Returns:
+            boolean - True if the method ran correctly, False otherwise
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
@@ -338,10 +348,8 @@ class PepperVirtual(RobotVirtual):
         """
         if camera_id == PepperVirtual.ID_CAMERA_TOP:
             self.camera_top.subscribe(resolution=resolution)
-
         elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.subscribe(resolution=resolution)
-
         elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
             self.camera_depth.subscribe(resolution=resolution)
 
@@ -354,10 +362,8 @@ class PepperVirtual(RobotVirtual):
         """
         if camera_id == PepperVirtual.ID_CAMERA_TOP:
             self.camera_top.unsubscribe()
-
         elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
             self.camera_bottom.unsubscribe()
-
         elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
             self.camera_depth.unsubscribe()
 
@@ -435,14 +441,15 @@ class PepperVirtual(RobotVirtual):
     def _mimicHand(self, hand, value, multiplier=0.872665, offset=0):
         """
         Used to propagate a joint value on the fingers attached to the hand.
-        The formula used to mimic a joint is the following (with a multiplier
-        of 0.872665 and an offset of 0):
+        The formula used to mimic a joint is the following:
 
         finger_value = (hand_value * multiplier) + offset
 
         Parameters:
             hand - String, RHand or LHand
-            value - the joint value to be propagated
+            value - The joint value to be propagated
+            multiplier - The multiplier coefficient (0.872665 by default)
+            offset - The offset coefficient (0.0 by default)
 
         Returns:
             finger_names - Names of the finger to be controlled

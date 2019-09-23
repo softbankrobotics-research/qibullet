@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="qibullet",
-    version="1.1.4.1",
+    version="1.2.0",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
@@ -29,7 +29,13 @@ setuptools.setup(
         "robot_data/nao_V40/meshes/*.mtl",
         "robot_data/nao_V40/meshes/*.dae",
         "robot_data/nao_V40/meshes/*.stl",
-        "robot_data/nao_V40/meshes/*.png"]},
+        "robot_data/nao_V40/meshes/*.png",
+        "robot_data/romeo_H37/*.urdf",
+        "robot_data/romeo_H37/meshes/*.obj",
+        "robot_data/romeo_H37/meshes/*.mtl",
+        "robot_data/romeo_H37/meshes/*.dae",
+        "robot_data/romeo_H37/meshes/*.stl",
+        "robot_data/romeo_H37/meshes/*.png"]},
     keywords=[
         'physics simulation',
         'robotics',

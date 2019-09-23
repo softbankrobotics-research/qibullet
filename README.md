@@ -1,4 +1,4 @@
-# qiBullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
+# qiBullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
@@ -74,7 +74,12 @@ The repository also contains a [wiki](https://github.com/ProtolabSBRE/qibullet/w
 ## Citations
 Please cite qiBullet if you use this repository in your publications:
 ```
-Paper coming soon...
+@article{busy2019qibullet,
+  title={qiBullet, a Bullet-based simulator for the Pepper and NAO robots},
+  author={Busy, Maxime and Caniot, Maxime},
+  journal={arXiv preprint arXiv:1909.00779},
+  year={2019}
+}
 ```
 
 ## Troubleshooting
