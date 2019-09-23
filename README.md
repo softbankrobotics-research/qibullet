@@ -74,7 +74,12 @@ The repository also contains a [wiki](https://github.com/ProtolabSBRE/qibullet/w
 ## Citations
 Please cite qiBullet if you use this repository in your publications:
 ```
-Paper coming soon...
+@article{busy2019qibullet,
+  title={qiBullet, a Bullet-based simulator for the Pepper and NAO robots},
+  author={Busy, Maxime and Caniot, Maxime},
+  journal={arXiv preprint arXiv:1909.00779},
+  year={2019}
+}
 ```
 
 ## Troubleshooting
