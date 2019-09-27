@@ -4,12 +4,13 @@ __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
 <!-- start -->
 <p align="middle">
-	<img src="ressources/short_top_cam.gif" width="46%" />
-	<img src="ressources/pepper_depth_camera.gif" width="49%" />
+	<img src="ressources/short_top_cam.gif" width="34.2%" />
+	<img src="ressources/pepper_depth_camera.gif" width="36.5%" />
+	<img src="ressources/pepper_moveTo.gif" width="27%" />
 </p>
 <p align="middle">
-	<img src="ressources/nao_walk.gif" width="33%" />
-	<img src="ressources/ros_compat.gif" width="62%" />
+	<img src="ressources/nao_walk.gif" width="31%" />
+	<img src="ressources/ros_compat.gif" width="68%" />
 </p>
 <!-- end -->
 
