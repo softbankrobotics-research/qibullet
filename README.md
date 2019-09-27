@@ -8,7 +8,7 @@ __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 	<img src="ressources/pepper_depth_camera.gif" width="49%" />
 </p>
 <p align="middle">
-	<img src="ressources/pepper_moveTo.gif" width="33%" />
+	<img src="ressources/nao_walk.gif" width="33%" />
 	<img src="ressources/ros_compat.gif" width="62%" />
 </p>
 <!-- end -->
