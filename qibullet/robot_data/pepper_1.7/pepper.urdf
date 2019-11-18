@@ -499,7 +499,7 @@
   <joint name="LGripper" type="fixed">
     <parent link="l_wrist"/>
     <child link="l_gripper"/>
-    <origin rpy="-2.355 0.0 -1.57" xyz="0.07 0.0 -0.01802319018"/>
+    <origin rpy="-3.14 0.0 -1.57" xyz="0.07 0.0 -0.01802319018"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="l_gripper">
@@ -698,7 +698,7 @@
   <joint name="RGripper" type="fixed">
     <parent link="r_wrist"/>
     <child link="r_gripper"/>
-    <origin rpy="2.355 0 1.57" xyz="0.07 0.0 -0.01802319018"/>
+    <origin rpy="3.14 0 1.57" xyz="0.07 0.0 -0.01802319018"/>
     <axis xyz="0 0 0"/>
   </joint>
   <link name="r_gripper">
