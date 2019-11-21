@@ -30,9 +30,6 @@ class PepperVirtual(RobotVirtual):
         Constructor
         """
         RobotVirtual.__init__(self, PepperVirtual.URDF_PATH)
-        self.camera_top = None
-        self.camera_bottom = None
-        self.camera_depth = None
         self.motion_constraint = None
         # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
         self.linear_velocity = 0.35
@@ -48,7 +45,8 @@ class PepperVirtual(RobotVirtual):
         Overloads @loadRobot from the @RobotVirtual class, loads the robot into
         the simulated instance. This method also updates the max velocity of
         the robot's fingers, adds self collision filters to the model, adds a
-        motion constraint to the model and defines the cameras of the model.
+        motion constraint to the model and defines the cameras of the model in
+        the camera_dict.
 
         Parameters:
             translation - List containing 3 elements, the translation [x, y, z]
@@ -111,26 +109,34 @@ class PepperVirtual(RobotVirtual):
             elif "Wheel" in joint_name:
                 self.joint_dict.pop(joint_name)
 
-        self.camera_top = CameraRgb(
+        camera_top = CameraRgb(
             self.robot_model,
+            PepperVirtual.ID_CAMERA_TOP,
             self.link_dict["CameraTop_optical_frame"],
             hfov=56.3,
             vfov=43.7,
             physicsClientId=self.physics_client)
 
-        self.camera_bottom = CameraRgb(
+        camera_bottom = CameraRgb(
             self.robot_model,
+            PepperVirtual.ID_CAMERA_BOTTOM,
             self.link_dict["CameraBottom_optical_frame"],
             hfov=56.3,
             vfov=43.7,
             physicsClientId=self.physics_client)
 
-        self.camera_depth = CameraDepth(
+        camera_depth = CameraDepth(
             self.robot_model,
+            PepperVirtual.ID_CAMERA_DEPTH,
             self.link_dict["CameraDepth_optical_frame"],
             hfov=58.0,
             vfov=45.0,
             physicsClientId=self.physics_client)
+
+        self.camera_dict = {
+            PepperVirtual.ID_CAMERA_TOP: camera_top,
+            PepperVirtual.ID_CAMERA_BOTTOM: camera_bottom,
+            PepperVirtual.ID_CAMERA_DEPTH: camera_depth}
 
         self.motion_constraint = pybullet.createConstraint(
             parentBodyUniqueId=self.robot_model,
@@ -336,68 +342,6 @@ class PepperVirtual(RobotVirtual):
                 return True
 
         return False
-
-    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
-        """
-        Subscribe to the camera holding the camera id. WARNING: at the moment,
-        only one camera can be subscribed.
-
-        Parameters:
-            camera_id - The id of the camera to be subscribed
-            resolution - CameraResolution object, the resolution of the camera
-        """
-        if camera_id == PepperVirtual.ID_CAMERA_TOP:
-            self.camera_top.subscribe(resolution=resolution)
-        elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
-            self.camera_bottom.subscribe(resolution=resolution)
-        elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
-            self.camera_depth.subscribe(resolution=resolution)
-
-    def unsubscribeCamera(self, camera_id):
-        """
-        Unsubscribe from a camera, the one holding the camera id.
-
-        Parameters:
-            camera_id - The id of the camera to be unsubscribed
-        """
-        if camera_id == PepperVirtual.ID_CAMERA_TOP:
-            self.camera_top.unsubscribe()
-        elif camera_id == PepperVirtual.ID_CAMERA_BOTTOM:
-            self.camera_bottom.unsubscribe()
-        elif camera_id == PepperVirtual.ID_CAMERA_DEPTH:
-            self.camera_depth.unsubscribe()
-
-    def getCameraFrame(self):
-        """
-        Returns a camera frame. Be advised that the subscribeCamera method
-        needs to be called beforehand.
-
-        Returns:
-            frame - The current camera frame as a formatted numpy array,
-            directly exploitable from OpenCV
-        """
-        if self.camera_top.isActive():
-            return self.camera_top.getFrame()
-        elif self.camera_bottom.isActive():
-            return self.camera_bottom.getFrame()
-        elif self.camera_depth.isActive():
-            return self.camera_depth.getFrame()
-
-    def getCameraResolution(self):
-        """
-        Returns the resolution of the active camera. If no camera is active,
-        returns None
-
-        Returns:
-            resolution - a CameraResolution object describing the resolution of
-            the active camera
-        """
-        if self.camera_top.isActive():
-            return self.camera_top.getResolution()
-        elif self.camera_bottom.isActive():
-            return self.camera_bottom.getResolution()
-        elif self.camera_depth.isActive():
-            return self.camera_depth.getResolution()
 
     def subscribeLaser(self):
         """

@@ -3,6 +3,7 @@
 
 import sys
 import pybullet
+from qibullet.camera import *
 from qibullet.link import Link
 from qibullet.joint import Joint
 
@@ -24,13 +25,15 @@ class RobotVirtual:
         """
         self.description_file = description_file
         self.physics_client = 0
+        self.active_camera = None
+        self.camera_dict = dict()
         self.joint_dict = dict()
         self.link_dict = dict()
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
         Loads the robot into a simulation, loads the joints and the links
-        descriptions. The joints are set to 0 rad
+        descriptions. The joints are set to 0 rad.
 
         Parameters:
             translation - List containing 3 elements, the translation [x, y, z]
@@ -89,7 +92,7 @@ class RobotVirtual:
 
     def getRobotModel(self):
         """
-        Returns the pybullet model to which the module is associated
+        Returns the pybullet model to which the module is associated.
 
         Returns:
             robot_model - The pybullet model of the robot
@@ -98,7 +101,7 @@ class RobotVirtual:
 
     def getPhysicsClientId(self):
         """
-        Returns the id of the simulated instance in which the module is loaded
+        Returns the id of the simulated instance in which the module is loaded.
 
         Returns:
             physics_client - The id of the simulation in which the robot
@@ -109,7 +112,7 @@ class RobotVirtual:
     def setAngles(self, joint_names, joint_values, percentage_speeds):
         """
         Set angles on the robot's joints. Tests have to be performed by the
-        child class to guarantee the validity of the input parameters
+        child class to guarantee the validity of the input parameters.
 
         Parameters:
             joint_names - List of string containing the name of the joints
@@ -152,7 +155,7 @@ class RobotVirtual:
     def getAnglesPosition(self, joint_names):
         """
         Gets the position of the robot's joints in radians. If one of the joint
-        doesn't exist, the method will raise a KeyError
+        doesn't exist, the method will raise a KeyError.
 
         Parameters:
             joint_names - List of string containing the names of the joints
@@ -173,7 +176,7 @@ class RobotVirtual:
     def getAnglesVelocity(self, joint_names):
         """
         Gets the velocity of the robot's joints in rad/s. If one of the joint
-        doesn't exist, the method will raise a KeyError
+        doesn't exist, the method will raise a KeyError.
 
         Parameters:
             joint_names - List of string containing the names of the joints
@@ -191,9 +194,107 @@ class RobotVirtual:
 
         return joint_velocities
 
+    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
+        """
+        Subscribe to the camera holding the camera id. WARNING: at the moment,
+        only one camera can be subscribed.
+
+        Parameters:
+            camera_id - The id of the camera to be subscribed
+            resolution - CameraResolution object, the resolution of the camera
+        """
+        try:
+            self.active_camera = self.camera_dict[camera_id]
+            self.active_camera.subscribe(resolution=resolution)
+
+        except KeyError:
+            print("This camera does not exist, use a valid camera id")
+
+    def unsubscribeCamera(self, camera_id):
+        """
+        Unsubscribe from a camera, the one holding the camera id.
+
+        Parameters:
+            camera_id - The id of the camera to be unsubscribed
+        """
+        try:
+            # If no active camera is found, nothing is unsubscribed
+            assert self.active_camera is not None
+
+            if self.active_camera.getCameraId() == camera_id:
+                self.active_camera.unsubscribe()
+                self.active_camera = None
+
+        except KeyError:
+            print("This camera does not exist, use a valid camera id")
+        except AssertionError:
+            pass
+
+    def getCameraFrame(self):
+        """
+        Returns a camera frame. Be advised that the subscribeCamera method
+        needs to be called beforehand, otherwise a pybullet error will be
+        raised.
+
+        Returns:
+            frame - The current camera frame as a formatted numpy array,
+            directly exploitable from OpenCV
+        """
+        try:
+            assert self.active_camera is not None
+            return self.active_camera.getFrame()
+
+        except AssertionError:
+            raise pybullet.error("No active camera, cannot retrieve any frame")
+
+    def getCameraResolution(self):
+        """
+        Returns the resolution of the active camera. Be advised that the
+        subscribeCamera method needs to be called beforehand, otherwise a
+        pybullet error will be raised.
+
+        Returns:
+            resolution - a CameraResolution object describing the resolution of
+            the active camera
+        """
+        try:
+            assert self.active_camera is not None
+            return self.active_camera.getResolution()
+
+        except KeyError:
+            raise pybullet.error("No active camera, resolution unavailable")
+
+    def getCameraLink(self):
+        """
+        Returns the link of the active camera. Be advised that the
+        subscribeCamera method needs to be called beforehand, otherwise a
+        pybullet error will be raised.
+
+        Returns:
+            resolution - a Link object describing the link to which the active
+            camera is attached
+        """
+        try:
+            assert self.active_camera is not None
+            return self.active_camera.getCameraLink()
+
+        except KeyError:
+            raise pybullet.error("No active camera, cannot retrieve any link")
+
+    def getActiveCamera(self):
+        """
+        Returns the active camera of the robot.
+
+        Returns:
+            active_camera - Camera (CameraRgb or CameraDepth) object, the
+            active camera of the robot. If there is no active camera, a None is
+            returned
+        """
+        return self.active_camera
+
     def getPosition(self):
         """
-        Gets the position of the robot's base in the world frame
+        Gets the position of the robot's base in the world frame.
 
         Returns:
             x - The position of the robot's base on the x axis, in meters

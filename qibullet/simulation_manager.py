@@ -249,7 +249,7 @@ class SimulationManager:
             physics_client - The client id of the simulated instance that will
             be cleared
         """
-        Camera.ACTIVE_CAMERA_ID[physics_client] = -1
+        Camera.ACTIVE_OBJECT_ID[physics_client] = -1
 
         for module in RobotModule._getInstances():
             if module.getPhysicsClientId() == physics_client:

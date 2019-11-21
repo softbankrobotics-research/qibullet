@@ -19,17 +19,17 @@ class CameraTest(unittest.TestCase):
         """
         physics_client = CameraTest.client
 
-        for camera_id, camera_obj in CameraTest.cameras.items():
+        for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
             CameraTest.robot.subscribeCamera(
                 camera_id)
             self.assertEqual(
-                Camera.ACTIVE_CAMERA_ID[physics_client],
+                Camera.ACTIVE_OBJECT_ID[physics_client],
                 id(camera_obj))
 
             CameraTest.robot.unsubscribeCamera(
                 camera_id)
             self.assertEqual(
-                Camera.ACTIVE_CAMERA_ID[physics_client],
+                Camera.ACTIVE_OBJECT_ID[physics_client],
                 -1)
 
     def test_camera_resolutions(self):
@@ -37,7 +37,7 @@ class CameraTest(unittest.TestCase):
         Test the resolutions for the cameras
         """
         for resolution in [Camera.K_VGA, Camera.K_QVGA, Camera.K_QQVGA]:
-            for camera_id in CameraTest.cameras.keys():
+            for camera_id in CameraTest.robot.camera_dict.keys():
                 CameraTest.robot.subscribeCamera(
                     camera_id,
                     resolution=resolution)
@@ -53,7 +53,7 @@ class CameraTest(unittest.TestCase):
         """
         Test the number of channels for each camera.
         """
-        for camera_id in CameraTest.cameras.keys():
+        for camera_id in CameraTest.robot.camera_dict.keys():
             # If the camera is a depth camera
             if camera_id == PepperVirtual.ID_CAMERA_DEPTH or\
                     camera_id == RomeoVirtual.ID_CAMERA_DEPTH:
@@ -91,11 +91,6 @@ class PepperCameraTest(CameraTest):
             CameraTest.client,
             spawn_ground_plane=True)
 
-        CameraTest.cameras = {
-            PepperVirtual.ID_CAMERA_TOP: CameraTest.robot.camera_top,
-            PepperVirtual.ID_CAMERA_BOTTOM: CameraTest.robot.camera_bottom,
-            PepperVirtual.ID_CAMERA_DEPTH: CameraTest.robot.camera_depth}
-
     @classmethod
     def tearDownClass(cls):
         """
@@ -132,10 +127,6 @@ class NaoCameraTest(CameraTest):
             CameraTest.client,
             spawn_ground_plane=True)
 
-        CameraTest.cameras = {
-            NaoVirtual.ID_CAMERA_TOP: CameraTest.robot.camera_top,
-            NaoVirtual.ID_CAMERA_BOTTOM: CameraTest.robot.camera_bottom}
-
     @classmethod
     def tearDownClass(cls):
         """
@@ -171,11 +162,6 @@ class RomeoCameraTest(CameraTest):
         CameraTest.robot = CameraTest.simulation.spawnRomeo(
             CameraTest.client,
             spawn_ground_plane=True)
-
-        CameraTest.cameras = {
-            RomeoVirtual.ID_CAMERA_LEFT: CameraTest.robot.camera_left,
-            RomeoVirtual.ID_CAMERA_RIGHT: CameraTest.robot.camera_right,
-            RomeoVirtual.ID_CAMERA_DEPTH: CameraTest.robot.camera_depth}
 
     @classmethod
     def tearDownClass(cls):

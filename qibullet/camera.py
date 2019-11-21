@@ -45,7 +45,7 @@ class Camera(Sensor):
     """
     Class representing a virtual camera
     """
-    ACTIVE_CAMERA_ID = dict()
+    ACTIVE_OBJECT_ID = dict()
 
     K_QQVGA = CameraResolution(160, 120)
     K_QVGA = CameraResolution(320, 240)
@@ -57,7 +57,8 @@ class Camera(Sensor):
     def __init__(
             self,
             robot_model,
-            link,
+            camera_id,
+            camera_link,
             hfov,
             vfov,
             physicsClientId=0,
@@ -68,7 +69,8 @@ class Camera(Sensor):
 
         Parameters:
             robot_model - The pybullet model of the robot
-            link - The link (Link type) onto which the camera's attached
+            camera_id - an int describing the id of the camera
+            camera_link - The link (Link type) onto which the camera's attached
             hfov - The value of the horizontal field of view angle (in degrees)
             vfov - The value of the vertical field of view angle (in degrees)
             physicsClientId - The id of the simulated instance in which the
@@ -77,7 +79,8 @@ class Camera(Sensor):
             far_plane - The far plane distance
         """
         Sensor.__init__(self, robot_model, physicsClientId)
-        self.link = link
+        self.camera_id = camera_id
+        self.camera_link = camera_link
         self.near_plane = near_plane
         self.far_plane = far_plane
         self.frame = None
@@ -85,11 +88,12 @@ class Camera(Sensor):
         self.resolution = None
         self.hfov = None
         self.vfov = None
+        self.intrinsic_matrix = None
         self.resolution_lock = threading.Lock()
         self._setFov(hfov, vfov)
 
-        if self.physics_client not in Camera.ACTIVE_CAMERA_ID.keys():
-            Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
+        if self.physics_client not in Camera.ACTIVE_OBJECT_ID.keys():
+            Camera.ACTIVE_OBJECT_ID[self.physics_client] = -1
 
     def subscribe(self, resolution):
         """
@@ -102,16 +106,37 @@ class Camera(Sensor):
         self._module_termination = False
 
         self._setResolution(resolution)
-        Camera.ACTIVE_CAMERA_ID[self.physics_client] = id(self)
+        Camera.ACTIVE_OBJECT_ID[self.physics_client] = id(self)
 
     def unsubscribe(self):
         """
         Method stopping the frame retreival thread for a camera
         """
-        if Camera.ACTIVE_CAMERA_ID[self.physics_client] == id(self):
-            Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
+        if Camera.ACTIVE_OBJECT_ID[self.physics_client] == id(self):
+            Camera.ACTIVE_OBJECT_ID[self.physics_client] = -1
             self._terminateModule()
             self.frame = None
+
+    def getCameraId(self):
+        """
+        Returns the id of the camera. WARNING, the id of the camera is not the
+        id of the Python object corresponding to the camera, the id value is
+        defined by the user and specific to each camera of each robot.
+
+        Returns:
+            camera_id - The id of the camera
+        """
+        return self.camera_id
+
+    def getCameraLink(self):
+        """
+        Returns the link to which the camera is attached, as a qiBullet Link
+        object
+
+        Returns:
+            camera_link - The link to which the camera is attached
+        """
+        return self.camera_link
 
     def getFrame(self):
         """
@@ -135,7 +160,7 @@ class Camera(Sensor):
             is_active - Boolean, True if the camera is subscribed to, False
             otherwise
         """
-        return id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
+        return id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
 
     def getResolution(self):
         """
@@ -188,8 +213,37 @@ class Camera(Sensor):
                     farVal=self.far_plane,
                     physicsClientId=self.physics_client)
 
+                self.intrinsic_matrix = [
+                    self.projection_matrix[0]*self.resolution.width/2.0,
+                    0.0,
+                    (1-self.projection_matrix[8])*self.resolution.width/2.0,
+                    0.0,
+                    self.projection_matrix[5]*self.resolution.height/2.0,
+                    (1-self.projection_matrix[9])*self.resolution.height/2.0,
+                    0.0,
+                    0.0,
+                    1.0]
+
         except AssertionError as e:
             print("Cannot set camera resolution: " + str(e))
+
+    def _getCameraIntrinsics(self):
+        """
+        INTERNAL METHOD, Returns the intrinsic camera matrix, formatted as:
+        K = [fx, 0, cx, 0, fy, cy, 0.0, 0.0, 1.0]. For more details, see
+        http://docs.ros.org/kinetic/api/sensor_msgs/html/msg/CameraInfo.html
+
+        Returns:
+            intrinsic_matrix - The intrinsic camera matrix formatted as a list
+        """
+        with self.resolution_lock:
+            try:
+                assert self.intrinsic_matrix is not None
+
+            except AssertionError:
+                print("Cannot get intrinsics, resolution not defined")
+            finally:
+                return list(self.intrinsic_matrix)
 
     def _getCameraImage(self):
         """
@@ -202,7 +256,7 @@ class Camera(Sensor):
         """
         _, _, _, _, pos_world, q_world = pybullet.getLinkState(
             self.robot_model,
-            self.link.getParentIndex(),
+            self.camera_link.getParentIndex(),
             computeForwardKinematics=False,
             physicsClientId=self.physics_client)
 
@@ -239,7 +293,7 @@ class Camera(Sensor):
         Python is exitted or when the SimulationManager resets/stops a
         simulation instance
         """
-        Camera.ACTIVE_CAMERA_ID[self.physics_client] = -1
+        Camera.ACTIVE_OBJECT_ID[self.physics_client] = -1
 
         if self.module_process.isAlive():
             self.module_process.join()
@@ -275,7 +329,8 @@ class CameraRgb(Camera):
     def __init__(
             self,
             robot_model,
-            link,
+            camera_id,
+            camera_link,
             hfov,
             vfov,
             physicsClientId=0,
@@ -285,7 +340,8 @@ class CameraRgb(Camera):
 
         Parameters:
             robot_model - the pybullet model of the robot
-            link - The link (Link type) onto which the camera's attached
+            camera_id - an int describing the id of the camera
+            camera_link - The link (Link type) onto which the camera's attached
             hfov - The value of the horizontal field of view angle (in degrees)
             vfov - The value of the vertical field of view angle (in degrees)
             physicsClientId - The id of the simulated instance in which the
@@ -295,7 +351,8 @@ class CameraRgb(Camera):
         Camera.__init__(
             self,
             robot_model,
-            link,
+            camera_id,
+            camera_link,
             hfov,
             vfov,
             physicsClientId=physicsClientId)
@@ -332,7 +389,7 @@ class CameraRgb(Camera):
 
         try:
             while not self._module_termination:
-                assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
+                assert id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
                 camera_image = self._getCameraImage()
 
                 camera_image = np.reshape(
@@ -365,7 +422,8 @@ class CameraDepth(Camera):
     def __init__(
             self,
             robot_model,
-            link,
+            camera_id,
+            camera_link,
             hfov,
             vfov,
             physicsClientId=0,
@@ -375,7 +433,8 @@ class CameraDepth(Camera):
 
         Parameters:
             robot_model - the pybullet model of the robot
-            link - The link (Link type) onto which the camera's attached
+            camera_id - an int describing the id of the camera
+            camera_link - The link (Link type) onto which the camera's attached
             hfov - The value of the horizontal field of view angle (in degrees)
             vfov - The value of the vertical field of view angle (in degrees)
             physicsClientId - The id of the simulated instance in which the
@@ -385,7 +444,8 @@ class CameraDepth(Camera):
         Camera.__init__(
             self,
             robot_model,
-            link,
+            camera_id,
+            camera_link,
             hfov,
             vfov,
             near_plane=0.4,
@@ -419,7 +479,7 @@ class CameraDepth(Camera):
         """
         try:
             while not self._module_termination:
-                assert id(self) == Camera.ACTIVE_CAMERA_ID[self.physics_client]
+                assert id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
                 camera_image = self._getCameraImage()
                 depth_image = camera_image[3]
 
