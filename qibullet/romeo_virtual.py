@@ -37,7 +37,7 @@ class RomeoVirtual(RobotVirtual):
         Overloads @loadRobot from the @RobotVirtual class, loads the robot into
         the simulated instance. This method also updates the max velocity of
         the robot's fingers, adds self collision filters to the model and
-        defines the cameras of the model.
+        defines the cameras of the model in the camera_dict.
 
         Parameters:
             translation - List containing 3 elements, the translation [x, y, z]
@@ -170,26 +170,34 @@ class RomeoVirtual(RobotVirtual):
                 self.joint_dict[joint_name].setMaxVelocity(
                     self.joint_dict["LHand"].getMaxVelocity())
 
-        self.camera_right = CameraRgb(
+        camera_right = CameraRgb(
             self.robot_model,
+            RomeoVirtual.ID_CAMERA_RIGHT,
             self.link_dict["CameraRightEye_optical_frame"],
             hfov=60.9,
             vfov=47.6,
             physicsClientId=self.physics_client)
 
-        self.camera_left = CameraRgb(
+        camera_left = CameraRgb(
             self.robot_model,
+            RomeoVirtual.ID_CAMERA_LEFT,
             self.link_dict["CameraLeftEye_optical_frame"],
             hfov=60.9,
             vfov=47.6,
             physicsClientId=self.physics_client)
 
-        self.camera_depth = CameraDepth(
+        camera_depth = CameraDepth(
             self.robot_model,
+            RomeoVirtual.ID_CAMERA_DEPTH,
             self.link_dict["CameraDepth_optical_frame"],
             hfov=58.0,
             vfov=45.0,
             physicsClientId=self.physics_client)
+
+        self.camera_dict = {
+            RomeoVirtual.ID_CAMERA_RIGHT: camera_right,
+            RomeoVirtual.ID_CAMERA_LEFT: camera_left,
+            RomeoVirtual.ID_CAMERA_DEPTH: camera_depth}
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
@@ -334,68 +342,6 @@ class RomeoVirtual(RobotVirtual):
                 return True
 
         return False
-
-    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
-        """
-        Subscribe to the camera holding the camera id. WARNING: at the moment,
-        only one camera can be subscribed.
-
-        Parameters:
-            camera_id - The id of the camera to be subscribed
-            resolution - CameraResolution object, the resolution of the camera
-        """
-        if camera_id == RomeoVirtual.ID_CAMERA_RIGHT:
-            self.camera_right.subscribe(resolution=resolution)
-        elif camera_id == RomeoVirtual.ID_CAMERA_LEFT:
-            self.camera_left.subscribe(resolution=resolution)
-        elif camera_id == RomeoVirtual.ID_CAMERA_DEPTH:
-            self.camera_depth.subscribe(resolution=resolution)
-
-    def unsubscribeCamera(self, camera_id):
-        """
-        Unsubscribe from a camera, the one holding the camera id.
-
-        Parameters:
-            camera_id - The id of the camera to be unsubscribed
-        """
-        if camera_id == RomeoVirtual.ID_CAMERA_RIGHT:
-            self.camera_right.unsubscribe()
-        elif camera_id == RomeoVirtual.ID_CAMERA_LEFT:
-            self.camera_left.unsubscribe()
-        elif camera_id == RomeoVirtual.ID_CAMERA_DEPTH:
-            self.camera_depth.unsubscribe()
-
-    def getCameraFrame(self):
-        """
-        Returns a camera frame. Be advised that the subscribeCamera method
-        needs to be called beforehand.
-
-        Returns:
-            frame - The current camera frame as a formatted numpy array,
-            directly exploitable from OpenCV
-        """
-        if self.camera_right.isActive():
-            return self.camera_right.getFrame()
-        elif self.camera_left.isActive():
-            return self.camera_left.getFrame()
-        elif self.camera_depth.isActive():
-            return self.camera_depth.getFrame()
-
-    def getCameraResolution(self):
-        """
-        Returns the resolution of the active camera. If no camera is active,
-        returns None
-
-        Returns:
-            resolution - a CameraResolution object describing the resolution of
-            the active camera
-        """
-        if self.camera_right.isActive():
-            return self.camera_right.getResolution()
-        elif self.camera_left.isActive():
-            return self.camera_left.getResolution()
-        elif self.camera_depth.isActive():
-            return self.camera_depth.getResolution()
 
     def _mimicHand(
             self,

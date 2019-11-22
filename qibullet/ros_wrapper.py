@@ -55,7 +55,6 @@ class PepperRosWrapper:
         self.front_info_msg = dict()
         self.bottom_info_msg = dict()
         self.depth_info_msg = dict()
-        self._loadCameraInfos()
         self.roslauncher = None
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
         atexit.register(self.stopWrapper)
@@ -265,6 +264,49 @@ class PepperRosWrapper:
         odom.twist.twist.angular.z = wz
         self.odom_pub.publish(odom)
 
+    def _broadcastCamera(self):
+        """
+        INTERNAL METHOD, updates and broadcasts the camera image data and the
+        camera info data
+        """
+        try:
+            camera = self.virtual_pepper.getActiveCamera()
+            assert camera is not None
+            assert camera.getFrame() is not None
+
+            camera_image_msg = self.image_bridge.cv2_to_imgmsg(
+                camera.getFrame())
+            camera_image_msg.header.frame_id = camera.getCameraLink().getName()
+
+            camera_info_msg = CameraInfo()
+            camera_info_msg.distortion_model = "plumb_bob"
+            camera_info_msg.header.frame_id = camera.getCameraLink().getName()
+            camera_info_msg.width = camera.getResolution().width
+            camera_info_msg.height = camera.getResolution().height
+            camera_info_msg.D = [0.0, 0.0, 0.0, 0.0, 0.0]
+            camera_info_msg.K = camera._getCameraIntrinsics()
+            camera_info_msg.R = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+            camera_info_msg.P = list(camera_info_msg.K)
+            camera_info_msg.P.insert(3, 0.0)
+            camera_info_msg.P.insert(7, 0.0)
+            camera_info_msg.P.append(0.0)
+
+            if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
+                camera_image_msg.encoding = "bgr8"
+                self.front_cam_pub.publish(camera_image_msg)
+                self.front_info_msg.publish(camera_info_msg)
+            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
+                camera_image_msg.encoding = "bgr8"
+                self.bottom_cam_pub.publish(camera_image_msg)
+                self.bottom_info_pub.publish(camera_info_msg)
+            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_DEPTH:
+                camera_image_msg.encoding = "16UC1"
+                self.depth_cam_pub.publish(camera_image_msg)
+                self.depth_info_pub.publish(camera_info_msg)
+
+        except AssertionError:
+            pass
+
     def _getJointStateMsg(self):
         """
         INTERNAL METHOD, returns the JointState of each robot joint
@@ -365,263 +407,7 @@ class PepperRosWrapper:
                 self.joint_states_pub.publish(self._getJointStateMsg())
                 self._updateLasers()
                 self._broadcastOdom()
-                resolution = self.virtual_pepper.getCameraResolution()
-                frame = self.virtual_pepper.getCameraFrame()
-
-                if frame is None or resolution is None:
-                    continue
-                camera_image_msg = self.image_bridge.cv2_to_imgmsg(frame)
-
-                if self.virtual_pepper.camera_top.isActive():
-                    camera_image_msg.encoding = "bgr8"
-                    camera_image_msg.header.frame_id = TOP_OPTICAL_FRAME
-
-                    if resolution == Camera.K_VGA:
-                        camera_info_msg = self.front_info_msg["K_VGA"]
-                    elif resolution == Camera.K_QVGA:
-                        camera_info_msg = self.front_info_msg["K_QVGA"]
-                    elif resolution == Camera.K_QQVGA:
-                        camera_info_msg = self.front_info_msg["K_QQVGA"]
-
-                    self.front_cam_pub.publish(camera_image_msg)
-                    self.front_info_pub.publish(camera_info_msg)
-
-                elif self.virtual_pepper.camera_bottom.isActive():
-                    camera_image_msg.encoding = "bgr8"
-                    camera_image_msg.header.frame_id = BOTTOM_OPTICAL_FRAME
-
-                    if resolution == Camera.K_VGA:
-                        camera_info_msg = self.bottom_info_msg["K_VGA"]
-                    elif resolution == Camera.K_QVGA:
-                        camera_info_msg = self.bottom_info_msg["K_QVGA"]
-                    elif resolution == Camera.K_QQVGA:
-                        camera_info_msg = self.bottom_info_msg["K_QQVGA"]
-
-                    self.bottom_cam_pub.publish(camera_image_msg)
-                    self.bottom_info_pub.publish(camera_info_msg)
-
-                elif self.virtual_pepper.camera_depth.isActive():
-                    camera_image_msg.encoding = "16UC1"
-                    camera_image_msg.header.frame_id = DEPTH_OPTICAL_FRAME
-
-                    if resolution == Camera.K_VGA:
-                        camera_info_msg = self.depth_info_msg["K_VGA"]
-                    elif resolution == Camera.K_QVGA:
-                        camera_info_msg = self.depth_info_msg["K_QVGA"]
-                    elif resolution == Camera.K_QQVGA:
-                        camera_info_msg = self.depth_info_msg["K_QQVGA"]
-
-                    self.depth_cam_pub.publish(camera_image_msg)
-                    self.depth_info_pub.publish(camera_info_msg)
+                self._broadcastCamera()
 
         except Exception as e:
             print("Stopping the ROS wrapper: " + str(e))
-
-    def _loadCameraInfos(self):
-        """
-        INTERNAL METHOD, creates the camera info message for Pepper's cameras
-        """
-        for quality in ["K_VGA", "K_QVGA", "K_QQVGA"]:
-            self.front_info_msg[quality] = CameraInfo()
-            self.front_info_msg[quality].header.frame_id =\
-                "CameraTop_optical_frame"
-            self.front_info_msg[quality].distortion_model = "plumb_bob"
-
-            self.bottom_info_msg[quality] = CameraInfo()
-            self.bottom_info_msg[quality].header.frame_id =\
-                "CameraBottom_optical_frame"
-            self.bottom_info_msg[quality].distortion_model = "plumb_bob"
-
-            self.depth_info_msg[quality] = CameraInfo()
-            self.depth_info_msg[quality].header.frame_id =\
-                "CameraDepth_optical_frame"
-            self.depth_info_msg[quality].distortion_model = "plumb_bob"
-
-        self.front_info_msg["K_VGA"].width = Camera.K_VGA.width
-        self.front_info_msg["K_VGA"].height = Camera.K_VGA.height
-        self.front_info_msg["K_VGA"].D = [
-            -0.0545211535376379,
-            0.0691973423510287,
-            -0.00241094929163055,
-            -0.00112245009306511,
-            0]
-        self.front_info_msg["K_VGA"].K = [
-            556.845054830986, 0, 309.366895338178,
-            0, 555.898679730161, 230.592233628776,
-            0, 0, 1]
-        self.front_info_msg["K_VGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.front_info_msg["K_VGA"].P = [
-            551.589721679688, 0, 308.271132841983, 0,
-            0, 550.291320800781, 229.20143668168, 0,
-            0, 0, 1, 0]
-
-        self.front_info_msg["K_QVGA"].width = Camera.K_QVGA.width
-        self.front_info_msg["K_QVGA"].height = Camera.K_QVGA.height
-        self.front_info_msg["K_QVGA"].D = [
-            -0.0870160932911717,
-            0.128210165050533,
-            0.003379500659424,
-            -0.00106205540818586,
-            0]
-        self.front_info_msg["K_QVGA"].K = [
-            274.139508945831, 0, 141.184472810944,
-            0, 275.741846757374, 106.693773654172,
-            0, 0, 1]
-        self.front_info_msg["K_QVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.front_info_msg["K_QVGA"].P = [
-            272.423675537109, 0, 141.131930791285, 0,
-            0, 273.515747070312, 107.391746054313, 0,
-            0, 0, 1, 0]
-
-        self.front_info_msg["K_QQVGA"].width = Camera.K_QQVGA.width
-        self.front_info_msg["K_QQVGA"].height = Camera.K_QQVGA.height
-        self.front_info_msg["K_QQVGA"].D = [
-            -0.0843564504845967,
-            0.125733083790192,
-            0.00275901756247071,
-            -0.00138645823460527,
-            0]
-        self.front_info_msg["K_QQVGA"].K = [
-            139.424539568966, 0, 76.9073669920582,
-            0, 139.25542782325, 59.5554242026743,
-            0, 0, 1]
-        self.front_info_msg["K_QQVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.front_info_msg["K_QQVGA"].P = [
-            137.541534423828, 0, 76.3004646597892, 0,
-            0, 136.815216064453, 59.3909799751191, 0,
-            0, 0, 1, 0]
-
-        self.bottom_info_msg["K_VGA"].width = Camera.K_VGA.width
-        self.bottom_info_msg["K_VGA"].height = Camera.K_VGA.height
-        self.bottom_info_msg["K_VGA"].D = [
-            -0.0648763971625288,
-            0.0612520196884308,
-            0.0038281538281731,
-            -0.00551104078371959,
-            0]
-        self.bottom_info_msg["K_VGA"].K = [
-            558.570339530768, 0, 308.885375457296,
-            0, 556.122943034837, 247.600724811385,
-            0, 0, 1]
-        self.bottom_info_msg["K_VGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.bottom_info_msg["K_VGA"].P = [
-            549.571655273438, 0, 304.799679526441, 0,
-            0, 549.687316894531, 248.526959297022, 0,
-            0, 0, 1, 0]
-
-        self.bottom_info_msg["K_QVGA"].width = Camera.K_QVGA.width
-        self.bottom_info_msg["K_QVGA"].height = Camera.K_QVGA.height
-        self.bottom_info_msg["K_QVGA"].D = [
-            -0.0481869853715082,
-            0.0201858398559121,
-            0.0030362056699177,
-            -0.00172241952442813,
-            0]
-        self.bottom_info_msg["K_QVGA"].K = [
-            278.236008818534, 0, 156.194471689706,
-            0, 279.380102992049, 126.007123836447,
-            0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].P = [
-            273.491455078125, 0, 155.112454709117, 0,
-            0, 275.743133544922, 126.057357467223, 0,
-            0, 0, 1, 0]
-
-        self.bottom_info_msg["K_QQVGA"].width = Camera.K_QQVGA.width
-        self.bottom_info_msg["K_QQVGA"].height = Camera.K_QQVGA.height
-        self.bottom_info_msg["K_QQVGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.bottom_info_msg["K_QQVGA"].K = [
-            141.611855886672, 0, 78.6494086288656,
-            0, 141.367163830175, 58.9220646201529,
-            0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].P = [
-            138.705535888672, 0, 77.2544255212306, 0,
-            0, 138.954086303711, 58.7000861760043, 0,
-            0, 0, 1, 0]
-
-        self.depth_info_msg["K_VGA"].width = Camera.K_VGA.width
-        self.depth_info_msg["K_VGA"].height = Camera.K_VGA.height
-        self.depth_info_msg["K_VGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.depth_info_msg["K_VGA"].K = [
-            525, 0, 319.5000000,
-            0, 525, 239.5000000000000,
-            0, 0, 1]
-        self.depth_info_msg["K_VGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.depth_info_msg["K_VGA"].P = [
-            525, 0, 319.500000, 0,
-            0, 525, 239.5000000000, 0,
-            0, 0, 1, 0]
-
-        self.depth_info_msg["K_QVGA"].width = Camera.K_QVGA.width
-        self.depth_info_msg["K_QVGA"].height = Camera.K_QVGA.height
-        self.depth_info_msg["K_QVGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.depth_info_msg["K_QVGA"].K = [
-            525/2.0, 0, 319.5000000/2.0,
-            0, 525/2.0, 239.5000000000000/2.0,
-            0, 0, 1]
-        self.depth_info_msg["K_QVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.depth_info_msg["K_QVGA"].P = [
-            525/2.0, 0, 319.500000/2.0, 0,
-            0, 525/2.0, 239.5000000000/2.0, 0,
-            0, 0, 1, 0]
-
-        self.depth_info_msg["K_QQVGA"].width = Camera.K_QQVGA.width
-        self.depth_info_msg["K_QQVGA"].height = Camera.K_QQVGA.height
-        self.depth_info_msg["K_QQVGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.depth_info_msg["K_QQVGA"].K = [
-            525/4.0, 0, 319.5000000/4.0,
-            0, 525/4.0, 239.5000000000000/4.0,
-            0, 0, 1]
-        self.depth_info_msg["K_QQVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.depth_info_msg["K_QQVGA"].P = [
-            525/4.0, 0, 319.500000/4.0, 0,
-            0, 525/4.0, 239.5000000000/4.0, 0,
-            0, 0, 1, 0]
