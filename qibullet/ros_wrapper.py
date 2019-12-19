@@ -207,9 +207,9 @@ class PepperRosWrapper:
         # 240 degres FoV, 61 points (blind zones inc)
         scan.angle_increment = (2 * 2.0944) / (15.0 + 15.0 + 15.0 + 8.0 + 8.0)
 
-        # Detection ranges for the lasers in meters
+        # Detection ranges for the lasers in meters, 0.1 to 3.0 meters
         scan.range_min = 0.1
-        scan.range_max = 1.5
+        scan.range_max = 3.0
 
         # Fill the lasers information
         right_scan = self.virtual_pepper.getRightLaserValue()
