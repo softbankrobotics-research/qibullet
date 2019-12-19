@@ -37,9 +37,9 @@ BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
 DEPTH_OPTICAL_FRAME = "CameraDepth_optical_frame"
 
 
-class PepperRosWrapper:
+class RosWrapper:
     """
-    Class describing a ROS wrapper for the virtual model of Pepper
+    Virtual class defining the basis of a robot ROS wrapper
     """
 
     def __init__(self):
@@ -58,6 +58,38 @@ class PepperRosWrapper:
         self.roslauncher = None
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
         atexit.register(self.stopWrapper)
+
+    def stopWrapper(self):
+        """
+        Stops the ROS wrapper
+        """
+        self._wrapper_termination = True
+
+        try:
+            assert self.spin_thread is not None
+            assert isinstance(self.spin_thread, Thread)
+            assert self.spin_thread.isAlive()
+            self.spin_thread.join()
+
+        except AssertionError:
+            pass
+
+        if self.roslauncher is not None:
+            self.roslauncher.stop()
+            print("stopping roslauncher")
+
+
+class PepperRosWrapper(RosWrapper):
+    """
+    Class describing a ROS wrapper for the virtual model of Pepper, inheriting
+    from the RosWrapperClass
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        """
+        RosWrapper.__init__(self)
 
     def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
         """
@@ -177,19 +209,6 @@ class PepperRosWrapper:
             print("Could not retrieve robot descrition: " + str(e))
             return
 
-    def stopWrapper(self):
-        """
-        Stops the ROS wrapper
-        """
-        self._wrapper_termination = True
-
-        if self.spin_thread.isAlive():
-            self.spin_thread.join()
-
-        if self.roslauncher is not None:
-            self.roslauncher.stop()
-            print("stopping roslauncher")
-
     def _updateLasers(self):
         """
         INTERNAL METHOD, updates the laser values in the ROS framework
@@ -294,7 +313,7 @@ class PepperRosWrapper:
             if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
                 camera_image_msg.encoding = "bgr8"
                 self.front_cam_pub.publish(camera_image_msg)
-                self.front_info_msg.publish(camera_info_msg)
+                self.front_info_pub.publish(camera_info_msg)
             elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
                 camera_image_msg.encoding = "bgr8"
                 self.bottom_cam_pub.publish(camera_image_msg)
