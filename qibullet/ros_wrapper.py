@@ -6,6 +6,8 @@ import sys
 import atexit
 import pybullet
 from qibullet.camera import Camera
+from qibullet.pepper_virtual import NaoVirtual
+from qibullet.pepper_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.base_controller import PepperBaseController
 from threading import Thread
@@ -76,7 +78,93 @@ class RosWrapper:
 
         if self.roslauncher is not None:
             self.roslauncher.stop()
-            print("stopping roslauncher")
+            print("Stopping roslauncher")
+
+    def launchWrapper(self, virtual_robot, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper
+
+        Parameters:
+            virtual_robot - The instance of the simulated model
+            ros_namespace - The ROS namespace to be added before the ROS topics
+            advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
+        """
+        if MISSING_IMPORT is not None:
+            raise pybullet.error(MISSING_IMPORT)
+
+        self.virtual_robot = virtual_robot
+        self.ros_namespace = ros_namespace
+        self.frequency = frequency
+
+        rospy.init_node(
+            "qibullet_wrapper",
+            anonymous=True,
+            disable_signals=False)
+
+        # Upload the robot description to the ros parameter server
+        try:
+            if isinstance(self.virtual_robot, PepperVirtual):
+                robot_name = "pepper"
+            elif isinstance(self.virtual_robot, NaoVirtual):
+                robot_name = "nao"
+            elif isinstance(self.virtual_robot, RomeoVirtual):
+                robot_name = "romeo"
+            else:
+                raise pybullet.error(
+                    "Unknown robot type, wont set robot description")
+
+            package_path = roslib.packages.get_pkg_dir("naoqi_driver")
+            urdf_path = package_path + "/share/urdf/" + robot_name + ".urdf"
+
+            with open(urdf_path, 'r') as file:
+                robot_description = file.read()
+
+            rospy.set_param("/robot_description", robot_description)
+
+        except IOError as e:
+            raise pybullet.error(
+                "Could not retrieve robot descrition: " + str(e))
+
+        # Launch the robot state publisher
+        robot_state_publisher = roslaunch.core.Node(
+            "robot_state_publisher",
+            "robot_state_publisher")
+
+        self.roslauncher = roslaunch.scriptapi.ROSLaunch()
+        self.roslauncher.start()
+        self.roslauncher.launch(robot_state_publisher)
+
+        # Initialize the ROS publisher and subscribers
+        self._initPublishers()
+        self._initSubscribers()
+
+        # Launch the wrapper's main loop
+        self._wrapper_termination = False
+        self.spin_thread = Thread(target=self._spin)
+        self.spin_thread.start()
+
+    def _initPublishers(self):
+        """
+        ABSTRACT INTERNAL METHOD, needs to be implemented in each daughter
+        class. Initializes the ROS publishers
+        """
+        raise NotImplementedError
+
+    def _initSubscribers(self):
+        """
+        ABSTRACT INTERNAL METHOD, needs to be implemented in each daughter
+        class. Initializes the ROS subscribers
+        """
+        raise NotImplementedError
+
+    def _spin(self):
+        """
+        ABSTRACT INTERNAL METHOD, needs to be implemented in each daughter
+        class. Designed to emulate a ROS spin method
+        """
+        raise NotImplementedError
 
 
 class PepperRosWrapper(RosWrapper):
@@ -102,18 +190,16 @@ class PepperRosWrapper(RosWrapper):
             frequency - The frequency of the ROS rate that will be used to pace
             the wrapper's main loop
         """
-        if MISSING_IMPORT is not None:
-            raise pybullet.error(MISSING_IMPORT)
+        RosWrapper.launchWrapper(
+            self,
+            virtual_pepper,
+            ros_namespace,
+            frequency)
 
-        self.virtual_pepper = virtual_pepper
-        self.ros_namespace = ros_namespace
-        self.frequency = frequency
-
-        rospy.init_node(
-            "pybullet_pepper",
-            anonymous=True,
-            disable_signals=False)
-
+    def _initPublishers(self):
+        """
+        INTERNAL METHOD, initializes the ROS publishers
+        """
         self.front_cam_pub = rospy.Publisher(
             self.ros_namespace + '/camera/front/image_raw',
             Image,
@@ -159,6 +245,10 @@ class PepperRosWrapper(RosWrapper):
             Odometry,
             queue_size=10)
 
+    def _initSubscribers(self):
+        """
+        INTERNAL METHOD, initializes the ROS subscribers
+        """
         rospy.Subscriber(
             '/joint_angles',
             JointAnglesWithSpeed,
@@ -179,41 +269,11 @@ class PepperRosWrapper(RosWrapper):
             Empty,
             self._killMoveCallback)
 
-        try:
-            package_path = roslib.packages.get_pkg_dir("naoqi_driver")
-            # path = os.path.dirname(os.path.abspath(__file__)) + "/"
-
-            with open(package_path + "/share/urdf/pepper.urdf", 'r') as file:
-                robot_description = file.read()
-
-            # robot_description = robot_description.replace(
-            #     "meshes/",
-            #     "package://pepper_meshes/meshes/1.0/")
-
-            rospy.set_param("/robot_description", robot_description)
-
-            robot_state_publisher = roslaunch.core.Node(
-                "robot_state_publisher",
-                "robot_state_publisher")
-
-            self.roslauncher = roslaunch.scriptapi.ROSLaunch()
-            self.roslauncher.start()
-            self.roslauncher.launch(robot_state_publisher)
-
-            # Launch the wrapper's main loop
-            self._wrapper_termination = False
-            self.spin_thread = Thread(target=self._spin)
-            self.spin_thread.start()
-
-        except IOError as e:
-            print("Could not retrieve robot descrition: " + str(e))
-            return
-
     def _updateLasers(self):
         """
         INTERNAL METHOD, updates the laser values in the ROS framework
         """
-        if not self.virtual_pepper.laser_manager.isActive():
+        if not self.virtual_robot.laser_manager.isActive():
             return
 
         scan = LaserScan()
@@ -231,9 +291,9 @@ class PepperRosWrapper(RosWrapper):
         scan.range_max = 3.0
 
         # Fill the lasers information
-        right_scan = self.virtual_pepper.getRightLaserValue()
-        front_scan = self.virtual_pepper.getFrontLaserValue()
-        left_scan = self.virtual_pepper.getLeftLaserValue()
+        right_scan = self.virtual_robot.getRightLaserValue()
+        front_scan = self.virtual_robot.getFrontLaserValue()
+        left_scan = self.virtual_robot.getLeftLaserValue()
 
         if isinstance(right_scan, list):
             scan.ranges.extend(list(reversed(right_scan)))
@@ -252,7 +312,7 @@ class PepperRosWrapper(RosWrapper):
         based on the robot's base tranform
         """
         # Send Transform odom
-        x, y, theta = self.virtual_pepper.getPosition()
+        x, y, theta = self.virtual_robot.getPosition()
         odom_trans = TransformStamped()
         odom_trans.header.frame_id = "odom"
         odom_trans.child_frame_id = "base_link"
@@ -276,8 +336,8 @@ class PepperRosWrapper(RosWrapper):
         odom.pose.pose.orientation = odom_trans.transform.rotation
         odom.child_frame_id = "base_link"
         [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
-            self.virtual_pepper.robot_model,
-            self.virtual_pepper.getPhysicsClientId())
+            self.virtual_robot.robot_model,
+            self.virtual_robot.getPhysicsClientId())
         odom.twist.twist.linear.x = vx
         odom.twist.twist.linear.y = vy
         odom.twist.twist.angular.z = wz
@@ -289,7 +349,7 @@ class PepperRosWrapper(RosWrapper):
         camera info data
         """
         try:
-            camera = self.virtual_pepper.getActiveCamera()
+            camera = self.virtual_robot.getActiveCamera()
             assert camera is not None
             assert camera.getFrame() is not None
 
@@ -333,8 +393,8 @@ class PepperRosWrapper(RosWrapper):
         msg_joint_state = JointState()
         msg_joint_state.header = Header()
         msg_joint_state.header.stamp = rospy.get_rostime()
-        msg_joint_state.name = list(self.virtual_pepper.joint_dict)
-        msg_joint_state.position = self.virtual_pepper.getAnglesPosition(
+        msg_joint_state.name = list(self.virtual_robot.joint_dict)
+        msg_joint_state.position = self.virtual_robot.getAnglesPosition(
             msg_joint_state.name)
         msg_joint_state.name += ["WheelFL", "WheelFR", "WheelB"]
         msg_joint_state.position += [0, 0, 0]
@@ -359,7 +419,7 @@ class PepperRosWrapper(RosWrapper):
         else:
             velocity = msg.speed
 
-        self.virtual_pepper.setAngles(joint_list, position_list, velocity)
+        self.virtual_robot.setAngles(joint_list, position_list, velocity)
 
     def _velocityCallback(self, msg):
         """
@@ -369,7 +429,7 @@ class PepperRosWrapper(RosWrapper):
         Parameters:
             msg - a ROS message containing a Twist command
         """
-        self.virtual_pepper.move(msg.linear.x, msg.linear.y, msg.angular.z)
+        self.virtual_robot.move(msg.linear.x, msg.linear.y, msg.angular.z)
 
     def _moveToCallback(self, msg):
         """
@@ -395,7 +455,7 @@ class PepperRosWrapper(RosWrapper):
             PepperBaseController.MIN_LINEAR_VELOCITY
 
         frame = msg.referenceFrame
-        self.virtual_pepper.moveTo(
+        self.virtual_robot.moveTo(
             x,
             y,
             theta,
@@ -412,7 +472,7 @@ class PepperRosWrapper(RosWrapper):
         Parameters:
             msg - an empty ROS message, with the Empty type
         """
-        self.virtual_pepper.moveTo(0, 0, 0, _async=True)
+        self.virtual_robot.moveTo(0, 0, 0, _async=True)
 
     def _spin(self):
         """
