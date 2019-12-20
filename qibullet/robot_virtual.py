@@ -348,5 +348,6 @@ class RobotVirtual:
             return False
 
         except AssertionError:
-            "Unauthorized link checking for self collisions"
+            raise pybullet.error(
+                "Unauthorized link checking for self collisions")
             return False
