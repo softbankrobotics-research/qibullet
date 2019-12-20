@@ -20,7 +20,7 @@ class RobotVirtual:
         Constructor
 
         Parameters:
-            - description_file: The file giving the description of the virtual
+            description_file - The file giving the description of the virtual
             robot. For now, only URDF is handled
         """
         self.description_file = description_file
