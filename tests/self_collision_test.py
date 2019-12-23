@@ -23,11 +23,14 @@ class SelfCollisionTest(unittest.TestCase):
         SelfCollisionTest.robot.isSelfColliding([
             "RForeArm",
             "LForeArm"])
-        SelfCollisionTest.robot.isSelfColliding(
-            "non_existing_link")
-        SelfCollisionTest.robot.isSelfColliding([
-            "non_existing_link_first",
-            "non_existing_link_second"])
+
+        with self.assertRaises(pybullet.error):
+            SelfCollisionTest.robot.isSelfColliding("non_existing_link")
+
+        with self.assertRaises(pybullet.error):
+            SelfCollisionTest.robot.isSelfColliding([
+                "non_existing_link_first",
+                "non_existing_link_second"])
 
     def test_wrist_collision(self):
         """
