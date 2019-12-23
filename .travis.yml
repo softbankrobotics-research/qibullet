@@ -24,3 +24,6 @@ install:
 script:
   - cd tests
   - python test_launcher.py
+
+after_success:
+  - codecov
