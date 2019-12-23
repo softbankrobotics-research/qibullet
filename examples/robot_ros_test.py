@@ -9,6 +9,7 @@ from qibullet import NaoVirtual
 from qibullet import RomeoVirtual
 from qibullet import PepperVirtual
 from qibullet import NaoRosWrapper
+from qibullet import RomeoRosWrapper
 from qibullet import PepperRosWrapper
 from qibullet import SimulationManager
 
@@ -24,14 +25,16 @@ if __name__ == "__main__":
 
     if rob.lower() == "nao":
         wrap = NaoRosWrapper()
-        camera_id = PepperVirtual.ID_CAMERA_TOP
+        camera_id = NaoVirtual.ID_CAMERA_TOP
         robot = simulation_manager.spawnNao(client, spawn_ground_plane=True)
     elif rob.lower() == "pepper":
         wrap = PepperRosWrapper()
-        camera_id = PepperVirtual.ID_CAMERA_TOP
+        camera_id = PepperVirtual.ID_CAMERA_BOTTOM
         robot = simulation_manager.spawnPepper(client, spawn_ground_plane=True)
-    # elif rob.lower() == "romeo":
-    #     robot = simulation_manager.spawnRomeo(client, spawn_ground_plane=True)
+    elif rob.lower() == "romeo":
+        wrap = RomeoRosWrapper()
+        camera_id = RomeoVirtual.ID_CAMERA_DEPTH
+        robot = simulation_manager.spawnRomeo(client, spawn_ground_plane=True)
     else:
         print("You have to specify a robot, pepper, nao or romeo.")
         simulation_manager.stopSimulation(client)
