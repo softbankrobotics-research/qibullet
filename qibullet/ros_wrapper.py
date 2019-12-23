@@ -687,3 +687,141 @@ class NaoRosWrapper(RosWrapper):
 
         except Exception as e:
             print("Stopping the ROS wrapper: " + str(e))
+
+
+class RomeoRosWrapper(RosWrapper):
+    """
+    Class describing a ROS wrapper for the virtual model of Romeo, inheriting
+    from the RosWrapperClass
+    """
+    def __init__(self):
+        """
+        Constructor
+        """
+        RosWrapper.__init__(self)
+
+    def launchWrapper(self, virtual_romeo, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper for the virtual_romeo instance
+
+        Parameters:
+            virtual_romeo - The instance of the simulated model
+            ros_namespace - The ROS namespace to be added before the ROS topics
+            advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
+        """
+        RosWrapper.launchWrapper(
+            self,
+            virtual_romeo,
+            ros_namespace,
+            frequency)
+
+    def _initPublishers(self):
+        """
+        INTERNAL METHOD, initializes the ROS publishers
+        """
+        self.right_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/right/image_raw',
+            Image,
+            queue_size=10)
+
+        self.right_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/right/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.left_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/left/image_raw',
+            Image,
+            queue_size=10)
+
+        self.left_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/left/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.depth_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/depth/image_raw',
+            Image,
+            queue_size=10)
+
+        self.depth_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/depth/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.joint_states_pub = rospy.Publisher(
+            '/joint_states',
+            JointState,
+            queue_size=10)
+
+        self.odom_pub = rospy.Publisher(
+            'odom',
+            Odometry,
+            queue_size=10)
+
+    def _initSubscribers(self):
+        """
+        INTERNAL METHOD, initializes the ROS subscribers
+        """
+        rospy.Subscriber(
+            '/joint_angles',
+            JointAnglesWithSpeed,
+            self._jointAnglesCallback)
+
+    def _broadcastCamera(self):
+        """
+        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
+        """
+        camera = self.virtual_robot.getActiveCamera()
+
+        try:
+            assert camera is not None
+
+            if camera.getCameraId() == RomeoVirtual.ID_CAMERA_RIGHT:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.right_cam_pub,
+                    self.right_info_pub)
+            elif camera.getCameraId() == RomeoVirtual.ID_CAMERA_LEFT:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.left_cam_pub,
+                    self.left_info_pub)
+            elif camera.getCameraId() == RomeoVirtual.ID_CAMERA_DEPTH:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.depth_cam_pub,
+                    self.depth_info_pub)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher):
+        """
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework, overloading @_broadcastJointState in RosWrapper
+
+        Parameters:
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints (for API
+            consistency)
+        """
+        RosWrapper._broadcastJointState(self, joint_state_publisher)
+
+    def _spin(self):
+        """
+        INTERNAL METHOD, designed to emulate a ROS spin method
+        """
+        rate = rospy.Rate(self.frequency)
+
+        try:
+            while not self._wrapper_termination:
+                rate.sleep()
+                self._broadcastJointState(self.joint_states_pub)
+                self._broadcastOdometry(self.odom_pub)
+                self._broadcastCamera()
+
+        except Exception as e:
+            print("Stopping the ROS wrapper: " + str(e))
