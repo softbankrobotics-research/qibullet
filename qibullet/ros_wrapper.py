@@ -6,8 +6,10 @@ import sys
 import atexit
 import pybullet
 from qibullet.camera import Camera
-from qibullet.pepper_virtual import NaoVirtual
-from qibullet.pepper_virtual import RomeoVirtual
+from qibullet.camera import CameraRgb
+from qibullet.camera import CameraDepth
+from qibullet.nao_virtual import NaoVirtual
+from qibullet.romeo_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.base_controller import PepperBaseController
 from threading import Thread
@@ -166,6 +168,145 @@ class RosWrapper:
         """
         raise NotImplementedError
 
+    def _broadcastOdometry(self, odometry_publisher):
+        """
+        INTERNAL METHOD, computes an odometry message based on the robot's
+        position, and broadcast it
+
+        Parameters:
+            odometry_publisher - The ROS publisher for the odometry message
+        """
+        # Send Transform odom
+        x, y, theta = self.virtual_robot.getPosition()
+        odom_trans = TransformStamped()
+        odom_trans.header.frame_id = "odom"
+        odom_trans.child_frame_id = "base_link"
+        odom_trans.header.stamp = rospy.get_rostime()
+        odom_trans.transform.translation.x = x
+        odom_trans.transform.translation.y = y
+        odom_trans.transform.translation.z = 0
+        quaternion = pybullet.getQuaternionFromEuler([0, 0, theta])
+        odom_trans.transform.rotation.x = quaternion[0]
+        odom_trans.transform.rotation.y = quaternion[1]
+        odom_trans.transform.rotation.z = quaternion[2]
+        odom_trans.transform.rotation.w = quaternion[3]
+        self.transform_broadcaster.sendTransform(odom_trans)
+        # Set up the odometry
+        odom = Odometry()
+        odom.header.stamp = rospy.get_rostime()
+        odom.header.frame_id = "odom"
+        odom.pose.pose.position.x = x
+        odom.pose.pose.position.y = y
+        odom.pose.pose.position.z = 0.0
+        odom.pose.pose.orientation = odom_trans.transform.rotation
+        odom.child_frame_id = "base_link"
+        [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
+            self.virtual_robot.getRobotModel(),
+            self.virtual_robot.getPhysicsClientId())
+        odom.twist.twist.linear.x = vx
+        odom.twist.twist.linear.y = vy
+        odom.twist.twist.angular.z = wz
+        odometry_publisher.publish(odom)
+
+    def _broadcastCamera(self, image_publisher, info_publisher):
+        """
+        INTERNAL METHOD, computes the image message and the info message of the
+        active camera and publishes them into the ROS framework
+
+        Parameters:
+            image_publisher: The ROS publisher for the Image message,
+            corresponding to the image delivered by the active camera
+            info_publisher: The ROS publisher for the CameraInfo message,
+            corresponding to the parameters of the active camera
+        """
+        try:
+            camera = self.virtual_robot.getActiveCamera()
+            assert camera is not None
+            assert camera.getFrame() is not None
+
+            camera_image_msg = self.image_bridge.cv2_to_imgmsg(
+                camera.getFrame())
+            camera_image_msg.header.frame_id = camera.getCameraLink().getName()
+
+            # Fill the camera info message
+            camera_info_msg = CameraInfo()
+            camera_info_msg.distortion_model = "plumb_bob"
+            camera_info_msg.header.frame_id = camera.getCameraLink().getName()
+            camera_info_msg.width = camera.getResolution().width
+            camera_info_msg.height = camera.getResolution().height
+            camera_info_msg.D = [0.0, 0.0, 0.0, 0.0, 0.0]
+            camera_info_msg.K = camera._getCameraIntrinsics()
+            camera_info_msg.R = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+            camera_info_msg.P = list(camera_info_msg.K)
+            camera_info_msg.P.insert(3, 0.0)
+            camera_info_msg.P.insert(7, 0.0)
+            camera_info_msg.P.append(0.0)
+
+            # Check if the retrieved image is RGB or a depth image
+            if isinstance(camera, CameraDepth):
+                camera_image_msg.encoding = "16UC1"
+            else:
+                camera_image_msg.encoding = "bgr8"
+
+            # Publish the image and the camera info
+            image_publisher.publish(camera_image_msg)
+            info_publisher.publish(camera_info_msg)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher, extra_joints=None):
+        """
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework
+
+        Parameters:
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints
+            extra_joints - A dict, describing extra joints to be published. The
+            dict should respect the following syntax:
+            {"joint_name": joint_value, ...}
+        """
+        msg_joint_state = JointState()
+        msg_joint_state.header = Header()
+        msg_joint_state.header.stamp = rospy.get_rostime()
+        msg_joint_state.name = list(self.virtual_robot.joint_dict)
+        msg_joint_state.position = self.virtual_robot.getAnglesPosition(
+            msg_joint_state.name)
+
+        try:
+            assert isinstance(extra_joints, dict)
+
+            for name, value in extra_joints.items():
+                msg_joint_state.name += [name]
+                msg_joint_state.position += [value]
+
+        except AssertionError:
+            pass
+
+        joint_state_publisher.publish(msg_joint_state)
+
+    def _jointAnglesCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        /joint_angles topic
+
+        Parameters:
+            msg - a ROS message containing a pose stamped with a speed
+            associated to it. The type of the message is the following:
+            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
+            the ros naoqi software stack
+        """
+        joint_list = msg.joint_names
+        position_list = list(msg.joint_angles)
+
+        if len(msg.speeds) != 0:
+            velocity = list(msg.speeds)
+        else:
+            velocity = msg.speed
+
+        self.virtual_robot.setAngles(joint_list, position_list, velocity)
+
 
 class PepperRosWrapper(RosWrapper):
     """
@@ -269,9 +410,14 @@ class PepperRosWrapper(RosWrapper):
             Empty,
             self._killMoveCallback)
 
-    def _updateLasers(self):
+    def _broadcastLasers(self, laser_publisher):
         """
-        INTERNAL METHOD, updates the laser values in the ROS framework
+        INTERNAL METHOD, publishes the laser values in the ROS framework
+
+        Parameters:
+            laser_publisher - The ROS publisher for the LaserScan message,
+            corresponding to the laser info of the pepper robot (for API
+            consistency)
         """
         if not self.virtual_robot.laser_manager.isActive():
             return
@@ -304,122 +450,50 @@ class PepperRosWrapper(RosWrapper):
         if isinstance(left_scan, list):
             scan.ranges.extend(list(reversed(left_scan)))
 
-        self.laser_pub.publish(scan)
-
-    def _broadcastOdom(self):
-        """
-        INTERNAL METHOD, updates and broadcasts the odometry by broadcasting
-        based on the robot's base tranform
-        """
-        # Send Transform odom
-        x, y, theta = self.virtual_robot.getPosition()
-        odom_trans = TransformStamped()
-        odom_trans.header.frame_id = "odom"
-        odom_trans.child_frame_id = "base_link"
-        odom_trans.header.stamp = rospy.get_rostime()
-        odom_trans.transform.translation.x = x
-        odom_trans.transform.translation.y = y
-        odom_trans.transform.translation.z = 0
-        quaternion = pybullet.getQuaternionFromEuler([0, 0, theta])
-        odom_trans.transform.rotation.x = quaternion[0]
-        odom_trans.transform.rotation.y = quaternion[1]
-        odom_trans.transform.rotation.z = quaternion[2]
-        odom_trans.transform.rotation.w = quaternion[3]
-        self.transform_broadcaster.sendTransform(odom_trans)
-        # Set up the odometry
-        odom = Odometry()
-        odom.header.stamp = rospy.get_rostime()
-        odom.header.frame_id = "odom"
-        odom.pose.pose.position.x = x
-        odom.pose.pose.position.y = y
-        odom.pose.pose.position.z = 0.0
-        odom.pose.pose.orientation = odom_trans.transform.rotation
-        odom.child_frame_id = "base_link"
-        [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
-            self.virtual_robot.robot_model,
-            self.virtual_robot.getPhysicsClientId())
-        odom.twist.twist.linear.x = vx
-        odom.twist.twist.linear.y = vy
-        odom.twist.twist.angular.z = wz
-        self.odom_pub.publish(odom)
+        laser_publisher.publish(scan)
 
     def _broadcastCamera(self):
         """
-        INTERNAL METHOD, updates and broadcasts the camera image data and the
-        camera info data
+        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
         """
+        camera = self.virtual_robot.getActiveCamera()
+
         try:
-            camera = self.virtual_robot.getActiveCamera()
             assert camera is not None
-            assert camera.getFrame() is not None
-
-            camera_image_msg = self.image_bridge.cv2_to_imgmsg(
-                camera.getFrame())
-            camera_image_msg.header.frame_id = camera.getCameraLink().getName()
-
-            camera_info_msg = CameraInfo()
-            camera_info_msg.distortion_model = "plumb_bob"
-            camera_info_msg.header.frame_id = camera.getCameraLink().getName()
-            camera_info_msg.width = camera.getResolution().width
-            camera_info_msg.height = camera.getResolution().height
-            camera_info_msg.D = [0.0, 0.0, 0.0, 0.0, 0.0]
-            camera_info_msg.K = camera._getCameraIntrinsics()
-            camera_info_msg.R = [1, 0, 0, 0, 1, 0, 0, 0, 1]
-            camera_info_msg.P = list(camera_info_msg.K)
-            camera_info_msg.P.insert(3, 0.0)
-            camera_info_msg.P.insert(7, 0.0)
-            camera_info_msg.P.append(0.0)
 
             if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
-                camera_image_msg.encoding = "bgr8"
-                self.front_cam_pub.publish(camera_image_msg)
-                self.front_info_pub.publish(camera_info_msg)
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.front_cam_pub,
+                    self.front_info_pub)
             elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
-                camera_image_msg.encoding = "bgr8"
-                self.bottom_cam_pub.publish(camera_image_msg)
-                self.bottom_info_pub.publish(camera_info_msg)
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.bottom_cam_pub,
+                    self.bottom_info_pub)
             elif camera.getCameraId() == PepperVirtual.ID_CAMERA_DEPTH:
-                camera_image_msg.encoding = "16UC1"
-                self.depth_cam_pub.publish(camera_image_msg)
-                self.depth_info_pub.publish(camera_info_msg)
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.depth_cam_pub,
+                    self.depth_info_pub)
 
         except AssertionError:
             pass
 
-    def _getJointStateMsg(self):
+    def _broadcastJointState(self, joint_state_publisher):
         """
-        INTERNAL METHOD, returns the JointState of each robot joint
-        """
-        msg_joint_state = JointState()
-        msg_joint_state.header = Header()
-        msg_joint_state.header.stamp = rospy.get_rostime()
-        msg_joint_state.name = list(self.virtual_robot.joint_dict)
-        msg_joint_state.position = self.virtual_robot.getAnglesPosition(
-            msg_joint_state.name)
-        msg_joint_state.name += ["WheelFL", "WheelFR", "WheelB"]
-        msg_joint_state.position += [0, 0, 0]
-        return msg_joint_state
-
-    def _jointAnglesCallback(self, msg):
-        """
-        INTERNAL METHOD, callback triggered when a message is received on the
-        /joint_angles topic
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework, overloading @_broadcastJointState in RosWrapper
 
         Parameters:
-            msg - a ROS message containing a pose stamped with a speed
-            associated to it. The type of the message is the following:
-            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
-            the ros naoqi software stack
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints (for API
+            consistency)
         """
-        joint_list = msg.joint_names
-        position_list = list(msg.joint_angles)
-
-        if len(msg.speeds) != 0:
-            velocity = list(msg.speeds)
-        else:
-            velocity = msg.speed
-
-        self.virtual_robot.setAngles(joint_list, position_list, velocity)
+        RosWrapper._broadcastJointState(
+            self,
+            joint_state_publisher,
+            extra_joints={"WheelFL": 0.0, "WheelFR": 0.0, "WheelB": 0.0})
 
     def _velocityCallback(self, msg):
         """
@@ -483,9 +557,9 @@ class PepperRosWrapper(RosWrapper):
         try:
             while not self._wrapper_termination:
                 rate.sleep()
-                self.joint_states_pub.publish(self._getJointStateMsg())
-                self._updateLasers()
-                self._broadcastOdom()
+                self._broadcastJointState(self.joint_states_pub)
+                self._broadcastOdometry(self.odom_pub)
+                self._broadcastLasers(self.laser_pub)
                 self._broadcastCamera()
 
         except Exception as e:
