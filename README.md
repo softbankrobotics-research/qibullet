@@ -38,9 +38,9 @@ if __name__ == "__main__":
     client_id = simulation_manager.launchSimulation(gui=True)
 
     # Selection of the robot type to spawn (True : Pepper, False : NAO)
-    robot_type = True
+    pepper_robot = True
 
-    if(robot_type):
+    if pepper_robot:
       # Spawning a virtual Pepper robot, at the origin of the WORLD frame, and a
       # ground plane
       pepper = simulation_manager.spawnPepper(
