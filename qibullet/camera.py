@@ -14,7 +14,7 @@ from qibullet.sensor import Sensor
 
 class CameraResolution:
     """
-    Enumeration of the camera resolutions
+    Structure for the camera resolutions
     """
 
     def __init__(self, width, height):
