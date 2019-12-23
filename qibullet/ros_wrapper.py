@@ -308,264 +308,6 @@ class RosWrapper:
         self.virtual_robot.setAngles(joint_list, position_list, velocity)
 
 
-class PepperRosWrapper(RosWrapper):
-    """
-    Class describing a ROS wrapper for the virtual model of Pepper, inheriting
-    from the RosWrapperClass
-    """
-
-    def __init__(self):
-        """
-        Constructor
-        """
-        RosWrapper.__init__(self)
-
-    def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
-        """
-        Launches the ROS wrapper for the virtual_pepper instance
-
-        Parameters:
-            virtual_pepper - The instance of the simulated model
-            ros_namespace - The ROS namespace to be added before the ROS topics
-            advertized and subscribed
-            frequency - The frequency of the ROS rate that will be used to pace
-            the wrapper's main loop
-        """
-        RosWrapper.launchWrapper(
-            self,
-            virtual_pepper,
-            ros_namespace,
-            frequency)
-
-    def _initPublishers(self):
-        """
-        INTERNAL METHOD, initializes the ROS publishers
-        """
-        self.front_cam_pub = rospy.Publisher(
-            self.ros_namespace + '/camera/front/image_raw',
-            Image,
-            queue_size=10)
-
-        self.front_info_pub = rospy.Publisher(
-            self.ros_namespace + '/camera/front/camera_info',
-            CameraInfo,
-            queue_size=10)
-
-        self.bottom_cam_pub = rospy.Publisher(
-            self.ros_namespace + '/camera/bottom/image_raw',
-            Image,
-            queue_size=10)
-
-        self.bottom_info_pub = rospy.Publisher(
-            self.ros_namespace + '/camera/bottom/camera_info',
-            CameraInfo,
-            queue_size=10)
-
-        self.depth_cam_pub = rospy.Publisher(
-            self.ros_namespace + '/camera/depth/image_raw',
-            Image,
-            queue_size=10)
-
-        self.depth_info_pub = rospy.Publisher(
-            self.ros_namespace + '/camera/depth/camera_info',
-            CameraInfo,
-            queue_size=10)
-
-        self.laser_pub = rospy.Publisher(
-            self.ros_namespace + "/laser",
-            LaserScan,
-            queue_size=10)
-
-        self.joint_states_pub = rospy.Publisher(
-            '/joint_states',
-            JointState,
-            queue_size=10)
-
-        self.odom_pub = rospy.Publisher(
-            'odom',
-            Odometry,
-            queue_size=10)
-
-    def _initSubscribers(self):
-        """
-        INTERNAL METHOD, initializes the ROS subscribers
-        """
-        rospy.Subscriber(
-            '/joint_angles',
-            JointAnglesWithSpeed,
-            self._jointAnglesCallback)
-
-        rospy.Subscriber(
-            '/cmd_vel',
-            Twist,
-            self._velocityCallback)
-
-        rospy.Subscriber(
-            '/move_base_simple/goal',
-            PoseStampedWithSpeed,
-            self._moveToCallback)
-
-        rospy.Subscriber(
-            '/move_base_simple/cancel',
-            Empty,
-            self._killMoveCallback)
-
-    def _broadcastLasers(self, laser_publisher):
-        """
-        INTERNAL METHOD, publishes the laser values in the ROS framework
-
-        Parameters:
-            laser_publisher - The ROS publisher for the LaserScan message,
-            corresponding to the laser info of the pepper robot (for API
-            consistency)
-        """
-        if not self.virtual_robot.laser_manager.isActive():
-            return
-
-        scan = LaserScan()
-        scan.header.stamp = rospy.get_rostime()
-        scan.header.frame_id = "base_footprint"
-        # -120 degres, 120 degres
-        scan.angle_min = -2.0944
-        scan.angle_max = 2.0944
-
-        # 240 degres FoV, 61 points (blind zones inc)
-        scan.angle_increment = (2 * 2.0944) / (15.0 + 15.0 + 15.0 + 8.0 + 8.0)
-
-        # Detection ranges for the lasers in meters, 0.1 to 3.0 meters
-        scan.range_min = 0.1
-        scan.range_max = 3.0
-
-        # Fill the lasers information
-        right_scan = self.virtual_robot.getRightLaserValue()
-        front_scan = self.virtual_robot.getFrontLaserValue()
-        left_scan = self.virtual_robot.getLeftLaserValue()
-
-        if isinstance(right_scan, list):
-            scan.ranges.extend(list(reversed(right_scan)))
-            scan.ranges.extend([-1]*8)
-        if isinstance(front_scan, list):
-            scan.ranges.extend(list(reversed(front_scan)))
-            scan.ranges.extend([-1]*8)
-        if isinstance(left_scan, list):
-            scan.ranges.extend(list(reversed(left_scan)))
-
-        laser_publisher.publish(scan)
-
-    def _broadcastCamera(self):
-        """
-        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
-        """
-        camera = self.virtual_robot.getActiveCamera()
-
-        try:
-            assert camera is not None
-
-            if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.front_cam_pub,
-                    self.front_info_pub)
-            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.bottom_cam_pub,
-                    self.bottom_info_pub)
-            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_DEPTH:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.depth_cam_pub,
-                    self.depth_info_pub)
-
-        except AssertionError:
-            pass
-
-    def _broadcastJointState(self, joint_state_publisher):
-        """
-        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
-        framework, overloading @_broadcastJointState in RosWrapper
-
-        Parameters:
-            joint_state_publisher - The ROS publisher for the JointState
-            message, describing the state of the robot's joints (for API
-            consistency)
-        """
-        RosWrapper._broadcastJointState(
-            self,
-            joint_state_publisher,
-            extra_joints={"WheelFL": 0.0, "WheelFR": 0.0, "WheelB": 0.0})
-
-    def _velocityCallback(self, msg):
-        """
-        INTERNAL METHOD, callback triggered when a message is received on the
-        /cmd_vel topic
-
-        Parameters:
-            msg - a ROS message containing a Twist command
-        """
-        self.virtual_robot.move(msg.linear.x, msg.linear.y, msg.angular.z)
-
-    def _moveToCallback(self, msg):
-        """
-        INTERNAL METHOD, callback triggered when a message is received on the
-        '/move_base_simple/goal' topic. It allows to move the robot's base
-
-        Parameters:
-            msg - a ROS message containing a pose stamped with a speed
-            associated to it. The type of the message is the following:
-            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
-            the ros naoqi software stack
-        """
-        x = msg.pose_stamped.pose.position.x
-        y = msg.pose_stamped.pose.position.y
-        theta = pybullet.getEulerFromQuaternion([
-            msg.pose_stamped.pose.orientation.x,
-            msg.pose_stamped.pose.orientation.y,
-            msg.pose_stamped.pose.orientation.z,
-            msg.pose_stamped.pose.orientation.w])[-1]
-
-        speed = msg.speed_percentage *\
-            PepperBaseController.MAX_LINEAR_VELOCITY +\
-            PepperBaseController.MIN_LINEAR_VELOCITY
-
-        frame = msg.referenceFrame
-        self.virtual_robot.moveTo(
-            x,
-            y,
-            theta,
-            frame=frame,
-            speed=speed,
-            _async=True)
-
-    def _killMoveCallback(self, msg):
-        """
-        INTERNAL METHOD, callback triggered when a message is received on the
-        '/move_base_simple/cancel' topic. This callback is used to stop the
-        robot's base from moving
-
-        Parameters:
-            msg - an empty ROS message, with the Empty type
-        """
-        self.virtual_robot.moveTo(0, 0, 0, _async=True)
-
-    def _spin(self):
-        """
-        INTERNAL METHOD, designed to emulate a ROS spin method
-        """
-        rate = rospy.Rate(self.frequency)
-
-        try:
-            while not self._wrapper_termination:
-                rate.sleep()
-                self._broadcastJointState(self.joint_states_pub)
-                self._broadcastOdometry(self.odom_pub)
-                self._broadcastLasers(self.laser_pub)
-                self._broadcastCamera()
-
-        except Exception as e:
-            print("Stopping the ROS wrapper: " + str(e))
-
-
 class NaoRosWrapper(RosWrapper):
     """
     Class describing a ROS wrapper for the virtual model of Nao, inheriting
@@ -821,6 +563,264 @@ class RomeoRosWrapper(RosWrapper):
                 rate.sleep()
                 self._broadcastJointState(self.joint_states_pub)
                 self._broadcastOdometry(self.odom_pub)
+                self._broadcastCamera()
+
+        except Exception as e:
+            print("Stopping the ROS wrapper: " + str(e))
+
+
+class PepperRosWrapper(RosWrapper):
+    """
+    Class describing a ROS wrapper for the virtual model of Pepper, inheriting
+    from the RosWrapperClass
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        """
+        RosWrapper.__init__(self)
+
+    def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper for the virtual_pepper instance
+
+        Parameters:
+            virtual_pepper - The instance of the simulated model
+            ros_namespace - The ROS namespace to be added before the ROS topics
+            advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
+        """
+        RosWrapper.launchWrapper(
+            self,
+            virtual_pepper,
+            ros_namespace,
+            frequency)
+
+    def _initPublishers(self):
+        """
+        INTERNAL METHOD, initializes the ROS publishers
+        """
+        self.front_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/front/image_raw',
+            Image,
+            queue_size=10)
+
+        self.front_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/front/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.bottom_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/bottom/image_raw',
+            Image,
+            queue_size=10)
+
+        self.bottom_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/bottom/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.depth_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/depth/image_raw',
+            Image,
+            queue_size=10)
+
+        self.depth_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/depth/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.laser_pub = rospy.Publisher(
+            self.ros_namespace + "/laser",
+            LaserScan,
+            queue_size=10)
+
+        self.joint_states_pub = rospy.Publisher(
+            '/joint_states',
+            JointState,
+            queue_size=10)
+
+        self.odom_pub = rospy.Publisher(
+            'odom',
+            Odometry,
+            queue_size=10)
+
+    def _initSubscribers(self):
+        """
+        INTERNAL METHOD, initializes the ROS subscribers
+        """
+        rospy.Subscriber(
+            '/joint_angles',
+            JointAnglesWithSpeed,
+            self._jointAnglesCallback)
+
+        rospy.Subscriber(
+            '/cmd_vel',
+            Twist,
+            self._velocityCallback)
+
+        rospy.Subscriber(
+            '/move_base_simple/goal',
+            PoseStampedWithSpeed,
+            self._moveToCallback)
+
+        rospy.Subscriber(
+            '/move_base_simple/cancel',
+            Empty,
+            self._killMoveCallback)
+
+    def _broadcastLasers(self, laser_publisher):
+        """
+        INTERNAL METHOD, publishes the laser values in the ROS framework
+
+        Parameters:
+            laser_publisher - The ROS publisher for the LaserScan message,
+            corresponding to the laser info of the pepper robot (for API
+            consistency)
+        """
+        if not self.virtual_robot.laser_manager.isActive():
+            return
+
+        scan = LaserScan()
+        scan.header.stamp = rospy.get_rostime()
+        scan.header.frame_id = "base_footprint"
+        # -120 degres, 120 degres
+        scan.angle_min = -2.0944
+        scan.angle_max = 2.0944
+
+        # 240 degres FoV, 61 points (blind zones inc)
+        scan.angle_increment = (2 * 2.0944) / (15.0 + 15.0 + 15.0 + 8.0 + 8.0)
+
+        # Detection ranges for the lasers in meters, 0.1 to 3.0 meters
+        scan.range_min = 0.1
+        scan.range_max = 3.0
+
+        # Fill the lasers information
+        right_scan = self.virtual_robot.getRightLaserValue()
+        front_scan = self.virtual_robot.getFrontLaserValue()
+        left_scan = self.virtual_robot.getLeftLaserValue()
+
+        if isinstance(right_scan, list):
+            scan.ranges.extend(list(reversed(right_scan)))
+            scan.ranges.extend([-1]*8)
+        if isinstance(front_scan, list):
+            scan.ranges.extend(list(reversed(front_scan)))
+            scan.ranges.extend([-1]*8)
+        if isinstance(left_scan, list):
+            scan.ranges.extend(list(reversed(left_scan)))
+
+        laser_publisher.publish(scan)
+
+    def _broadcastCamera(self):
+        """
+        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
+        """
+        camera = self.virtual_robot.getActiveCamera()
+
+        try:
+            assert camera is not None
+
+            if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.front_cam_pub,
+                    self.front_info_pub)
+            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.bottom_cam_pub,
+                    self.bottom_info_pub)
+            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_DEPTH:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.depth_cam_pub,
+                    self.depth_info_pub)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher):
+        """
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework, overloading @_broadcastJointState in RosWrapper
+
+        Parameters:
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints (for API
+            consistency)
+        """
+        RosWrapper._broadcastJointState(
+            self,
+            joint_state_publisher,
+            extra_joints={"WheelFL": 0.0, "WheelFR": 0.0, "WheelB": 0.0})
+
+    def _velocityCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        /cmd_vel topic
+
+        Parameters:
+            msg - a ROS message containing a Twist command
+        """
+        self.virtual_robot.move(msg.linear.x, msg.linear.y, msg.angular.z)
+
+    def _moveToCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        '/move_base_simple/goal' topic. It allows to move the robot's base
+
+        Parameters:
+            msg - a ROS message containing a pose stamped with a speed
+            associated to it. The type of the message is the following:
+            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
+            the ros naoqi software stack
+        """
+        x = msg.pose_stamped.pose.position.x
+        y = msg.pose_stamped.pose.position.y
+        theta = pybullet.getEulerFromQuaternion([
+            msg.pose_stamped.pose.orientation.x,
+            msg.pose_stamped.pose.orientation.y,
+            msg.pose_stamped.pose.orientation.z,
+            msg.pose_stamped.pose.orientation.w])[-1]
+
+        speed = msg.speed_percentage *\
+            PepperBaseController.MAX_LINEAR_VELOCITY +\
+            PepperBaseController.MIN_LINEAR_VELOCITY
+
+        frame = msg.referenceFrame
+        self.virtual_robot.moveTo(
+            x,
+            y,
+            theta,
+            frame=frame,
+            speed=speed,
+            _async=True)
+
+    def _killMoveCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        '/move_base_simple/cancel' topic. This callback is used to stop the
+        robot's base from moving
+
+        Parameters:
+            msg - an empty ROS message, with the Empty type
+        """
+        self.virtual_robot.moveTo(0, 0, 0, _async=True)
+
+    def _spin(self):
+        """
+        INTERNAL METHOD, designed to emulate a ROS spin method
+        """
+        rate = rospy.Rate(self.frequency)
+
+        try:
+            while not self._wrapper_termination:
+                rate.sleep()
+                self._broadcastJointState(self.joint_states_pub)
+                self._broadcastOdometry(self.odom_pub)
+                self._broadcastLasers(self.laser_pub)
                 self._broadcastCamera()
 
         except Exception as e:
