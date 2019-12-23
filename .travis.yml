@@ -1,7 +1,3 @@
-branches:
-    only:
-      - master
-
 notifications:
     on_success: never
     on_failure: never
@@ -11,9 +7,6 @@ os :
 
 dist:
   - xenial
-
-# sudo:
-#   - required
 
 language: python
 
