@@ -37,18 +37,22 @@ if __name__ == "__main__":
     # Please note that only one graphical interface can be launched at a time
     client_id = simulation_manager.launchSimulation(gui=True)
 
-    # Spawning a virtual Pepper robot, at the origin of the WORLD frame, and a
-    # ground plane
-    pepper = simulation_manager.spawnPepper(
-        client_id,
-        translation=[0, 0, 0],
-        quaternion=[0, 0, 0, 1],
-        spawn_ground_plane=True)
+    # Selection of the robot type to spawn (True : Pepper, False : NAO)
+    robot_type = True
 
-    # Or a NAO robot, at a default position
-    nao = simulation_manager.spawnNao(
-        client_id,
-        spawn_ground_plane=True)
+    if(robot_type):
+      # Spawning a virtual Pepper robot, at the origin of the WORLD frame, and a
+      # ground plane
+      pepper = simulation_manager.spawnPepper(
+          client_id,
+          translation=[0, 0, 0],
+          quaternion=[0, 0, 0, 1],
+          spawn_ground_plane=True)
+    else:
+      # Or a NAO robot, at a default position
+      nao = simulation_manager.spawnNao(
+          client_id,
+          spawn_ground_plane=True)
 ```
 
 Or using loadRobot from the PepperVirtual class if you already have a simulated environment:
