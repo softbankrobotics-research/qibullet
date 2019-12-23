@@ -1,6 +1,6 @@
 notifications:
-    on_success: never
-    on_failure: never
+  email:
+    if: branch = master
 
 os :
   - linux
