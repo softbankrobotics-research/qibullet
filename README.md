@@ -1,4 +1,4 @@
-# qiBullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
+# qiBullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![codecov](https://codecov.io/gh/ProtolabSBRE/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
@@ -37,18 +37,22 @@ if __name__ == "__main__":
     # Please note that only one graphical interface can be launched at a time
     client_id = simulation_manager.launchSimulation(gui=True)
 
-    # Spawning a virtual Pepper robot, at the origin of the WORLD frame, and a
-    # ground plane
-    pepper = simulation_manager.spawnPepper(
-        client_id,
-        translation=[0, 0, 0],
-        quaternion=[0, 0, 0, 1],
-        spawn_ground_plane=True)
+    # Selection of the robot type to spawn (True : Pepper, False : NAO)
+    pepper_robot = True
 
-    # Or a NAO robot, at a default position
-    nao = simulation_manager.spawnNao(
-        client_id,
-        spawn_ground_plane=True)
+    if pepper_robot:
+      # Spawning a virtual Pepper robot, at the origin of the WORLD frame, and a
+      # ground plane
+      pepper = simulation_manager.spawnPepper(
+          client_id,
+          translation=[0, 0, 0],
+          quaternion=[0, 0, 0, 1],
+          spawn_ground_plane=True)
+    else:
+      # Or a NAO robot, at a default position
+      nao = simulation_manager.spawnNao(
+          client_id,
+          spawn_ground_plane=True)
 ```
 
 Or using loadRobot from the PepperVirtual class if you already have a simulated environment:

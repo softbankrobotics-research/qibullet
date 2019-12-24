@@ -1,19 +1,12 @@
-branches:
-    only:
-      - master
-
 notifications:
-    on_success: never
-    on_failure: never
+  email:
+    if: branch = master
 
 os :
   - linux
 
 dist:
   - xenial
-
-# sudo:
-#   - required
 
 language: python
 
@@ -26,8 +19,11 @@ python:
 install:
   - "pip install pybullet"
   - "pip install numpy"
-  - "python setup.py install"
+  - "pip install codecov"
 
 script:
   - cd tests
-  - python test_launcher.py
+  - coverage run test_launcher.py
+
+after_success:
+  - codecov

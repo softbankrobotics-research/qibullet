@@ -41,7 +41,7 @@ class NaoVirtual(RobotVirtual):
         Overloads @loadRobot from the @RobotVirtual class, loads the robot into
         the simulated instance. This method also updates the max velocity of
         the robot's fingers, adds self collision filters to the model and
-        defines the cameras of the model.
+        defines the cameras of the model in the camera_dict.
 
         Parameters:
             translation - List containing 3 elements, the translation [x, y, z]
@@ -173,20 +173,25 @@ class NaoVirtual(RobotVirtual):
                 self.joint_dict[joint_name].setMaxVelocity(
                     self.joint_dict["LHand"].getMaxVelocity())
 
-        self.camera_top = CameraRgb(
+        camera_top = CameraRgb(
             self.robot_model,
+            NaoVirtual.ID_CAMERA_TOP,
             self.link_dict["CameraTop_optical_frame"],
             hfov=60.9,
             vfov=47.6,
             physicsClientId=self.physics_client)
 
-        self.camera_bottom = CameraRgb(
+        camera_bottom = CameraRgb(
             self.robot_model,
+            NaoVirtual.ID_CAMERA_BOTTOM,
             self.link_dict["CameraBottom_optical_frame"],
             hfov=60.9,
             vfov=47.6,
             physicsClientId=self.physics_client)
 
+        self.camera_dict = {
+            NaoVirtual.ID_CAMERA_TOP: camera_top,
+            NaoVirtual.ID_CAMERA_BOTTOM: camera_bottom}
         # eventual constraints and lasers
 
     # TODO: implement a moveTo
@@ -339,60 +344,6 @@ class NaoVirtual(RobotVirtual):
                 return True
 
         return False
-
-    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
-        """
-        Subscribe to the camera holding the camera id. WARNING: at the moment,
-        only one camera can be subscribed.
-
-        Parameters:
-            camera_id - The id of the camera to be subscribed
-            resolution - CameraResolution object, the resolution of the camera
-        """
-        if camera_id == NaoVirtual.ID_CAMERA_TOP:
-            self.camera_top.subscribe(resolution=resolution)
-        elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
-            self.camera_bottom.subscribe(resolution=resolution)
-
-    def unsubscribeCamera(self, camera_id):
-        """
-        Unsubscribe from a camera, the one holding the camera id.
-
-        Parameters:
-            camera_id - The id of the camera to be unsubscribed
-        """
-        if camera_id == NaoVirtual.ID_CAMERA_TOP:
-            self.camera_top.unsubscribe()
-        elif camera_id == NaoVirtual.ID_CAMERA_BOTTOM:
-            self.camera_bottom.unsubscribe()
-
-    def getCameraFrame(self):
-        """
-        Returns a camera frame. Be advised that the subscribeCamera method
-        needs to be called beforehand.
-
-        Returns:
-            frame - The current camera frame as a formatted numpy array,
-            directly exploitable from OpenCV
-        """
-        if self.camera_top.isActive():
-            return self.camera_top.getFrame()
-        elif self.camera_bottom.isActive():
-            return self.camera_bottom.getFrame()
-
-    def getCameraResolution(self):
-        """
-        Returns the resolution of the active camera. If no camera is active,
-        returns None
-
-        Returns:
-            resolution - a CameraResolution object describing the resolution of
-            the active camera
-        """
-        if self.camera_top.isActive():
-            return self.camera_top.getResolution()
-        elif self.camera_bottom.isActive():
-            return self.camera_bottom.getResolution()
 
     def _mimicHand(
             self,

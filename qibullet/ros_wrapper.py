@@ -6,6 +6,10 @@ import sys
 import atexit
 import pybullet
 from qibullet.camera import Camera
+from qibullet.camera import CameraRgb
+from qibullet.camera import CameraDepth
+from qibullet.nao_virtual import NaoVirtual
+from qibullet.romeo_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.base_controller import PepperBaseController
 from threading import Thread
@@ -37,9 +41,9 @@ BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
 DEPTH_OPTICAL_FRAME = "CameraDepth_optical_frame"
 
 
-class PepperRosWrapper:
+class RosWrapper:
     """
-    Class describing a ROS wrapper for the virtual model of Pepper
+    Virtual class defining the basis of a robot ROS wrapper
     """
 
     def __init__(self):
@@ -55,17 +59,35 @@ class PepperRosWrapper:
         self.front_info_msg = dict()
         self.bottom_info_msg = dict()
         self.depth_info_msg = dict()
-        self._loadCameraInfos()
         self.roslauncher = None
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
         atexit.register(self.stopWrapper)
 
-    def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
+    def stopWrapper(self):
         """
-        Launches the ROS wrapper for the pepper_virtual instance
+        Stops the ROS wrapper
+        """
+        self._wrapper_termination = True
+
+        try:
+            assert self.spin_thread is not None
+            assert isinstance(self.spin_thread, Thread)
+            assert self.spin_thread.isAlive()
+            self.spin_thread.join()
+
+        except AssertionError:
+            pass
+
+        if self.roslauncher is not None:
+            self.roslauncher.stop()
+            print("Stopping roslauncher")
+
+    def launchWrapper(self, virtual_robot, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper
 
         Parameters:
-            virtual_pepper - The instance of the simulated model
+            virtual_robot - The instance of the simulated model
             ros_namespace - The ROS namespace to be added before the ROS topics
             advertized and subscribed
             frequency - The frequency of the ROS rate that will be used to pace
@@ -74,15 +96,512 @@ class PepperRosWrapper:
         if MISSING_IMPORT is not None:
             raise pybullet.error(MISSING_IMPORT)
 
-        self.virtual_pepper = virtual_pepper
+        self.virtual_robot = virtual_robot
         self.ros_namespace = ros_namespace
         self.frequency = frequency
 
         rospy.init_node(
-            "pybullet_pepper",
+            "qibullet_wrapper",
             anonymous=True,
             disable_signals=False)
 
+        # Upload the robot description to the ros parameter server
+        try:
+            if isinstance(self.virtual_robot, PepperVirtual):
+                robot_name = "pepper"
+            elif isinstance(self.virtual_robot, NaoVirtual):
+                robot_name = "nao"
+            elif isinstance(self.virtual_robot, RomeoVirtual):
+                robot_name = "romeo"
+            else:
+                raise pybullet.error(
+                    "Unknown robot type, wont set robot description")
+
+            package_path = roslib.packages.get_pkg_dir("naoqi_driver")
+            urdf_path = package_path + "/share/urdf/" + robot_name + ".urdf"
+
+            with open(urdf_path, 'r') as file:
+                robot_description = file.read()
+
+            rospy.set_param("/robot_description", robot_description)
+
+        except IOError as e:
+            raise pybullet.error(
+                "Could not retrieve robot descrition: " + str(e))
+
+        # Launch the robot state publisher
+        robot_state_publisher = roslaunch.core.Node(
+            "robot_state_publisher",
+            "robot_state_publisher")
+
+        self.roslauncher = roslaunch.scriptapi.ROSLaunch()
+        self.roslauncher.start()
+        self.roslauncher.launch(robot_state_publisher)
+
+        # Initialize the ROS publisher and subscribers
+        self._initPublishers()
+        self._initSubscribers()
+
+        # Launch the wrapper's main loop
+        self._wrapper_termination = False
+        self.spin_thread = Thread(target=self._spin)
+        self.spin_thread.start()
+
+    def _initPublishers(self):
+        """
+        ABSTRACT INTERNAL METHOD, needs to be implemented in each daughter
+        class. Initializes the ROS publishers
+        """
+        raise NotImplementedError
+
+    def _initSubscribers(self):
+        """
+        ABSTRACT INTERNAL METHOD, needs to be implemented in each daughter
+        class. Initializes the ROS subscribers
+        """
+        raise NotImplementedError
+
+    def _spin(self):
+        """
+        ABSTRACT INTERNAL METHOD, needs to be implemented in each daughter
+        class. Designed to emulate a ROS spin method
+        """
+        raise NotImplementedError
+
+    def _broadcastOdometry(self, odometry_publisher):
+        """
+        INTERNAL METHOD, computes an odometry message based on the robot's
+        position, and broadcast it
+
+        Parameters:
+            odometry_publisher - The ROS publisher for the odometry message
+        """
+        # Send Transform odom
+        x, y, theta = self.virtual_robot.getPosition()
+        odom_trans = TransformStamped()
+        odom_trans.header.frame_id = "odom"
+        odom_trans.child_frame_id = "base_link"
+        odom_trans.header.stamp = rospy.get_rostime()
+        odom_trans.transform.translation.x = x
+        odom_trans.transform.translation.y = y
+        odom_trans.transform.translation.z = 0
+        quaternion = pybullet.getQuaternionFromEuler([0, 0, theta])
+        odom_trans.transform.rotation.x = quaternion[0]
+        odom_trans.transform.rotation.y = quaternion[1]
+        odom_trans.transform.rotation.z = quaternion[2]
+        odom_trans.transform.rotation.w = quaternion[3]
+        self.transform_broadcaster.sendTransform(odom_trans)
+        # Set up the odometry
+        odom = Odometry()
+        odom.header.stamp = rospy.get_rostime()
+        odom.header.frame_id = "odom"
+        odom.pose.pose.position.x = x
+        odom.pose.pose.position.y = y
+        odom.pose.pose.position.z = 0.0
+        odom.pose.pose.orientation = odom_trans.transform.rotation
+        odom.child_frame_id = "base_link"
+        [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
+            self.virtual_robot.getRobotModel(),
+            self.virtual_robot.getPhysicsClientId())
+        odom.twist.twist.linear.x = vx
+        odom.twist.twist.linear.y = vy
+        odom.twist.twist.angular.z = wz
+        odometry_publisher.publish(odom)
+
+    def _broadcastCamera(self, image_publisher, info_publisher):
+        """
+        INTERNAL METHOD, computes the image message and the info message of the
+        active camera and publishes them into the ROS framework
+
+        Parameters:
+            image_publisher: The ROS publisher for the Image message,
+            corresponding to the image delivered by the active camera
+            info_publisher: The ROS publisher for the CameraInfo message,
+            corresponding to the parameters of the active camera
+        """
+        try:
+            camera = self.virtual_robot.getActiveCamera()
+            assert camera is not None
+            assert camera.getFrame() is not None
+
+            camera_image_msg = self.image_bridge.cv2_to_imgmsg(
+                camera.getFrame())
+            camera_image_msg.header.frame_id = camera.getCameraLink().getName()
+
+            # Fill the camera info message
+            camera_info_msg = CameraInfo()
+            camera_info_msg.distortion_model = "plumb_bob"
+            camera_info_msg.header.frame_id = camera.getCameraLink().getName()
+            camera_info_msg.width = camera.getResolution().width
+            camera_info_msg.height = camera.getResolution().height
+            camera_info_msg.D = [0.0, 0.0, 0.0, 0.0, 0.0]
+            camera_info_msg.K = camera._getCameraIntrinsics()
+            camera_info_msg.R = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+            camera_info_msg.P = list(camera_info_msg.K)
+            camera_info_msg.P.insert(3, 0.0)
+            camera_info_msg.P.insert(7, 0.0)
+            camera_info_msg.P.append(0.0)
+
+            # Check if the retrieved image is RGB or a depth image
+            if isinstance(camera, CameraDepth):
+                camera_image_msg.encoding = "16UC1"
+            else:
+                camera_image_msg.encoding = "bgr8"
+
+            # Publish the image and the camera info
+            image_publisher.publish(camera_image_msg)
+            info_publisher.publish(camera_info_msg)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher, extra_joints=None):
+        """
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework
+
+        Parameters:
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints
+            extra_joints - A dict, describing extra joints to be published. The
+            dict should respect the following syntax:
+            {"joint_name": joint_value, ...}
+        """
+        msg_joint_state = JointState()
+        msg_joint_state.header = Header()
+        msg_joint_state.header.stamp = rospy.get_rostime()
+        msg_joint_state.name = list(self.virtual_robot.joint_dict)
+        msg_joint_state.position = self.virtual_robot.getAnglesPosition(
+            msg_joint_state.name)
+
+        try:
+            assert isinstance(extra_joints, dict)
+
+            for name, value in extra_joints.items():
+                msg_joint_state.name += [name]
+                msg_joint_state.position += [value]
+
+        except AssertionError:
+            pass
+
+        joint_state_publisher.publish(msg_joint_state)
+
+    def _jointAnglesCallback(self, msg):
+        """
+        INTERNAL METHOD, callback triggered when a message is received on the
+        /joint_angles topic
+
+        Parameters:
+            msg - a ROS message containing a pose stamped with a speed
+            associated to it. The type of the message is the following:
+            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
+            the ros naoqi software stack
+        """
+        joint_list = msg.joint_names
+        position_list = list(msg.joint_angles)
+
+        if len(msg.speeds) != 0:
+            velocity = list(msg.speeds)
+        else:
+            velocity = msg.speed
+
+        self.virtual_robot.setAngles(joint_list, position_list, velocity)
+
+
+class NaoRosWrapper(RosWrapper):
+    """
+    Class describing a ROS wrapper for the virtual model of Nao, inheriting
+    from the RosWrapperClass
+    """
+    def __init__(self):
+        """
+        Constructor
+        """
+        RosWrapper.__init__(self)
+
+    def launchWrapper(self, virtual_nao, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper for the virtual_nao instance
+
+        Parameters:
+            virtual_nao - The instance of the simulated model
+            ros_namespace - The ROS namespace to be added before the ROS topics
+            advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
+        """
+        RosWrapper.launchWrapper(
+            self,
+            virtual_nao,
+            ros_namespace,
+            frequency)
+
+    def _initPublishers(self):
+        """
+        INTERNAL METHOD, initializes the ROS publishers
+        """
+        self.front_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/front/image_raw',
+            Image,
+            queue_size=10)
+
+        self.front_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/front/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.bottom_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/bottom/image_raw',
+            Image,
+            queue_size=10)
+
+        self.bottom_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/bottom/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.joint_states_pub = rospy.Publisher(
+            '/joint_states',
+            JointState,
+            queue_size=10)
+
+        self.odom_pub = rospy.Publisher(
+            'odom',
+            Odometry,
+            queue_size=10)
+
+    def _initSubscribers(self):
+        """
+        INTERNAL METHOD, initializes the ROS subscribers
+        """
+        rospy.Subscriber(
+            '/joint_angles',
+            JointAnglesWithSpeed,
+            self._jointAnglesCallback)
+
+    def _broadcastCamera(self):
+        """
+        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
+        """
+        camera = self.virtual_robot.getActiveCamera()
+
+        try:
+            assert camera is not None
+
+            if camera.getCameraId() == NaoVirtual.ID_CAMERA_TOP:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.front_cam_pub,
+                    self.front_info_pub)
+            elif camera.getCameraId() == NaoVirtual.ID_CAMERA_BOTTOM:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.bottom_cam_pub,
+                    self.bottom_info_pub)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher):
+        """
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework, overloading @_broadcastJointState in RosWrapper
+
+        Parameters:
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints (for API
+            consistency)
+        """
+        RosWrapper._broadcastJointState(self, joint_state_publisher)
+
+    def _spin(self):
+        """
+        INTERNAL METHOD, designed to emulate a ROS spin method
+        """
+        rate = rospy.Rate(self.frequency)
+
+        try:
+            while not self._wrapper_termination:
+                rate.sleep()
+                self._broadcastJointState(self.joint_states_pub)
+                self._broadcastOdometry(self.odom_pub)
+                self._broadcastCamera()
+
+        except Exception as e:
+            print("Stopping the ROS wrapper: " + str(e))
+
+
+class RomeoRosWrapper(RosWrapper):
+    """
+    Class describing a ROS wrapper for the virtual model of Romeo, inheriting
+    from the RosWrapperClass
+    """
+    def __init__(self):
+        """
+        Constructor
+        """
+        RosWrapper.__init__(self)
+
+    def launchWrapper(self, virtual_romeo, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper for the virtual_romeo instance
+
+        Parameters:
+            virtual_romeo - The instance of the simulated model
+            ros_namespace - The ROS namespace to be added before the ROS topics
+            advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
+        """
+        RosWrapper.launchWrapper(
+            self,
+            virtual_romeo,
+            ros_namespace,
+            frequency)
+
+    def _initPublishers(self):
+        """
+        INTERNAL METHOD, initializes the ROS publishers
+        """
+        self.right_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/right/image_raw',
+            Image,
+            queue_size=10)
+
+        self.right_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/right/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.left_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/left/image_raw',
+            Image,
+            queue_size=10)
+
+        self.left_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/left/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.depth_cam_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/depth/image_raw',
+            Image,
+            queue_size=10)
+
+        self.depth_info_pub = rospy.Publisher(
+            self.ros_namespace + '/camera/depth/camera_info',
+            CameraInfo,
+            queue_size=10)
+
+        self.joint_states_pub = rospy.Publisher(
+            '/joint_states',
+            JointState,
+            queue_size=10)
+
+        self.odom_pub = rospy.Publisher(
+            'odom',
+            Odometry,
+            queue_size=10)
+
+    def _initSubscribers(self):
+        """
+        INTERNAL METHOD, initializes the ROS subscribers
+        """
+        rospy.Subscriber(
+            '/joint_angles',
+            JointAnglesWithSpeed,
+            self._jointAnglesCallback)
+
+    def _broadcastCamera(self):
+        """
+        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
+        """
+        camera = self.virtual_robot.getActiveCamera()
+
+        try:
+            assert camera is not None
+
+            if camera.getCameraId() == RomeoVirtual.ID_CAMERA_RIGHT:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.right_cam_pub,
+                    self.right_info_pub)
+            elif camera.getCameraId() == RomeoVirtual.ID_CAMERA_LEFT:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.left_cam_pub,
+                    self.left_info_pub)
+            elif camera.getCameraId() == RomeoVirtual.ID_CAMERA_DEPTH:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.depth_cam_pub,
+                    self.depth_info_pub)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher):
+        """
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework, overloading @_broadcastJointState in RosWrapper
+
+        Parameters:
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints (for API
+            consistency)
+        """
+        RosWrapper._broadcastJointState(self, joint_state_publisher)
+
+    def _spin(self):
+        """
+        INTERNAL METHOD, designed to emulate a ROS spin method
+        """
+        rate = rospy.Rate(self.frequency)
+
+        try:
+            while not self._wrapper_termination:
+                rate.sleep()
+                self._broadcastJointState(self.joint_states_pub)
+                self._broadcastOdometry(self.odom_pub)
+                self._broadcastCamera()
+
+        except Exception as e:
+            print("Stopping the ROS wrapper: " + str(e))
+
+
+class PepperRosWrapper(RosWrapper):
+    """
+    Class describing a ROS wrapper for the virtual model of Pepper, inheriting
+    from the RosWrapperClass
+    """
+
+    def __init__(self):
+        """
+        Constructor
+        """
+        RosWrapper.__init__(self)
+
+    def launchWrapper(self, virtual_pepper, ros_namespace, frequency=200):
+        """
+        Launches the ROS wrapper for the virtual_pepper instance
+
+        Parameters:
+            virtual_pepper - The instance of the simulated model
+            ros_namespace - The ROS namespace to be added before the ROS topics
+            advertized and subscribed
+            frequency - The frequency of the ROS rate that will be used to pace
+            the wrapper's main loop
+        """
+        RosWrapper.launchWrapper(
+            self,
+            virtual_pepper,
+            ros_namespace,
+            frequency)
+
+    def _initPublishers(self):
+        """
+        INTERNAL METHOD, initializes the ROS publishers
+        """
         self.front_cam_pub = rospy.Publisher(
             self.ros_namespace + '/camera/front/image_raw',
             Image,
@@ -128,6 +647,10 @@ class PepperRosWrapper:
             Odometry,
             queue_size=10)
 
+    def _initSubscribers(self):
+        """
+        INTERNAL METHOD, initializes the ROS subscribers
+        """
         rospy.Subscriber(
             '/joint_angles',
             JointAnglesWithSpeed,
@@ -148,54 +671,16 @@ class PepperRosWrapper:
             Empty,
             self._killMoveCallback)
 
-        try:
-            package_path = roslib.packages.get_pkg_dir("naoqi_driver")
-            # path = os.path.dirname(os.path.abspath(__file__)) + "/"
-
-            with open(package_path + "/share/urdf/pepper.urdf", 'r') as file:
-                robot_description = file.read()
-
-            # robot_description = robot_description.replace(
-            #     "meshes/",
-            #     "package://pepper_meshes/meshes/1.0/")
-
-            rospy.set_param("/robot_description", robot_description)
-
-            robot_state_publisher = roslaunch.core.Node(
-                "robot_state_publisher",
-                "robot_state_publisher")
-
-            self.roslauncher = roslaunch.scriptapi.ROSLaunch()
-            self.roslauncher.start()
-            self.roslauncher.launch(robot_state_publisher)
-
-            # Launch the wrapper's main loop
-            self._wrapper_termination = False
-            self.spin_thread = Thread(target=self._spin)
-            self.spin_thread.start()
-
-        except IOError as e:
-            print("Could not retrieve robot descrition: " + str(e))
-            return
-
-    def stopWrapper(self):
+    def _broadcastLasers(self, laser_publisher):
         """
-        Stops the ROS wrapper
-        """
-        self._wrapper_termination = True
+        INTERNAL METHOD, publishes the laser values in the ROS framework
 
-        if self.spin_thread.isAlive():
-            self.spin_thread.join()
-
-        if self.roslauncher is not None:
-            self.roslauncher.stop()
-            print("stopping roslauncher")
-
-    def _updateLasers(self):
+        Parameters:
+            laser_publisher - The ROS publisher for the LaserScan message,
+            corresponding to the laser info of the pepper robot (for API
+            consistency)
         """
-        INTERNAL METHOD, updates the laser values in the ROS framework
-        """
-        if not self.virtual_pepper.laser_manager.isActive():
+        if not self.virtual_robot.laser_manager.isActive():
             return
 
         scan = LaserScan()
@@ -208,14 +693,14 @@ class PepperRosWrapper:
         # 240 degres FoV, 61 points (blind zones inc)
         scan.angle_increment = (2 * 2.0944) / (15.0 + 15.0 + 15.0 + 8.0 + 8.0)
 
-        # Detection ranges for the lasers in meters
+        # Detection ranges for the lasers in meters, 0.1 to 3.0 meters
         scan.range_min = 0.1
-        scan.range_max = 1.5
+        scan.range_max = 3.0
 
         # Fill the lasers information
-        right_scan = self.virtual_pepper.getRightLaserValue()
-        front_scan = self.virtual_pepper.getFrontLaserValue()
-        left_scan = self.virtual_pepper.getLeftLaserValue()
+        right_scan = self.virtual_robot.getRightLaserValue()
+        front_scan = self.virtual_robot.getFrontLaserValue()
+        left_scan = self.virtual_robot.getLeftLaserValue()
 
         if isinstance(right_scan, list):
             scan.ranges.extend(list(reversed(right_scan)))
@@ -226,79 +711,50 @@ class PepperRosWrapper:
         if isinstance(left_scan, list):
             scan.ranges.extend(list(reversed(left_scan)))
 
-        self.laser_pub.publish(scan)
+        laser_publisher.publish(scan)
 
-    def _broadcastOdom(self):
+    def _broadcastCamera(self):
         """
-        INTERNAL METHOD, updates and broadcasts the odometry by broadcasting
-        based on the robot's base tranform
+        INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
         """
-        # Send Transform odom
-        x, y, theta = self.virtual_pepper.getPosition()
-        odom_trans = TransformStamped()
-        odom_trans.header.frame_id = "odom"
-        odom_trans.child_frame_id = "base_link"
-        odom_trans.header.stamp = rospy.get_rostime()
-        odom_trans.transform.translation.x = x
-        odom_trans.transform.translation.y = y
-        odom_trans.transform.translation.z = 0
-        quaternion = pybullet.getQuaternionFromEuler([0, 0, theta])
-        odom_trans.transform.rotation.x = quaternion[0]
-        odom_trans.transform.rotation.y = quaternion[1]
-        odom_trans.transform.rotation.z = quaternion[2]
-        odom_trans.transform.rotation.w = quaternion[3]
-        self.transform_broadcaster.sendTransform(odom_trans)
-        # Set up the odometry
-        odom = Odometry()
-        odom.header.stamp = rospy.get_rostime()
-        odom.header.frame_id = "odom"
-        odom.pose.pose.position.x = x
-        odom.pose.pose.position.y = y
-        odom.pose.pose.position.z = 0.0
-        odom.pose.pose.orientation = odom_trans.transform.rotation
-        odom.child_frame_id = "base_link"
-        [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
-            self.virtual_pepper.robot_model,
-            self.virtual_pepper.getPhysicsClientId())
-        odom.twist.twist.linear.x = vx
-        odom.twist.twist.linear.y = vy
-        odom.twist.twist.angular.z = wz
-        self.odom_pub.publish(odom)
+        camera = self.virtual_robot.getActiveCamera()
 
-    def _getJointStateMsg(self):
-        """
-        INTERNAL METHOD, returns the JointState of each robot joint
-        """
-        msg_joint_state = JointState()
-        msg_joint_state.header = Header()
-        msg_joint_state.header.stamp = rospy.get_rostime()
-        msg_joint_state.name = list(self.virtual_pepper.joint_dict)
-        msg_joint_state.position = self.virtual_pepper.getAnglesPosition(
-            msg_joint_state.name)
-        msg_joint_state.name += ["WheelFL", "WheelFR", "WheelB"]
-        msg_joint_state.position += [0, 0, 0]
-        return msg_joint_state
+        try:
+            assert camera is not None
 
-    def _jointAnglesCallback(self, msg):
+            if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.front_cam_pub,
+                    self.front_info_pub)
+            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.bottom_cam_pub,
+                    self.bottom_info_pub)
+            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_DEPTH:
+                RosWrapper._broadcastCamera(
+                    self,
+                    self.depth_cam_pub,
+                    self.depth_info_pub)
+
+        except AssertionError:
+            pass
+
+    def _broadcastJointState(self, joint_state_publisher):
         """
-        INTERNAL METHOD, callback triggered when a message is received on the
-        /joint_angles topic
+        INTERNAL METHOD, publishes the state of the robot's joints into the ROS
+        framework, overloading @_broadcastJointState in RosWrapper
 
         Parameters:
-            msg - a ROS message containing a pose stamped with a speed
-            associated to it. The type of the message is the following:
-            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
-            the ros naoqi software stack
+            joint_state_publisher - The ROS publisher for the JointState
+            message, describing the state of the robot's joints (for API
+            consistency)
         """
-        joint_list = msg.joint_names
-        position_list = list(msg.joint_angles)
-
-        if len(msg.speeds) != 0:
-            velocity = list(msg.speeds)
-        else:
-            velocity = msg.speed
-
-        self.virtual_pepper.setAngles(joint_list, position_list, velocity)
+        RosWrapper._broadcastJointState(
+            self,
+            joint_state_publisher,
+            extra_joints={"WheelFL": 0.0, "WheelFR": 0.0, "WheelB": 0.0})
 
     def _velocityCallback(self, msg):
         """
@@ -308,7 +764,7 @@ class PepperRosWrapper:
         Parameters:
             msg - a ROS message containing a Twist command
         """
-        self.virtual_pepper.move(msg.linear.x, msg.linear.y, msg.angular.z)
+        self.virtual_robot.move(msg.linear.x, msg.linear.y, msg.angular.z)
 
     def _moveToCallback(self, msg):
         """
@@ -334,7 +790,7 @@ class PepperRosWrapper:
             PepperBaseController.MIN_LINEAR_VELOCITY
 
         frame = msg.referenceFrame
-        self.virtual_pepper.moveTo(
+        self.virtual_robot.moveTo(
             x,
             y,
             theta,
@@ -351,7 +807,7 @@ class PepperRosWrapper:
         Parameters:
             msg - an empty ROS message, with the Empty type
         """
-        self.virtual_pepper.moveTo(0, 0, 0, _async=True)
+        self.virtual_robot.moveTo(0, 0, 0, _async=True)
 
     def _spin(self):
         """
@@ -362,266 +818,10 @@ class PepperRosWrapper:
         try:
             while not self._wrapper_termination:
                 rate.sleep()
-                self.joint_states_pub.publish(self._getJointStateMsg())
-                self._updateLasers()
-                self._broadcastOdom()
-                resolution = self.virtual_pepper.getCameraResolution()
-                frame = self.virtual_pepper.getCameraFrame()
-
-                if frame is None or resolution is None:
-                    continue
-                camera_image_msg = self.image_bridge.cv2_to_imgmsg(frame)
-
-                if self.virtual_pepper.camera_top.isActive():
-                    camera_image_msg.encoding = "bgr8"
-                    camera_image_msg.header.frame_id = TOP_OPTICAL_FRAME
-
-                    if resolution == Camera.K_VGA:
-                        camera_info_msg = self.front_info_msg["K_VGA"]
-                    elif resolution == Camera.K_QVGA:
-                        camera_info_msg = self.front_info_msg["K_QVGA"]
-                    elif resolution == Camera.K_QQVGA:
-                        camera_info_msg = self.front_info_msg["K_QQVGA"]
-
-                    self.front_cam_pub.publish(camera_image_msg)
-                    self.front_info_pub.publish(camera_info_msg)
-
-                elif self.virtual_pepper.camera_bottom.isActive():
-                    camera_image_msg.encoding = "bgr8"
-                    camera_image_msg.header.frame_id = BOTTOM_OPTICAL_FRAME
-
-                    if resolution == Camera.K_VGA:
-                        camera_info_msg = self.bottom_info_msg["K_VGA"]
-                    elif resolution == Camera.K_QVGA:
-                        camera_info_msg = self.bottom_info_msg["K_QVGA"]
-                    elif resolution == Camera.K_QQVGA:
-                        camera_info_msg = self.bottom_info_msg["K_QQVGA"]
-
-                    self.bottom_cam_pub.publish(camera_image_msg)
-                    self.bottom_info_pub.publish(camera_info_msg)
-
-                elif self.virtual_pepper.camera_depth.isActive():
-                    camera_image_msg.encoding = "16UC1"
-                    camera_image_msg.header.frame_id = DEPTH_OPTICAL_FRAME
-
-                    if resolution == Camera.K_VGA:
-                        camera_info_msg = self.depth_info_msg["K_VGA"]
-                    elif resolution == Camera.K_QVGA:
-                        camera_info_msg = self.depth_info_msg["K_QVGA"]
-                    elif resolution == Camera.K_QQVGA:
-                        camera_info_msg = self.depth_info_msg["K_QQVGA"]
-
-                    self.depth_cam_pub.publish(camera_image_msg)
-                    self.depth_info_pub.publish(camera_info_msg)
+                self._broadcastJointState(self.joint_states_pub)
+                self._broadcastOdometry(self.odom_pub)
+                self._broadcastLasers(self.laser_pub)
+                self._broadcastCamera()
 
         except Exception as e:
             print("Stopping the ROS wrapper: " + str(e))
-
-    def _loadCameraInfos(self):
-        """
-        INTERNAL METHOD, creates the camera info message for Pepper's cameras
-        """
-        for quality in ["K_VGA", "K_QVGA", "K_QQVGA"]:
-            self.front_info_msg[quality] = CameraInfo()
-            self.front_info_msg[quality].header.frame_id =\
-                "CameraTop_optical_frame"
-            self.front_info_msg[quality].distortion_model = "plumb_bob"
-
-            self.bottom_info_msg[quality] = CameraInfo()
-            self.bottom_info_msg[quality].header.frame_id =\
-                "CameraBottom_optical_frame"
-            self.bottom_info_msg[quality].distortion_model = "plumb_bob"
-
-            self.depth_info_msg[quality] = CameraInfo()
-            self.depth_info_msg[quality].header.frame_id =\
-                "CameraDepth_optical_frame"
-            self.depth_info_msg[quality].distortion_model = "plumb_bob"
-
-        self.front_info_msg["K_VGA"].width = Camera.K_VGA.width
-        self.front_info_msg["K_VGA"].height = Camera.K_VGA.height
-        self.front_info_msg["K_VGA"].D = [
-            -0.0545211535376379,
-            0.0691973423510287,
-            -0.00241094929163055,
-            -0.00112245009306511,
-            0]
-        self.front_info_msg["K_VGA"].K = [
-            556.845054830986, 0, 309.366895338178,
-            0, 555.898679730161, 230.592233628776,
-            0, 0, 1]
-        self.front_info_msg["K_VGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.front_info_msg["K_VGA"].P = [
-            551.589721679688, 0, 308.271132841983, 0,
-            0, 550.291320800781, 229.20143668168, 0,
-            0, 0, 1, 0]
-
-        self.front_info_msg["K_QVGA"].width = Camera.K_QVGA.width
-        self.front_info_msg["K_QVGA"].height = Camera.K_QVGA.height
-        self.front_info_msg["K_QVGA"].D = [
-            -0.0870160932911717,
-            0.128210165050533,
-            0.003379500659424,
-            -0.00106205540818586,
-            0]
-        self.front_info_msg["K_QVGA"].K = [
-            274.139508945831, 0, 141.184472810944,
-            0, 275.741846757374, 106.693773654172,
-            0, 0, 1]
-        self.front_info_msg["K_QVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.front_info_msg["K_QVGA"].P = [
-            272.423675537109, 0, 141.131930791285, 0,
-            0, 273.515747070312, 107.391746054313, 0,
-            0, 0, 1, 0]
-
-        self.front_info_msg["K_QQVGA"].width = Camera.K_QQVGA.width
-        self.front_info_msg["K_QQVGA"].height = Camera.K_QQVGA.height
-        self.front_info_msg["K_QQVGA"].D = [
-            -0.0843564504845967,
-            0.125733083790192,
-            0.00275901756247071,
-            -0.00138645823460527,
-            0]
-        self.front_info_msg["K_QQVGA"].K = [
-            139.424539568966, 0, 76.9073669920582,
-            0, 139.25542782325, 59.5554242026743,
-            0, 0, 1]
-        self.front_info_msg["K_QQVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.front_info_msg["K_QQVGA"].P = [
-            137.541534423828, 0, 76.3004646597892, 0,
-            0, 136.815216064453, 59.3909799751191, 0,
-            0, 0, 1, 0]
-
-        self.bottom_info_msg["K_VGA"].width = Camera.K_VGA.width
-        self.bottom_info_msg["K_VGA"].height = Camera.K_VGA.height
-        self.bottom_info_msg["K_VGA"].D = [
-            -0.0648763971625288,
-            0.0612520196884308,
-            0.0038281538281731,
-            -0.00551104078371959,
-            0]
-        self.bottom_info_msg["K_VGA"].K = [
-            558.570339530768, 0, 308.885375457296,
-            0, 556.122943034837, 247.600724811385,
-            0, 0, 1]
-        self.bottom_info_msg["K_VGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.bottom_info_msg["K_VGA"].P = [
-            549.571655273438, 0, 304.799679526441, 0,
-            0, 549.687316894531, 248.526959297022, 0,
-            0, 0, 1, 0]
-
-        self.bottom_info_msg["K_QVGA"].width = Camera.K_QVGA.width
-        self.bottom_info_msg["K_QVGA"].height = Camera.K_QVGA.height
-        self.bottom_info_msg["K_QVGA"].D = [
-            -0.0481869853715082,
-            0.0201858398559121,
-            0.0030362056699177,
-            -0.00172241952442813,
-            0]
-        self.bottom_info_msg["K_QVGA"].K = [
-            278.236008818534, 0, 156.194471689706,
-            0, 279.380102992049, 126.007123836447,
-            0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.bottom_info_msg["K_QVGA"].P = [
-            273.491455078125, 0, 155.112454709117, 0,
-            0, 275.743133544922, 126.057357467223, 0,
-            0, 0, 1, 0]
-
-        self.bottom_info_msg["K_QQVGA"].width = Camera.K_QQVGA.width
-        self.bottom_info_msg["K_QQVGA"].height = Camera.K_QQVGA.height
-        self.bottom_info_msg["K_QQVGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.bottom_info_msg["K_QQVGA"].K = [
-            141.611855886672, 0, 78.6494086288656,
-            0, 141.367163830175, 58.9220646201529,
-            0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.bottom_info_msg["K_QQVGA"].P = [
-            138.705535888672, 0, 77.2544255212306, 0,
-            0, 138.954086303711, 58.7000861760043, 0,
-            0, 0, 1, 0]
-
-        self.depth_info_msg["K_VGA"].width = Camera.K_VGA.width
-        self.depth_info_msg["K_VGA"].height = Camera.K_VGA.height
-        self.depth_info_msg["K_VGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.depth_info_msg["K_VGA"].K = [
-            525, 0, 319.5000000,
-            0, 525, 239.5000000000000,
-            0, 0, 1]
-        self.depth_info_msg["K_VGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.depth_info_msg["K_VGA"].P = [
-            525, 0, 319.500000, 0,
-            0, 525, 239.5000000000, 0,
-            0, 0, 1, 0]
-
-        self.depth_info_msg["K_QVGA"].width = Camera.K_QVGA.width
-        self.depth_info_msg["K_QVGA"].height = Camera.K_QVGA.height
-        self.depth_info_msg["K_QVGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.depth_info_msg["K_QVGA"].K = [
-            525/2.0, 0, 319.5000000/2.0,
-            0, 525/2.0, 239.5000000000000/2.0,
-            0, 0, 1]
-        self.depth_info_msg["K_QVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.depth_info_msg["K_QVGA"].P = [
-            525/2.0, 0, 319.500000/2.0, 0,
-            0, 525/2.0, 239.5000000000/2.0, 0,
-            0, 0, 1, 0]
-
-        self.depth_info_msg["K_QQVGA"].width = Camera.K_QQVGA.width
-        self.depth_info_msg["K_QQVGA"].height = Camera.K_QQVGA.height
-        self.depth_info_msg["K_QQVGA"].D = [
-            -0.0688388724945936,
-            0.0697453843669642,
-            0.00309518737071049,
-            -0.00570486993696543,
-            0]
-        self.depth_info_msg["K_QQVGA"].K = [
-            525/4.0, 0, 319.5000000/4.0,
-            0, 525/4.0, 239.5000000000000/4.0,
-            0, 0, 1]
-        self.depth_info_msg["K_QQVGA"].R = [
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1]
-        self.depth_info_msg["K_QQVGA"].P = [
-            525/4.0, 0, 319.500000/4.0, 0,
-            0, 525/4.0, 239.5000000000/4.0, 0,
-            0, 0, 1, 0]
