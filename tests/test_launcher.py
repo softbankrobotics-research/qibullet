@@ -1,22 +1,41 @@
 #!/usr/bin/env python
 # coding: utf-8
+import os
 import sys
 import unittest
 
-from simulation_manager_test import SimulationManagerTest
-from base_test import PepperBaseTest
-from joint_test import NaoJointTest, RomeoJointTest, PepperJointTest
-from laser_test import PepperLaserTest
-from camera_test import NaoCameraTest, RomeoCameraTest, PepperCameraTest
-from posture_test import NaoPostureTest, PepperPostureTest
-from self_collision_test import NaoSelfCollisionTest, PepperSelfCollisionTest
-
 
 if __name__ == "__main__":
+    # Add the file's parent folder and current folder (for the coverage)to the
+    # path
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)) + '/..')
+    sys.path.insert(0, '')
+
+    # Create unittest objects
     test_loader = unittest.TestLoader()
     test_runner = unittest.TextTestRunner()
     test_results = list()
-    has_failed = False
+    tests_failed = False
+
+    # Import the unittests
+    try:
+        from base_test import PepperBaseTest
+        from joint_test import NaoJointTest
+        from joint_test import RomeoJointTest
+        from joint_test import PepperJointTest
+        from laser_test import PepperLaserTest
+        from camera_test import NaoCameraTest
+        from camera_test import RomeoCameraTest
+        from camera_test import PepperCameraTest
+        from posture_test import NaoPostureTest
+        from posture_test import PepperPostureTest
+        from self_collision_test import NaoSelfCollisionTest
+        from self_collision_test import PepperSelfCollisionTest
+        from simulation_manager_test import SimulationManagerTest
+
+    except ImportError as e:
+        print(str(e))
+        sys.exit(1)
 
     test_classes = [
         SimulationManagerTest,
@@ -52,7 +71,7 @@ if __name__ == "__main__":
         total_success += test_passed
 
         if len(test_failures) != 0:
-            has_failed = True
+            tests_failed = True
 
         print(test_classes[i].__name__ + "[" + str(test_count) + " tests]:")
         print(str(test_passed) + " [\033[1m\033[92mpassed\033[0m]")
@@ -63,4 +82,4 @@ if __name__ == "__main__":
     print(str(total_success) + " [\033[1m\033[92mpassed\033[0m]")
     print(str(total_fail) + " [\033[1m\033[91mfailed\033[0m]")
 
-    sys.exit(has_failed)
+    sys.exit(tests_failed)
