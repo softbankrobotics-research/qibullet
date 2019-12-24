@@ -19,8 +19,11 @@ python:
 install:
   - "pip install pybullet"
   - "pip install numpy"
-  - "python setup.py install"
+  - "pip install codecov"
 
 script:
   - cd tests
-  - python test_launcher.py
+  - coverage run test_launcher.py
+
+after_success:
+  - codecov
