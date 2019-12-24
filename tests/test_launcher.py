@@ -29,6 +29,7 @@ if __name__ == "__main__":
         from camera_test import PepperCameraTest
         from posture_test import NaoPostureTest
         from posture_test import PepperPostureTest
+        from virtual_robot_test import VirtualRobotTest
         from self_collision_test import NaoSelfCollisionTest
         from self_collision_test import PepperSelfCollisionTest
         from simulation_manager_test import SimulationManagerTest
@@ -39,6 +40,7 @@ if __name__ == "__main__":
 
     test_classes = [
         SimulationManagerTest,
+        VirtualRobotTest,
         PepperBaseTest,
         NaoJointTest,
         RomeoJointTest,

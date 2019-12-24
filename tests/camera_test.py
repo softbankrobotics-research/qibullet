@@ -19,15 +19,36 @@ class CameraTest(unittest.TestCase):
         """
         physics_client = CameraTest.client
 
-        for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
+        # Test wrong camera ID for subscription
+        try:
+            CameraTest.robot.subscribeCamera(-3)
+            self.assertTrue(True)
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
+        # Test wrong camera ID for unsubscription, when active camera is not
+        # None
+        try:
             CameraTest.robot.subscribeCamera(
-                camera_id)
+                CameraTest.robot.camera_dict.keys()[0])
+
+            CameraTest.robot.unsubscribeCamera(-3)
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+        finally:
+            CameraTest.robot.unsubscribeCamera(
+                CameraTest.robot.camera_dict.keys()[0])
+
+        # Test subscribing / unsubscribing
+        for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
+            CameraTest.robot.subscribeCamera(camera_id)
             self.assertEqual(
                 Camera.ACTIVE_OBJECT_ID[physics_client],
                 id(camera_obj))
 
-            CameraTest.robot.unsubscribeCamera(
-                camera_id)
+            CameraTest.robot.unsubscribeCamera(camera_id)
             self.assertEqual(
                 Camera.ACTIVE_OBJECT_ID[physics_client],
                 -1)
@@ -48,6 +69,10 @@ class CameraTest(unittest.TestCase):
                 self.assertEqual(
                     CameraTest.robot.getCameraFrame().shape[0],
                     resolution.height)
+
+                self.assertEqual(
+                    resolution,
+                    CameraTest.robot.getCameraResolution())
 
     def test_camera_channels(self):
         """
