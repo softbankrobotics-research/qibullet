@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.2.1</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -119,12 +119,16 @@ Collaboration diagram for qibullet.camera.Camera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abe37b9b9360343c132d802ed3604e005"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#abe37b9b9360343c132d802ed3604e005">__init__</a> (self, robot_model, link, hfov, vfov, physicsClientId=0, near_plane=0.01, far_plane=100)</td></tr>
-<tr class="separator:abe37b9b9360343c132d802ed3604e005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87f9f197a63d5583402af8de8608ff9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#ad87f9f197a63d5583402af8de8608ff9">__init__</a> (self, robot_model, camera_id, camera_link, hfov, vfov, physicsClientId=0, near_plane=0.01, far_plane=100)</td></tr>
+<tr class="separator:ad87f9f197a63d5583402af8de8608ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7de4845ef4af2f0e71cf3814ee8b3d54"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#a7de4845ef4af2f0e71cf3814ee8b3d54">subscribe</a> (self, resolution)</td></tr>
 <tr class="separator:a7de4845ef4af2f0e71cf3814ee8b3d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a976de7e641ebd73d3e242f3b8420a0fb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#a976de7e641ebd73d3e242f3b8420a0fb">unsubscribe</a> (self)</td></tr>
 <tr class="separator:a976de7e641ebd73d3e242f3b8420a0fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac6ff8d9c6da9d8e7ade128e0068178"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#aaac6ff8d9c6da9d8e7ade128e0068178">getCameraId</a> (self)</td></tr>
+<tr class="separator:aaac6ff8d9c6da9d8e7ade128e0068178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63f8279aed581fa1b3619a6e1c2d8f6c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#a63f8279aed581fa1b3619a6e1c2d8f6c">getCameraLink</a> (self)</td></tr>
+<tr class="separator:a63f8279aed581fa1b3619a6e1c2d8f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a307a6b686f59289ae538c7723ae34aa3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#a307a6b686f59289ae538c7723ae34aa3">getFrame</a> (self)</td></tr>
 <tr class="separator:a307a6b686f59289ae538c7723ae34aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8bf6017721be6842e78f138542384c6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1camera_1_1Camera.html#ad8bf6017721be6842e78f138542384c6">isActive</a> (self)</td></tr>
@@ -144,9 +148,12 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a61a188b4e782387aa94f25f62156ae4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61a188b4e782387aa94f25f62156ae4e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>link</b></td></tr>
-<tr class="separator:a61a188b4e782387aa94f25f62156ae4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c6802de408a91b221e1b0c9c4f08138"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8c6802de408a91b221e1b0c9c4f08138"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>camera_id</b></td></tr>
+<tr class="separator:a8c6802de408a91b221e1b0c9c4f08138"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6d12f272210d8f9c8db9ec419f46afa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6d12f272210d8f9c8db9ec419f46afa"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>camera_link</b></td></tr>
+<tr class="separator:ae6d12f272210d8f9c8db9ec419f46afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e14c7813d2deffb16b92c2ec7c4dcd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6e14c7813d2deffb16b92c2ec7c4dcd9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>near_plane</b></td></tr>
 <tr class="separator:a6e14c7813d2deffb16b92c2ec7c4dcd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,6 +175,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab5303e8e7d2532ecded0c13cd82d28e1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5303e8e7d2532ecded0c13cd82d28e1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>vfov</b></td></tr>
 <tr class="separator:ab5303e8e7d2532ecded0c13cd82d28e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a341fffb54ef87a15562d55199439d95d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a341fffb54ef87a15562d55199439d95d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>intrinsic_matrix</b></td></tr>
+<tr class="separator:a341fffb54ef87a15562d55199439d95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af819a951971d12eaa2f3fcbb1ba581d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af819a951971d12eaa2f3fcbb1ba581d1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>resolution_lock</b></td></tr>
 <tr class="separator:af819a951971d12eaa2f3fcbb1ba581d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,9 +194,9 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a097c771bbc49d5c858ad503c2f85d783"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a097c771bbc49d5c858ad503c2f85d783"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ACTIVE_CAMERA_ID</b> = dict()</td></tr>
-<tr class="separator:a097c771bbc49d5c858ad503c2f85d783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbbb6eb031ec694c1d79100fbad608d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbbb6eb031ec694c1d79100fbad608d4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ACTIVE_OBJECT_ID</b> = dict()</td></tr>
+<tr class="separator:adbbb6eb031ec694c1d79100fbad608d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb057a3ccc5c8b0b5cc5bd71a314758e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb057a3ccc5c8b0b5cc5bd71a314758e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>K_QQVGA</b> = <a class="el" href="classqibullet_1_1camera_1_1CameraResolution.html">CameraResolution</a>(160, 120)</td></tr>
 <tr class="separator:acb057a3ccc5c8b0b5cc5bd71a314758e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,7 +219,7 @@ Static Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">Class representing a virtual camera
 </pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="abe37b9b9360343c132d802ed3604e005"></a>
+<a class="anchor" id="ad87f9f197a63d5583402af8de8608ff9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -229,7 +239,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>link</em>, </td>
+          <td class="paramname"><em>camera_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>camera_link</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -272,7 +288,8 @@ Static Public Attributes</h2></td></tr>
 
 Parameters:
     robot_model - The pybullet model of the robot
-    link - The link (Link type) onto which the camera's attached
+    camera_id - an int describing the id of the camera
+    camera_link - The link (Link type) onto which the camera's attached
     hfov - The value of the horizontal field of view angle (in degrees)
     vfov - The value of the vertical field of view angle (in degrees)
     physicsClientId - The id of the simulated instance in which the
@@ -283,6 +300,49 @@ Parameters:
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aaac6ff8d9c6da9d8e7ade128e0068178"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.camera.Camera.getCameraId </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the id of the camera. WARNING, the id of the camera is not the
+id of the Python object corresponding to the camera, the id value is
+defined by the user and specific to each camera of each robot.
+
+Returns:
+    camera_id - The id of the camera
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a63f8279aed581fa1b3619a6e1c2d8f6c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.camera.Camera.getCameraLink </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the link to which the camera is attached, as a qiBullet Link
+object
+
+Returns:
+    camera_link - The link to which the camera is attached
+</pre> 
+</div>
+</div>
 <a class="anchor" id="a307a6b686f59289ae538c7723ae34aa3"></a>
 <div class="memitem">
 <div class="memproto">
