@@ -236,11 +236,29 @@ class PepperCameraTest(CameraTest):
     def test_camera_subscribe(self):
         CameraTest.test_camera_subscribe(self)
 
+    def test_get_active_camera(self):
+        CameraTest.test_get_active_camera(self)
+
+    def test_is_active(self):
+        CameraTest.test_is_active(self)
+
     def test_camera_resolutions(self):
         CameraTest.test_camera_resolutions(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
+
+    def test_no_active_camera(self):
+        CameraTest.test_no_active_camera(self)
+
+    def test_camera_link(self):
+        CameraTest.test_camera_link(self)
+
+    def test_invalid_fov(self):
+        CameraTest.test_invalid_fov(self)
+
+    def test_get_camera_intrinsics(self):
+        CameraTest.test_get_camera_intrinsics(self)
 
 
 class NaoCameraTest(CameraTest):
@@ -272,11 +290,29 @@ class NaoCameraTest(CameraTest):
     def test_camera_subscribe(self):
         CameraTest.test_camera_subscribe(self)
 
+    def test_get_active_camera(self):
+        CameraTest.test_get_active_camera(self)
+
+    def test_is_active(self):
+        CameraTest.test_is_active(self)
+
     def test_camera_resolutions(self):
         CameraTest.test_camera_resolutions(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
+
+    def test_no_active_camera(self):
+        CameraTest.test_no_active_camera(self)
+
+    def test_camera_link(self):
+        CameraTest.test_camera_link(self)
+
+    def test_invalid_fov(self):
+        CameraTest.test_invalid_fov(self)
+
+    def test_get_camera_intrinsics(self):
+        CameraTest.test_get_camera_intrinsics(self)
 
 
 class RomeoCameraTest(CameraTest):
@@ -308,8 +344,26 @@ class RomeoCameraTest(CameraTest):
     def test_camera_subscribe(self):
         CameraTest.test_camera_subscribe(self)
 
+    def test_get_active_camera(self):
+        CameraTest.test_get_active_camera(self)
+
+    def test_is_active(self):
+        CameraTest.test_is_active(self)
+
     def test_camera_resolutions(self):
         CameraTest.test_camera_resolutions(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
+
+    def test_no_active_camera(self):
+        CameraTest.test_no_active_camera(self)
+
+    def test_camera_link(self):
+        CameraTest.test_camera_link(self)
+
+    def test_invalid_fov(self):
+        CameraTest.test_invalid_fov(self)
+
+    def test_get_camera_intrinsics(self):
+        CameraTest.test_get_camera_intrinsics(self)
