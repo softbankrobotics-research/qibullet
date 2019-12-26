@@ -53,12 +53,25 @@ class CameraTest(unittest.TestCase):
                 Camera.ACTIVE_OBJECT_ID[physics_client],
                 -1)
 
-    def test_active_camera(self):
+        # Test camera subscription with invalid resolution
+        with self.assertRaises(pybullet.error):
+            CameraTest.robot.subscribeCamera(
+                CameraTest.robot.camera_dict.keys()[0],
+                resolution="invalid")
+
+        # Ensure that if the physics client is not a key of
+        # Camera.ACTIVE_OBJECT_ID, the active object id of this instance is set
+        # to -1 (need to create a dummy camera to test that)
+        dummy_camera = Camera(None, None, None, None, None, physicsClientId=-3)
+        self.assertEqual(-1, Camera.ACTIVE_OBJECT_ID[-3])
+
+    def test_get_active_camera(self):
         """
         Test the getActiveCamera method
         """
         for camera_id in CameraTest.robot.camera_dict.keys():
             CameraTest.robot.subscribeCamera(camera_id)
+
             self.assertEqual(
                 camera_id,
                 CameraTest.robot.getActiveCamera().getCameraId())
@@ -66,10 +79,26 @@ class CameraTest(unittest.TestCase):
             CameraTest.robot.unsubscribeCamera(camera_id)
             self.assertIsNone(CameraTest.robot.getActiveCamera())
 
+    def test_is_active(self):
+        """
+        Test the isActive method
+        """
+        for camera_id, camera in CameraTest.robot.camera_dict.items():
+            CameraTest.robot.subscribeCamera(camera_id)
+            self.assertTrue(camera.isActive())
+            CameraTest.robot.unsubscribeCamera(camera_id)
+            self.assertFalse(camera.isActive())
+
     def test_camera_resolutions(self):
         """
         Test the resolutions for the cameras
         """
+        # Test the CameraResolution equality
+        self.assertEqual(Camera.K_VGA, Camera.K_VGA)
+        self.assertNotEqual(Camera.K_QVGA, Camera.K_QQVGA)
+
+        # Testing that the retrieved camera frames correspond to the required
+        # image resolution
         for resolution in [Camera.K_VGA, Camera.K_QVGA, Camera.K_QQVGA]:
             for camera_id in CameraTest.robot.camera_dict.keys():
                 CameraTest.robot.subscribeCamera(
@@ -132,6 +161,50 @@ class CameraTest(unittest.TestCase):
         # Assert that getCameraLink throws when the active camera is None
         with self.assertRaises(pybullet.error):
             CameraTest.robot.getCameraLink()
+
+        for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
+            CameraTest.robot.subscribeCamera(camera_id)
+
+            # Test the getCameraLink method of the Camera class
+            self.assertEqual(
+                camera_obj.camera_link,
+                camera_obj.getCameraLink())
+
+            # Test the getCameraLink method of the RobotVirtual class
+            self.assertEqual(
+                camera_obj.camera_link,
+                CameraTest.robot.getCameraLink())
+
+            CameraTest.robot.unsubscribeCamera(camera_id)
+
+    def test_invalid_fov(self):
+        """
+        Test the FOV setter of the camera class
+        """
+        try:
+            dummy_camera = Camera(
+                None,
+                None,
+                None,
+                "no valid fov",
+                ["still not"])
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "An invalid FOV should raise an exception")
+
+    def test_get_camera_intrinsics(self):
+        """
+        Test the getter method for the camera intrinsics
+        """
+        dummy_camera = Camera(None, None, None, None, None)
+        self.assertIsNone(dummy_camera._getCameraIntrinsics())
+
+        for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
+            CameraTest.robot.subscribeCamera(camera_id)
+            self.assertIsInstance(camera_obj._getCameraIntrinsics(), list)
+            CameraTest.robot.unsubscribeCamera(camera_id)
 
 
 class PepperCameraTest(CameraTest):

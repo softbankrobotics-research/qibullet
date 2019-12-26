@@ -225,9 +225,8 @@ class RobotVirtual:
                 self.active_camera.unsubscribe()
                 self.active_camera = None
 
-        except KeyError:
-            print("This camera does not exist, use a valid camera id")
         except AssertionError:
+            print("No active camera, nothing to unsubscribe from")
             pass
 
     def getCameraFrame(self):
