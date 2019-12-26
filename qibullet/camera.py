@@ -35,9 +35,12 @@ class CameraResolution:
         Parameters:
             resolution - the comparing resolution
         """
-        if self.width == resolution.width and self.height == resolution.height:
+        try:
+            assert self.width == resolution.width
+            assert self.height == resolution.height
             return True
-        else:
+
+        except AssertionError:
             return False
 
 
