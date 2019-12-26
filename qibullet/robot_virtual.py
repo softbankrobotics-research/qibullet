@@ -261,7 +261,7 @@ class RobotVirtual:
             assert self.active_camera is not None
             return self.active_camera.getResolution()
 
-        except KeyError:
+        except AssertionError:
             raise pybullet.error("No active camera, resolution unavailable")
 
     def getCameraLink(self):
@@ -278,7 +278,7 @@ class RobotVirtual:
             assert self.active_camera is not None
             return self.active_camera.getCameraLink()
 
-        except KeyError:
+        except AssertionError:
             raise pybullet.error("No active camera, cannot retrieve any link")
 
     def getActiveCamera(self):
