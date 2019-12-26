@@ -48,22 +48,6 @@ class VirtualRobotTest(unittest.TestCase):
             VirtualRobotTest.client,
             VirtualRobotTest.robot.getPhysicsClientId())
 
-    def test_get_camera_frame_no_active_camera(self):
-        """
-        Assert that getCameraFrame raises a pybullet.error when there is no
-        active camera
-        """
-        with self.assertRaises(pybullet.error):
-            VirtualRobotTest.robot.getCameraFrame()
-
-    def test_get_camera_resolution_no_active_camera(self):
-        """
-        Assert that getCameraResolution raises a pybullet.error when there is
-        no active camera
-        """
-        with self.assertRaises(pybullet.error):
-            VirtualRobotTest.robot.getCameraFrame()
-
 
 class DummyVirtual(RobotVirtual):
     """

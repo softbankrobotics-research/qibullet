@@ -53,6 +53,19 @@ class CameraTest(unittest.TestCase):
                 Camera.ACTIVE_OBJECT_ID[physics_client],
                 -1)
 
+    def test_active_camera(self):
+        """
+        Test the getActiveCamera method
+        """
+        for camera_id in CameraTest.robot.camera_dict.keys():
+            CameraTest.robot.subscribeCamera(camera_id)
+            self.assertEqual(
+                camera_id,
+                CameraTest.robot.getActiveCamera().getCameraId())
+
+            CameraTest.robot.unsubscribeCamera(camera_id)
+            self.assertIsNone(CameraTest.robot.getActiveCamera())
+
     def test_camera_resolutions(self):
         """
         Test the resolutions for the cameras
@@ -73,6 +86,8 @@ class CameraTest(unittest.TestCase):
                 self.assertEqual(
                     resolution,
                     CameraTest.robot.getCameraResolution())
+
+                CameraTest.robot.unsubscribeCamera(camera_id)
 
     def test_camera_channels(self):
         """
@@ -96,6 +111,27 @@ class CameraTest(unittest.TestCase):
                 self.assertEqual(
                     CameraTest.robot.getCameraFrame().shape[2],
                     3)
+
+            CameraTest.robot.unsubscribeCamera(camera_id)
+
+    def test_no_active_camera(self):
+        """
+        Assert that getCameraFrame and getCameraResolution raise a
+        pybullet.error when there is no active camera
+        """
+        with self.assertRaises(pybullet.error):
+            CameraTest.robot.getCameraFrame()
+
+        with self.assertRaises(pybullet.error):
+            CameraTest.robot.getCameraResolution()
+
+    def test_camera_link(self):
+        """
+        Test the getCameraLink method
+        """
+        # Assert that getCameraLink throws when the active camera is None
+        with self.assertRaises(pybullet.error):
+            CameraTest.robot.getCameraLink()
 
 
 class PepperCameraTest(CameraTest):
