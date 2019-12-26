@@ -30,7 +30,7 @@ class CameraTest(unittest.TestCase):
         # None
         try:
             CameraTest.robot.subscribeCamera(
-                CameraTest.robot.camera_dict.keys()[0])
+                list(CameraTest.robot.camera_dict.keys())[0])
 
             CameraTest.robot.unsubscribeCamera(-3)
             self.assertTrue(True)
@@ -39,7 +39,7 @@ class CameraTest(unittest.TestCase):
             self.assertTrue(False, "Shouldn't raise an exception")
         finally:
             CameraTest.robot.unsubscribeCamera(
-                CameraTest.robot.camera_dict.keys()[0])
+                list(CameraTest.robot.camera_dict.keys())[0])
 
         # Test subscribing / unsubscribing
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
@@ -56,7 +56,7 @@ class CameraTest(unittest.TestCase):
         # Test camera subscription with invalid resolution
         with self.assertRaises(pybullet.error):
             CameraTest.robot.subscribeCamera(
-                CameraTest.robot.camera_dict.keys()[0],
+                list(CameraTest.robot.camera_dict.keys())[0],
                 resolution="invalid")
 
         # Ensure that if the physics client is not a key of

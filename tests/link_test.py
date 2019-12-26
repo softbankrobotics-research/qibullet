@@ -15,24 +15,23 @@ class LinkTest(unittest.TestCase):
         """
         Test the behaviour of the Joint class with the robot's characteristics
         """
-        for key, value in LinkTest.robot.link_dict.items():
+        for value in LinkTest.robot.link_dict.values():
             index = value.index
             name = value.name
             parent_index = value.parent_index
 
-            self.assertEqual(key, value.getName())
             self.assertEqual(index, value.getIndex())
             self.assertEqual(name, value.getName())
             self.assertEqual(parent_index, value.getParentIndex())
 
         # Test Link equality
         self.assertEqual(
-            LinkTest.robot.link_dict.values()[0],
-            LinkTest.robot.link_dict.values()[0])
+            list(LinkTest.robot.link_dict.values())[0],
+            list(LinkTest.robot.link_dict.values())[0])
 
         self.assertNotEqual(
-            LinkTest.robot.link_dict.values()[0],
-            LinkTest.robot.link_dict.values()[1])
+            list(LinkTest.robot.link_dict.values())[0],
+            list(LinkTest.robot.link_dict.values())[1])
 
 
 class PepperLinkTest(LinkTest):

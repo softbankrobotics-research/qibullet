@@ -33,8 +33,8 @@ class JointTest(unittest.TestCase):
             self.assertEqual(max_effort, value.getMaxEffort())
             self.assertEqual(max_velocity, value.getMaxVelocity())
 
-        dummy_joint_first = JointTest.robot.joint_dict.values()[0]
-        dummy_joint_second = JointTest.robot.joint_dict.values()[1]
+        dummy_joint_first = list(JointTest.robot.joint_dict.values())[0]
+        dummy_joint_second = list(JointTest.robot.joint_dict.values())[1]
 
         # Test the setMaxEffort method
         effort_value = dummy_joint_first.getMaxEffort()
@@ -46,7 +46,7 @@ class JointTest(unittest.TestCase):
         # Test Joint equality
         self.assertEqual(
             dummy_joint_first,
-            JointTest.robot.joint_dict.values()[0])
+            list(JointTest.robot.joint_dict.values())[0])
 
         self.assertNotEqual(dummy_joint_first, dummy_joint_second)
 
