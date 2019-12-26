@@ -21,8 +21,25 @@ class Link:
         self.index = joint_info[0]
         self.name = joint_info[12]
         self.parent_index = joint_info[16]
+
         if IS_VERSION_PYTHON_3:
             self.name.decode('utf-8')
+
+    def __eq__(self, link):
+        """
+        Overloading the equal operator
+
+        Parameters:
+            link - the comparing link
+        """
+        try:
+            assert self.index == link.index
+            assert self.name == link.name
+            assert self.parent_index == link.parent_index
+            return True
+
+        except AssertionError:
+            return False
 
     def getIndex(self):
         """

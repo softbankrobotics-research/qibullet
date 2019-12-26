@@ -28,6 +28,25 @@ class Joint:
         if IS_VERSION_PYTHON_3:
             self.name = self.name.decode('utf-8')
 
+    def __eq__(self, joint):
+        """
+        Overloading the equal operator
+
+        Parameters:
+            joint - the comparing joint
+        """
+        try:
+            assert self.index == joint.index
+            assert self.name == joint.name
+            assert self.lower_limit == joint.lower_limit
+            assert self.upper_limit == joint.upper_limit
+            assert self.max_effort == joint.max_effort
+            assert self.max_velocity == joint.max_velocity
+            return True
+
+        except AssertionError:
+            return False
+
     def getIndex(self):
         """
         Getter for the index parameter

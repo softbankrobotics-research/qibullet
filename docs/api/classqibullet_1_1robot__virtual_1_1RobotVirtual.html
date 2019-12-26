@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.2.1</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -122,6 +122,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa8124c8dd4ab6a64182dbbc1f8358cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb3d88d3da06dbf2887647f6c598a306"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#aeb3d88d3da06dbf2887647f6c598a306">getAnglesVelocity</a> (self, joint_names)</td></tr>
 <tr class="separator:aeb3d88d3da06dbf2887647f6c598a306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa08c0cc95975e4b2633f7c2dfcf943"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a2fa08c0cc95975e4b2633f7c2dfcf943">subscribeCamera</a> (self, camera_id, resolution=Camera.K_QVGA)</td></tr>
+<tr class="separator:a2fa08c0cc95975e4b2633f7c2dfcf943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9cb51de4f136d3f4a883f132d6d52d4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#ab9cb51de4f136d3f4a883f132d6d52d4">unsubscribeCamera</a> (self, camera_id)</td></tr>
+<tr class="separator:ab9cb51de4f136d3f4a883f132d6d52d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62bbb36a93af76abd8bc4c6c6b9edc2a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a62bbb36a93af76abd8bc4c6c6b9edc2a">getCameraFrame</a> (self)</td></tr>
+<tr class="separator:a62bbb36a93af76abd8bc4c6c6b9edc2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a10fc30e28c19b699744f82aa78cf4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#ab8a10fc30e28c19b699744f82aa78cf4">getCameraResolution</a> (self)</td></tr>
+<tr class="separator:ab8a10fc30e28c19b699744f82aa78cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afddfcad68d9e413a2c35ba15bb69cfce"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#afddfcad68d9e413a2c35ba15bb69cfce">getCameraLink</a> (self)</td></tr>
+<tr class="separator:afddfcad68d9e413a2c35ba15bb69cfce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdfad41242a2b3f1fbcbb2e4866c9a26"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#abdfad41242a2b3f1fbcbb2e4866c9a26">getActiveCamera</a> (self)</td></tr>
+<tr class="separator:abdfad41242a2b3f1fbcbb2e4866c9a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a5d5a37b466b660c5d48177833b7c8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a30a5d5a37b466b660c5d48177833b7c8">getPosition</a> (self)</td></tr>
 <tr class="separator:a30a5d5a37b466b660c5d48177833b7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e9ca43ecce246d82c5607f3156cbc74"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a8e9ca43ecce246d82c5607f3156cbc74">isSelfColliding</a> (self, link_names)</td></tr>
@@ -135,6 +147,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a0ed5e297437e988438fe091c99f6c942"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ed5e297437e988438fe091c99f6c942"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>physics_client</b></td></tr>
 <tr class="separator:a0ed5e297437e988438fe091c99f6c942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f4aad5d3dd1ad45fdc5e9e3485762d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49f4aad5d3dd1ad45fdc5e9e3485762d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>active_camera</b></td></tr>
+<tr class="separator:a49f4aad5d3dd1ad45fdc5e9e3485762d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa62aa7ed0fb4f40dbd3344e328b28072"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa62aa7ed0fb4f40dbd3344e328b28072"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>camera_dict</b></td></tr>
+<tr class="separator:aa62aa7ed0fb4f40dbd3344e328b28072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2d8457f4ed4baecb05b7daac02481d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2d8457f4ed4baecb05b7daac02481d9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>joint_dict</b></td></tr>
 <tr class="separator:ac2d8457f4ed4baecb05b7daac02481d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,12 +192,34 @@ Public Attributes</h2></td></tr>
 <pre class="fragment">Constructor
 
 Parameters:
-    - description_file: The file giving the description of the virtual
+    description_file - The file giving the description of the virtual
     robot. For now, only URDF is handled
 </pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="abdfad41242a2b3f1fbcbb2e4866c9a26"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getActiveCamera </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the active camera of the robot.
+
+Returns:
+    active_camera - Camera (CameraRgb or CameraDepth) object, the
+    active camera of the robot. If there is no active camera, a None is
+    returned
+</pre> 
+</div>
+</div>
 <a class="anchor" id="aa8124c8dd4ab6a64182dbbc1f8358cdd"></a>
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +244,7 @@ Parameters:
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Gets the position of the robot's joints in radians. If one of the joint
-doesn't exist, the method will raise a KeyError
+doesn't exist, the method will raise a KeyError.
 
 Parameters:
     joint_names - List of string containing the names of the joints
@@ -238,13 +278,82 @@ Returns:
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Gets the velocity of the robot's joints in rad/s. If one of the joint
-doesn't exist, the method will raise a KeyError
+doesn't exist, the method will raise a KeyError.
 
 Parameters:
     joint_names - List of string containing the names of the joints
 
 Returns:
     joint_velocities - List of floats containing the joint's velocities
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a62bbb36a93af76abd8bc4c6c6b9edc2a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getCameraFrame </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns a camera frame. Be advised that the subscribeCamera method
+needs to be called beforehand, otherwise a pybullet error will be
+raised.
+
+Returns:
+    frame - The current camera frame as a formatted numpy array,
+    directly exploitable from OpenCV
+</pre> 
+</div>
+</div>
+<a class="anchor" id="afddfcad68d9e413a2c35ba15bb69cfce"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getCameraLink </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the link of the active camera. Be advised that the
+subscribeCamera method needs to be called beforehand, otherwise a
+pybullet error will be raised.
+
+Returns:
+    resolution - a Link object describing the link to which the active
+    camera is attached
+</pre> 
+</div>
+</div>
+<a class="anchor" id="ab8a10fc30e28c19b699744f82aa78cf4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getCameraResolution </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the resolution of the active camera. Be advised that the
+subscribeCamera method needs to be called beforehand, otherwise a
+pybullet error will be raised.
+
+Returns:
+    resolution - a CameraResolution object describing the resolution of
+    the active camera
 </pre> 
 </div>
 </div>
@@ -261,7 +370,7 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Returns the id of the simulated instance in which the module is loaded
+<pre class="fragment">Returns the id of the simulated instance in which the module is loaded.
 
 Returns:
     physics_client - The id of the simulation in which the robot
@@ -282,7 +391,7 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Gets the position of the robot's base in the world frame
+<pre class="fragment">Gets the position of the robot's base in the world frame.
 
 Returns:
     x - The position of the robot's base on the x axis, in meters
@@ -304,7 +413,7 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Returns the pybullet model to which the module is associated
+<pre class="fragment">Returns the pybullet model to which the module is associated.
 
 Returns:
     robot_model - The pybullet model of the robot
@@ -384,7 +493,7 @@ Returns:
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Loads the robot into a simulation, loads the joints and the links
-descriptions. The joints are set to 0 rad
+descriptions. The joints are set to 0 rad.
 
 Parameters:
     translation - List containing 3 elements, the translation [x, y, z]
@@ -435,7 +544,7 @@ Returns:
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Set angles on the robot's joints. Tests have to be performed by the
-child class to guarantee the validity of the input parameters
+child class to guarantee the validity of the input parameters.
 
 Parameters:
     joint_names - List of string containing the name of the joints
@@ -445,6 +554,74 @@ Parameters:
     percentage_speeds - Percentages of the max speed to be used for
     each joint, has to be strictly superior to 0 and inferior or equal
     to 1
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a2fa08c0cc95975e4b2633f7c2dfcf943"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.subscribeCamera </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>camera_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>resolution</em> = <code>Camera.K_QVGA</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Subscribe to the camera holding the camera id. WARNING: at the moment,
+only one camera can be subscribed.
+
+Parameters:
+    camera_id - The id of the camera to be subscribed
+    resolution - CameraResolution object, the resolution of the camera
+</pre> 
+</div>
+</div>
+<a class="anchor" id="ab9cb51de4f136d3f4a883f132d6d52d4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.unsubscribeCamera </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>camera_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Unsubscribe from a camera, the one holding the camera id.
+
+Parameters:
+    camera_id - The id of the camera to be unsubscribed
 </pre> 
 </div>
 </div>
