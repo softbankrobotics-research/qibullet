@@ -474,7 +474,9 @@ class CameraDepth(Camera):
             while not self._module_termination:
                 assert id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
                 camera_image = self._getCameraImage()
-                depth_image = camera_image[3]
+                depth_image = np.reshape(
+                    camera_image[3],
+                    (camera_image[1], camera_image[0]))
 
                 depth_image = (self.far_plane * self.near_plane) /\
                     (self.far_plane - (self.far_plane - self.near_plane) *
