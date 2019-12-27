@@ -40,17 +40,30 @@ class PepperBaseTest(unittest.TestCase):
         desired position to the position returned by the @getPosition method
         """
         x_command, y_command, theta_command = 1, 1, 2
-        PepperBaseTest.robot.moveTo(
-            0,
-            0,
-            0,
-            frame=PepperVirtual.FRAME_WORLD)
 
-        PepperBaseTest.robot.moveTo(
-            x_command,
-            y_command,
-            theta_command,
-            frame=PepperVirtual.FRAME_WORLD)
+        try:
+            PepperBaseTest.robot.moveTo(
+                0,
+                0,
+                0,
+                frame=PepperVirtual.FRAME_WORLD)
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
+        try:
+            PepperBaseTest.robot.moveTo(
+                x_command,
+                y_command,
+                theta_command,
+                frame=PepperVirtual.FRAME_WORLD)
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
 
     def test_move_to_base_robot_frame(self):
         """
@@ -60,29 +73,41 @@ class PepperBaseTest(unittest.TestCase):
         x_def, y_def, theta_def = 1, -1, 0.3,
         x_command, y_command, theta_command = -1, 0, -1
 
-        PepperBaseTest.robot.moveTo(
-            0,
-            0,
-            0,
-            frame=PepperVirtual.FRAME_WORLD)
+        try:
+            PepperBaseTest.robot.moveTo(
+                0,
+                0,
+                0,
+                frame=PepperVirtual.FRAME_WORLD)
 
-        PepperBaseTest.robot.moveTo(
-            x_def,
-            y_def,
-            theta_def,
-            frame=PepperVirtual.FRAME_WORLD)
+            self.assertTrue(True)
 
-        PepperBaseTest.robot.moveTo(
-            x_command,
-            y_command,
-            theta_command,
-            frame=PepperVirtual.FRAME_ROBOT)
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
 
-        x, y, theta = PepperBaseTest.robot.getPosition()
-        # TODO: uncertaineties for positions in unittests
-        # self.assertEqual(x_def + x_command, x)
-        # self.assertEqual(y_def + y_command, y)
-        # self.assertEqual(theta_def + theta_command, theta)
+        try:
+            PepperBaseTest.robot.moveTo(
+                x_def,
+                y_def,
+                theta_def,
+                frame=PepperVirtual.FRAME_WORLD)
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
+        try:
+            PepperBaseTest.robot.moveTo(
+                x_command,
+                y_command,
+                theta_command,
+                frame=PepperVirtual.FRAME_ROBOT)
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
 
     def test_move_to_base_async(self):
         """
@@ -92,50 +117,76 @@ class PepperBaseTest(unittest.TestCase):
         x_def, y_def, theta_def = 1, 1, -1,
         x_command, y_command, theta_command = 0, 0, 0
 
-        PepperBaseTest.robot.moveTo(
-            0,
-            0,
-            0,
-            frame=PepperVirtual.FRAME_WORLD,
-            _async=False)
+        try:
+            PepperBaseTest.robot.moveTo(
+                0,
+                0,
+                0,
+                frame=PepperVirtual.FRAME_WORLD,
+                _async=False)
 
-        PepperBaseTest.robot.moveTo(
-            x_def,
-            y_def,
-            theta_def,
-            frame=PepperVirtual.FRAME_WORLD,
-            _async=True)
-        # time.sleep(0.5)
-        # This call will raise an error
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
         try:
             PepperBaseTest.robot.moveTo(
                 x_def,
                 y_def,
                 theta_def,
-                frame=PepperVirtual.FRAME_WORLD)
-        except pybullet.error:
-            pass
+                frame=PepperVirtual.FRAME_WORLD,
+                _async=True)
 
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
+        # Launching a synchronous moveTo while an asynchronous moveTo process
+        # is still running should result in a pybullet error being raised
+        with self.assertRaises(pybullet.error):
+            PepperBaseTest.robot.moveTo(
+                x_def,
+                y_def,
+                theta_def,
+                frame=PepperVirtual.FRAME_WORLD)
+
+        try:
+            PepperBaseTest.robot.moveTo(
+                x_command,
+                y_command,
+                theta_command,
+                frame=PepperVirtual.FRAME_WORLD,
+                _async=True)
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
+        # Stop the async moveTo process before exitting the test, we don't want
+        # the async process to parasite the other tests
         PepperBaseTest.robot.moveTo(
-            x_command,
-            y_command,
-            theta_command,
-            frame=PepperVirtual.FRAME_WORLD,
+            0,
+            0,
+            0,
+            frame=PepperVirtual.FRAME_ROBOT,
             _async=True)
-        time.sleep(1)
-        x, y, theta = PepperBaseTest.robot.getPosition()
-        # TODO: uncertaineties for positions in unittests
-        # self.assertEqual(x_def + x_command, x)
-        # self.assertEqual(y_def + y_command, y)
-        # self.assertEqual(theta_def + theta_command, theta)
 
     def test_move_base(self):
         """
         Test the set @move method
         """
-        PepperBaseTest.robot.move(0.5, 0.5, 0.5)
-        PepperBaseTest.robot.move(33, -3, 67)
-        PepperBaseTest.robot.move(0, 0, 0)
+        try:
+            PepperBaseTest.robot.move(0.5, 0.5, 0.5)
+            PepperBaseTest.robot.move(33, -3, 67)
+            PepperBaseTest.robot.move(0, 0, 0)
+
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
 
 
 if __name__ == "__main__":
