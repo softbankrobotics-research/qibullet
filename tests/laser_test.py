@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+import time
 import unittest
 from qibullet import PepperVirtual
 from qibullet import SimulationManager
@@ -37,6 +38,10 @@ class PepperLaserTest(unittest.TestCase):
         """
         PepperLaserTest.robot.subscribeLaser()
 
+        # Sleep to ensure that the laser process thread had time to loop at
+        # least one time
+        time.sleep(2.0)
+
         self.assertIsInstance(
             PepperLaserTest.robot.getFrontLaserValue(),
             list)
@@ -55,7 +60,13 @@ class PepperLaserTest(unittest.TestCase):
         """
         PepperLaserTest.robot.subscribeLaser()
         PepperLaserTest.robot.showLaser(True)
+
+        # Sleep to ensure that the laser lines will be drawn
+        time.sleep(2.0)
         PepperLaserTest.robot.showLaser(False)
+
+        # Sleep to ensure that the laser lines will be removed
+        time.sleep(2.0)
         PepperLaserTest.robot.unsubscribeLaser()
 
     def test_lasers_alive(self):
