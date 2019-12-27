@@ -52,12 +52,6 @@ class PepperBaseTest(unittest.TestCase):
             theta_command,
             frame=PepperVirtual.FRAME_WORLD)
 
-        x, y, theta = PepperBaseTest.robot.getPosition()
-        # TODO: uncertaineties for positions in unittests
-        # self.assertEqual(x_command, x)
-        # self.assertEqual(y_command, y)
-        # self.assertEqual(theta_command, theta)
-
     def test_move_to_base_robot_frame(self):
         """
         Test the set @moveTo method in the robot frame, and compare the desired
