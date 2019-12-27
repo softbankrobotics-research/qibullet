@@ -225,9 +225,8 @@ class RobotVirtual:
                 self.active_camera.unsubscribe()
                 self.active_camera = None
 
-        except KeyError:
-            print("This camera does not exist, use a valid camera id")
         except AssertionError:
+            print("No active camera, nothing to unsubscribe from")
             pass
 
     def getCameraFrame(self):
@@ -261,7 +260,7 @@ class RobotVirtual:
             assert self.active_camera is not None
             return self.active_camera.getResolution()
 
-        except KeyError:
+        except AssertionError:
             raise pybullet.error("No active camera, resolution unavailable")
 
     def getCameraLink(self):
@@ -278,7 +277,7 @@ class RobotVirtual:
             assert self.active_camera is not None
             return self.active_camera.getCameraLink()
 
-        except KeyError:
+        except AssertionError:
             raise pybullet.error("No active camera, cannot retrieve any link")
 
     def getActiveCamera(self):

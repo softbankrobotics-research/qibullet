@@ -35,7 +35,7 @@ class SimulationManager:
         Returns:
             physics_client - The id of the simulation client created
         """
-        if gui:
+        if gui:  # pragma: no cover
             physics_client = pybullet.connect(pybullet.GUI)
             pybullet.setRealTimeSimulation(1, physicsClientId=physics_client)
             pybullet.configureDebugVisualizer(
