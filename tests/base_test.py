@@ -174,6 +174,12 @@ class PepperBaseTest(unittest.TestCase):
             frame=PepperVirtual.FRAME_ROBOT,
             _async=True)
 
+        # Sleep to ensure that the previous snippet has been taken into account
+        # and that the moveTo async process is stopped.
+        # TODO: dirty workaround, should catch when the async process succeded
+        # with future for instance
+        time.sleep(1.0)
+
     def test_move_base(self):
         """
         Test the set @move method
