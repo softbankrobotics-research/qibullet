@@ -76,7 +76,12 @@ class SimulationManager:
             physics_client - The id of the simulated instance to be stopped
         """
         self._clearInstance(physics_client)
-        pybullet.disconnect(physicsClientId=physics_client)
+
+        try:
+            pybullet.disconnect(physicsClientId=physics_client)
+
+        except pybullet.error:
+            print("Instance " + str(physics_client) + " already stopped")
 
     def setLightPosition(self, physics_client, light_position):
         """
