@@ -17,7 +17,7 @@ python:
 
 install:
   - "pip install pybullet"
-  - "pip install numpy"
+  - "pip install numpy --upgrade"
   - "pip install codecov"
 
 script:
