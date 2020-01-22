@@ -19,7 +19,7 @@ class PepperVirtual(RobotVirtual):
     ID_CAMERA_DEPTH = 2
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/pepper_1.7/pepper.urdf"
+    URDF_PATH = "robot_data/pepper.urdf"
     P_STAND = PepperPosture("Stand")
     P_STAND_INIT = PepperPosture("StandInit")
     P_STAND_ZERO = PepperPosture("StandZero")

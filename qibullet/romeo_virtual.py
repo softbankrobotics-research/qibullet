@@ -17,7 +17,7 @@ class RomeoVirtual(RobotVirtual):
     ID_CAMERA_DEPTH = 2
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/romeo_H37/romeo.urdf"
+    URDF_PATH = "robot_data/romeo.urdf"
     P_STAND = RomeoPosture("Stand")
     P_STAND_INIT = RomeoPosture("StandInit")
     P_STAND_ZERO = RomeoPosture("StandZero")

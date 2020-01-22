@@ -1,5 +1,7 @@
 *.pyc
+!**/meshes_installer*.pyc
 build/*
 dist/*
 qibullet.egg-info/*
+qibullet/robot_data/meshes/*
 .vscode/*

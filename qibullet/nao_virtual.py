@@ -17,7 +17,7 @@ class NaoVirtual(RobotVirtual):
     ID_CAMERA_BOTTOM = 1
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/nao_V40/nao.urdf"
+    URDF_PATH = "robot_data/nao.urdf"
     P_STAND = NaoPosture("Stand")
     P_STAND_INIT = NaoPosture("StandInit")
     P_STAND_ZERO = NaoPosture("StandZero")
