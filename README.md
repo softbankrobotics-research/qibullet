@@ -25,6 +25,8 @@ The __qiBullet__ module can be installed via pip, for python 2.7 and python 3:
 pip install --user qibullet
 ```
 
+The robot meshes under a specific [license](https://github.com/ProtolabSBRE/qibullet/tree/master/qibullet/robot_data/LICENSE), you will need to agree to that license during the installation to install them. Alternatively, you can provide a --agree-license flag when installing, by doing so agreeing to the mentionned [license](https://github.com/ProtolabSBRE/qibullet/tree/master/qibullet/robot_data/LICENSE).
+
 ## Usage
 A robot can be spawned via the SimulationManager class:
 ```python
