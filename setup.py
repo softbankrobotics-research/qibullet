@@ -106,7 +106,7 @@ class MeshesDevelopCommand(develop):
 
 setuptools.setup(
     name="qibullet",
-    version="1.3.0",
+    version="1.3.1",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
