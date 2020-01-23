@@ -57,6 +57,7 @@ def get_install_directory():
 def install_robot_meshes(package_folder):
     if package_folder is None:
         print("Invalid package path, cannot install the robot meshes")
+        return
 
     if platform.system() == "Windows":
         sys.path.insert(0, package_folder + "\\robot_data\\installers")
