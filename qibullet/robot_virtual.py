@@ -163,15 +163,12 @@ class RobotVirtual:
         Returns:
             joint_positions - List of floats containing the joint's positions
         """
+        indexes = [self.joint_dict[name].getIndex() for name in joint_names]
         joint_positions = list()
 
-        for joint_name in joint_names:
-            joint_positions.append(pybullet.getJointState(
-                self.robot_model,
-                self.joint_dict[joint_name].getIndex(),
-                physicsClientId=self.physics_client)[0])
-
-        return joint_positions
+        return [state[0] for state in pybullet.getJointStates(
+            self.robot_model,
+            indexes)]
 
     def getAnglesVelocity(self, joint_names):
         """
