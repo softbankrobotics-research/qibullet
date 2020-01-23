@@ -72,6 +72,10 @@ def install_robot_meshes(package_folder):
             import meshes_installer_35 as meshes_installer
         elif minor == 6:
             import meshes_installer_36 as meshes_installer
+        elif minor == 7:
+            import meshes_installer_37 as meshes_installer
+        elif minor == 8:
+            import meshes_installer_38 as meshes_installer
         else:
             print("Uncompatible version of Python 3")
             return
