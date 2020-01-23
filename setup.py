@@ -59,9 +59,9 @@ def install_robot_meshes(package_folder):
         print("Invalid package path, cannot install the robot meshes")
 
     if platform.system() == "Windows":
-        sys.path.insert(0, package_folder + "\\robot_data")
+        sys.path.insert(0, package_folder + "\\robot_data\\installers")
     else:
-        sys.path.insert(0, package_folder + "/robot_data")
+        sys.path.insert(0, package_folder + "/robot_data/installers")
 
     major = sys.version_info[0]
     minor = sys.version_info[1]
@@ -117,7 +117,7 @@ setuptools.setup(
     package_data={"qibullet": [
         "robot_data/*.urdf",
         "robot_data/LICENSE",
-        "robot_data/meshes_installer*.pyc",
+        "robot_data/installers/meshes_installer*.pyc",
         "robot_data/meshes.zip"]},
     keywords=[
         'physics simulation',
@@ -133,6 +133,8 @@ setuptools.setup(
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         'Intended Audience :: Science/Research',
         'Intended Audience :: Developers',
         "Operating System :: POSIX :: Linux",
