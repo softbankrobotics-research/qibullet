@@ -133,9 +133,9 @@ def _install_ressources(agreement=False):
         shutil.copy2(urdf, ressources_folder)
 
     print(
-        "Installation done, ressources in " + ressources_folder + ". You will"
-        " have to remove this folder manually when uninstalling qiBullet, or "
-        "use the _uninstall_ressources method of qibullet.tools")
+        "(To remove the installed ressources, use the _uninstall_ressources "
+        "method of qibullet.tools, or remove the folder manually)")
+    print("Installation done, ressources in " + ressources_folder)
 
 
 def _uninstall_ressources():
