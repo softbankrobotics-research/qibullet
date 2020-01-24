@@ -54,59 +54,39 @@ def get_install_directory():
     return None
 
 
-def install_robot_meshes(package_folder):
-    if package_folder is None:
-        print("Invalid package path, cannot install the robot meshes")
-
-    if platform.system() == "Windows":
-        sys.path.insert(0, package_folder + "\\robot_data\\installers")
-    else:
-        sys.path.insert(0, package_folder + "/robot_data/installers")
-
-    major = sys.version_info[0]
-    minor = sys.version_info[1]
-    print("Python " + str(major) + "." + str(minor) + " detected")
-
-    if major == 3:
-        if minor == 5:
-            import meshes_installer_35 as meshes_installer
-        elif minor == 6:
-            import meshes_installer_36 as meshes_installer
-        elif minor == 7:
-            import meshes_installer_37 as meshes_installer
-        elif minor == 8:
-            import meshes_installer_38 as meshes_installer
-        else:
-            print("Uncompatible version of Python 3")
-            return
-    elif major == 2:
-        if minor == 7:
-            import meshes_installer_27 as meshes_installer
-        else:
-            print("Uncompatible version of Python 2")
-            return
-    else:
-        print("Uncompatible Python version")
-        return
-
-    meshes_installer._install(agreement=MESH_LICENSE_AGREEMENT)
-
-
-class MeshesInstallCommand(install):
+class RessourceInstallCommand(install):
     def run(self):
         install.run(self)
-        install_robot_meshes(get_install_directory())
+        install_directory = get_install_directory()
+
+        try:
+            assert install_directory is not None
+
+            sys.path.insert(0, install_directory)
+            import tools
+
+            if not tools._check_ressources_installed():
+                tools._install_ressources(agreement=MESH_LICENSE_AGREEMENT)
+
+        except AssertionError:
+            pass
 
 
-class MeshesDevelopCommand(develop):
+class RessourceDevelopCommand(develop):
     def run(self):
         develop.run(self)
-        install_robot_meshes(get_develop_directory())
+        develop_directory = get_develop_directory()
+
+        sys.path.insert(0, develop_directory)
+        import tools
+
+        if not tools._check_ressources_installed():
+            tools._install_ressources(agreement=MESH_LICENSE_AGREEMENT)
 
 
 setuptools.setup(
     name="qibullet",
-    version="1.3.0",
+    version="1.3.1",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
@@ -116,8 +96,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=['numpy', 'pybullet'],
     cmdclass={
-        'install': MeshesInstallCommand,
-        'develop': MeshesDevelopCommand},
+        'install': RessourceInstallCommand,
+        'develop': RessourceDevelopCommand},
     package_data={"qibullet": [
         "robot_data/*.urdf",
         "robot_data/LICENSE",
