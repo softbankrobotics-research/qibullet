@@ -3,6 +3,7 @@
 
 import os
 import pybullet
+import qibullet.tools as tools
 from qibullet.laser import *
 from qibullet.camera import *
 from qibullet.base_controller import *
@@ -19,7 +20,7 @@ class PepperVirtual(RobotVirtual):
     ID_CAMERA_DEPTH = 2
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/pepper_1.7/pepper.urdf"
+    URDF_FILE = "/pepper.urdf"
     P_STAND = PepperPosture("Stand")
     P_STAND_INIT = PepperPosture("StandInit")
     P_STAND_ZERO = PepperPosture("StandZero")
@@ -29,7 +30,16 @@ class PepperVirtual(RobotVirtual):
         """
         Constructor
         """
-        RobotVirtual.__init__(self, PepperVirtual.URDF_PATH)
+        # Install the robot meshes and URDFs if they are not already installed
+        if not tools._check_ressources_installed():
+            print("Robot meshes and URDFs not yet installed.")
+            tools._install_ressources()
+
+        # Specify the URDF path
+        RobotVirtual.__init__(
+            self,
+            tools._get_ressources_folder() + PepperVirtual.URDF_FILE)
+
         self.motion_constraint = None
         # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
         self.linear_velocity = 0.35

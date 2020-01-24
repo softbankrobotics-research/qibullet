@@ -35,9 +35,12 @@ class CameraResolution:
         Parameters:
             resolution - the comparing resolution
         """
-        if self.width == resolution.width and self.height == resolution.height:
+        try:
+            assert self.width == resolution.width
+            assert self.height == resolution.height
             return True
-        else:
+
+        except AssertionError:
             return False
 
 
@@ -225,7 +228,7 @@ class Camera(Sensor):
                     1.0]
 
         except AssertionError as e:
-            print("Cannot set camera resolution: " + str(e))
+            raise pybullet.error("Cannot set camera resolution: " + str(e))
 
     def _getCameraIntrinsics(self):
         """
@@ -234,16 +237,17 @@ class Camera(Sensor):
         http://docs.ros.org/kinetic/api/sensor_msgs/html/msg/CameraInfo.html
 
         Returns:
-            intrinsic_matrix - The intrinsic camera matrix formatted as a list
+            intrinsic_matrix - The intrinsic camera matrix formatted as a list,
+            or None if the intrinsic camera matrix is None
         """
         with self.resolution_lock:
             try:
                 assert self.intrinsic_matrix is not None
+                return list(self.intrinsic_matrix)
 
             except AssertionError:
                 print("Cannot get intrinsics, resolution not defined")
-            finally:
-                return list(self.intrinsic_matrix)
+                return None
 
     def _getCameraImage(self):
         """
@@ -286,17 +290,6 @@ class Camera(Sensor):
                 physicsClientId=self.physics_client)
 
         return camera_image
-
-    def _resetActiveCamera(self):
-        """
-        INTERNAL METHOD, called when unsubscribing from the active camera, when
-        Python is exitted or when the SimulationManager resets/stops a
-        simulation instance
-        """
-        Camera.ACTIVE_OBJECT_ID[self.physics_client] = -1
-
-        if self.module_process.isAlive():
-            self.module_process.join()
 
     def _waitForCorrectImageFormat(self):
         """
@@ -481,7 +474,9 @@ class CameraDepth(Camera):
             while not self._module_termination:
                 assert id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
                 camera_image = self._getCameraImage()
-                depth_image = camera_image[3]
+                depth_image = np.reshape(
+                    camera_image[3],
+                    (camera_image[1], camera_image[0]))
 
                 depth_image = (self.far_plane * self.near_plane) /\
                     (self.far_plane - (self.far_plane - self.near_plane) *

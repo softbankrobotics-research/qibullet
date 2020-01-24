@@ -20,6 +20,9 @@ if __name__ == "__main__":
     # Import the unittests
     try:
         from base_test import PepperBaseTest
+        from link_test import NaoLinkTest
+        from link_test import RomeoLinkTest
+        from link_test import PepperLinkTest
         from joint_test import NaoJointTest
         from joint_test import RomeoJointTest
         from joint_test import PepperJointTest
@@ -29,6 +32,7 @@ if __name__ == "__main__":
         from camera_test import PepperCameraTest
         from posture_test import NaoPostureTest
         from posture_test import PepperPostureTest
+        from virtual_robot_test import VirtualRobotTest
         from self_collision_test import NaoSelfCollisionTest
         from self_collision_test import PepperSelfCollisionTest
         from simulation_manager_test import SimulationManagerTest
@@ -39,7 +43,11 @@ if __name__ == "__main__":
 
     test_classes = [
         SimulationManagerTest,
+        VirtualRobotTest,
         PepperBaseTest,
+        NaoLinkTest,
+        RomeoLinkTest,
+        PepperLinkTest,
         NaoJointTest,
         RomeoJointTest,
         PepperJointTest,

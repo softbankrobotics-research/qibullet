@@ -20,10 +20,16 @@ The following modules are required:
 * __numpy__
 * __pybullet__
 
-The __qiBullet__ module can be installed via pip, for python 2.7 and python 3:
+The qiBullet module can be installed via pip, for python 2.7 and python 3:
 ```bash
 pip install --user qibullet
 ```
+
+Additional ressources (robot meshes and URDFs) are required in order to be able to spawn a Pepper, NAO or Romeo robot in the simulation. These extra ressources will be installed in your home folder:
+* `/home/username/.qibullet` on Linux and macOS
+* `C:\Users\username\.qibullet` on Windows
+
+The installation of the additional ressources will automatically be triggered if you try to spawn a Pepper, NAO or Romeo for the first time. If qiBullet finds the additional ressources in your local folder, the installation won't be triggered. The robot meshes are under a specific [license](https://github.com/ProtolabSBRE/qibullet/tree/master/qibullet/robot_data/LICENSE), you will need to agree to that license in order to install them. More details on the installation process can be found on the [wiki](https://github.com/ProtolabSBRE/qibullet/wiki).
 
 ## Usage
 A robot can be spawned via the SimulationManager class:
@@ -65,7 +71,7 @@ Or using loadRobot from the PepperVirtual class if you already have a simulated 
       physicsClientId=client_id)
 ```
 
-More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples), or in the repository [wiki](https://github.com/ProtolabSBRE/qibullet/wiki)
+More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples), or on the [wiki](https://github.com/ProtolabSBRE/qibullet/wiki)
 
 ## Documentation
 The qiBullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):

@@ -1,4 +1,13 @@
+import os
+import sys
+import site
+import platform
 import setuptools
+from setuptools.command.install import install
+from setuptools.command.develop import develop
+
+MESH_LICENSE_AGREEMENT = False
+
 
 with open("README.md", "r") as fh:
     readme = fh.read()
@@ -6,9 +15,78 @@ with open("README.md", "r") as fh:
         readme[(readme.index("<!-- end -->") + len("<!-- end -->")):]
 
 
+if "--agree-license" in sys.argv:
+    MESH_LICENSE_AGREEMENT = True
+    sys.argv.remove("--agree-license")
+
+
+def get_develop_directory():
+    """
+    Return the develop directory
+    """
+    if platform.system() == "Windows":
+        return os.path.dirname(os.path.realpath(__file__)) + "\\qibullet"
+    else:
+        return os.path.dirname(os.path.realpath(__file__)) + "/qibullet"
+
+
+def get_install_directory():
+    """
+    Return the installation directory, or None
+    """
+    if '--user' in sys.argv:
+        paths = site.getusersitepackages()
+    else:
+        paths = site.getsitepackages()
+
+    if isinstance(paths, str):
+        paths = [paths]
+
+    for path in paths:
+        if platform.system() == "Windows":
+            path += "\\qibullet"
+        else:
+            path += "/qibullet"
+
+        if os.path.exists(path):
+            return path
+
+    return None
+
+
+class RessourceInstallCommand(install):
+    def run(self):
+        install.run(self)
+        install_directory = get_install_directory()
+
+        try:
+            assert install_directory is not None
+
+            sys.path.insert(0, install_directory)
+            import tools
+
+            if not tools._check_ressources_installed():
+                tools._install_ressources(agreement=MESH_LICENSE_AGREEMENT)
+
+        except AssertionError:
+            pass
+
+
+class RessourceDevelopCommand(develop):
+    def run(self):
+        develop.run(self)
+        develop_directory = get_develop_directory()
+
+        sys.path.insert(0, develop_directory)
+        import tools
+
+        if not tools._check_ressources_installed():
+            tools._install_ressources(agreement=MESH_LICENSE_AGREEMENT)
+
+
 setuptools.setup(
     name="qibullet",
-    version="1.3.0",
+    version="1.3.1",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
@@ -17,25 +95,14 @@ setuptools.setup(
     url="https://github.com/ProtolabSBRE/qibullet",
     packages=setuptools.find_packages(),
     install_requires=['numpy', 'pybullet'],
+    cmdclass={
+        'install': RessourceInstallCommand,
+        'develop': RessourceDevelopCommand},
     package_data={"qibullet": [
-        "robot_data/pepper_1.7/*.urdf",
-        "robot_data/pepper_1.7/meshes/*.obj",
-        "robot_data/pepper_1.7/meshes/*.mtl",
-        "robot_data/pepper_1.7/meshes/*.dae",
-        "robot_data/pepper_1.7/meshes/*.stl",
-        "robot_data/pepper_1.7/meshes/*.png",
-        "robot_data/nao_V40/*.urdf",
-        "robot_data/nao_V40/meshes/*.obj",
-        "robot_data/nao_V40/meshes/*.mtl",
-        "robot_data/nao_V40/meshes/*.dae",
-        "robot_data/nao_V40/meshes/*.stl",
-        "robot_data/nao_V40/meshes/*.png",
-        "robot_data/romeo_H37/*.urdf",
-        "robot_data/romeo_H37/meshes/*.obj",
-        "robot_data/romeo_H37/meshes/*.mtl",
-        "robot_data/romeo_H37/meshes/*.dae",
-        "robot_data/romeo_H37/meshes/*.stl",
-        "robot_data/romeo_H37/meshes/*.png"]},
+        "robot_data/*.urdf",
+        "robot_data/LICENSE",
+        "robot_data/installers/meshes_installer*.pyc",
+        "robot_data/meshes.zip"]},
     keywords=[
         'physics simulation',
         'robotics',
@@ -48,9 +115,10 @@ setuptools.setup(
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         'Intended Audience :: Science/Research',
         'Intended Audience :: Developers',
         "Operating System :: POSIX :: Linux",

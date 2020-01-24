@@ -163,15 +163,12 @@ class RobotVirtual:
         Returns:
             joint_positions - List of floats containing the joint's positions
         """
+        indexes = [self.joint_dict[name].getIndex() for name in joint_names]
         joint_positions = list()
 
-        for joint_name in joint_names:
-            joint_positions.append(pybullet.getJointState(
-                self.robot_model,
-                self.joint_dict[joint_name].getIndex(),
-                physicsClientId=self.physics_client)[0])
-
-        return joint_positions
+        return [state[0] for state in pybullet.getJointStates(
+            self.robot_model,
+            indexes)]
 
     def getAnglesVelocity(self, joint_names):
         """
@@ -225,9 +222,8 @@ class RobotVirtual:
                 self.active_camera.unsubscribe()
                 self.active_camera = None
 
-        except KeyError:
-            print("This camera does not exist, use a valid camera id")
         except AssertionError:
+            print("No active camera, nothing to unsubscribe from")
             pass
 
     def getCameraFrame(self):
@@ -261,7 +257,7 @@ class RobotVirtual:
             assert self.active_camera is not None
             return self.active_camera.getResolution()
 
-        except KeyError:
+        except AssertionError:
             raise pybullet.error("No active camera, resolution unavailable")
 
     def getCameraLink(self):
@@ -278,7 +274,7 @@ class RobotVirtual:
             assert self.active_camera is not None
             return self.active_camera.getCameraLink()
 
-        except KeyError:
+        except AssertionError:
             raise pybullet.error("No active camera, cannot retrieve any link")
 
     def getActiveCamera(self):

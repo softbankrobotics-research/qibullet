@@ -57,23 +57,6 @@ class Laser(Sensor):
         self.laser_id = laser_id
         self.display = display
 
-    @classmethod
-    def _getInstances(cls):
-        """
-        INTERNAL CLASSMETHOD, get all of the Laser instances
-        """
-        dead = set()
-
-        for ref in cls._instances:
-            obj = ref()
-
-            if obj is not None:
-                yield obj
-            else:
-                dead.add(ref)
-
-        cls._instances -= dead
-
     def isActive(self):
         """
         Check if the lasers are subscribed or not (if the laser thread process

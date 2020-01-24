@@ -31,6 +31,24 @@ class SimulationManagerTest(unittest.TestCase):
         manager.setLightPosition(client, [10, 20, 2])
         manager.setLightPosition(client, [0, 0, 10])
         manager.setLightPosition(client, [-5, -20, 50])
+
+        with self.assertRaises(pybullet.error):
+            manager.setLightPosition(client, "not a list")
+
+        with self.assertRaises(pybullet.error):
+            manager.setLightPosition(
+                client,
+                [1, 2, 3, "wrong amount of elements"])
+
+        manager.stopSimulation(client)
+
+    def test_reset_simulation(self):
+        """
+        Test the @resetSimulation method
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False)
+        manager.resetSimulation(client)
         manager.stopSimulation(client)
 
     def test_spawn_pepper(self):

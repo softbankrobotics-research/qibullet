@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-import sys
 import time
 import random
 import unittest
@@ -33,6 +32,23 @@ class JointTest(unittest.TestCase):
             self.assertEqual(upper_limit, value.getUpperLimit())
             self.assertEqual(max_effort, value.getMaxEffort())
             self.assertEqual(max_velocity, value.getMaxVelocity())
+
+        dummy_joint_first = list(JointTest.robot.joint_dict.values())[0]
+        dummy_joint_second = list(JointTest.robot.joint_dict.values())[1]
+
+        # Test the setMaxEffort method
+        effort_value = dummy_joint_first.getMaxEffort()
+
+        dummy_joint_first.setMaxEffort(0.0)
+        self.assertEqual(0.0, dummy_joint_first.getMaxEffort())
+        dummy_joint_first.setMaxEffort(effort_value)
+
+        # Test Joint equality
+        self.assertEqual(
+            dummy_joint_first,
+            list(JointTest.robot.joint_dict.values())[0])
+
+        self.assertNotEqual(dummy_joint_first, dummy_joint_second)
 
     def test_set_angles(self):
         """

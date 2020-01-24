@@ -3,6 +3,7 @@
 
 import os
 import pybullet
+import qibullet.tools as tools
 from qibullet.camera import *
 from qibullet.base_controller import *
 from qibullet.robot_posture import NaoPosture
@@ -17,7 +18,7 @@ class NaoVirtual(RobotVirtual):
     ID_CAMERA_BOTTOM = 1
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/nao_V40/nao.urdf"
+    URDF_FILE = "/nao.urdf"
     P_STAND = NaoPosture("Stand")
     P_STAND_INIT = NaoPosture("StandInit")
     P_STAND_ZERO = NaoPosture("StandZero")
@@ -31,7 +32,16 @@ class NaoVirtual(RobotVirtual):
         """
         Constructor
         """
-        RobotVirtual.__init__(self, NaoVirtual.URDF_PATH)
+        # Install the robot meshes and URDFs if they are not already installed
+        if not tools._check_ressources_installed():
+            print("Robot meshes and URDFs not yet installed.")
+            tools._install_ressources()
+
+        # Specify the URDF path
+        RobotVirtual.__init__(
+            self,
+            tools._get_ressources_folder() + NaoVirtual.URDF_FILE)
+
         self.camera_top = None
         self.camera_bottom = None
         # TODO: add constraints and speeds

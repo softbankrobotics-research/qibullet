@@ -3,6 +3,7 @@
 
 import os
 import pybullet
+import qibullet.tools as tools
 from qibullet.camera import *
 from qibullet.robot_posture import RomeoPosture
 from qibullet.robot_virtual import RobotVirtual
@@ -17,7 +18,7 @@ class RomeoVirtual(RobotVirtual):
     ID_CAMERA_DEPTH = 2
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
-    URDF_PATH = "robot_data/romeo_H37/romeo.urdf"
+    URDF_FILE = "/romeo.urdf"
     P_STAND = RomeoPosture("Stand")
     P_STAND_INIT = RomeoPosture("StandInit")
     P_STAND_ZERO = RomeoPosture("StandZero")
@@ -27,7 +28,16 @@ class RomeoVirtual(RobotVirtual):
         """
         Constructor
         """
-        RobotVirtual.__init__(self, RomeoVirtual.URDF_PATH)
+        # Install the robot meshes and URDFs if they are not already installed
+        if not tools._check_ressources_installed():
+            print("Robot meshes and URDFs not yet installed.")
+            tools._install_ressources()
+
+        # Specify the URDF path
+        RobotVirtual.__init__(
+            self,
+            tools._get_ressources_folder() + RomeoVirtual.URDF_FILE)
+
         self.camera_right = None
         self.camera_left = None
         self.camera_depth = None
