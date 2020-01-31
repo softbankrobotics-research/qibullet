@@ -79,12 +79,12 @@ class PepperVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
-        for base_link in ["Hip", "Pelvis"]:
+        for link in ["Hip", "Pelvis", "Head"]:
             pybullet.setCollisionFilterPair(
                 self.robot_model,
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
-                self.link_dict[base_link].getIndex(),
+                self.link_dict[link].getIndex(),
                 0,
                 physicsClientId=self.physics_client)
 
@@ -94,6 +94,15 @@ class PepperVirtual(RobotVirtual):
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
                 self.link_dict[shoulder_roll_link].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+
+        for side in ["R", "L"]:
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "ForeArm"].getIndex(),
+                self.link_dict[side + "Bicep"].getIndex(),
                 0,
                 physicsClientId=self.physics_client)
 
