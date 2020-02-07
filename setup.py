@@ -86,13 +86,13 @@ class RessourceDevelopCommand(develop):
 
 setuptools.setup(
     name="qibullet",
-    version="1.3.1",
+    version="1.3.2",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/ProtolabSBRE/qibullet",
+    url="https://github.com/softbankrobotics-research/qibullet",
     packages=setuptools.find_packages(),
     install_requires=['numpy', 'pybullet'],
     cmdclass={

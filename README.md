@@ -1,4 +1,4 @@
-# qiBullet [![Build Status](https://api.travis-ci.org/ProtolabSBRE/qibullet.svg?branch=master)](https://travis-ci.org/ProtolabSBRE/qibullet) [![codecov](https://codecov.io/gh/ProtolabSBRE/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/ProtolabSBRE/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
+# qiBullet [![Build Status](https://api.travis-ci.org/softbankrobotics-research/qibullet.svg?branch=master)](https://travis-ci.org/softbankrobotics-research/qibullet) [![codecov](https://codecov.io/gh/softbankrobotics-research/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/softbankrobotics-research/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
@@ -29,7 +29,7 @@ Additional ressources (robot meshes and URDFs) are required in order to be able 
 * `/home/username/.qibullet` on Linux and macOS
 * `C:\Users\username\.qibullet` on Windows
 
-The installation of the additional ressources will automatically be triggered if you try to spawn a Pepper, NAO or Romeo for the first time. If qiBullet finds the additional ressources in your local folder, the installation won't be triggered. The robot meshes are under a specific [license](https://github.com/ProtolabSBRE/qibullet/tree/master/qibullet/robot_data/LICENSE), you will need to agree to that license in order to install them. More details on the installation process can be found on the [wiki](https://github.com/ProtolabSBRE/qibullet/wiki).
+The installation of the additional ressources will automatically be triggered if you try to spawn a Pepper, NAO or Romeo for the first time. If qiBullet finds the additional ressources in your local folder, the installation won't be triggered. The robot meshes are under a specific [license](https://github.com/softbankrobotics-research/qibullet/tree/master/qibullet/robot_data/LICENSE), you will need to agree to that license in order to install them. More details on the installation process can be found on the [wiki](https://github.com/softbankrobotics-research/qibullet/wiki).
 
 ## Usage
 A robot can be spawned via the SimulationManager class:
@@ -71,16 +71,16 @@ Or using loadRobot from the PepperVirtual class if you already have a simulated 
       physicsClientId=client_id)
 ```
 
-More snippets can be found in the [examples folder](https://github.com/ProtolabSBRE/qibullet/tree/master/examples), or on the [wiki](https://github.com/ProtolabSBRE/qibullet/wiki)
+More snippets can be found in the [examples folder](https://github.com/softbankrobotics-research/qibullet/tree/master/examples), or on the [wiki](https://github.com/softbankrobotics-research/qibullet/wiki)
 
 ## Documentation
-The qiBullet __API documentation__ can be found [here](https://protolabsbre.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
+The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
 ```bash
 cd docs
 doxygen
 ```
 
-The repository also contains a [wiki](https://github.com/ProtolabSBRE/qibullet/wiki), providing some tutorials.
+The repository also contains a [wiki](https://github.com/softbankrobotics-research/qibullet/wiki), providing some tutorials.
 
 ## Citations
 Please cite qiBullet if you use this repository in your publications:
