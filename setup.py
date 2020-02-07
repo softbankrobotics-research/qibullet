@@ -86,7 +86,7 @@ class RessourceDevelopCommand(develop):
 
 setuptools.setup(
     name="qibullet",
-    version="1.3.1",
+    version="1.3.2",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
