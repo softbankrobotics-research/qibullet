@@ -92,7 +92,7 @@ setuptools.setup(
     description="Bullet-based simulation for SoftBank Robotics' robots",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/ProtolabSBRE/qibullet",
+    url="https://github.com/softbankrobotics-research/qibullet",
     packages=setuptools.find_packages(),
     install_requires=['numpy', 'pybullet'],
     cmdclass={
