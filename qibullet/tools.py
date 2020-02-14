@@ -33,7 +33,7 @@ def computeVelocity(acc, vel_min, vel_max, dist_traveled, dist_remained):
     return vel_computed
 
 
-def _get_ressources_folder():
+def _get_ressources_folder():  # pragma: no cover
     """
     Returns the path to the installation folder (.qibullet folder in the
     user's home). The path will be returned even if the installation folder
@@ -45,7 +45,7 @@ def _get_ressources_folder():
         return os.path.expanduser("~") + "/.qibullet"
 
 
-def _install_ressources(agreement=False):
+def _install_ressources(agreement=False):  # pragma: no cover
     """
     Extracts the robot meshes and install the urdfs and the meshes, using the
     provided installers. The ressources will be installed in the user's home
@@ -138,7 +138,7 @@ def _install_ressources(agreement=False):
     print("Installation done, ressources in " + ressources_folder)
 
 
-def _uninstall_ressources():
+def _uninstall_ressources():  # pragma: no cover
     """
     Uninstall the robot meshes and the urdfs from the user's home folder
     """
@@ -146,7 +146,7 @@ def _uninstall_ressources():
         shutil.rmtree(_get_ressources_folder())
 
 
-def _check_ressources_installed():
+def _check_ressources_installed():  # pragma: no cover
     """
     Checks if the ressources (URDFs and robot meshes) are install in the user's
     home folder (in the .qibullet folder)
