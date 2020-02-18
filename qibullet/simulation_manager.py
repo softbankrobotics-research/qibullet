@@ -24,13 +24,22 @@ class SimulationManager:
         """
         pass
 
-    def launchSimulation(self, gui=True):
+    def launchSimulation(self, gui=True, use_shared_memory=False):
         """
         Launches a simulation instance
 
         Parameters:
             gui - Boolean, if True the simulation is launched with a GUI, and
             with no GUI otherwise
+            use_shared_memory - Experimental feature, only taken into account
+            if gui=False, False by default. If True, the simulation will use
+            the pybullet SHARED_MEMORY_SERVER mode to create an instance. If
+            multiple simulation instances are created, this solution allows a
+            multicore parallelisation of the bullet motion servers (one for
+            each instance). In DIRECT mode, such a parallelisation is not
+            possible and the motion servers are manually stepped using the
+            _stepSimulation method. (More information in the setup section of
+            the qiBullet wiki, and in the pybullet documentation)
 
         Returns:
             physics_client - The id of the simulation client created
@@ -51,10 +60,18 @@ class SimulationManager:
                 0,
                 physicsClientId=physics_client)
         else:
-            physics_client = pybullet.connect(pybullet.SHARED_MEMORY_SERVER)
-            pybullet.setRealTimeSimulation(
-                enableRealTimeSimulation=1,
-                physicsClientId=physics_client)
+            if use_shared_memory:
+                physics_client = pybullet.connect(
+                    pybullet.SHARED_MEMORY_SERVER)
+
+                pybullet.setRealTimeSimulation(
+                    enableRealTimeSimulation=1,
+                    physicsClientId=physics_client)
+            else:
+                physics_client = pybullet.connect(pybullet.DIRECT)
+                threading.Thread(
+                    target=self._stepSimulation,
+                    args=[physics_client]).start()
 
         pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
         return physics_client
@@ -259,6 +276,22 @@ class SimulationManager:
         for module in RobotModule._getInstances():
             if module.getPhysicsClientId() == physics_client:
                 module._terminateModule()
+
+    def _stepSimulation(self, physics_client):
+        """
+        INTERNAL METHOD: This method is only used for a simulation in DIRECT
+        mode (without the gui).
+
+        Parameters:
+            physics_client - The id of the simulated instance to be stepped
+        """
+        try:
+            initial_time = time.time()
+            while True:
+                pybullet.stepSimulation(physicsClientId=physics_client)
+                time.sleep(1./10000.)
+        except Exception:
+            pass
 
     def _spawnGroundPlane(self, physics_client):
         """
