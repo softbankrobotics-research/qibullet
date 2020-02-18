@@ -51,10 +51,10 @@ class SimulationManager:
                 0,
                 physicsClientId=physics_client)
         else:
-            physics_client = pybullet.connect(pybullet.DIRECT)
-            threading.Thread(
-                target=self._stepSimulation,
-                args=[physics_client]).start()
+            physics_client = pybullet.connect(pybullet.SHARED_MEMORY_SERVER)
+            pybullet.setRealTimeSimulation(
+                enableRealTimeSimulation=1,
+                physicsClientId=physics_client)
 
         pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
         return physics_client
@@ -259,21 +259,6 @@ class SimulationManager:
         for module in RobotModule._getInstances():
             if module.getPhysicsClientId() == physics_client:
                 module._terminateModule()
-
-    def _stepSimulation(self, physics_client):
-        """
-        INTERNAL METHOD: This method is only used for a simulation in DIRECT
-        mode (without the gui).
-
-        Parameters:
-            physics_client - The id of the simulated instance to be stepped
-        """
-        try:
-            while True:
-                pybullet.stepSimulation(physicsClientId=physics_client)
-                time.sleep(1./240.)
-        except Exception:
-            pass
 
     def _spawnGroundPlane(self, physics_client):
         """
