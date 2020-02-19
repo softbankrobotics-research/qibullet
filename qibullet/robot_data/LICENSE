@@ -1,98 +1,92 @@
-The robot meshes are licensed under the following license, and cannot be redistributed.
+END USER LICENSE AGREEMENT FOR QIBULLET SOFTWARE RESOURCES
 
+The terms of this End User License Agreement (hereinafter the “EULA“) constitute an agreement between You, or the legal entity you represent (hereinafter referred to as “YOU“) and SOFTBANK ROBOTICS EUROPE SAS, having its registered office at 43 rue du Colonel Pierre Avia, 75015 Paris, France - registered with the Trade and Companies Register of Paris under number 483 185 807 (hereinafter referred to as “SBRE“), regarding the use of QiBullet (the “Software“). 
+ 
+PLEASE READ THIS EULA CAREFULLY BEFORE DOWNLOADING, INSTALLING, CONFIGURING, ACCESSING AND/OR USING THE SOFTWARE RESOURCES.
+ANY DOWNLOAD, INSTALLATION, CONFIGURATION, ACCESS AND/OR USE OF THE SOFTWARE RESOURCES WILL BE DEEMED AS AN ACCEPTANCE OF THIS EULA AND WILL BIND YOU TO THE OBLIGATIONS CONTAINED HEREIN.
+ 
+BY PRESSING “Y” OR USING THE SOFTWARE RESOURCES, YOU ARE BOUND BY THE TERMS OF THIS EULA. IF YOU PRESS “N”, YOU WILL NOT BE ABLE TO USE THE SOFTWARE RESOURCES. 
+ 
+1. DEFINITIONS
+1.1 “Documentation” refers to any explanatory materials or other materials and/or specifications provided along with the Software Resources or made available online on any related website (if any).
 
-Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License
+1.2 “Installer” means the compiled code that, upon acceptance, will install the Meshes on your device.
 
-By exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License ("Public License"). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.
+1.3 “Meshes” refers to the files contained in the relevant folder, that will be used for simulation purposes.
 
-Section 1 – Definitions.
+1.4 “Software Resources” refers to both Installer and Meshes.
+ 
+2. USE RIGHTS AND OBLIGATIONS
+2.1 Subject to Your compliance with all the terms and conditions of this EULA, SBRE hereby grants YOU a limited, non-exclusive, revocable, non-sub-licensable and non-transferable license to install and use the Software Resources.
+ 
+2.2 YOU are liable for any use of the Software Resources in conformity with these EULA terms.
 
-    Adapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring permission under the Copyright and Similar Rights held by the Licensor. For purposes of this Public License, where the Licensed Material is a musical work, performance, or sound recording, Adapted Material is always produced where the Licensed Material is synched in timed relation with a moving image.
-    Copyright and Similar Rights means copyright and/or similar rights closely related to copyright including, without limitation, performance, broadcast, sound recording, and Sui Generis Database Rights, without regard to how the rights are labeled or categorized. For purposes of this Public License, the rights specified in Section 2(b)(1)-(2) are not Copyright and Similar Rights.
-    Effective Technological Measures means those measures that, in the absence of proper authority, may not be circumvented under laws fulfilling obligations under Article 11 of the WIPO Copyright Treaty adopted on December 20, 1996, and/or similar international agreements.
-    Exceptions and Limitations means fair use, fair dealing, and/or any other exception or limitation to Copyright and Similar Rights that applies to Your use of the Licensed Material.
-    Licensed Material means the artistic or literary work, database, or other material to which the Licensor applied this Public License.
-    Licensed Rights means the rights granted to You subject to the terms and conditions of this Public License, which are limited to all Copyright and Similar Rights that apply to Your use of the Licensed Material and that the Licensor has authority to license.
-    Licensor means the individual(s) or entity(ies) granting rights under this Public License.
-    NonCommercial means not primarily intended for or directed towards commercial advantage or monetary compensation. For purposes of this Public License, the exchange of the Licensed Material for other material subject to Copyright and Similar Rights by digital file-sharing or similar means is NonCommercial provided there is no payment of monetary compensation in connection with the exchange.
-    Share means to provide material to the public by any means or process that requires permission under the Licensed Rights, such as reproduction, public display, public performance, distribution, dissemination, communication, or importation, and to make material available to the public including in ways that members of the public may access the material from a place and at a time individually chosen by them.
-    Sui Generis Database Rights means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.
-    You means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.
+2.3 YOU are responsible for informing SBRE of any potential defects (including any bugs, glitches, any other forms of malfunctions) discovered when using the Software Resources.
+ 
+3. RESTRICTIONS ON USE
+3.1. These Software Resources are licensed, not sold, to YOU by SBRE. YOU must use the Software Resources only as expressly permitted in this EULA and thus, these Software Resources cannot be sold. SBRE and its licensors reserve all rights, titles, ownership and interests related to the Software Resources except otherwise expressly and limitatively granted herein. This EULA does not grant YOU any rights, titles, ownership and interests to any SBRE and/or its licensors trademarks, tradenames and logos.
+ 
+3.2. Except as and only to the extent expressly permitted by applicable law, YOU agree not to, directly or indirectly:
+(a) modify, reverse engineer, recreate, decompile or disassemble, attempt to derive the source code, decrypt, translate, or create derivative works, of the Installer, in full or in part, past, current or future versions, or on any format whatsoever;
+(b) sub-license, rent, lease or otherwise transfer any rights in the Software Resources, in whole or in part;
+(c) copy (other than the authorized backup copy) and/or publish the Software Resources, in full or in part, past, current, future version or on any format whatsoever for others to copy. The terms under which copying and distributing copies of third-party open source code may be allowed are governed by the applicable license. The list of third parties open source software components is available upon written request to SBRE or on any dedicated webpage (if any);
+(d) use or patch any unauthorized by SBRE, illegal, counterfeit or modified hardware or software with the Software Resources. If in doubt, it is Your responsibility to obtain said authorization with SBRE regarding the suitability of the said modified hardware or software YOU intend to use the Software Resources with;
+(e) adapt the Software Resources;
+(f) use the Meshes in any other format than the one provided by SBRE;
+(g) use the Software Resources in any way that is against all laws, including local laws of the country or region in which YOU reside;
+(h) use the Software Resources in a way that infringes any copyright or any other right, including but not limited to third party software license terms, as described in Article 7;
+(i) use the Software Resources in any illegal, illicit, defaming, pornographical or detrimental way.
+  
+4. DURATION OF LICENSE 
+4.1 This EULA is effective until terminated. Therefore, Your rights will automatically lapse, without written prior notice from SBRE, if YOU fail to comply with the terms of this EULA.
+ 
+4.2 Upon termination, YOU must cease all use of the Software Resources and destroy all copies, full or partial of the Software Resources. Any termination of this EULA shall not release YOU from any of Your obligations, prescribed by this EULA, which survive by their nature.
+YOU will have no recourse against SBRE, or its affiliates, officers, directors, employees, agents and stockholders, nor against its licensors, for Your inability to use the Software Resources.
 
-Section 2 – Scope.
+5. UPDATES
+5.1. SBRE reserves the right to carry out updates on, produce new versions of, modify, and improve the Software at any time and without prior notice.
+The terms of this EULA also apply to any updates, upgrades, unless such updates or upgrades are covered by a separate license, in which case the terms of such separate license shall prevail. SBRE may require that YOU accept separate contract terms to be allowed to use these updates, new versions, modifications, etc.
+ 
+5.2. Updates and upgrades are highly recommended and SBRE will not be liable for any consequences arising from Your decision not to upgrade or update the Software.
+ 
+6. THIRD PARTY SOFTWARES
+6.1 The Software includes third party software. The list of applicable third party software included in the Software, along with all the applicable licenses agreement, is available upon request. YOU undertake to contact SBRE, prior to the acceptance of the current EULA.
 
-    License grant.
-        Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:
-            reproduce and Share the Licensed Material, in whole or in part, for NonCommercial purposes only; and
-            produce and reproduce, but not Share, Adapted Material for NonCommercial purposes only. 
-        Exceptions and Limitations. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.
-        Term. The term of this Public License is specified in Section 6(a).
-        Media and formats; technical modifications allowed. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)(4) never produces Adapted Material.
-        Downstream recipients.
-            Offer from the Licensor – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.
-            No downstream restrictions. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.
-        No endorsement. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).
-
-    Other rights.
-        Moral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.
-        Patent and trademark rights are not licensed under this Public License.
-        To the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties, including when the Licensed Material is used other than for NonCommercial purposes.
-
-Section 3 – License Conditions.
-
-Your exercise of the Licensed Rights is expressly made subject to the following conditions.
-
-    Attribution.
-
-        If You Share the Licensed Material, You must:
-            retain the following if it is supplied by the Licensor with the Licensed Material:
-                identification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);
-                a copyright notice;
-                a notice that refers to this Public License;
-                a notice that refers to the disclaimer of warranties;
-                a URI or hyperlink to the Licensed Material to the extent reasonably practicable;
-            indicate if You modified the Licensed Material and retain an indication of any previous modifications; and
-            indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.
-        For the avoidance of doubt, You do not have permission under this Public License to Share Adapted Material.
-        You may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.
-        If requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.
-
-Section 4 – Sui Generis Database Rights.
-
-Where the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:
-
-    for the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database for NonCommercial purposes only and provided You do not Share Adapted Material;
-    if You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material; and
-    You must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.
-
-For the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this Public License where the Licensed Rights include other Copyright and Similar Rights.
-
-Section 5 – Disclaimer of Warranties and Limitation of Liability.
-
-    Unless otherwise separately undertaken by the Licensor, to the extent possible, the Licensor offers the Licensed Material as-is and as-available, and makes no representations or warranties of any kind concerning the Licensed Material, whether express, implied, statutory, or other. This includes, without limitation, warranties of title, merchantability, fitness for a particular purpose, non-infringement, absence of latent or other defects, accuracy, or the presence or absence of errors, whether or not known or discoverable. Where disclaimers of warranties are not allowed in full or in part, this disclaimer may not apply to You.
-    To the extent possible, in no event will the Licensor be liable to You on any legal theory (including, without limitation, negligence) or otherwise for any direct, special, indirect, incidental, consequential, punitive, exemplary, or other losses, costs, expenses, or damages arising out of this Public License or use of the Licensed Material, even if the Licensor has been advised of the possibility of such losses, costs, expenses, or damages. Where a limitation of liability is not allowed in full or in part, this limitation may not apply to You.
-
-    The disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent possible, most closely approximates an absolute disclaimer and waiver of all liability.
-
-Section 6 – Term and Termination.
-
-    This Public License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply with this Public License, then Your rights under this Public License terminate automatically.
-
-    Where Your right to use the Licensed Material has terminated under Section 6(a), it reinstates:
-        automatically as of the date the violation is cured, provided it is cured within 30 days of Your discovery of the violation; or
-        upon express reinstatement by the Licensor.
-    For the avoidance of doubt, this Section 6(b) does not affect any right the Licensor may have to seek remedies for Your violations of this Public License.
-    For the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.
-    Sections 1, 5, 6, 7, and 8 survive termination of this Public License.
-
-Section 7 – Other Terms and Conditions.
-
-    The Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.
-    Any arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.
-
-Section 8 – Interpretation.
-
-    For the avoidance of doubt, this Public License does not, and shall not be interpreted to, reduce, limit, restrict, or impose conditions on any use of the Licensed Material that could lawfully be made without permission under this Public License.
-    To the extent possible, if any provision of this Public License is deemed unenforceable, it shall be automatically reformed to the minimum extent necessary to make it enforceable. If the provision cannot be reformed, it shall be severed from this Public License without affecting the enforceability of the remaining terms and conditions.
-    No term or condition of this Public License will be waived and no failure to comply consented to unless expressly agreed to by the Licensor.
-    Nothing in this Public License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Licensor or You, including from the legal processes of any jurisdiction or authority.
+6.2 YOU hereby agree to abide by the related applicable terms and conditions. Such terms and conditions may be changed, as per the relevant third party license agreement. YOU hereby acknowledge and agree that the third party software is provided “as is” and that in no event, shall SBRE be liable for the said third party software, their applicable license agreement content, such change and its arising consequences.
+ 
+7. LIMITED WARRANTIES AND LIMITATION OF LIABILITY
+7.1 AS FAR AS PERMITTED BY APPLICABLE LAW:
+THE SOFTWARE RESOURCES ARE PROVIDED AS IS, AND SBRE AND ITS LICENSORS (COLLECTIVELY REFERRED TO AS “SBRE” FOR THE PURPOSE OF CLAUSE 7) DO NOT WARRANT THAT THE USE OF THE SOFTWARE RESOURCES, FUNCTIONALITY, THE OPERATION AND/OR CONTENT WILL BE UNINTERRUPTED, ACCURATE, COMPLETE, FREE FROM ANY SOFTWARE VIRUS OR OTHER HARMFUL COMPONENT.
+SBRE DOES NOT WARRANT THE INTERNAL CHARACTERISTICS, THE COMPATIBILITY OF THE SOFTWARE RESOURCES WITH OTHER SOFTWARE, THE ACCURACY, ADEQUACY, OR COMPLETENESS OF THE SOFTWARE RESOURCES AND ITS RESULT, AND DISCLAIMS LIABILITY FOR ERRORS OR OMISSIONS, UNLESS IT ENDANGERS THE PURPOSE OF THIS AGREEMENT.
+SBRE DISCLAIMS ANY REPRESENTATIONS, WARRANTIES OR CONDITIONS, EXPRESS OR IMPLIED, INCLUDING THOSE OF PERFORMANCE, MERCHANTABILITY, SATISFACTION, QUALITY OR FITNESS FOR A PARTICULAR PURPOSE, OF THE SOFTWARE RESOURCES AND ITS RESULTS.
+ 
+7.2 TO THE EXTENT OF THE APPLICABLE LAW, IN NO EVENT WILL SBRE BE LIABLE FOR:
+ANY DAMAGE (INCLUDING BUT NOT LIMITED TO, INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES, COST OF PROCURING SUBSTITUTE SERVICES, LOSS OF PROFIT, CORRUPTION OR LOSS OF DATA, BUSINESS OR ANY OTHER LOSSES OR DAMAGES) ARISING FROM THE PROVISION OR USE OF THE SOFTWARE RESOURCES, REGARDLESS OF WHETHER SUCH CLAIMS ARE BASED ON CONTRACT, TORT, STRICT LIABILITY, OR OTHERWISE, OR WHETHER SBRE HAD KNOWLEDGE OF POSSIBLE DAMAGES OR LOSSES RESULTING FROM THE USE THEREOF.
+WITHOUT LIMITING THE FOREGOING, THIS LIMITATION OF LIABILITY INCLUDES, BUT IS NOT LIMITED TO, THE UNAVAILABILITY OF THE SOFTWARE OR SOFTWARE RESOURCES, UNAUTHORIZED ACCESS, ANY FAILURE OF PERFORMANCE, INTERRUPTION, ERROR, OMISSION, DEFECT, DELAY IN OPERATION OR TRANSMISSION, COMPUTER VIRUS, USE OF THE SOFTWARE OR SOFTWARE RESOURCES WITH INCOMPATIBLE SOFTWARE OR HARDWARE.
+IN NO EVENT SHALL SBRE’S CUMULATIVE LIABILITY TO YOU FOR ALL DAMAGES (OTHER THAN MAY BE REQUIRED BY APPLICABLE LAW IN CASES INVOLVING PERSONAL INJURY OR DEATH) EXCEED ONE HUNDRED EUROS (€ 100).
+ 
+8. VIOLATION OF LICENSE – TERMINATION OF RIGHTS
+If YOU fail, or SBRE reasonably suspects that YOU have failed to comply with any of the provisions of this EULA, SBRE may take any action to protect its interests such as (i) disabling access to or use of some part or all the Software or Software Resources; (ii) closing Your SBRE account; (iii) and/or terminating Your rights under this EULA, without limiting SBRE’S other rights and remedies, all of which are expressly reserved.
+ 
+9. OWNERSHIP OF INTELLECTUAL PROPERTY RIGHTS
+Your only right to use the Software Resources is by virtue of this EULA and YOU acknowledge that all intellectual property rights in or relating to the Software and all parts of the Software, including the Software Resources, are and shall remain the exclusive property of SBRE and/or its licensors.
+YOU agree that YOU will not remove or alter any copyright notices or similar proprietary devices, including without limitation any electronic watermarks or other identifiers that may be incorporated in the Software and the Software Resources.
+ 
+10. GOVERNING LAW, RELEVANT JURISDICTION AND SEVERABILITY
+All matters arising from or relating to the Software and the Software Resources and this EULA, shall be governed by the laws of France, without regard to conflict of laws.
+This EULA will not be governed by the United Nations Convention of Contracts for the International Sale of Goods, the application of which is expressly excluded. Any arising dispute related to this EULA shall be submitted to the exclusive competence of the relevant courts of SBRE’s headquarters.
+If for any reason a relevant jurisdiction ﬁnds any provision, or portion thereof, to be unenforceable, the remaining provisions shall continue in full force and effect.
+ 
+11. MISCELLANEOUS
+11.1 This EULA constitutes the entire agreement between YOU and SBRE with respect to the Software Resources and supersedes all prior or current understandings regarding its subject matter.
+No failure to exercise, nor any delay in exercising, on the part of SBRE, any right or remedy under this EULA or under any applicable law, shall operate as a waiver thereof, nor shall any single or partial exercise of any right or remedy prevent any further or future exercise thereof or the exercise of any other right or remedy.
+The rights and remedies of SBRE provided for by this EULA terms are cumulative and not exclusive of any rights or remedies provided by law.
+SBRE may assign this EULA and/or any of its rights and obligations attached hereunder to any third party in order to comply with any applicable law, regulation or any directive issued by a competent regulatory authority, or due to any transaction regarding the transfer or disposal of whole, or part, of SBRE’s assets (i.e: transfer, merger, acquisition).
+ 
+11.2 SBRE reserves the right to delegate its right to engage legal action on its behalf to a third party
+ 
+11.3 The title of each article appearing on these EULA terms is given as information only and does not necessarily prejudice their content or their reach.
+ 
+11.4 In the event of a conflict between the English and any other language besides English versions of this EULA, the English version shall prevail.
+ 
+11.5 For any question, please contact support@softbankrobotics.com.
