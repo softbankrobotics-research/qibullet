@@ -33,14 +33,14 @@ class NaoVirtual(RobotVirtual):
         Constructor
         """
         # Install the robot meshes and URDFs if they are not already installed
-        if not tools._check_ressources_installed():
+        if not tools._check_resources_installed():
             print("Robot meshes and URDFs not yet installed.")
-            tools._install_ressources()
+            tools._install_resources()
 
         # Specify the URDF path
         RobotVirtual.__init__(
             self,
-            tools._get_ressources_folder() + NaoVirtual.URDF_FILE)
+            tools._get_resources_folder() + NaoVirtual.URDF_FILE)
 
         self.camera_top = None
         self.camera_bottom = None

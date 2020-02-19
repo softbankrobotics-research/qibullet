@@ -4,13 +4,13 @@ __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
 <!-- start -->
 <p align="middle">
-	<img src="ressources/short_top_cam.gif" width="34.2%" />
-	<img src="ressources/pepper_depth_camera.gif" width="36.5%" />
-	<img src="ressources/pepper_moveTo.gif" width="27%" />
+	<img src="resources/short_top_cam.gif" width="34.2%" />
+	<img src="resources/pepper_depth_camera.gif" width="36.5%" />
+	<img src="resources/pepper_moveTo.gif" width="27%" />
 </p>
 <p align="middle">
-	<img src="ressources/nao_walk.gif" width="31%" />
-	<img src="ressources/ros_compat.gif" width="68%" />
+	<img src="resources/nao_walk.gif" width="31%" />
+	<img src="resources/ros_compat.gif" width="68%" />
 </p>
 <!-- end -->
 
@@ -25,11 +25,11 @@ The qiBullet module can be installed via pip, for python 2.7 and python 3:
 pip install --user qibullet
 ```
 
-Additional ressources (robot meshes and URDFs) are required in order to be able to spawn a Pepper, NAO or Romeo robot in the simulation. These extra ressources will be installed in your home folder:
+Additional resources (robot meshes and URDFs) are required in order to be able to spawn a Pepper, NAO or Romeo robot in the simulation. These extra resources will be installed in your home folder:
 * `/home/username/.qibullet` on Linux and macOS
 * `C:\Users\username\.qibullet` on Windows
 
-The installation of the additional ressources will automatically be triggered if you try to spawn a Pepper, NAO or Romeo for the first time. If qiBullet finds the additional ressources in your local folder, the installation won't be triggered. The robot meshes are under a specific [license](https://github.com/softbankrobotics-research/qibullet/tree/master/qibullet/robot_data/LICENSE), you will need to agree to that license in order to install them. More details on the installation process can be found on the [wiki](https://github.com/softbankrobotics-research/qibullet/wiki).
+The installation of the additional resources will automatically be triggered if you try to spawn a Pepper, NAO or Romeo for the first time. If qiBullet finds the additional resources in your local folder, the installation won't be triggered. The robot meshes are under a specific [license](https://github.com/softbankrobotics-research/qibullet/tree/master/qibullet/robot_data/LICENSE), you will need to agree to that license in order to install them. More details on the installation process can be found on the [wiki](https://github.com/softbankrobotics-research/qibullet/wiki).
 
 ## Usage
 A robot can be spawned via the SimulationManager class:
