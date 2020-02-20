@@ -32,7 +32,6 @@ class PepperVirtual(RobotVirtual):
         """
         # Install the robot meshes and URDFs if they are not already installed
         if not tools._check_resources_installed():
-            print("Robot meshes and URDFs not yet installed.")
             tools._install_resources()
 
         # Specify the URDF path
