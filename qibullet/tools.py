@@ -70,7 +70,12 @@ def _install_resources(agreement=False):
     folder (under the .qibullet folder)
     """
     # If the install folder already exists, remove it
-    _uninstall_resources()
+    if not _uninstall_resources():
+        print(
+            "Cannot install the ressources, try to manually remove the " +
+            _get_resources_root_folder() + " folder first.")
+        return
+
     resources_folder = _get_resources_folder()
 
     # Displaying the qiBullet version corresponding to the extra resources
@@ -184,10 +189,17 @@ def _install_resources(agreement=False):
 def _uninstall_resources():
     """
     Uninstall the robot meshes and the urdfs from the user's home folder
-    (removing the .qibullet folder in the user's home)
+    (removing the .qibullet folder in the user's home). Will return True if the
+    .qibullet folder doesn't exit in the user's home anymore
     """
     if os.path.exists(_get_resources_root_folder()):
-        shutil.rmtree(_get_resources_root_folder())
+        try:
+            shutil.rmtree(_get_resources_root_folder())
+
+        except OSError:
+            return False
+
+    return True
 
 
 def _check_resources_installed():
