@@ -13,13 +13,6 @@ import pybullet
 # Version tag corresponding to the latest version of the additional qibullet
 # ressources
 RESOURCES_VERSION = "1.3.3"
-HEADER = '\033[96m'
-OKGREEN = '\033[92m'
-WARN = '\033[93m'
-FAIL = '\033[91m'
-ENDC = '\033[0m'
-BOLD = '\033[1m'
-UNDERLINE = '\033[4m'
 
 
 def getDistance(point_a, point_b):
@@ -81,7 +74,7 @@ def _install_resources(agreement=False):
     resources_folder = _get_resources_folder()
 
     # Displaying the qiBullet version corresponding to the extra resources
-    print(HEADER + "\nInstalling resources for qiBullet" + ENDC)
+    print("\nInstalling resources for qiBullet")
 
     # Ask for user feedback before installing everything.
     try:
@@ -89,29 +82,26 @@ def _install_resources(agreement=False):
 
         if sys.version_info > (3, 0):
             answer = input(
-                HEADER +
                 "\nThe robot meshes and URDFs will be installed in the " +
                 resources_folder + " folder. You will need to agree to"
                 " the meshes license in order to be able to install them."
-                " Continue the installation (y/n)? " + ENDC)
+                " Continue the installation (y/n)? ")
         else:
             answer = raw_input(
-                HEADER +
                 "\nThe robot meshes and URDFs will be installed in the " +
                 resources_folder + " folder. You will need to agree to"
                 " the meshes license in order to be able to install them."
-                " Continue the installation (y/n)? " + ENDC)
+                " Continue the installation (y/n)? ")
 
     except AssertionError:
         answer = "y"
 
     if answer.lower() == "y":
         print(
-            OKGREEN +
-            "Installing the meshes and URDFs in the " +
-            resources_folder + " folder..." + ENDC)
+            "Installing the meshes and URDFs in the " + resources_folder +
+            " folder...")
     else:
-        print(FAIL + "The meshes and URDFs won't be installed." + ENDC)
+        print("The meshes and URDFs won't be installed.")
         return
 
     # Create the resources root folder
@@ -131,9 +121,7 @@ def _install_resources(agreement=False):
     sys.path.insert(0, data_folder + "installers")
     major = sys.version_info[0]
     minor = sys.version_info[1]
-    print(
-        HEADER + "Python " + str(major) + "." + str(minor) + " detected" +
-        ENDC)
+    print("Python " + str(major) + "." + str(minor) + " detected")
 
     if major == 3:
         if minor == 5:
@@ -145,26 +133,26 @@ def _install_resources(agreement=False):
         elif minor == 8:
             import meshes_installer_38 as meshes_installer
         else:
-            print(FAIL + "Uncompatible version of Python 3" + ENDC)
+            print("Uncompatible version of Python 3")
             return
     elif major == 2:
         if minor == 7:
             import meshes_installer_27 as meshes_installer
         else:
-            print(FAIL + "Uncompatible version of Python 2" + ENDC)
+            print("Uncompatible version of Python 2")
             return
     else:
-        print(FAIL + "Uncompatible Python version" + ENDC)
+        print("Uncompatible Python version")
         return
 
     if meshes_installer._install_meshes(resources_folder, agreement=agreement):
-        print(OKGREEN + "Resources correctly extracted" + ENDC)
+        print("Resources correctly extracted")
     else:
-        print(FAIL + "Could not extract the resources" + ENDC)
+        print("Could not extract the resources")
         return
 
     # Install the robot URDFs in the install folder
-    print(HEADER + "Installing the robot URDFs..." + ENDC)
+    print("Installing the robot URDFs...")
 
     for urdf in glob.glob(data_folder + "*.urdf"):
         shutil.copy2(urdf, resources_folder)
@@ -188,11 +176,9 @@ def _install_resources(agreement=False):
                 os.chmod(file_path, permissions | os.stat(file_path).st_mode)
 
     print(
-        HEADER +
         "(To remove the installed resources, use the _uninstall_resources "
-        "method of qibullet.tools, or remove the folder manually)" + ENDC)
-    print(
-        OKGREEN + "Installation done, resources in " + resources_folder + ENDC)
+        "method of qibullet.tools, or remove the folder manually)")
+    print("Installation done, resources in " + resources_folder)
 
 
 def _uninstall_resources():
@@ -218,14 +204,14 @@ def _check_resources_installed():
         assert os.path.exists(_get_resources_root_folder())
 
     except AssertionError:
-        print(WARN + "\nThe qibullet ressources are not yet installed." + ENDC)
+        print("\nThe qibullet ressources are not yet installed.")
         return False
 
     try:
         assert os.path.exists(_get_resources_folder())
 
     except AssertionError:
-        print(WARN + "\nThe qibullet ressources are not up to date." + ENDC)
+        print("\nThe qibullet ressources are not up to date.")
         return False
 
     try:
@@ -243,8 +229,5 @@ def _check_resources_installed():
         return True
 
     except AssertionError:
-        print(
-            WARN +
-            "\nThe qibullet ressources are up to date but seem incomplete." +
-            ENDC)
+        print("\nThe qibullet ressources are up to date but seem incomplete.")
         return False
