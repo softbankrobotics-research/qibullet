@@ -27,10 +27,19 @@ try:
     from std_msgs.msg import Header
     from std_msgs.msg import Empty
     from naoqi_bridge_msgs.msg import JointAnglesWithSpeed
-    from naoqi_bridge_msgs.msg import PoseStampedWithSpeed
     from geometry_msgs.msg import TransformStamped
     from geometry_msgs.msg import Twist
     from nav_msgs.msg import Odometry
+    
+    try:
+        from naoqi_bridge_msgs.msg import PoseStampedWithSpeed as MovetoPose
+        OFFICIAL_DRIVER = False
+    
+    except ImportError as e:
+        print(str(e))
+        from geometry_msgs.msg import PoseStamped as MovetoPose
+        OFFICIAL_DRIVER = True
+
     MISSING_IMPORT = None
 
 except ImportError as e:
@@ -294,15 +303,25 @@ class RosWrapper:
         Parameters:
             msg - a ROS message containing a pose stamped with a speed
             associated to it. The type of the message is the following:
-            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
+            naoqi_bridge_msgs::JointAnglesWithSpeed. That type can be found in
             the ros naoqi software stack
         """
         joint_list = msg.joint_names
         position_list = list(msg.joint_angles)
 
-        if len(msg.speeds) != 0:
-            velocity = list(msg.speeds)
-        else:
+        # If the "non official" driver (softbankrobotics-research fork) is
+        # used, will try to detect if multiple speeds have been provided. If
+        # not, or if the "official" driver is used, the speed attribute of the
+        # message will be used  
+        try:
+            assert not OFFICIAL_DRIVER
+
+            if len(msg.speeds) != 0:
+                velocity = list(msg.speeds)
+            else:
+                velocity = msg.speed
+        
+        except AssertionError:
             velocity = msg.speed
 
         self.virtual_robot.setAngles(joint_list, position_list, velocity)
@@ -643,7 +662,7 @@ class PepperRosWrapper(RosWrapper):
             queue_size=10)
 
         self.odom_pub = rospy.Publisher(
-            'odom',
+            '/naoqi_driver/odom',
             Odometry,
             queue_size=10)
 
@@ -663,7 +682,7 @@ class PepperRosWrapper(RosWrapper):
 
         rospy.Subscriber(
             '/move_base_simple/goal',
-            PoseStampedWithSpeed,
+            MovetoPose,
             self._moveToCallback)
 
         rospy.Subscriber(
@@ -772,24 +791,53 @@ class PepperRosWrapper(RosWrapper):
         '/move_base_simple/goal' topic. It allows to move the robot's base
 
         Parameters:
-            msg - a ROS message containing a pose stamped with a speed
-            associated to it. The type of the message is the following:
-            naoqi_bridge_msgs::PoseStampedWithSpeed. That type can be found in
-            the ros naoqi software stack
+            msg - a ROS message containing a pose stamped with a speed, or a
+            simple pose stamped (depending on which version of the naoqi_driver
+            is used, the "official" one from ros-naoqi or the "non official"
+            softbankrobotics-research fork). The type of the message is the
+            following: geometry_msgs::PoseStamped for the "official",
+            naoqi_bridge_msgs::PoseStampedWithSpeed for the "non-official".
+            An alias is given to the message type: MovetoPose
         """
-        x = msg.pose_stamped.pose.position.x
-        y = msg.pose_stamped.pose.position.y
+
+        if OFFICIAL_DRIVER:
+            pose = msg.pose
+            frame = 0
+            frame_id = msg.header.frame_id
+            speed = None
+        else:
+            pose = msg.pose_stamped.pose
+            frame = msg.referenceFrame
+            frame_id = msg.pose_stamped.header.frame_id
+            speed = msg.speed_percentage *\
+                PepperBaseController.MAX_LINEAR_VELOCITY +\
+                PepperBaseController.MIN_LINEAR_VELOCITY
+
+        try:
+            assert frame not in [
+                PepperVirtual.FRAME_ROBOT,
+                PepperVirtual.FRAME_WORLD]
+            
+            if frame_id == "odom":
+                frame = PepperVirtual.FRAME_WORLD
+            elif frame_id == "base_footprint":
+                frame = PepperVirtual.FRAME_ROBOT
+            else:
+                raise pybullet.error(
+                    "Incorrect reference frame for move_base_simple, please "
+                    "modify the content of your message")
+        
+        except AssertionError:
+            pass
+
+        x = pose.position.x
+        y = pose.position.y
         theta = pybullet.getEulerFromQuaternion([
-            msg.pose_stamped.pose.orientation.x,
-            msg.pose_stamped.pose.orientation.y,
-            msg.pose_stamped.pose.orientation.z,
-            msg.pose_stamped.pose.orientation.w])[-1]
+            pose.orientation.x,
+            pose.orientation.y,
+            pose.orientation.z,
+            pose.orientation.w])[-1]
 
-        speed = msg.speed_percentage *\
-            PepperBaseController.MAX_LINEAR_VELOCITY +\
-            PepperBaseController.MIN_LINEAR_VELOCITY
-
-        frame = msg.referenceFrame
         self.virtual_robot.moveTo(
             x,
             y,

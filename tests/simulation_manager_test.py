@@ -21,6 +21,11 @@ class SimulationManagerTest(unittest.TestCase):
         self.assertEqual(client, 0)
         manager.stopSimulation(client)
 
+        client = manager.launchSimulation(gui=False, use_shared_memory=True)
+
+        self.assertEqual(client, 0)
+        manager.stopSimulation(client)
+
     def test_set_light_position(self):
         """
         Test the @setLightPosition method

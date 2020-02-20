@@ -75,49 +75,6 @@ class SelfCollisionTest(unittest.TestCase):
             1.0)
         time.sleep(3)
 
-    def test_forearm_collision(self):
-        """
-        Test self collisions for the forearms
-        """
-        self.assertFalse(
-            SelfCollisionTest.robot.isSelfColliding("RForeArm"))
-        self.assertFalse(
-            SelfCollisionTest.robot.isSelfColliding("LForeArm"))
-
-        # Don't need any further tests for NAO
-        if isinstance(SelfCollisionTest.robot, NaoVirtual):
-            return
-
-        SelfCollisionTest.robot.setAngles(
-            ["RShoulderRoll", "RElbowRoll"],
-            [-0.3, 1.6],
-            1.0)
-        time.sleep(3)
-
-        self.assertTrue(
-            SelfCollisionTest.robot.isSelfColliding("RForeArm"))
-
-        SelfCollisionTest.robot.setAngles(
-            ["RShoulderRoll", "RElbowRoll"],
-            [0.0, 0.0],
-            1.0)
-        time.sleep(3)
-
-        SelfCollisionTest.robot.setAngles(
-            ["LShoulderRoll", "LElbowRoll"],
-            [0.3, -1.6],
-            1.0)
-        time.sleep(3)
-
-        self.assertTrue(
-            SelfCollisionTest.robot.isSelfColliding("LForeArm"))
-
-        SelfCollisionTest.robot.setAngles(
-            ["LShoulderRoll", "LElbowRoll"],
-            [0.0, 0.0],
-            1.0)
-        time.sleep(3)
-
     def test_head_collision(self):
         """
         Test self collisions for the head
