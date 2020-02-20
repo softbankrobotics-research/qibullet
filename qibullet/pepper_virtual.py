@@ -31,14 +31,13 @@ class PepperVirtual(RobotVirtual):
         Constructor
         """
         # Install the robot meshes and URDFs if they are not already installed
-        if not tools._check_ressources_installed():
-            print("Robot meshes and URDFs not yet installed.")
-            tools._install_ressources()
+        if not tools._check_resources_installed():
+            tools._install_resources()
 
         # Specify the URDF path
         RobotVirtual.__init__(
             self,
-            tools._get_ressources_folder() + PepperVirtual.URDF_FILE)
+            tools._get_resources_folder() + PepperVirtual.URDF_FILE)
 
         self.motion_constraint = None
         # Default speed (in m/s) xy : 0.35, min : 0.1, max : 0.55
@@ -79,12 +78,12 @@ class PepperVirtual(RobotVirtual):
             quaternion,
             physicsClientId=physicsClientId)
 
-        for base_link in ["Hip", "Pelvis"]:
+        for link in ["Hip", "Pelvis", "Head"]:
             pybullet.setCollisionFilterPair(
                 self.robot_model,
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
-                self.link_dict[base_link].getIndex(),
+                self.link_dict[link].getIndex(),
                 0,
                 physicsClientId=self.physics_client)
 
@@ -94,6 +93,15 @@ class PepperVirtual(RobotVirtual):
                 self.robot_model,
                 self.link_dict["torso"].getIndex(),
                 self.link_dict[shoulder_roll_link].getIndex(),
+                0,
+                physicsClientId=self.physics_client)
+
+        for side in ["R", "L"]:
+            pybullet.setCollisionFilterPair(
+                self.robot_model,
+                self.robot_model,
+                self.link_dict[side + "ForeArm"].getIndex(),
+                self.link_dict[side + "Bicep"].getIndex(),
                 0,
                 physicsClientId=self.physics_client)
 

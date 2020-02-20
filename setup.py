@@ -6,6 +6,7 @@ import setuptools
 from setuptools.command.install import install
 from setuptools.command.develop import develop
 
+VERSION = "1.3.2"
 MESH_LICENSE_AGREEMENT = False
 
 
@@ -65,8 +66,8 @@ class RessourceInstallCommand(install):
             sys.path.insert(0, install_directory)
             import tools
 
-            if not tools._check_ressources_installed():
-                tools._install_ressources(agreement=MESH_LICENSE_AGREEMENT)
+            if not tools._check_resources_installed():
+                tools._install_resources(agreement=MESH_LICENSE_AGREEMENT)
 
         except AssertionError:
             pass
@@ -80,13 +81,13 @@ class RessourceDevelopCommand(develop):
         sys.path.insert(0, develop_directory)
         import tools
 
-        if not tools._check_ressources_installed():
-            tools._install_ressources(agreement=MESH_LICENSE_AGREEMENT)
+        if not tools._check_resources_installed():
+            tools._install_resources(agreement=MESH_LICENSE_AGREEMENT)
 
 
 setuptools.setup(
     name="qibullet",
-    version="1.3.2",
+    version=VERSION,
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
