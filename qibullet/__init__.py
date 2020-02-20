@@ -10,4 +10,4 @@ from qibullet.ros_wrapper import RomeoRosWrapper
 from qibullet.ros_wrapper import PepperRosWrapper
 
 name = 'qibullet'
-__version__ = "1.3.2"
+__version__ = "1.4.0"

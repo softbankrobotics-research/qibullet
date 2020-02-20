@@ -6,7 +6,6 @@ import setuptools
 from setuptools.command.install import install
 from setuptools.command.develop import develop
 
-VERSION = "1.3.2"
 MESH_LICENSE_AGREEMENT = False
 
 
@@ -87,7 +86,7 @@ class RessourceDevelopCommand(develop):
 
 setuptools.setup(
     name="qibullet",
-    version=VERSION,
+    version="1.4.0",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
