@@ -13,45 +13,49 @@ class CameraTest(unittest.TestCase):
     Unittests for virtual cameras (virtual class, don't use directly)
     """
 
-    def test_camera_subscribe(self):
+    def test_subscribe_camera(self):
         """
         Test subscribing to each of Pepper's cameras
         """
         physics_client = CameraTest.client
 
         # Test wrong camera ID for subscription
-        try:
-            CameraTest.robot.subscribeCamera(-3)
-            self.assertTrue(True)
-        except Exception:
-            self.assertTrue(False, "Shouldn't raise an exception")
+        self.assertIsNone(CameraTest.robot.subscribeCamera(-3))
 
         # Test wrong camera ID for unsubscription, when active camera is not
         # None
-        try:
-            CameraTest.robot.subscribeCamera(
-                list(CameraTest.robot.camera_dict.keys())[0])
+        handle = CameraTest.robot.subscribeCamera(
+            list(CameraTest.robot.camera_dict.keys())[0])
 
-            CameraTest.robot.unsubscribeCamera(-3)
-            self.assertTrue(True)
-
-        except Exception:
-            self.assertTrue(False, "Shouldn't raise an exception")
-        finally:
-            CameraTest.robot.unsubscribeCamera(
-                list(CameraTest.robot.camera_dict.keys())[0])
+        self.assertFalse(CameraTest.robot.unsubscribeCamera(-3))
+        CameraTest.robot.unsubscribeCamera(handle)
 
         # Test subscribing / unsubscribing
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
-            CameraTest.robot.subscribeCamera(camera_id)
+            handle = CameraTest.robot.subscribeCamera(camera_id)
+
+            # Check if the provided handle corresponds to the id of the camera
+            # object
             self.assertEqual(
-                Camera.ACTIVE_OBJECT_ID[physics_client],
+                handle,
                 id(camera_obj))
 
-            CameraTest.robot.unsubscribeCamera(camera_id)
-            self.assertEqual(
-                Camera.ACTIVE_OBJECT_ID[physics_client],
-                -1)
+            # Check if the camera and the associated handle have been correctly
+            # storred in the handles dict
+            self.assertIn(handle, Camera._getCameraHandlesDict())
+
+            try:
+                self.assertEqual(
+                    handle,
+                    id(Camera._getCameraFromHandle(handle)))
+
+            except KeyError:
+                # Should be able to retrieve the camera associated to the
+                # handle without throwing any key error
+                self.assertTrue(False)
+
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
+            self.assertNotIn(handle, Camera._getCameraHandlesDict())
 
         # Test camera subscription with invalid resolution
         with self.assertRaises(pybullet.error):
@@ -59,39 +63,27 @@ class CameraTest(unittest.TestCase):
                 list(CameraTest.robot.camera_dict.keys())[0],
                 resolution="invalid")
 
-        # Ensure that if the physics client is not a key of
-        # Camera.ACTIVE_OBJECT_ID, the active object id of this instance is set
-        # to -1 (need to create a dummy camera to test that)
-        dummy_camera = Camera(None, None, None, None, None, physicsClientId=-3)
-        self.assertEqual(-1, Camera.ACTIVE_OBJECT_ID[-3])
-
-    def test_get_active_camera(self):
+    def test_get_camera_id(self):
         """
-        Test the getActiveCamera method
+        Test the getCameraId method
         """
         for camera_id in CameraTest.robot.camera_dict.keys():
-            CameraTest.robot.subscribeCamera(camera_id)
+            handle = CameraTest.robot.subscribeCamera(camera_id)
 
+            # Check the id (PepperVirtual.ID_CAMERA_TOP for instance) of a
+            # subscribed camera
             self.assertEqual(
                 camera_id,
-                CameraTest.robot.getActiveCamera().getCameraId())
+                CameraTest.robot.getCamera(handle).getCameraId())
 
-            CameraTest.robot.unsubscribeCamera(camera_id)
-            self.assertIsNone(CameraTest.robot.getActiveCamera())
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
 
-    def test_is_active(self):
-        """
-        Test the isActive method
-        """
-        for camera_id, camera in CameraTest.robot.camera_dict.items():
-            CameraTest.robot.subscribeCamera(camera_id)
-            self.assertTrue(camera.isActive())
-            CameraTest.robot.unsubscribeCamera(camera_id)
-            self.assertFalse(camera.isActive())
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.getCamera(handle)
 
-    def test_camera_resolutions(self):
+    def test_get_camera_resolution(self):
         """
-        Test the resolutions for the cameras
+        Test the getCameraResolution method
         """
         # Test the CameraResolution equality
         self.assertEqual(Camera.K_VGA, Camera.K_VGA)
@@ -101,69 +93,36 @@ class CameraTest(unittest.TestCase):
         # image resolution
         for resolution in [Camera.K_VGA, Camera.K_QVGA, Camera.K_QQVGA]:
             for camera_id in CameraTest.robot.camera_dict.keys():
-                CameraTest.robot.subscribeCamera(
+                handle = CameraTest.robot.subscribeCamera(
                     camera_id,
                     resolution=resolution)
 
+                # Check that the camera frame's width and height correspond to
+                # the required resolution
                 self.assertEqual(
-                    CameraTest.robot.getCameraFrame().shape[1],
+                    CameraTest.robot.getCameraFrame(handle).shape[1],
                     resolution.width)
                 self.assertEqual(
-                    CameraTest.robot.getCameraFrame().shape[0],
+                    CameraTest.robot.getCameraFrame(handle).shape[0],
                     resolution.height)
 
+                # Check that the CameraResolution object passed when
+                # subscribing corresponds to the resolution of the camera
                 self.assertEqual(
                     resolution,
-                    CameraTest.robot.getCameraResolution())
+                    CameraTest.robot.getCameraResolution(handle))
 
-                CameraTest.robot.unsubscribeCamera(camera_id)
+                self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
 
-    def test_camera_channels(self):
-        """
-        Test the number of channels for each camera.
-        """
-        for camera_id in CameraTest.robot.camera_dict.keys():
-            # If the camera is a depth camera
-            if camera_id == PepperVirtual.ID_CAMERA_DEPTH or\
-                    camera_id == RomeoVirtual.ID_CAMERA_DEPTH:
+                with self.assertRaises(pybullet.error):
+                    CameraTest.robot.getCameraResolution(handle)
 
-                CameraTest.robot.subscribeCamera(
-                    camera_id)
-                self.assertEqual(
-                    len(CameraTest.robot.getCameraFrame().shape),
-                    2)
-
-            # if the camera is an RGB camera
-            else:
-                CameraTest.robot.subscribeCamera(
-                    camera_id)
-                self.assertEqual(
-                    CameraTest.robot.getCameraFrame().shape[2],
-                    3)
-
-            CameraTest.robot.unsubscribeCamera(camera_id)
-
-    def test_no_active_camera(self):
-        """
-        Assert that getCameraFrame and getCameraResolution raise a
-        pybullet.error when there is no active camera
-        """
-        with self.assertRaises(pybullet.error):
-            CameraTest.robot.getCameraFrame()
-
-        with self.assertRaises(pybullet.error):
-            CameraTest.robot.getCameraResolution()
-
-    def test_camera_link(self):
+    def test_get_camera_link(self):
         """
         Test the getCameraLink method
         """
-        # Assert that getCameraLink throws when the active camera is None
-        with self.assertRaises(pybullet.error):
-            CameraTest.robot.getCameraLink()
-
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
-            CameraTest.robot.subscribeCamera(camera_id)
+            handle = CameraTest.robot.subscribeCamera(camera_id)
 
             # Test the getCameraLink method of the Camera class
             self.assertEqual(
@@ -173,9 +132,55 @@ class CameraTest(unittest.TestCase):
             # Test the getCameraLink method of the RobotVirtual class
             self.assertEqual(
                 camera_obj.camera_link,
-                CameraTest.robot.getCameraLink())
+                CameraTest.robot.getCameraLink(handle))
 
-            CameraTest.robot.unsubscribeCamera(camera_id)
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
+
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.getCameraLink(handle)
+
+    def test_is_active(self):
+        """
+        Test the isActive method
+        """
+        handles = list()
+
+        # Check that the subscribed cameras are active
+        for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
+            handles.append(CameraTest.robot.subscribeCamera(camera_id))
+            self.assertTrue(camera_obj.isActive())
+
+        # Checked that the unsubscribed cameras are inactive
+        for handle in handles:
+            camera_obj = CameraTest.robot.getCamera(handle)
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
+            self.assertFalse(camera_obj.isActive())
+
+    def test_camera_channels(self):
+        """
+        Test the number of channels for each camera.
+        """
+        for camera_id in CameraTest.robot.camera_dict.keys():
+            if camera_id == PepperVirtual.ID_CAMERA_DEPTH or\
+                    camera_id == RomeoVirtual.ID_CAMERA_DEPTH:
+
+                # A depth image should have a shape of 2
+                handle = CameraTest.robot.subscribeCamera(camera_id)
+                self.assertEqual(
+                    len(CameraTest.robot.getCameraFrame(handle).shape),
+                    2)
+
+            else:
+                # An RGB image should have 3 channels
+                handle = CameraTest.robot.subscribeCamera(camera_id)
+                self.assertEqual(
+                    CameraTest.robot.getCameraFrame(handle).shape[2],
+                    3)
+
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
+
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.getCameraFrame(handle)
 
     def test_invalid_fov(self):
         """
@@ -192,7 +197,9 @@ class CameraTest(unittest.TestCase):
             self.assertTrue(True)
 
         except Exception:
-            self.assertTrue(False, "An invalid FOV should raise an exception")
+            self.assertTrue(
+                False,
+                "An invalid FOV should not raise an exception")
 
     def test_get_camera_intrinsics(self):
         """
@@ -202,9 +209,9 @@ class CameraTest(unittest.TestCase):
         self.assertIsNone(dummy_camera._getCameraIntrinsics())
 
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
-            CameraTest.robot.subscribeCamera(camera_id)
+            handle = CameraTest.robot.subscribeCamera(camera_id)
             self.assertIsInstance(camera_obj._getCameraIntrinsics(), list)
-            CameraTest.robot.unsubscribeCamera(camera_id)
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
 
 
 class PepperCameraTest(CameraTest):
@@ -233,26 +240,23 @@ class PepperCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_camera_subscribe(self):
-        CameraTest.test_camera_subscribe(self)
+    def test_subscribe_camera(self):
+        CameraTest.test_subscribe_camera(self)
 
-    def test_get_active_camera(self):
-        CameraTest.test_get_active_camera(self)
+    def test_get_camera_id(self):
+        CameraTest.test_get_camera_id(self)
 
     def test_is_active(self):
         CameraTest.test_is_active(self)
 
-    def test_camera_resolutions(self):
-        CameraTest.test_camera_resolutions(self)
+    def test_get_camera_resolution(self):
+        CameraTest.test_get_camera_resolution(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
 
-    def test_no_active_camera(self):
-        CameraTest.test_no_active_camera(self)
-
-    def test_camera_link(self):
-        CameraTest.test_camera_link(self)
+    def test_get_camera_link(self):
+        CameraTest.test_get_camera_link(self)
 
     def test_invalid_fov(self):
         CameraTest.test_invalid_fov(self)
@@ -287,26 +291,23 @@ class NaoCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_camera_subscribe(self):
-        CameraTest.test_camera_subscribe(self)
+    def test_subscribe_camera(self):
+        CameraTest.test_subscribe_camera(self)
 
-    def test_get_active_camera(self):
-        CameraTest.test_get_active_camera(self)
+    def test_get_camera_id(self):
+        CameraTest.test_get_camera_id(self)
 
     def test_is_active(self):
         CameraTest.test_is_active(self)
 
-    def test_camera_resolutions(self):
-        CameraTest.test_camera_resolutions(self)
+    def test_get_camera_resolution(self):
+        CameraTest.test_get_camera_resolution(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
 
-    def test_no_active_camera(self):
-        CameraTest.test_no_active_camera(self)
-
-    def test_camera_link(self):
-        CameraTest.test_camera_link(self)
+    def test_get_camera_link(self):
+        CameraTest.test_get_camera_link(self)
 
     def test_invalid_fov(self):
         CameraTest.test_invalid_fov(self)
@@ -341,26 +342,23 @@ class RomeoCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_camera_subscribe(self):
-        CameraTest.test_camera_subscribe(self)
+    def test_subscribe_camera(self):
+        CameraTest.test_subscribe_camera(self)
 
-    def test_get_active_camera(self):
-        CameraTest.test_get_active_camera(self)
+    def test_get_camera_id(self):
+        CameraTest.test_get_camera_id(self)
 
     def test_is_active(self):
         CameraTest.test_is_active(self)
 
-    def test_camera_resolutions(self):
-        CameraTest.test_camera_resolutions(self)
+    def test_get_camera_resolution(self):
+        CameraTest.test_get_camera_resolution(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
 
-    def test_no_active_camera(self):
-        CameraTest.test_no_active_camera(self)
-
-    def test_camera_link(self):
-        CameraTest.test_camera_link(self)
+    def test_get_camera_link(self):
+        CameraTest.test_get_camera_link(self)
 
     def test_invalid_fov(self):
         CameraTest.test_invalid_fov(self)
