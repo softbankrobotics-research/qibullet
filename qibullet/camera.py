@@ -123,13 +123,9 @@ class Camera(Sensor):
         Camera._addCameraHandle(id(self), self)
         return id(self)
 
-    def unsubscribe(self, handle):
+    def unsubscribe(self):
         """
         Method stopping the frame retreival thread for a camera.
-
-        Parameters:
-            handle - The handle of the camera, created when subscribing to the
-            camera
 
         Returns:
             success - Boolean, True if unsubscribed successfully, False
@@ -189,7 +185,7 @@ class Camera(Sensor):
             is_active - Boolean, True if the camera is subscribed to, False
             otherwise
         """
-        if id(self) in Camera._getCameraHandlesDict().keys():
+        if id(self) in Camera._getCameraHandlesDict():
             return True
         else:
             return False

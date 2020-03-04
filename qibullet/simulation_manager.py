@@ -260,7 +260,7 @@ class SimulationManager:
             robot_virtual - The virtual robot to be removed
         """
         for camera in robot_virtual.camera_dict.values():
-            if id(camera) in Camera._getCameraHandlesDict().keys():
+            if id(camera) in Camera._getCameraHandlesDict():
                 camera.unsubscribe()
 
         pybullet.removeBody(robot_virtual.getRobotModel())
