@@ -25,7 +25,6 @@ class RobotVirtual:
         """
         self.description_file = description_file
         self.physics_client = 0
-        self.active_camera = None
         self.camera_dict = dict()
         self.joint_dict = dict()
         self.link_dict = dict()
@@ -193,100 +192,120 @@ class RobotVirtual:
 
     def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
         """
-        Subscribe to the camera holding the camera id. WARNING: at the moment,
-        only one camera can be subscribed.
+        Subscribe to the camera holding the camera id (for instance,
+        PepperVirtual.ID_CAMERA_TOP). This method returns a handle for the
+        camera, needed to get frames, the resolution / link of the camera and
+        the camera object. Bear in mind that when subscribing, a background
+        process is started continuously retrieving and treating the
+        corresponding camera frames. The handle is also used to unsubscribe
+        from a camera, stopping the background process associated
 
         Parameters:
             camera_id - The id of the camera to be subscribed
             resolution - CameraResolution object, the resolution of the camera
+
+        Returns:
+            handle - The associated camera handle
         """
         try:
-            self.active_camera = self.camera_dict[camera_id]
-            self.active_camera.subscribe(resolution=resolution)
+            return self.camera_dict[camera_id].subscribe(resolution)
 
         except KeyError:
             print("This camera does not exist, use a valid camera id")
 
-    def unsubscribeCamera(self, camera_id):
+    def unsubscribeCamera(self, handle):
         """
-        Unsubscribe from a camera, the one holding the camera id.
+        Unsubscribe from a camera, using the specified handle
 
         Parameters:
-            camera_id - The id of the camera to be unsubscribed
+            handle - The handle retrieved when subscribing to the camera
+
+        Returns:
+            success - Boolean, True if unsubscribed successfully, False
+            otherwise
         """
         try:
-            # If no active camera is found, nothing is unsubscribed
-            assert self.active_camera is not None
+            return Camera._getCameraFromHandle(handle).unsubscribe()
 
-            if self.active_camera.getCameraId() == camera_id:
-                self.active_camera.unsubscribe()
-                self.active_camera = None
+        except KeyError:
+            print("Invalid handle, nothing to unsubscribe from")
+            return False
 
-        except AssertionError:
-            print("No active camera, nothing to unsubscribe from")
-            pass
-
-    def getCameraFrame(self):
+    def getCameraFrame(self, handle):
         """
-        Returns a camera frame. Be advised that the subscribeCamera method
-        needs to be called beforehand, otherwise a pybullet error will be
-        raised.
+        Returns a frame form the camera associated to the specified handle
+        object. Be advised that the subscribeCamera method needs to be called
+        beforehand, otherwise a pybullet error will be raised.
+
+        Parameters:
+            handle - The handle retrieved when subscribing to the camera
 
         Returns:
             frame - The current camera frame as a formatted numpy array,
             directly exploitable from OpenCV
         """
         try:
-            assert self.active_camera is not None
-            return self.active_camera.getFrame()
+            return Camera._getCameraFromHandle(handle).getFrame()
 
-        except AssertionError:
-            raise pybullet.error("No active camera, cannot retrieve any frame")
+        except KeyError:
+            raise pybullet.error("Invalid handle, cannot retrieve any frame")
 
-    def getCameraResolution(self):
+    def getCameraResolution(self, handle):
         """
-        Returns the resolution of the active camera. Be advised that the
-        subscribeCamera method needs to be called beforehand, otherwise a
-        pybullet error will be raised.
+        Returns the resolution of the camera associated to the specified
+        handle. Be advised that the subscribeCamera method needs to be called
+        beforehand, otherwise a pybullet error will be raised.
+
+        Parameters:
+            handle - The handle retrieved when subscribing to the camera
 
         Returns:
             resolution - a CameraResolution object describing the resolution of
-            the active camera
+            the robot camera associated to the handle
         """
         try:
-            assert self.active_camera is not None
-            return self.active_camera.getResolution()
+            return Camera._getCameraFromHandle(handle).getResolution()
 
-        except AssertionError:
-            raise pybullet.error("No active camera, resolution unavailable")
+        except KeyError:
+            raise pybullet.error("Invalid handle, resolution unavailable")
 
-    def getCameraLink(self):
+    def getCameraLink(self, handle):
         """
-        Returns the link of the active camera. Be advised that the
-        subscribeCamera method needs to be called beforehand, otherwise a
-        pybullet error will be raised.
+        Returns the link of the camera associated to the specified handle. Be
+        advised that the subscribeCamera method needs to be called beforehand,
+        otherwise a pybullet error will be raised.
+
+        Parameters:
+            handle - The handle retrieved when subscribing to the camera
 
         Returns:
-            resolution - a Link object describing the link to which the active
-            camera is attached
+            link - a Link object describing the link to which the robot camera
+            associated to the handle is attached
         """
         try:
-            assert self.active_camera is not None
-            return self.active_camera.getCameraLink()
+            return Camera._getCameraFromHandle(handle).getCameraLink()
 
-        except AssertionError:
-            raise pybullet.error("No active camera, cannot retrieve any link")
+        except KeyError:
+            raise pybullet.error("Invalid handle, cannot retrieve any link")
 
-    def getActiveCamera(self):
+    def getCamera(self, handle):
         """
-        Returns the active camera of the robot.
+        Returns the robot camera associated to the specidied handle. Be advised
+        that the subscribeCamera method needs to be called beforehand,
+        otherwise a pybullet error will be raised.
+
+        Parameters:
+            handle - The handle retrieved when subscribing to the camera
 
         Returns:
-            active_camera - Camera (CameraRgb or CameraDepth) object, the
-            active camera of the robot. If there is no active camera, a None is
-            returned
+            camera - Camera (CameraRgb or CameraDepth) object, the
+            robot camera associated to the handle.
         """
-        return self.active_camera
+        try:
+            return Camera._getCameraFromHandle(handle)
+
+        except KeyError:
+            raise pybullet.error("Invalid handle, no associated camera")
 
     def getPosition(self):
         """

@@ -48,7 +48,8 @@ class Camera(Sensor):
     """
     Class representing a virtual camera
     """
-    ACTIVE_OBJECT_ID = dict()
+    CAMERA_HANDLES = dict()
+    HANDLES_LOCK = threading.Lock()
 
     K_QQVGA = CameraResolution(160, 120)
     K_QVGA = CameraResolution(320, 240)
@@ -95,36 +96,60 @@ class Camera(Sensor):
         self.resolution_lock = threading.Lock()
         self._setFov(hfov, vfov)
 
-        if self.physics_client not in Camera.ACTIVE_OBJECT_ID.keys():
-            Camera.ACTIVE_OBJECT_ID[self.physics_client] = -1
-
     def subscribe(self, resolution):
         """
-        Subscribing method for the camera. The FOV has to be specified
-        beforehand
+        Subscribing method for the camera (the FOV has to be specified
+        beforehand). This method will launch the frame extraction loop process
+        of the camera in a separate thread. This method will return a camera
+        handle, needed to retrieve camera frames, get the camera resolution,
+        and unsubscribe from it
+
+        Returns:
+            handle - The handle of the camera
         """
-        # Lets the module process thread die before launching another one if
+        # Lets the module process thread die before launching another one, if
         # the same camera calls the subscribing method for a second time
         self._terminateModule()
         self._module_termination = False
 
         self._setResolution(resolution)
-        Camera.ACTIVE_OBJECT_ID[self.physics_client] = id(self)
 
-    def unsubscribe(self):
+        self.module_process =\
+            threading.Thread(target=self._frameExtractionLoop)
+        self.module_process.start()
+        self._waitForCorrectImageFormat()
+
+        # Add the camera and it's handle to the handles dict
+        Camera._addCameraHandle(id(self), self)
+        return id(self)
+
+    def unsubscribe(self, handle):
         """
-        Method stopping the frame retreival thread for a camera
+        Method stopping the frame retreival thread for a camera.
+
+        Parameters:
+            handle - The handle of the camera, created when subscribing to the
+            camera
+
+        Returns:
+            success - Boolean, True if unsubscribed successfully, False
+            otherwise
         """
-        if Camera.ACTIVE_OBJECT_ID[self.physics_client] == id(self):
-            Camera.ACTIVE_OBJECT_ID[self.physics_client] = -1
+        try:
+            self._removeCameraHandle(id(self))
             self._terminateModule()
             self.frame = None
+            return True
+
+        except KeyError:
+            return False
 
     def getCameraId(self):
         """
         Returns the id of the camera. WARNING, the id of the camera is not the
         id of the Python object corresponding to the camera, the id value is
-        defined by the user and specific to each camera of each robot.
+        defined by the user and specific to each camera of each robot (
+        PepperVirtual.ID_CAMERA_TOP for instance).
 
         Returns:
             camera_id - The id of the camera
@@ -157,13 +182,17 @@ class Camera(Sensor):
 
     def isActive(self):
         """
-        Specifies if the camera is active or not
+        Specifies if the camera is active or not (if a handle exists for the
+        current camera)
 
         Returns:
             is_active - Boolean, True if the camera is subscribed to, False
             otherwise
         """
-        return id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
+        if id(self) in Camera._getCameraHandlesDict().keys():
+            return True
+        else:
+            return False
 
     def getResolution(self):
         """
@@ -313,6 +342,65 @@ class Camera(Sensor):
         except AssertionError:
             return
 
+    def _frameExtractionLoop(self):
+        """
+        INTERNAL METHOD, To be specified in each dauhter class, frame
+        extraction loop method. This method is threaded. The resolution and the
+        FOV have to be specified beforehand
+        """
+        raise NotImplementedError
+
+    @classmethod
+    def _addCameraHandle(cls, handle, camera):
+        """
+        INTERNAL METHOD, Adds a camera and it's handle to the CAMERA_HANDLES
+        dict
+
+        Parameters:
+            handle - The camera handle
+            camera - The corresponding camera
+        """
+        with cls.HANDLES_LOCK:
+            cls.CAMERA_HANDLES[handle] = camera
+
+    @classmethod
+    def _removeCameraHandle(cls, handle):
+        """
+        INTERNAL METHOD, Remove a camera and it's handle from the
+        CAMERA_HANDLES dict. Throws a KeyError if the handle doesn't exist
+
+        Parameters:
+            handle - The camera handle
+        """
+        with cls.HANDLES_LOCK:
+            del cls.CAMERA_HANDLES[handle]
+
+    @classmethod
+    def _getCameraFromHandle(cls, handle):
+        """
+        INTERNAL METHOD, Returns the camera associated to the specified handle.
+        Throws a KeyError if the handle doesn't exist
+
+        Parameters:
+            handle - The camera handle
+
+        Returns:
+            camera - The camera object associated to the handle
+        """
+        with cls.HANDLES_LOCK:
+            return cls.CAMERA_HANDLES[handle]
+
+    @classmethod
+    def _getCameraHandlesDict(cls):
+        """
+        INTERNAL METHOD, Returns a COPY of the CAMERA_HANDLES dict
+
+        Returns:
+            camera_handles - A copy of the CAMERA_HANDLES dict
+        """
+        with cls.HANDLES_LOCK:
+            return cls.CAMERA_HANDLES.copy()
+
 
 class CameraRgb(Camera):
     """
@@ -350,26 +438,6 @@ class CameraRgb(Camera):
             vfov,
             physicsClientId=physicsClientId)
 
-    def subscribe(self, resolution=Camera.K_QVGA):
-        """
-        Overload @subscribe from @Camera
-
-        Parameters:
-            resolution - CameraResolution object, the resolution of the camera.
-            By default, the resolution is QVGA
-        """
-        Camera.subscribe(self, resolution)
-        self.module_process =\
-            threading.Thread(target=self._frameExtractionLoop)
-        self.module_process.start()
-        self._waitForCorrectImageFormat()
-
-    def unsubscribe(self):
-        """
-        Overload @unsubscribe from @Camera
-        """
-        Camera.unsubscribe(self)
-
     def _frameExtractionLoop(self):
         """
         Frame extraction loop, has to be threaded. The resolution and the FOV
@@ -382,7 +450,6 @@ class CameraRgb(Camera):
 
         try:
             while not self._module_termination:
-                assert id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
                 camera_image = self._getCameraImage()
 
                 camera_image = np.reshape(
@@ -445,26 +512,6 @@ class CameraDepth(Camera):
             far_plane=8,
             physicsClientId=physicsClientId)
 
-    def subscribe(self, resolution=Camera.K_QVGA):
-        """
-        Overload @subscribe from @Camera
-
-        Parameters:
-            resolution - CameraResolution object, the resolution of the camera.
-            By default, the resolution is QVGA
-        """
-        Camera.subscribe(self, resolution)
-        self.module_process =\
-            threading.Thread(target=self._frameExtractionLoop)
-        self.module_process.start()
-        self._waitForCorrectImageFormat()
-
-    def unsubscribe(self):
-        """
-        Overload @unsubscribe from @Camera
-        """
-        Camera.unsubscribe(self)
-
     def _frameExtractionLoop(self):
         """
         Frame extraction loop, has to be threaded. The resolution and the FOV
@@ -472,7 +519,6 @@ class CameraDepth(Camera):
         """
         try:
             while not self._module_termination:
-                assert id(self) == Camera.ACTIVE_OBJECT_ID[self.physics_client]
                 camera_image = self._getCameraImage()
                 depth_image = np.reshape(
                     camera_image[3],
