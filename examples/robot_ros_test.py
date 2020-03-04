@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     wrap.launchWrapper(robot, "/naoqi_driver")
 
-    robot.subscribeCamera(camera_id)
+    handle = robot.subscribeCamera(camera_id)
 
     try:
         rospy.spin()
