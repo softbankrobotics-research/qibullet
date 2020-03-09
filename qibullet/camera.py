@@ -87,7 +87,9 @@ class Camera(Sensor):
         self.camera_link = camera_link
         self.near_plane = near_plane
         self.far_plane = far_plane
+        self.segmentation_enabled = False
         self.frame = None
+        self.segmented_frame = None
         self.projection_matrix = None
         self.resolution = None
         self.hfov = None
@@ -96,16 +98,22 @@ class Camera(Sensor):
         self.resolution_lock = threading.Lock()
         self._setFov(hfov, vfov)
 
-    def subscribe(self, resolution):
+    def subscribe(self, resolution, segmentation=False):
         """
         Subscribing method for the camera (the FOV has to be specified
         beforehand). This method will launch the frame extraction loop process
         of the camera in a separate thread. This method will return a camera
         handle, needed to retrieve camera frames, get the camera resolution,
-        and unsubscribe from it
+        and unsubscribe from it. A custom resolution can be specified, along
+        with a boolean enabling the generation of segmented images with the
+        camera. The segmented images can be retrieved with the
+        getSegmentation mehtod
 
         Returns:
             handle - The handle of the camera
+            segmentation - Boolean, if True the camera will generate
+            segmentation images along with the RGB or depth images provided.
+            False by default
         """
         # Lets the module process thread die before launching another one, if
         # the same camera calls the subscribing method for a second time
@@ -113,6 +121,7 @@ class Camera(Sensor):
         self._module_termination = False
 
         self._setResolution(resolution)
+        self.segmentation_enabled = segmentation
 
         self.module_process =\
             threading.Thread(target=self._frameExtractionLoop)
@@ -135,6 +144,8 @@ class Camera(Sensor):
             self._removeCameraHandle(id(self))
             self._terminateModule()
             self.frame = None
+            self.segmented_frame = None
+            self.segmentation_enabled = False
             return True
 
         except KeyError:
@@ -176,6 +187,22 @@ class Camera(Sensor):
         except AssertionError:
             return None
 
+    def getSegmentation(self):
+        """
+        Returns the segmentation frame associated to the current frame (if the
+        segmentation is enabled)
+
+        Returns:
+            segmentation_copy - a copy of the segmentation frame associated to
+            the current frame
+        """
+        try:
+            assert self.segmented_frame is not None
+            return self.segmented_frame.copy()
+
+        except AssertionError:
+            return None
+
     def isActive(self):
         """
         Specifies if the camera is active or not (if a handle exists for the
@@ -189,6 +216,18 @@ class Camera(Sensor):
             return True
         else:
             return False
+
+    def isSegmentationEnabled(self):
+        """
+        This method will specify if the segmentation is enabled
+        or not
+
+        Returns:
+            segmentation_enabled - Boolean, True if the segmentation is
+            enabled, False otherwise (will also return False if the camera is
+            not active)
+        """
+        return self.segmentation_enabled
 
     def getResolution(self):
         """
@@ -304,6 +343,12 @@ class Camera(Sensor):
             up_vector,
             physicsClientId=self.physics_client)
 
+        # TODO: test this snippet:
+        if self.segmentation_enabled:
+            flags = pybullet.ER_SEGMENTATION_MASK_OBJECT_AND_LINKINDEX
+        else:
+            flags = pybullet.ER_NO_SEGMENTATION_MASK
+
         with self.resolution_lock:
             camera_image = pybullet.getCameraImage(
                 self.resolution.width,
@@ -311,7 +356,8 @@ class Camera(Sensor):
                 view_matrix,
                 self.projection_matrix,
                 renderer=pybullet.ER_BULLET_HARDWARE_OPENGL,
-                flags=pybullet.ER_NO_SEGMENTATION_MASK,
+                # renderer=pybullet.ER_TINY_RENDERER,
+                flags=flags,
                 physicsClientId=self.physics_client)
 
         return camera_image
@@ -448,6 +494,13 @@ class CameraRgb(Camera):
             while not self._module_termination:
                 camera_image = self._getCameraImage()
 
+                if self.isSegmentationEnabled():
+                    # segmented_frame = np.reshape(
+                    #     camera_image[4],
+                    #     (camera_image[1], camera_image[0]))
+
+                    self.segmented_frame = camera_image[4].astype(np.uint8)
+
                 camera_image = np.reshape(
                     camera_image[2],
                     (camera_image[1], camera_image[0], 4))
@@ -516,6 +569,14 @@ class CameraDepth(Camera):
         try:
             while not self._module_termination:
                 camera_image = self._getCameraImage()
+
+                if self.isSegmentationEnabled():
+                    # segmented_frame = np.reshape(
+                    #     camera_image[4],
+                    #     (camera_image[1], camera_image[0]))
+
+                    self.segmented_frame = camera_image[4].astype(np.uint8)
+
                 depth_image = np.reshape(
                     camera_image[3],
                     (camera_image[1], camera_image[0]))

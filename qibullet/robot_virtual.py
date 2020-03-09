@@ -190,7 +190,11 @@ class RobotVirtual:
 
         return joint_velocities
 
-    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
+    def subscribeCamera(
+            self,
+            camera_id,
+            resolution=Camera.K_QVGA,
+            segmentation=False):
         """
         Subscribe to the camera holding the camera id (for instance,
         PepperVirtual.ID_CAMERA_TOP). This method returns a handle for the
@@ -198,17 +202,26 @@ class RobotVirtual:
         the camera object. Bear in mind that when subscribing, a background
         process is started continuously retrieving and treating the
         corresponding camera frames. The handle is also used to unsubscribe
-        from a camera, stopping the background process associated
+        from a camera, stopping the background process associated. A custom
+        resolution can be specified, along with a boolean enabling the
+        generation of corresponding segmented images (useful for data
+        generation tasks). The segmented frames can be retrieved with the
+        getCameraSegmentation method
 
         Parameters:
             camera_id - The id of the camera to be subscribed
             resolution - CameraResolution object, the resolution of the camera
+            segmentation - Boolean, if True the camera will generate
+            segmentation images along with the RGB or depth images provided.
+            False by default
 
         Returns:
             handle - The associated camera handle
         """
         try:
-            return self.camera_dict[camera_id].subscribe(resolution)
+            return self.camera_dict[camera_id].subscribe(
+                resolution=resolution,
+                segmentation=segmentation)
 
         except KeyError:
             print("This camera does not exist, use a valid camera id")
@@ -246,6 +259,27 @@ class RobotVirtual:
         """
         try:
             return Camera._getCameraFromHandle(handle).getFrame()
+
+        except KeyError:
+            raise pybullet.error("Invalid handle, cannot retrieve any frame")
+
+    def getCameraSegmentation(self, handle):
+        """
+        Returns a segmented frame form the camera associated to the specified
+        handle object. Be advised that the subscribeCamera method needs to be
+        called beforehand, otherwise a pybullet error will be raised. If the
+        segmentation parameter is not explicitely set to True when subscring,
+        this method will return a None
+
+        Parameters:
+            handle - The handle retrieved when subscribing to the camera
+
+        Returns:
+            segmented_frame - The segmentation frame associated to the current
+            frame
+        """
+        try:
+            return Camera._getCameraFromHandle(handle).getSegmentation()
 
         except KeyError:
             raise pybullet.error("Invalid handle, cannot retrieve any frame")
