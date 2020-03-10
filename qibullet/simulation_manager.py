@@ -307,6 +307,4 @@ class SimulationManager:
             ground plane is supposed to be spawned
         """
         pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
-        pybullet.loadMJCF(
-            "mjcf/ground_plane.xml",
-            physicsClientId=physics_client)
+        pybullet.loadSDF("plane_stadium.sdf", physicsClientId=physics_client)
