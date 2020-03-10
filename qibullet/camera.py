@@ -356,7 +356,6 @@ class Camera(Sensor):
                 view_matrix,
                 self.projection_matrix,
                 renderer=pybullet.ER_BULLET_HARDWARE_OPENGL,
-                # renderer=pybullet.ER_TINY_RENDERER,
                 flags=flags,
                 physicsClientId=self.physics_client)
 
@@ -495,11 +494,7 @@ class CameraRgb(Camera):
                 camera_image = self._getCameraImage()
 
                 if self.isSegmentationEnabled():
-                    # segmented_frame = np.reshape(
-                    #     camera_image[4],
-                    #     (camera_image[1], camera_image[0]))
-
-                    self.segmented_frame = camera_image[4].astype(np.uint8)
+                    self.segmented_frame = camera_image[4]
 
                 camera_image = np.reshape(
                     camera_image[2],
@@ -571,11 +566,7 @@ class CameraDepth(Camera):
                 camera_image = self._getCameraImage()
 
                 if self.isSegmentationEnabled():
-                    # segmented_frame = np.reshape(
-                    #     camera_image[4],
-                    #     (camera_image[1], camera_image[0]))
-
-                    self.segmented_frame = camera_image[4].astype(np.uint8)
+                    self.segmented_frame = camera_image[4]
 
                 depth_image = np.reshape(
                     camera_image[3],
