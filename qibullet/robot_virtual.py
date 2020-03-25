@@ -163,7 +163,6 @@ class RobotVirtual:
             joint_positions - List of floats containing the joint's positions
         """
         indexes = [self.joint_dict[name].getIndex() for name in joint_names]
-        joint_positions = list()
 
         return [state[0] for state in pybullet.getJointStates(
             self.robot_model,
