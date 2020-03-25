@@ -166,7 +166,8 @@ class RobotVirtual:
 
         return [state[0] for state in pybullet.getJointStates(
             self.robot_model,
-            indexes)]
+            indexes,
+            physicsClientId=self.physics_client)]
 
     def getAnglesVelocity(self, joint_names):
         """
@@ -179,15 +180,12 @@ class RobotVirtual:
         Returns:
             joint_velocities - List of floats containing the joint's velocities
         """
-        joint_velocities = list()
+        indexes = [self.joint_dict[name].getIndex() for name in joint_names]
 
-        for joint_name in joint_names:
-            joint_velocities.append(pybullet.getJointState(
-                self.robot_model,
-                self.joint_dict[joint_name].getIndex(),
-                physicsClientId=self.physics_client)[1])
-
-        return joint_velocities
+        return [state[1] for state in pybullet.getJointStates(
+            self.robot_model,
+            indexes,
+            physicsClientId=self.physics_client)]
 
     def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
         """
