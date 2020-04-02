@@ -52,6 +52,9 @@ class PepperLaserTest(unittest.TestCase):
             PepperLaserTest.robot.getLeftLaserValue(),
             list)
 
+        # Test double subscribe
+        PepperLaserTest.robot.subscribeLaser()
+
         PepperLaserTest.robot.unsubscribeLaser()
 
     def test_lasers_display(self):
