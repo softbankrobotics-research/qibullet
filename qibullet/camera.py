@@ -444,30 +444,26 @@ class CameraRgb(Camera):
             self.resolution.width,
             3))
 
-        try:
-            while not self._module_termination:
-                camera_image = self._getCameraImage()
+        while not self._module_termination:
+            camera_image = self._getCameraImage()
 
-                camera_image = np.reshape(
-                    camera_image[2],
-                    (camera_image[1], camera_image[0], 4))
+            camera_image = np.reshape(
+                camera_image[2],
+                (camera_image[1], camera_image[0], 4))
 
-                rgb_image[:, :, 0] =\
-                    (1 - camera_image[:, :, 3]) * camera_image[:, :, 2] +\
-                    camera_image[:, :, 3] * camera_image[:, :, 2]
+            rgb_image[:, :, 0] =\
+                (1 - camera_image[:, :, 3]) * camera_image[:, :, 2] +\
+                camera_image[:, :, 3] * camera_image[:, :, 2]
 
-                rgb_image[:, :, 1] =\
-                    (1 - camera_image[:, :, 3]) * camera_image[:, :, 1] +\
-                    camera_image[:, :, 3] * camera_image[:, :, 1]
+            rgb_image[:, :, 1] =\
+                (1 - camera_image[:, :, 3]) * camera_image[:, :, 1] +\
+                camera_image[:, :, 3] * camera_image[:, :, 1]
 
-                rgb_image[:, :, 2] =\
-                    (1 - camera_image[:, :, 3]) * camera_image[:, :, 0] +\
-                    camera_image[:, :, 3] * camera_image[:, :, 0]
+            rgb_image[:, :, 2] =\
+                (1 - camera_image[:, :, 3]) * camera_image[:, :, 0] +\
+                camera_image[:, :, 3] * camera_image[:, :, 0]
 
-                self.frame = rgb_image.astype(np.uint8)
-
-        except AssertionError:
-            return
+            self.frame = rgb_image.astype(np.uint8)
 
 
 class CameraDepth(Camera):
@@ -513,19 +509,15 @@ class CameraDepth(Camera):
         Frame extraction loop, has to be threaded. The resolution and the FOV
         have to be specified beforehand
         """
-        try:
-            while not self._module_termination:
-                camera_image = self._getCameraImage()
-                depth_image = np.reshape(
-                    camera_image[3],
-                    (camera_image[1], camera_image[0]))
+        while not self._module_termination:
+            camera_image = self._getCameraImage()
+            depth_image = np.reshape(
+                camera_image[3],
+                (camera_image[1], camera_image[0]))
 
-                depth_image = (self.far_plane * self.near_plane) /\
-                    (self.far_plane - (self.far_plane - self.near_plane) *
-                        depth_image)
+            depth_image = (self.far_plane * self.near_plane) /\
+                (self.far_plane - (self.far_plane - self.near_plane) *
+                    depth_image)
 
-                depth_image *= 1000
-                self.frame = depth_image.astype(np.uint16)
-
-        except AssertionError:
-            return
+            depth_image *= 1000
+            self.frame = depth_image.astype(np.uint16)

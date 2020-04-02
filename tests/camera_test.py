@@ -22,13 +22,16 @@ class CameraTest(unittest.TestCase):
         # Test wrong camera ID for subscription
         self.assertIsNone(CameraTest.robot.subscribeCamera(-3))
 
-        # Test wrong camera ID for unsubscription, when active camera is not
-        # None
+        # Test wrong camera ID for unsubscription, and try to unsubscribe from
+        # an already unsubscribed camera
         handle = CameraTest.robot.subscribeCamera(
             list(CameraTest.robot.camera_dict.keys())[0])
 
         self.assertFalse(CameraTest.robot.unsubscribeCamera(-3))
+
+        camera = CameraTest.robot.getCamera(handle)
         CameraTest.robot.unsubscribeCamera(handle)
+        self.assertFalse(camera.unsubscribe())
 
         # Test subscribing / unsubscribing
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
@@ -149,6 +152,10 @@ class CameraTest(unittest.TestCase):
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
             handles.append(CameraTest.robot.subscribeCamera(camera_id))
             self.assertTrue(camera_obj.isActive())
+
+            # Ensure that waiting for a correct image format when the camera is
+            # unsubscribed won't block the program
+            camera_obj._waitForCorrectImageFormat()
 
         # Checked that the unsubscribed cameras are inactive
         for handle in handles:
