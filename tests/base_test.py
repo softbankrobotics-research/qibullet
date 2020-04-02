@@ -180,6 +180,44 @@ class PepperBaseTest(unittest.TestCase):
         # with future for instance
         time.sleep(1.0)
 
+    def test_move_to_speed_limits(self):
+        """
+        Test the set @moveTo method speed limits
+        """
+        max_linear = PepperBaseTest.robot.base_controller.MAX_LINEAR_VELOCITY
+        min_linear = PepperBaseTest.robot.base_controller.MIN_LINEAR_VELOCITY
+        max_angular = PepperBaseTest.robot.base_controller.MAX_ANGULAR_VELOCITY
+        min_angular = PepperBaseTest.robot.base_controller.MIN_ANGULAR_VELOCITY
+
+        try:
+            PepperBaseTest.robot.moveTo(
+                0.0,
+                0.0,
+                0.0,
+                frame=PepperVirtual.FRAME_ROBOT,
+                speed=max_linear + 0.5)
+
+            self.assertEqual(
+                PepperBaseTest.robot.base_controller.linear_velocity,
+                PepperBaseTest.robot.base_controller.MAX_LINEAR_VELOCITY)
+
+            PepperBaseTest.robot.moveTo(
+                0.0,
+                0.0,
+                0.0,
+                frame=PepperVirtual.FRAME_ROBOT,
+                speed=min_linear - 0.5)
+
+            self.assertEqual(
+                PepperBaseTest.robot.base_controller.linear_velocity,
+                PepperBaseTest.robot.base_controller.MIN_LINEAR_VELOCITY)
+
+            # TODO: Angular speed cannot be set from PepperVirtual, API check
+            # needed and possible refactoring
+
+        except Exception:
+            self.assertTrue(False, "Shouldn't raise an exception")
+
     def test_move_base(self):
         """
         Test the set @move method
