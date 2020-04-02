@@ -77,8 +77,8 @@ class JointTest(unittest.TestCase):
 
         # Inject errors in the setAngles parameters
         with self.assertRaises(pybullet.error):
-            JointTest.robot.setAngles("HeadRoll", "wrong")
-            JointTest.robot.setAngles(["HeadRoll", "HeadPitch"], 2)
+            JointTest.robot.setAngles("HeadRoll", "wrong", 0.5)
+            JointTest.robot.setAngles(["HeadRoll", "HeadPitch"], 2, 0.5)
 
         for i in range(iterations):
             angles = list()
