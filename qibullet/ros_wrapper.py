@@ -34,9 +34,9 @@ try:
     try:
         from naoqi_bridge_msgs.msg import PoseStampedWithSpeed as MovetoPose
         OFFICIAL_DRIVER = False
+        print("Using softbankrobotics-research forked version of NAOqi driver")
 
     except ImportError as e:
-        print(str(e))
         from geometry_msgs.msg import PoseStamped as MovetoPose
         OFFICIAL_DRIVER = True
 
