@@ -180,43 +180,103 @@ class PepperBaseTest(unittest.TestCase):
         # with future for instance
         time.sleep(1.0)
 
-    def test_move_to_speed_limits(self):
+    def test_base_speed_limits(self):
         """
-        Test the set @moveTo method speed limits
+        Test the set the base speed limits (for Pepper)
         """
         max_linear = PepperBaseTest.robot.base_controller.MAX_LINEAR_VELOCITY
         min_linear = PepperBaseTest.robot.base_controller.MIN_LINEAR_VELOCITY
         max_angular = PepperBaseTest.robot.base_controller.MAX_ANGULAR_VELOCITY
         min_angular = PepperBaseTest.robot.base_controller.MIN_ANGULAR_VELOCITY
+        epsilon = 0.5
 
-        try:
-            PepperBaseTest.robot.moveTo(
-                0.0,
-                0.0,
-                0.0,
-                frame=PepperVirtual.FRAME_ROBOT,
-                speed=max_linear + 0.5)
+        # Linear velocity tests
+        PepperBaseTest.robot.base_controller.setLinearVelocity(
+            max_linear + epsilon)
 
-            self.assertEqual(
-                PepperBaseTest.robot.base_controller.linear_velocity,
-                PepperBaseTest.robot.base_controller.MAX_LINEAR_VELOCITY)
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.linear_velocity,
+            max_linear)
 
-            PepperBaseTest.robot.moveTo(
-                0.0,
-                0.0,
-                0.0,
-                frame=PepperVirtual.FRAME_ROBOT,
-                speed=min_linear - 0.5)
+        PepperBaseTest.robot.base_controller.setLinearVelocity(
+            min_linear - epsilon)
 
-            self.assertEqual(
-                PepperBaseTest.robot.base_controller.linear_velocity,
-                PepperBaseTest.robot.base_controller.MIN_LINEAR_VELOCITY)
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.linear_velocity,
+            min_linear)
 
-            # TODO: Angular speed cannot be set from PepperVirtual, API check
-            # needed and possible refactoring
+        # Angular velocity tests
+        PepperBaseTest.robot.base_controller._setAngularVelocity(
+            max_angular + epsilon)
 
-        except Exception:
-            self.assertTrue(False, "Shouldn't raise an exception")
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.angular_velocity,
+            max_angular)
+
+        PepperBaseTest.robot.base_controller._setAngularVelocity(
+            min_angular - epsilon)
+
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.angular_velocity,
+            min_angular)
+
+        # Reset the base controller of the Pepper robot
+        PepperBaseTest.robot.base_controller.setLinearVelocity(
+            PepperBaseTest.robot.linear_velocity)
+
+        PepperBaseTest.robot.base_controller._setAngularVelocity(
+            PepperBaseTest.robot.angular_velocity)
+
+    def test_base_acceleration_limits(self):
+        """
+        Test the set the base acceleration limits (for Pepper)
+        """
+        max_linear =\
+            PepperBaseTest.robot.base_controller.MAX_LINEAR_ACCELERATION
+        min_linear =\
+            PepperBaseTest.robot.base_controller.MIN_LINEAR_ACCELERATION
+        max_angular =\
+            PepperBaseTest.robot.base_controller.MAX_ANGULAR_ACCELERATION
+        min_angular =\
+            PepperBaseTest.robot.base_controller.MIN_ANGULAR_ACCELERATION
+        epsilon = 0.5
+
+        # Linear acceleration tests
+        PepperBaseTest.robot.base_controller._setLinearAcceleration(
+            max_linear + epsilon)
+
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.linear_acceleration,
+            max_linear)
+
+        PepperBaseTest.robot.base_controller._setLinearAcceleration(
+            min_linear - epsilon)
+
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.linear_acceleration,
+            min_linear)
+
+        # Angular acceleration tests
+        PepperBaseTest.robot.base_controller._setAngularAcceleration(
+            max_angular + epsilon)
+
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.angular_acceleration,
+            max_angular)
+
+        PepperBaseTest.robot.base_controller._setAngularAcceleration(
+            min_angular - epsilon)
+
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.angular_acceleration,
+            min_angular)
+
+        # Reset the base controller of the Pepper robot
+        PepperBaseTest.robot.base_controller._setLinearAcceleration(
+            PepperBaseTest.robot.linear_acceleration)
+
+        PepperBaseTest.robot.base_controller._setAngularAcceleration(
+            PepperBaseTest.robot.angular_acceleration)
 
     def test_move_base(self):
         """
