@@ -39,9 +39,7 @@ class CameraTest(unittest.TestCase):
 
             # Check if the provided handle corresponds to the id of the camera
             # object
-            self.assertEqual(
-                handle,
-                id(camera_obj))
+            self.assertEqual(handle, id(camera_obj))
 
             # Check if the camera and the associated handle have been correctly
             # storred in the handles dict
@@ -153,15 +151,15 @@ class CameraTest(unittest.TestCase):
             handles.append(CameraTest.robot.subscribeCamera(camera_id))
             self.assertTrue(camera_obj.isActive())
 
-            # Ensure that waiting for a correct image format when the camera is
-            # unsubscribed won't block the program
-            camera_obj._waitForCorrectImageFormat()
-
         # Checked that the unsubscribed cameras are inactive
         for handle in handles:
             camera_obj = CameraTest.robot.getCamera(handle)
             self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
             self.assertFalse(camera_obj.isActive())
+
+            # Ensure that waiting for a correct image format when the camera is
+            # unsubscribed won't block the program
+            camera_obj._waitForCorrectImageFormat()
 
     def test_camera_channels(self):
         """
