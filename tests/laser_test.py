@@ -32,6 +32,15 @@ class PepperLaserTest(unittest.TestCase):
         PepperLaserTest.simulation.stopSimulation(
             PepperLaserTest.client)
 
+    def test_laser_robot_model(self):
+        """
+        Ensure that the robot model of the laser and the model of the
+        robot are the same
+        """
+        self.assertEqual(
+            PepperLaserTest.laser_manager.getRobotModel(),
+            PepperLaserTest.robot.getRobotModel())
+
     def test_lasers_data(self):
         """
         Test the retrieval of lasers data

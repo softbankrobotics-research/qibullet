@@ -13,6 +13,16 @@ class CameraTest(unittest.TestCase):
     Unittests for virtual cameras (virtual class, don't use directly)
     """
 
+    def test_camera_robot_model(self):
+        """
+        Ensure that the robot model of the camera and the model of the robot
+        are the same
+        """
+        for camera in CameraTest.robot.camera_dict.values():
+            self.assertEqual(
+                camera.getRobotModel(),
+                CameraTest.robot.getRobotModel())
+
     def test_subscribe_camera(self):
         """
         Test subscribing to each of Pepper's cameras

@@ -34,6 +34,15 @@ class PepperBaseTest(unittest.TestCase):
         PepperBaseTest.simulation.stopSimulation(
             PepperBaseTest.client)
 
+    def test_base_robot_model(self):
+        """
+        Ensure that the robot model of the base controller and the model of the
+        robot are the same
+        """
+        self.assertEqual(
+            PepperBaseTest.robot.base_controller.getRobotModel(),
+            PepperBaseTest.robot.getRobotModel())
+
     def test_move_to_base_world_frame(self):
         """
         Test the set @moveTo method in the world frame, and compare the
