@@ -57,7 +57,9 @@ class PepperBaseTest(unittest.TestCase):
                 0,
                 frame=PepperVirtual.FRAME_WORLD)
 
-            self.assertTrue(True)
+            position = PepperBaseTest.robot.getPosition()
+            self.assertLess(position[0], 1.0)
+            self.assertLess(position[1], 1.0)
 
         except Exception:
             self.assertTrue(False, "Shouldn't raise an exception")
