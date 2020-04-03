@@ -26,6 +26,15 @@ class SimulationManagerTest(unittest.TestCase):
         self.assertEqual(client, 0)
         manager.stopSimulation(client)
 
+        # Ensure that stopping the simulation one more time won't raise an
+        # error
+        try:
+            manager.stopSimulation(client)
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False)
+
     def test_set_light_position(self):
         """
         Test the @setLightPosition method
@@ -55,6 +64,44 @@ class SimulationManagerTest(unittest.TestCase):
         client = manager.launchSimulation(gui=False)
         manager.resetSimulation(client)
         manager.stopSimulation(client)
+
+    def test_camera_removal(self):
+        """
+        Ensure that the camera processes are stopped when removing a robot,
+        stopping or resetting a simulation
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False)
+
+        pepper = manager.spawnPepper(
+            client,
+            spawn_ground_plane=True)
+        handle = pepper.subscribeCamera(PepperVirtual.ID_CAMERA_TOP)
+        camera = pepper.getCamera(handle)
+
+        self.assertTrue(camera.isActive())
+        manager.removePepper(pepper)
+        self.assertFalse(camera.isActive())
+
+        pepper = manager.spawnPepper(
+            client,
+            spawn_ground_plane=True)
+        handle = pepper.subscribeCamera(PepperVirtual.ID_CAMERA_TOP)
+        camera = pepper.getCamera(handle)
+
+        self.assertTrue(camera.isActive())
+        manager.resetSimulation(client)
+        self.assertFalse(camera.isActive())
+
+        pepper = manager.spawnPepper(
+            client,
+            spawn_ground_plane=True)
+        handle = pepper.subscribeCamera(PepperVirtual.ID_CAMERA_TOP)
+        camera = pepper.getCamera(handle)
+
+        self.assertTrue(camera.isActive())
+        manager.stopSimulation(client)
+        self.assertFalse(camera.isActive())
 
     def test_spawn_pepper(self):
         """
