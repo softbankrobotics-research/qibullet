@@ -54,11 +54,13 @@ class PepperBaseTest(unittest.TestCase):
             self.assertTrue(False, "Shouldn't raise an exception")
 
         try:
+            # Test moveTo and add a linear speed argument
             PepperBaseTest.robot.moveTo(
                 x_command,
                 y_command,
                 theta_command,
-                frame=PepperVirtual.FRAME_WORLD)
+                frame=PepperVirtual.FRAME_WORLD,
+                speed=PepperBaseTest.robot.linear_velocity)
 
             self.assertTrue(True)
 
