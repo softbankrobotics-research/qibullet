@@ -132,5 +132,44 @@ class NaoPostureTest(PostureTest):
         PostureTest.test_crouch_posture(self)
 
 
+class RomeoPostureTest(PostureTest):
+    """
+    Unittests for Romeo's postures
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Launches a simulation and spawns the NAO virtual robot
+        """
+        PostureTest.simulation = SimulationManager()
+        PostureTest.client = PostureTest.simulation.launchSimulation(
+            gui=False)
+
+        PostureTest.robot = PostureTest.simulation.spawnRomeo(
+            PostureTest.client,
+            spawn_ground_plane=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stops the simulation
+        """
+        PostureTest.simulation.stopSimulation(
+            PostureTest.client)
+
+    def test_go_to_posture_method(self):
+        PostureTest.test_go_to_posture_method(self)
+
+    def test_stand_posture(self):
+        PostureTest.test_stand_posture(self)
+
+    def test_stand_zero_posture(self):
+        PostureTest.test_stand_zero_posture(self)
+
+    def test_crouch_posture(self):
+        PostureTest.test_crouch_posture(self)
+
+
 if __name__ == "__main__":
     unittest.main()
