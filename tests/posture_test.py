@@ -10,9 +10,10 @@ class PostureTest(unittest.TestCase):
     Unittests for Pepper's postures
     """
 
-    def test_go_to_posture_method(self):
+    def test_invalid_posture(self):
         """
-        Test the robustness of the @goToPosture method
+        Test the robustness of the @goToPosture method by sending an invalid
+        posture
         """
         self.assertFalse(
             PostureTest.robot.goToPosture("invalid", 0.5))
@@ -80,8 +81,8 @@ class PepperPostureTest(PostureTest):
         PostureTest.simulation.stopSimulation(
             PostureTest.client)
 
-    def test_go_to_posture_method(self):
-        PostureTest.test_go_to_posture_method(self)
+    def test_invalid_posture(self):
+        PostureTest.test_invalid_posture(self)
 
     def test_stand_posture(self):
         PostureTest.test_stand_posture(self)
@@ -119,8 +120,8 @@ class NaoPostureTest(PostureTest):
         PostureTest.simulation.stopSimulation(
             PostureTest.client)
 
-    def test_go_to_posture_method(self):
-        PostureTest.test_go_to_posture_method(self)
+    def test_invalid_posture(self):
+        PostureTest.test_invalid_posture(self)
 
     def test_stand_posture(self):
         PostureTest.test_stand_posture(self)
@@ -158,8 +159,8 @@ class RomeoPostureTest(PostureTest):
         PostureTest.simulation.stopSimulation(
             PostureTest.client)
 
-    def test_go_to_posture_method(self):
-        PostureTest.test_go_to_posture_method(self)
+    def test_invalid_posture(self):
+        PostureTest.test_invalid_posture(self)
 
     def test_stand_posture(self):
         PostureTest.test_stand_posture(self)
