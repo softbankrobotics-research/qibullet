@@ -151,12 +151,12 @@ class RomeoVirtual(RobotVirtual):
                     physicsClientId=self.physics_client)
 
             for name, link in self.link_dict.items():
-                if side + "finger" in name.lower() or\
-                   side + "thumb" in name.lower():
+                if side + "Finger" in name or\
+                   side + "Thumb" in name:
                     pybullet.setCollisionFilterPair(
                         self.robot_model,
                         self.robot_model,
-                        self.link_dict[side.lower + "_wrist"].getIndex(),
+                        self.link_dict[side.lower() + "_wrist"].getIndex(),
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
