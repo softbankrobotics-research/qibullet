@@ -30,8 +30,9 @@ class PepperVirtual(RobotVirtual):
         """
         Constructor
         """
-        # Install the robot meshes and URDFs if they are not already installed
-        if not tools._check_resources_installed():
+        # Install the robot meshes and URDFs if they are not already installed.
+        # The installation process won't be covered by the unit tests
+        if not tools._check_resources_installed():  # pragma: no cover
             tools._install_resources()
 
         # Specify the URDF path

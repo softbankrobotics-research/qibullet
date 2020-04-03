@@ -13,6 +13,16 @@ class CameraTest(unittest.TestCase):
     Unittests for virtual cameras (virtual class, don't use directly)
     """
 
+    def test_camera_robot_model(self):
+        """
+        Ensure that the robot model of the camera and the model of the robot
+        are the same
+        """
+        for camera in CameraTest.robot.camera_dict.values():
+            self.assertEqual(
+                camera.getRobotModel(),
+                CameraTest.robot.getRobotModel())
+
     def test_subscribe_camera(self):
         """
         Test subscribing to each of Pepper's cameras
@@ -22,13 +32,16 @@ class CameraTest(unittest.TestCase):
         # Test wrong camera ID for subscription
         self.assertIsNone(CameraTest.robot.subscribeCamera(-3))
 
-        # Test wrong camera ID for unsubscription, when active camera is not
-        # None
+        # Test wrong camera ID for unsubscription, and try to unsubscribe from
+        # an already unsubscribed camera
         handle = CameraTest.robot.subscribeCamera(
             list(CameraTest.robot.camera_dict.keys())[0])
 
         self.assertFalse(CameraTest.robot.unsubscribeCamera(-3))
+
+        camera = CameraTest.robot.getCamera(handle)
         CameraTest.robot.unsubscribeCamera(handle)
+        self.assertFalse(camera.unsubscribe())
 
         # Test subscribing / unsubscribing
         for camera_id, camera_obj in CameraTest.robot.camera_dict.items():
@@ -36,9 +49,7 @@ class CameraTest(unittest.TestCase):
 
             # Check if the provided handle corresponds to the id of the camera
             # object
-            self.assertEqual(
-                handle,
-                id(camera_obj))
+            self.assertEqual(handle, id(camera_obj))
 
             # Check if the camera and the associated handle have been correctly
             # storred in the handles dict
@@ -155,6 +166,10 @@ class CameraTest(unittest.TestCase):
             camera_obj = CameraTest.robot.getCamera(handle)
             self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
             self.assertFalse(camera_obj.isActive())
+
+            # Ensure that waiting for a correct image format when the camera is
+            # unsubscribed won't block the program
+            camera_obj._waitForCorrectImageFormat()
 
     def test_camera_channels(self):
         """
