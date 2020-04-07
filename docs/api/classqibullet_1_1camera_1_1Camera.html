@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -181,6 +181,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af819a951971d12eaa2f3fcbb1ba581d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af819a951971d12eaa2f3fcbb1ba581d1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>resolution_lock</b></td></tr>
 <tr class="separator:af819a951971d12eaa2f3fcbb1ba581d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68f5b9b015ab7b534f4c19bf4612b06"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad68f5b9b015ab7b534f4c19bf4612b06"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>module_process</b></td></tr>
+<tr class="separator:ad68f5b9b015ab7b534f4c19bf4612b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classqibullet_1_1robot__module_1_1RobotModule"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classqibullet_1_1robot__module_1_1RobotModule')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classqibullet_1_1robot__module_1_1RobotModule.html">qibullet.robot_module.RobotModule</a></td></tr>
 <tr class="memitem:ad96a8dfe6694d541bf811f8e68a3e926 inherit pub_attribs_classqibullet_1_1robot__module_1_1RobotModule"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad96a8dfe6694d541bf811f8e68a3e926"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>robot_model</b></td></tr>
@@ -194,9 +197,12 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:adbbb6eb031ec694c1d79100fbad608d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbbb6eb031ec694c1d79100fbad608d4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ACTIVE_OBJECT_ID</b> = dict()</td></tr>
-<tr class="separator:adbbb6eb031ec694c1d79100fbad608d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af94b69567b7ed3d870382174a8f13772"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af94b69567b7ed3d870382174a8f13772"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>CAMERA_HANDLES</b> = dict()</td></tr>
+<tr class="separator:af94b69567b7ed3d870382174a8f13772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa666c0d35a8ab7df7ad938dd26620b5b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa666c0d35a8ab7df7ad938dd26620b5b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>HANDLES_LOCK</b> = threading.Lock()</td></tr>
+<tr class="separator:aa666c0d35a8ab7df7ad938dd26620b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb057a3ccc5c8b0b5cc5bd71a314758e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb057a3ccc5c8b0b5cc5bd71a314758e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>K_QQVGA</b> = <a class="el" href="classqibullet_1_1camera_1_1CameraResolution.html">CameraResolution</a>(160, 120)</td></tr>
 <tr class="separator:acb057a3ccc5c8b0b5cc5bd71a314758e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -315,7 +321,8 @@ Parameters:
 </div><div class="memdoc">
 <pre class="fragment">Returns the id of the camera. WARNING, the id of the camera is not the
 id of the Python object corresponding to the camera, the id value is
-defined by the user and specific to each camera of each robot.
+defined by the user and specific to each camera of each robot (
+PepperVirtual.ID_CAMERA_TOP for instance).
 
 Returns:
     camera_id - The id of the camera
@@ -397,7 +404,8 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Specifies if the camera is active or not
+<pre class="fragment">Specifies if the camera is active or not (if a handle exists for the
+current camera)
 
 Returns:
     is_active - Boolean, True if the camera is subscribed to, False
@@ -428,8 +436,14 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Subscribing method for the camera. The FOV has to be specified
-beforehand
+<pre class="fragment">Subscribing method for the camera (the FOV has to be specified
+beforehand). This method will launch the frame extraction loop process
+of the camera in a separate thread. This method will return a camera
+handle, needed to retrieve camera frames, get the camera resolution,
+and unsubscribe from it
+
+Returns:
+    handle - The handle of the camera
 </pre> 
 </div>
 </div>
@@ -446,7 +460,11 @@ beforehand
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Method stopping the frame retreival thread for a camera
+<pre class="fragment">Method stopping the frame retreival thread for a camera.
+
+Returns:
+    success - Boolean, True if unsubscribed successfully, False
+    otherwise
 </pre> 
 </div>
 </div>
