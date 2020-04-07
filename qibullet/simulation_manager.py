@@ -231,11 +231,7 @@ class SimulationManager:
         """
         pepper_virtual.laser_manager._terminateModule()
         pepper_virtual.base_controller._terminateModule()
-        pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_TOP)
-        pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
-        pepper_virtual.unsubscribeCamera(PepperVirtual.ID_CAMERA_DEPTH)
-
-        pybullet.removeBody(pepper_virtual.getRobotModel())
+        self._removeRobot(pepper_virtual)
 
     def removeNao(self, nao_virtual):
         """
@@ -244,10 +240,7 @@ class SimulationManager:
         Parameters:
             nao_virtual - The virtual NAO robot to be removed
         """
-        nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_TOP)
-        nao_virtual.unsubscribeCamera(NaoVirtual.ID_CAMERA_BOTTOM)
-
-        pybullet.removeBody(nao_virtual.getRobotModel())
+        self._removeRobot(nao_virtual)
 
     def removeRomeo(self, romeo_virtual):
         """
@@ -256,11 +249,21 @@ class SimulationManager:
         Parameters:
             romeo_virtual - The virtual Romeo to be removed
         """
-        romeo_virtual.unsubscribeCamera(RomeoVirtual.ID_CAMERA_LEFT)
-        romeo_virtual.unsubscribeCamera(RomeoVirtual.ID_CAMERA_RIGHT)
-        romeo_virtual.unsubscribeCamera(RomeoVirtual.ID_CAMERA_DEPTH)
+        self._removeRobot(romeo_virtual)
 
-        pybullet.removeBody(romeo_virtual.getRobotModel())
+    def _removeRobot(self, robot_virtual):
+        """
+        Removes a Virtual robot (Robot inheriting from RobotVirtual) from a
+        simulated instance
+
+        Parameters:
+            robot_virtual - The virtual robot to be removed
+        """
+        for camera in robot_virtual.camera_dict.values():
+            if id(camera) in Camera._getCameraHandlesDict():
+                camera.unsubscribe()
+
+        pybullet.removeBody(robot_virtual.getRobotModel())
 
     def _clearInstance(self, physics_client):
         """
@@ -271,11 +274,13 @@ class SimulationManager:
             physics_client - The client id of the simulated instance that will
             be cleared
         """
-        Camera.ACTIVE_OBJECT_ID[physics_client] = -1
-
         for module in RobotModule._getInstances():
             if module.getPhysicsClientId() == physics_client:
                 module._terminateModule()
+
+        for camera in Camera._getCameraHandlesDict().values():
+            if physics_client == camera.getPhysicsClientId():
+                camera.unsubscribe()
 
     def _stepSimulation(self, physics_client):
         """

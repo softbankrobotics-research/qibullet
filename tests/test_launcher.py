@@ -32,6 +32,7 @@ if __name__ == "__main__":
         from camera_test import PepperCameraTest
         from posture_test import NaoPostureTest
         from posture_test import PepperPostureTest
+        from posture_test import RomeoPostureTest
         from virtual_robot_test import VirtualRobotTest
         from self_collision_test import NaoSelfCollisionTest
         from self_collision_test import PepperSelfCollisionTest
@@ -57,6 +58,7 @@ if __name__ == "__main__":
         PepperCameraTest,
         NaoPostureTest,
         PepperPostureTest,
+        RomeoPostureTest,
         NaoSelfCollisionTest,
         PepperSelfCollisionTest]
 

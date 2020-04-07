@@ -170,7 +170,7 @@ class Laser(Sensor):
                                 parentObjectUniqueId=self.robot_model,
                                 parentLinkIndex=self.laser_id,
                                 physicsClientId=self.physics_client)
-                        else:
+                        else:  # pragma: no cover
                             localHitTo = [self.ray_from[i][0]+hitFraction*(
                                         self.ray_to[i][0]-self.ray_from[i][0]),
                                          self.ray_from[i][1]+hitFraction*(

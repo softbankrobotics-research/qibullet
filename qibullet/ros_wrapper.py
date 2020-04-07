@@ -30,13 +30,13 @@ try:
     from geometry_msgs.msg import TransformStamped
     from geometry_msgs.msg import Twist
     from nav_msgs.msg import Odometry
-    
+
     try:
         from naoqi_bridge_msgs.msg import PoseStampedWithSpeed as MovetoPose
         OFFICIAL_DRIVER = False
-    
+        print("Using softbankrobotics-research forked version of NAOqi driver")
+
     except ImportError as e:
-        print(str(e))
         from geometry_msgs.msg import PoseStamped as MovetoPose
         OFFICIAL_DRIVER = True
 
@@ -105,7 +105,7 @@ class RosWrapper:
         if MISSING_IMPORT is not None:
             raise pybullet.error(MISSING_IMPORT)
 
-        self.virtual_robot = virtual_robot
+        self.robot = virtual_robot
         self.ros_namespace = ros_namespace
         self.frequency = frequency
 
@@ -116,11 +116,11 @@ class RosWrapper:
 
         # Upload the robot description to the ros parameter server
         try:
-            if isinstance(self.virtual_robot, PepperVirtual):
+            if isinstance(self.robot, PepperVirtual):
                 robot_name = "pepper"
-            elif isinstance(self.virtual_robot, NaoVirtual):
+            elif isinstance(self.robot, NaoVirtual):
                 robot_name = "nao"
-            elif isinstance(self.virtual_robot, RomeoVirtual):
+            elif isinstance(self.robot, RomeoVirtual):
                 robot_name = "romeo"
             else:
                 raise pybullet.error(
@@ -186,7 +186,7 @@ class RosWrapper:
             odometry_publisher - The ROS publisher for the odometry message
         """
         # Send Transform odom
-        x, y, theta = self.virtual_robot.getPosition()
+        x, y, theta = self.robot.getPosition()
         odom_trans = TransformStamped()
         odom_trans.header.frame_id = "odom"
         odom_trans.child_frame_id = "base_link"
@@ -210,56 +210,56 @@ class RosWrapper:
         odom.pose.pose.orientation = odom_trans.transform.rotation
         odom.child_frame_id = "base_link"
         [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
-            self.virtual_robot.getRobotModel(),
-            self.virtual_robot.getPhysicsClientId())
+            self.robot.getRobotModel(),
+            self.robot.getPhysicsClientId())
         odom.twist.twist.linear.x = vx
         odom.twist.twist.linear.y = vy
         odom.twist.twist.angular.z = wz
         odometry_publisher.publish(odom)
 
-    def _broadcastCamera(self, image_publisher, info_publisher):
+    def _broadcastCamera(self, camera, image_publisher, info_publisher):
         """
         INTERNAL METHOD, computes the image message and the info message of the
-        active camera and publishes them into the ROS framework
+        given camera and publishes them into the ROS framework
 
         Parameters:
-            image_publisher: The ROS publisher for the Image message,
+            camera - The camera used for broadcasting
+            image_publisher - The ROS publisher for the Image message,
             corresponding to the image delivered by the active camera
-            info_publisher: The ROS publisher for the CameraInfo message,
+            info_publisher - The ROS publisher for the CameraInfo message,
             corresponding to the parameters of the active camera
         """
         try:
-            camera = self.virtual_robot.getActiveCamera()
-            assert camera is not None
-            assert camera.getFrame() is not None
-
-            camera_image_msg = self.image_bridge.cv2_to_imgmsg(
-                camera.getFrame())
-            camera_image_msg.header.frame_id = camera.getCameraLink().getName()
+            frame = camera.getFrame()
+            assert frame is not None
 
             # Fill the camera info message
-            camera_info_msg = CameraInfo()
-            camera_info_msg.distortion_model = "plumb_bob"
-            camera_info_msg.header.frame_id = camera.getCameraLink().getName()
-            camera_info_msg.width = camera.getResolution().width
-            camera_info_msg.height = camera.getResolution().height
-            camera_info_msg.D = [0.0, 0.0, 0.0, 0.0, 0.0]
-            camera_info_msg.K = camera._getCameraIntrinsics()
-            camera_info_msg.R = [1, 0, 0, 0, 1, 0, 0, 0, 1]
-            camera_info_msg.P = list(camera_info_msg.K)
-            camera_info_msg.P.insert(3, 0.0)
-            camera_info_msg.P.insert(7, 0.0)
-            camera_info_msg.P.append(0.0)
+            info_msg = CameraInfo()
+            info_msg.distortion_model = "plumb_bob"
+            info_msg.header.frame_id = camera.getCameraLink().getName()
+            info_msg.width = camera.getResolution().width
+            info_msg.height = camera.getResolution().height
+            info_msg.D = [0.0, 0.0, 0.0, 0.0, 0.0]
+            info_msg.K = camera._getCameraIntrinsics()
+            info_msg.R = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+            info_msg.P = list(info_msg.K)
+            info_msg.P.insert(3, 0.0)
+            info_msg.P.insert(7, 0.0)
+            info_msg.P.append(0.0)
 
-            # Check if the retrieved image is RGB or a depth image
+            # Fill the image message
+            image_msg = self.image_bridge.cv2_to_imgmsg(frame)
+            image_msg.header.frame_id = camera.getCameraLink().getName()
+
+            # Check if the retrieved image is RGB or a depth image            
             if isinstance(camera, CameraDepth):
-                camera_image_msg.encoding = "16UC1"
+                image_msg.encoding = "16UC1"
             else:
-                camera_image_msg.encoding = "bgr8"
+                image_msg.encoding = "bgr8"
 
             # Publish the image and the camera info
-            image_publisher.publish(camera_image_msg)
-            info_publisher.publish(camera_info_msg)
+            image_publisher.publish(image_msg)
+            info_publisher.publish(info_msg)
 
         except AssertionError:
             pass
@@ -279,8 +279,8 @@ class RosWrapper:
         msg_joint_state = JointState()
         msg_joint_state.header = Header()
         msg_joint_state.header.stamp = rospy.get_rostime()
-        msg_joint_state.name = list(self.virtual_robot.joint_dict)
-        msg_joint_state.position = self.virtual_robot.getAnglesPosition(
+        msg_joint_state.name = list(self.robot.joint_dict)
+        msg_joint_state.position = self.robot.getAnglesPosition(
             msg_joint_state.name)
 
         try:
@@ -312,7 +312,7 @@ class RosWrapper:
         # If the "non official" driver (softbankrobotics-research fork) is
         # used, will try to detect if multiple speeds have been provided. If
         # not, or if the "official" driver is used, the speed attribute of the
-        # message will be used  
+        # message will be used
         try:
             assert not OFFICIAL_DRIVER
 
@@ -320,11 +320,11 @@ class RosWrapper:
                 velocity = list(msg.speeds)
             else:
                 velocity = msg.speed
-        
+
         except AssertionError:
             velocity = msg.speed
 
-        self.virtual_robot.setAngles(joint_list, position_list, velocity)
+        self.robot.setAngles(joint_list, position_list, velocity)
 
 
 class NaoRosWrapper(RosWrapper):
@@ -402,24 +402,19 @@ class NaoRosWrapper(RosWrapper):
         """
         INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
         """
-        camera = self.virtual_robot.getActiveCamera()
+        if self.robot.camera_dict[NaoVirtual.ID_CAMERA_TOP].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[NaoVirtual.ID_CAMERA_TOP],
+                self.front_cam_pub,
+                self.front_info_pub)
 
-        try:
-            assert camera is not None
-
-            if camera.getCameraId() == NaoVirtual.ID_CAMERA_TOP:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.front_cam_pub,
-                    self.front_info_pub)
-            elif camera.getCameraId() == NaoVirtual.ID_CAMERA_BOTTOM:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.bottom_cam_pub,
-                    self.bottom_info_pub)
-
-        except AssertionError:
-            pass
+        elif self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM],
+                self.bottom_cam_pub,
+                self.bottom_info_pub)
 
     def _broadcastJointState(self, joint_state_publisher):
         """
@@ -535,29 +530,26 @@ class RomeoRosWrapper(RosWrapper):
         """
         INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
         """
-        camera = self.virtual_robot.getActiveCamera()
+        if self.robot.camera_dict[RomeoVirtual.ID_CAMERA_RIGHT].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[RomeoVirtual.ID_CAMERA_RIGHT],
+                self.right_cam_pub,
+                self.right_info_pub)
 
-        try:
-            assert camera is not None
+        elif self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT],
+                self.left_cam_pub,
+                self.left_info_pub)
 
-            if camera.getCameraId() == RomeoVirtual.ID_CAMERA_RIGHT:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.right_cam_pub,
-                    self.right_info_pub)
-            elif camera.getCameraId() == RomeoVirtual.ID_CAMERA_LEFT:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.left_cam_pub,
-                    self.left_info_pub)
-            elif camera.getCameraId() == RomeoVirtual.ID_CAMERA_DEPTH:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.depth_cam_pub,
-                    self.depth_info_pub)
-
-        except AssertionError:
-            pass
+        elif self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH],
+                self.depth_cam_pub,
+                self.depth_info_pub)
 
     def _broadcastJointState(self, joint_state_publisher):
         """
@@ -699,7 +691,7 @@ class PepperRosWrapper(RosWrapper):
             corresponding to the laser info of the pepper robot (for API
             consistency)
         """
-        if not self.virtual_robot.laser_manager.isActive():
+        if not self.robot.laser_manager.isActive():
             return
 
         scan = LaserScan()
@@ -717,9 +709,9 @@ class PepperRosWrapper(RosWrapper):
         scan.range_max = 3.0
 
         # Fill the lasers information
-        right_scan = self.virtual_robot.getRightLaserValue()
-        front_scan = self.virtual_robot.getFrontLaserValue()
-        left_scan = self.virtual_robot.getLeftLaserValue()
+        right_scan = self.robot.getRightLaserValue()
+        front_scan = self.robot.getFrontLaserValue()
+        left_scan = self.robot.getLeftLaserValue()
 
         if isinstance(right_scan, list):
             scan.ranges.extend(list(reversed(right_scan)))
@@ -736,29 +728,26 @@ class PepperRosWrapper(RosWrapper):
         """
         INTERNAL METHOD, overloading @_broadcastCamera in RosWrapper
         """
-        camera = self.virtual_robot.getActiveCamera()
+        if self.robot.camera_dict[PepperVirtual.ID_CAMERA_TOP].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[PepperVirtual.ID_CAMERA_TOP],
+                self.front_cam_pub,
+                self.front_info_pub)
 
-        try:
-            assert camera is not None
+        elif self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM],
+                self.bottom_cam_pub,
+                self.bottom_info_pub)
 
-            if camera.getCameraId() == PepperVirtual.ID_CAMERA_TOP:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.front_cam_pub,
-                    self.front_info_pub)
-            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_BOTTOM:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.bottom_cam_pub,
-                    self.bottom_info_pub)
-            elif camera.getCameraId() == PepperVirtual.ID_CAMERA_DEPTH:
-                RosWrapper._broadcastCamera(
-                    self,
-                    self.depth_cam_pub,
-                    self.depth_info_pub)
-
-        except AssertionError:
-            pass
+        elif self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH].isActive():
+            RosWrapper._broadcastCamera(
+                self,
+                self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH],
+                self.depth_cam_pub,
+                self.depth_info_pub)
 
     def _broadcastJointState(self, joint_state_publisher):
         """
@@ -783,7 +772,7 @@ class PepperRosWrapper(RosWrapper):
         Parameters:
             msg - a ROS message containing a Twist command
         """
-        self.virtual_robot.move(msg.linear.x, msg.linear.y, msg.angular.z)
+        self.robot.move(msg.linear.x, msg.linear.y, msg.angular.z)
 
     def _moveToCallback(self, msg):
         """
@@ -817,7 +806,7 @@ class PepperRosWrapper(RosWrapper):
             assert frame not in [
                 PepperVirtual.FRAME_ROBOT,
                 PepperVirtual.FRAME_WORLD]
-            
+
             if frame_id == "odom":
                 frame = PepperVirtual.FRAME_WORLD
             elif frame_id == "base_footprint":
@@ -826,7 +815,7 @@ class PepperRosWrapper(RosWrapper):
                 raise pybullet.error(
                     "Incorrect reference frame for move_base_simple, please "
                     "modify the content of your message")
-        
+
         except AssertionError:
             pass
 
@@ -838,7 +827,7 @@ class PepperRosWrapper(RosWrapper):
             pose.orientation.z,
             pose.orientation.w])[-1]
 
-        self.virtual_robot.moveTo(
+        self.robot.moveTo(
             x,
             y,
             theta,
@@ -855,7 +844,7 @@ class PepperRosWrapper(RosWrapper):
         Parameters:
             msg - an empty ROS message, with the Empty type
         """
-        self.virtual_robot.moveTo(0, 0, 0, _async=True)
+        self.robot.moveTo(0, 0, 0, _async=True)
 
     def _spin(self):
         """

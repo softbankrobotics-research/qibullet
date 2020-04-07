@@ -73,6 +73,8 @@ Or using loadRobot from the PepperVirtual class if you already have a simulated 
 
 More snippets can be found in the [examples folder](https://github.com/softbankrobotics-research/qibullet/tree/master/examples), or on the [wiki](https://github.com/softbankrobotics-research/qibullet/wiki)
 
+> :warning: The camera subscription system of qiBullet 1.4.0 (and lesser) is __deprecated__, use the [new system](https://github.com/softbankrobotics-research/qibullet/wiki/Tutorials:-Virtual-Robot#cameras)
+
 ## Documentation
 The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
 ```bash

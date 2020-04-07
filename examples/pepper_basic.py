@@ -18,12 +18,16 @@ def main():
     time.sleep(1)
     pepper.goToPosture("StandZero", 0.6)
     time.sleep(1)
-    pepper.subscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
+    handle = pepper.subscribeCamera(PepperVirtual.ID_CAMERA_BOTTOM)
 
-    while True:
-        img = pepper.getCameraFrame()
-        cv2.imshow("bottom camera", img)
-        cv2.waitKey(1)
+    try:
+        while True:
+            img = pepper.getCameraFrame(handle)
+            cv2.imshow("bottom camera", img)
+            cv2.waitKey(1)
+
+    except KeyboardInterrupt:
+        simulation_manager.stopSimulation(client)
 
 
 if __name__ == "__main__":

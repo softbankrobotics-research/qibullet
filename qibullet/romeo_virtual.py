@@ -28,8 +28,9 @@ class RomeoVirtual(RobotVirtual):
         """
         Constructor
         """
-        # Install the robot meshes and URDFs if they are not already installed
-        if not tools._check_resources_installed():
+        # Install the robot meshes and URDFs if they are not already installed.
+        # The installation process won't be covered by the unit tests
+        if not tools._check_resources_installed():  # pragma: no cover
             tools._install_resources()
 
         # Specify the URDF path
@@ -151,12 +152,12 @@ class RomeoVirtual(RobotVirtual):
                     physicsClientId=self.physics_client)
 
             for name, link in self.link_dict.items():
-                if side + "finger" in name.lower() or\
-                   side + "thumb" in name.lower():
+                if side + "Finger" in name or\
+                   side + "Thumb" in name:
                     pybullet.setCollisionFilterPair(
                         self.robot_model,
                         self.robot_model,
-                        self.link_dict[side.lower + "_wrist"].getIndex(),
+                        self.link_dict[side.lower() + "_wrist"].getIndex(),
                         link.getIndex(),
                         0,
                         physicsClientId=self.physics_client)
