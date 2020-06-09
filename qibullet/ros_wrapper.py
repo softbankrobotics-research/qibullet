@@ -45,10 +45,6 @@ try:
 except ImportError as e:
     MISSING_IMPORT = str(e)
 
-TOP_OPTICAL_FRAME = "CameraTop_optical_frame"
-BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
-DEPTH_OPTICAL_FRAME = "CameraDepth_optical_frame"
-
 
 class RosWrapper:
     """
@@ -65,9 +61,6 @@ class RosWrapper:
         self.spin_thread = None
         self._wrapper_termination = False
         self.image_bridge = CvBridge()
-        self.front_info_msg = dict()
-        self.bottom_info_msg = dict()
-        self.depth_info_msg = dict()
         self.roslauncher = None
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
         atexit.register(self.stopWrapper)
@@ -251,7 +244,7 @@ class RosWrapper:
             image_msg = self.image_bridge.cv2_to_imgmsg(frame)
             image_msg.header.frame_id = camera.getCameraLink().getName()
 
-            # Check if the retrieved image is RGB or a depth image            
+            # Check if the retrieved image is RGB or a depth image
             if isinstance(camera, CameraDepth):
                 image_msg.encoding = "16UC1"
             else:
