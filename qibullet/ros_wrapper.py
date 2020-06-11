@@ -402,7 +402,7 @@ class NaoRosWrapper(RosWrapper):
                 self.front_cam_pub,
                 self.front_info_pub)
 
-        elif self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM].isActive():
+        if self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM],
@@ -530,14 +530,14 @@ class RomeoRosWrapper(RosWrapper):
                 self.right_cam_pub,
                 self.right_info_pub)
 
-        elif self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT].isActive():
+        if self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT],
                 self.left_cam_pub,
                 self.left_info_pub)
 
-        elif self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH].isActive():
+        if self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH],
@@ -728,14 +728,14 @@ class PepperRosWrapper(RosWrapper):
                 self.front_cam_pub,
                 self.front_info_pub)
 
-        elif self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM].isActive():
+        if self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM],
                 self.bottom_cam_pub,
                 self.bottom_info_pub)
 
-        elif self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH].isActive():
+        if self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH],
