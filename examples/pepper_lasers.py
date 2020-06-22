@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
 import pybullet
 import pybullet_data
 from qibullet import PepperVirtual
@@ -16,7 +17,7 @@ def main():
 
     pybullet.loadURDF(
         "duck_vhacd.urdf",
-        basePosition=[1, -1, 0.5],
+        basePosition=[1, 0, 0.5],
         globalScaling=10.0,
         physicsClientId=client)
 
@@ -29,11 +30,13 @@ def main():
         laser_list.extend(pepper.getFrontLaserValue())
         laser_list.extend(pepper.getLeftLaserValue())
 
-        if all(laser == 5.6 for laser in laser_list):
+        if all(laser == 3.0 for laser in laser_list):
             print("Nothing detected")
         else:
             print("Detected")
             pass
+
+        time.sleep(0.1)
 
 
 if __name__ == "__main__":
