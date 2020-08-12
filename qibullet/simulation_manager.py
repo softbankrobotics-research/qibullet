@@ -133,7 +133,7 @@ class SimulationManager:
             robot is supposed to be spawned
             translation - List containing 3 elements, the spawning translation
             [x, y, z] in the WORLD frame
-            quaternions - List containing 4 elements, the spawning rotation as
+            quaternion - List containing 4 elements, the spawning rotation as
             a quaternion [x, y, z, w] in the WORLD frame
             spawn_ground_plane - If True, the pybullet_data ground plane will
             be spawned
@@ -168,7 +168,7 @@ class SimulationManager:
             robot is supposed to be spawned
             translation - List containing 3 elements, the spawning translation
             [x, y, z] in the WORLD frame
-            quaternions - List containing 4 elements, the spawning rotation as
+            quaternion - List containing 4 elements, the spawning rotation as
             a quaternion [x, y, z, w] in the WORLD frame
             spawn_ground_plane - If True, the pybullet_data ground plane will
             be spawned
@@ -202,7 +202,7 @@ class SimulationManager:
             robot is supposed to be spawned
             translation - List containing 3 elements, the spawning translation
             [x, y, z] in the WORLD frame
-            quaternions - List containing 4 elements, the spawning rotation as
+            quaternion - List containing 4 elements, the spawning rotation as
             a quaternion [x, y, z, w] in the WORLD frame
             spawn_ground_plane - If True, the pybullet_data ground plane will
             be spawned
