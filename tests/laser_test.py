@@ -38,7 +38,7 @@ class PepperLaserTest(unittest.TestCase):
         robot are the same
         """
         self.assertEqual(
-            PepperLaserTest.laser_manager.getRobotModel(),
+            PepperLaserTest.robot.laser_manager.getRobotModel(),
             PepperLaserTest.robot.getRobotModel())
 
     def test_lasers_data(self):
