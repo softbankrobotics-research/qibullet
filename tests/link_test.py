@@ -49,7 +49,7 @@ class LinkTest(unittest.TestCase):
         """
         # Only test that the values returned by getLinkPosition are indeed a
         # 3D translation and a 4D orientation (quaternion)
-        translation, orientation = LinkTest.robot.getLinkPosition("r_hand")
+        translation, orientation = LinkTest.robot.getLinkPosition("torso")
         self.assertEqual(len(translation), 3)
         self.assertEqual(len(orientation), 4)
 

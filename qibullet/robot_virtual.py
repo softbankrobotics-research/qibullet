@@ -116,7 +116,7 @@ class RobotVirtual:
         Parameters:
             joint_name - The name of the desired joint, eg "RShoulderPitch"
         """
-        return self.joint_dict[joint_dict]
+        return self.joint_dict[joint_name]
 
     def getLink(self, link_name):
         """
