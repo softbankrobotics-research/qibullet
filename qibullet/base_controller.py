@@ -315,9 +315,9 @@ class PepperBaseController(BaseController):
         """
         If an aynchronous moveTo has been launched, calling this method will
         stop the asynchronous process. Calling this method is equivalent to
-        calling moveTo(0.0, 0.0, 0.0, _async=True)
+        calling moveTo(0.0, 0.0, 0.0, BaseController.FRAME_ROBOT, _async=True)
         """
-        self.moveTo(0.0, 0.0, 0.0, _async=True)
+        self.moveTo(0.0, 0.0, 0.0, BaseController.FRAME_ROBOT, _async=True)
 
     def _updateConstraint(self):
         """
