@@ -33,6 +33,29 @@ class LinkTest(unittest.TestCase):
             list(LinkTest.robot.link_dict.values())[0],
             list(LinkTest.robot.link_dict.values())[1])
 
+    def test_get_link(self):
+        """
+        Test the @getLink method
+        """
+        for key, value in LinkTest.robot.link_dict.items():
+            self.assertEqual(LinkTest.robot.getLink(key), value)
+
+        with self.assertRaises(KeyError):
+            LinkTest.robot.getLink("non_existent_link")
+
+    def test_get_link_position(self):
+        """
+        Test the @getLinkPosition method
+        """
+        # Only test that the values returned by getLinkPosition are indeed a
+        # 3D translation and a 4D orientation (quaternion)
+        translation, orientation = LinkTest.robot.getLinkPosition("torso")
+        self.assertEqual(len(translation), 3)
+        self.assertEqual(len(orientation), 4)
+
+        with self.assertRaises(KeyError):
+            LinkTest.robot.getLinkPosition("non_existent_link")
+
 
 class PepperLinkTest(LinkTest):
     """
@@ -62,6 +85,12 @@ class PepperLinkTest(LinkTest):
 
     def test_links_characteristics(self):
         LinkTest.test_links_characteristics(self)
+
+    def test_get_link(self):
+        LinkTest.test_get_link(self)
+
+    def test_get_link_position(self):
+        LinkTest.test_get_link_position(self)
 
 
 class NaoLinkTest(LinkTest):
@@ -93,6 +122,12 @@ class NaoLinkTest(LinkTest):
     def test_links_characteristics(self):
         LinkTest.test_links_characteristics(self)
 
+    def test_get_link(self):
+        LinkTest.test_get_link(self)
+
+    def test_get_link_position(self):
+        LinkTest.test_get_link_position(self)
+
 
 class RomeoLinkTest(LinkTest):
     """
@@ -122,6 +157,12 @@ class RomeoLinkTest(LinkTest):
 
     def test_links_characteristics(self):
         LinkTest.test_links_characteristics(self)
+
+    def test_get_link(self):
+        LinkTest.test_get_link(self)
+
+    def test_get_link_position(self):
+        LinkTest.test_get_link_position(self)
 
 
 if __name__ == "__main__":

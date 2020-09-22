@@ -217,6 +217,14 @@ class PepperVirtual(RobotVirtual):
         """
         self.base_controller.move(x, y, theta)
 
+    def stopMove(self):
+        """
+        If an aynchronous moveTo has been launched, calling this method will
+        stop the asynchronous process. Calling this method is equivalent to
+        calling moveTo(0.0, 0.0, 0.0, _async=True)
+        """
+        self.base_controller.stopMove()
+
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """
         Overloads @setAngles from the @RobotVirtual class. Handles the finger

@@ -45,10 +45,6 @@ try:
 except ImportError as e:
     MISSING_IMPORT = str(e)
 
-TOP_OPTICAL_FRAME = "CameraTop_optical_frame"
-BOTTOM_OPTICAL_FRAME = "CameraBottom_optical_frame"
-DEPTH_OPTICAL_FRAME = "CameraDepth_optical_frame"
-
 
 class RosWrapper:
     """
@@ -65,9 +61,6 @@ class RosWrapper:
         self.spin_thread = None
         self._wrapper_termination = False
         self.image_bridge = CvBridge()
-        self.front_info_msg = dict()
-        self.bottom_info_msg = dict()
-        self.depth_info_msg = dict()
         self.roslauncher = None
         self.transform_broadcaster = tf2_ros.TransformBroadcaster()
         atexit.register(self.stopWrapper)
@@ -251,7 +244,7 @@ class RosWrapper:
             image_msg = self.image_bridge.cv2_to_imgmsg(frame)
             image_msg.header.frame_id = camera.getCameraLink().getName()
 
-            # Check if the retrieved image is RGB or a depth image            
+            # Check if the retrieved image is RGB or a depth image
             if isinstance(camera, CameraDepth):
                 image_msg.encoding = "16UC1"
             else:
@@ -409,7 +402,7 @@ class NaoRosWrapper(RosWrapper):
                 self.front_cam_pub,
                 self.front_info_pub)
 
-        elif self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM].isActive():
+        if self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[NaoVirtual.ID_CAMERA_BOTTOM],
@@ -537,14 +530,14 @@ class RomeoRosWrapper(RosWrapper):
                 self.right_cam_pub,
                 self.right_info_pub)
 
-        elif self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT].isActive():
+        if self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[RomeoVirtual.ID_CAMERA_LEFT],
                 self.left_cam_pub,
                 self.left_info_pub)
 
-        elif self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH].isActive():
+        if self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[RomeoVirtual.ID_CAMERA_DEPTH],
@@ -735,14 +728,14 @@ class PepperRosWrapper(RosWrapper):
                 self.front_cam_pub,
                 self.front_info_pub)
 
-        elif self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM].isActive():
+        if self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[PepperVirtual.ID_CAMERA_BOTTOM],
                 self.bottom_cam_pub,
                 self.bottom_info_pub)
 
-        elif self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH].isActive():
+        if self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH].isActive():
             RosWrapper._broadcastCamera(
                 self,
                 self.robot.camera_dict[PepperVirtual.ID_CAMERA_DEPTH],

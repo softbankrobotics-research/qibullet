@@ -50,6 +50,16 @@ class JointTest(unittest.TestCase):
 
         self.assertNotEqual(dummy_joint_first, dummy_joint_second)
 
+    def test_get_joint(self):
+        """
+        Test the @getJoint method
+        """
+        for key, value in JointTest.robot.joint_dict.items():
+            self.assertEqual(JointTest.robot.getJoint(key), value)
+
+        with self.assertRaises(KeyError):
+            JointTest.robot.getJoint("Non_existent_joint")
+
     def test_set_angles(self):
         """
         Test the set @setAngles method
@@ -173,6 +183,9 @@ class PepperJointTest(JointTest):
     def test_joints_characteristics(self):
         JointTest.test_joints_characteristics(self)
 
+    def test_get_joint(self):
+        JointTest.test_get_joint(self)
+
     def test_set_angles(self):
         JointTest.test_set_angles(self)
 
@@ -218,6 +231,9 @@ class NaoJointTest(JointTest):
     def test_joints_characteristics(self):
         JointTest.test_joints_characteristics(self)
 
+    def test_get_joint(self):
+        JointTest.test_get_joint(self)
+
     def test_set_angles(self):
         JointTest.test_set_angles(self)
 
@@ -262,6 +278,9 @@ class RomeoJointTest(JointTest):
 
     def test_joints_characteristics(self):
         JointTest.test_joints_characteristics(self)
+
+    def test_get_joint(self):
+        JointTest.test_get_joint(self)
 
     def test_set_angles(self):
         JointTest.test_set_angles(self)
