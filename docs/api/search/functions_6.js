@@ -9,6 +9,7 @@ var searchData=
   ['spawnnao',['spawnNao',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#aaac2f8b0a8912b2857c40de855a8d702',1,'qibullet::simulation_manager::SimulationManager']]],
   ['spawnpepper',['spawnPepper',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#aeac971c9a89aab4625031beb947cc088',1,'qibullet::simulation_manager::SimulationManager']]],
   ['spawnromeo',['spawnRomeo',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a0cec7ba5d437a6aa4eef65c434ff5fd7',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['stopmove',['stopMove',['../classqibullet_1_1base__controller_1_1PepperBaseController.html#a5cdc408d50232392edbc94ac336c5f55',1,'qibullet.base_controller.PepperBaseController.stopMove()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a1f8050421702b0f6f2178cf58a0df1b0',1,'qibullet.pepper_virtual.PepperVirtual.stopMove()']]],
   ['stopsimulation',['stopSimulation',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a7c3a6687ff2c6e7649e3b080bcce4f3c',1,'qibullet::simulation_manager::SimulationManager']]],
   ['stopwrapper',['stopWrapper',['../classqibullet_1_1ros__wrapper_1_1RosWrapper.html#ae6d32d9ed4f4775a40ecceee8ab30394',1,'qibullet::ros_wrapper::RosWrapper']]],
   ['subscribe',['subscribe',['../classqibullet_1_1camera_1_1Camera.html#a7de4845ef4af2f0e71cf3814ee8b3d54',1,'qibullet.camera.Camera.subscribe()'],['../classqibullet_1_1laser_1_1Laser.html#afdb939d93bd545b8480a2bb02d3f4006',1,'qibullet.laser.Laser.subscribe()']]],

@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.4.1</span>
+   &#160;<span id="projectnumber">1.4.2</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -127,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac89e926706e8e95a0d426c82263932cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d224cb83cdb244c1e48a46db84ecf06"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1base__controller_1_1PepperBaseController.html#a5d224cb83cdb244c1e48a46db84ecf06">move</a> (self, x, y, theta)</td></tr>
 <tr class="separator:a5d224cb83cdb244c1e48a46db84ecf06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cdc408d50232392edbc94ac336c5f55"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1base__controller_1_1PepperBaseController.html#a5cdc408d50232392edbc94ac336c5f55">stopMove</a> (self)</td></tr>
+<tr class="separator:a5cdc408d50232392edbc94ac336c5f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classqibullet_1_1base__controller_1_1BaseController"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classqibullet_1_1base__controller_1_1BaseController')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classqibullet_1_1base__controller_1_1BaseController.html">qibullet.base_controller.BaseController</a></td></tr>
 <tr class="memitem:a875caeb35cb82c313069f03953936a87 inherit pub_methods_classqibullet_1_1base__controller_1_1BaseController"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1base__controller_1_1BaseController.html#a875caeb35cb82c313069f03953936a87">__init__</a> (self, robot_model, physicsClientId=0)</td></tr>
 <tr class="separator:a875caeb35cb82c313069f03953936a87 inherit pub_methods_classqibullet_1_1base__controller_1_1BaseController"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -439,6 +441,25 @@ Parameters:
 
 Parameter:
     linear_velocity : The linear velocity value in m/s
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a5cdc408d50232392edbc94ac336c5f55"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.base_controller.PepperBaseController.stopMove </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">If an aynchronous moveTo has been launched, calling this method will
+stop the asynchronous process. Calling this method is equivalent to
+calling moveTo(0.0, 0.0, 0.0, BaseController.FRAME_ROBOT, _async=True)
 </pre> 
 </div>
 </div>
