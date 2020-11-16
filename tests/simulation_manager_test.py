@@ -26,6 +26,11 @@ class SimulationManagerTest(unittest.TestCase):
         self.assertEqual(client, 0)
         manager.stopSimulation(client)
 
+        client = manager.launchSimulation(gui=False, auto_step=False)
+
+        self.assertEqual(client, 0)
+        manager.stopSimulation(client)
+
         # Ensure that stopping the simulation one more time won't raise an
         # error
         try:
@@ -63,6 +68,19 @@ class SimulationManagerTest(unittest.TestCase):
         manager = SimulationManager()
         client = manager.launchSimulation(gui=False)
         manager.resetSimulation(client)
+        manager.stopSimulation(client)
+
+    def test_step_simulation(self):
+        """
+        Test the @stepSimulation method
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False, auto_step=False)
+        manager.stepSimulation(client)
+
+        with self.assertRaises(pybullet.error):
+            manager.stepSimulation(client + 1)
+
         manager.stopSimulation(client)
 
     def test_camera_removal(self):
