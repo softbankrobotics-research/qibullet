@@ -2,6 +2,11 @@ notifications:
   email:
     if: branch = master
 
+branches:
+  only:
+  - master
+  - develop
+
 os :
   - linux
 
