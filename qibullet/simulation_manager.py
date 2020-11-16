@@ -24,7 +24,11 @@ class SimulationManager:
         """
         pass
 
-    def launchSimulation(self, gui=True, use_shared_memory=False):
+    def launchSimulation(
+            self,
+            gui=True,
+            use_shared_memory=False,
+            auto_step=True):
         """
         Launches a simulation instance
 
@@ -40,6 +44,10 @@ class SimulationManager:
             possible and the motion servers are manually stepped using the
             _stepSimulation method. (More information in the setup section of
             the qiBullet wiki, and in the pybullet documentation)
+            auto_step - Boolean, True by default. Only taken into account if
+            gui is False and use_shared_memory is False. If auto_step is True,
+            the simulation is automatically stepped. Otherwise, the user will
+            explicitely have to call @stepSimulation to step the simulation
 
         Returns:
             physics_client - The id of the simulation client created
@@ -69,9 +77,11 @@ class SimulationManager:
                     physicsClientId=physics_client)
             else:
                 physics_client = pybullet.connect(pybullet.DIRECT)
-                threading.Thread(
-                    target=self._stepSimulation,
-                    args=[physics_client]).start()
+
+                if auto_step:
+                    threading.Thread(
+                        target=self._stepSimulation,
+                        args=[physics_client]).start()
 
         pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
         return physics_client
@@ -99,6 +109,15 @@ class SimulationManager:
 
         except pybullet.error:
             print("Instance " + str(physics_client) + " already stopped")
+
+    def stepSimulation(self, physics_client):
+        """
+        Steps the simulated instance corresponding to the physics_client id
+
+        Parameters:
+            physics_client - The id of the simulated instance to be stepped
+        """
+        pybullet.stepSimulation(physicsClientId=physics_client)
 
     def setLightPosition(self, physics_client, light_position):
         """
