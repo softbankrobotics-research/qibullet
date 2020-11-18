@@ -54,7 +54,10 @@ class SimulationManager:
         """
         if gui:  # pragma: no cover
             physics_client = pybullet.connect(pybullet.GUI)
-            pybullet.setRealTimeSimulation(1, physicsClientId=physics_client)
+
+            if auto_step:
+                pybullet.setRealTimeSimulation(1, physicsClientId=physics_client)
+                
             pybullet.configureDebugVisualizer(
                 pybullet.COV_ENABLE_RGB_BUFFER_PREVIEW,
                 0,
@@ -72,9 +75,8 @@ class SimulationManager:
                 physics_client = pybullet.connect(
                     pybullet.SHARED_MEMORY_SERVER)
 
-                pybullet.setRealTimeSimulation(
-                    enableRealTimeSimulation=1,
-                    physicsClientId=physics_client)
+                if auto_step:
+                    pybullet.setRealTimeSimulation(1, physicsClientId=physics_client)
             else:
                 physics_client = pybullet.connect(pybullet.DIRECT)
 
