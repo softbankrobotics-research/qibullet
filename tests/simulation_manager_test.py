@@ -16,18 +16,24 @@ class SimulationManagerTest(unittest.TestCase):
         Test the @launchSimulation method
         """
         manager = SimulationManager()
-        client = manager.launchSimulation(gui=False)
 
+        client = manager.launchSimulation(gui=False)
         self.assertEqual(client, 0)
         manager.stopSimulation(client)
 
         client = manager.launchSimulation(gui=False, use_shared_memory=True)
+        self.assertEqual(client, 0)
+        manager.stopSimulation(client)
+
+        client = manager.launchSimulation(
+            gui=False,
+            use_shared_memory=True,
+            auto_step=False)
 
         self.assertEqual(client, 0)
         manager.stopSimulation(client)
 
         client = manager.launchSimulation(gui=False, auto_step=False)
-
         self.assertEqual(client, 0)
         manager.stopSimulation(client)
 
@@ -76,6 +82,18 @@ class SimulationManagerTest(unittest.TestCase):
         """
         manager = SimulationManager()
         client = manager.launchSimulation(gui=False, auto_step=False)
+        manager.stepSimulation(client)
+
+        with self.assertRaises(pybullet.error):
+            manager.stepSimulation(client + 1)
+
+        manager.stopSimulation(client)
+
+        client = manager.launchSimulation(
+            gui=False,
+            use_shared_memory=True,
+            auto_step=False)
+
         manager.stepSimulation(client)
 
         with self.assertRaises(pybullet.error):
