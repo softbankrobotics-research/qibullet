@@ -108,6 +108,26 @@ class RobotVirtual:
         """
         return self.physics_client
 
+    def getJoint(self, joint_name):
+        """
+        Returns the Joint object named "joint_name". If the required joint does
+        not exist, the method will raise a KeyError.
+
+        Parameters:
+            joint_name - The name of the desired joint, eg "RShoulderPitch"
+        """
+        return self.joint_dict[joint_name]
+
+    def getLink(self, link_name):
+        """
+        Returns the Link object named "link_name". If the required link does
+        not exist, the method will raise a KeyError.
+
+        Parameters:
+            link_name - The name of the desired link, eg "Tibia"
+        """
+        return self.link_dict[link_name]
+
     def setAngles(self, joint_names, joint_values, percentage_speeds):
         """
         Set angles on the robot's joints. Tests have to be performed by the
@@ -186,6 +206,27 @@ class RobotVirtual:
             self.robot_model,
             indexes,
             physicsClientId=self.physics_client)]
+
+    def getLinkPosition(self, link_name):
+        """
+        Returns the position of a robot link in the WORLD frame. The position
+        is expressed as a 3 dimensional translation [x, y, z] and a 4
+        dimensional quaternion [x, y, z, w]. If the required link does not
+        exist, the method will raise a KeyError.
+
+        Parameters:
+            link_name - The name of the desired link, eg "Tibia"
+
+        Returns:
+            translation - 3 dimensional list containing the translation
+            quaternion - 4 dimensional list containing the rotation, as a
+            quaternion
+        """
+        link_state = pybullet.getLinkState(
+            self.robot_model,
+            self.link_dict[link_name].getIndex())
+
+        return link_state[0], link_state[1]
 
     def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
         """

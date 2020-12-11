@@ -180,12 +180,7 @@ class PepperBaseTest(unittest.TestCase):
 
         # Stop the async moveTo process before exitting the test, we don't want
         # the async process to parasite the other tests
-        PepperBaseTest.robot.moveTo(
-            0,
-            0,
-            0,
-            frame=PepperVirtual.FRAME_ROBOT,
-            _async=True)
+        PepperBaseTest.robot.stopMove()
 
         # Sleep to ensure that the previous snippet has been taken into account
         # and that the moveTo async process is stopped.
