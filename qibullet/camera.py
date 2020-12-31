@@ -324,7 +324,7 @@ class Camera(Sensor):
         resolution
         """
         try:
-            assert self.module_process.isAlive()
+            assert self.isAlive()
 
             while self.getFrame() is None:
                 continue

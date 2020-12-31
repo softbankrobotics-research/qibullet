@@ -86,13 +86,13 @@ class PepperLaserTest(unittest.TestCase):
         Test the isAlive method for the laser extraction process
         """
         self.assertFalse(
-            PepperLaserTest.robot.laser_manager.isActive())
+            PepperLaserTest.robot.laser_manager.isAlive())
         PepperLaserTest.robot.subscribeLaser()
         self.assertTrue(
-            PepperLaserTest.robot.laser_manager.isActive())
+            PepperLaserTest.robot.laser_manager.isAlive())
         PepperLaserTest.robot.unsubscribeLaser()
         self.assertFalse(
-            PepperLaserTest.robot.laser_manager.isActive())
+            PepperLaserTest.robot.laser_manager.isAlive())
 
 
 if __name__ == "__main__":

@@ -258,7 +258,7 @@ class PepperBaseController(BaseController):
         """
         self._setGoal(x, y, theta, frame)
 
-        if self.module_process.isAlive():
+        if self.isAlive():
             if _async is False:
                 raise pybullet.error(
                     "Already a moveTo asynchronous. Can't "
