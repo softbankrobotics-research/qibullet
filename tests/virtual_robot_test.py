@@ -8,8 +8,8 @@ from qibullet.robot_virtual import RobotVirtual
 
 class VirtualRobotTest(unittest.TestCase):
     """
-    Unittests for the RobotVirtual class functionalities (will use a Pepper
-    robot for the test, PepperVirtual inherits from RobotVirtual)
+    Unittests for the RobotVirtual class functionalities (will use a dummy
+    robot for the test, that inherits from RobotVirtual)
     """
 
     @classmethod

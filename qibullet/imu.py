@@ -12,7 +12,7 @@ class Imu(Sensor):
     Class representing a virtual inertial unit
     """
 
-    def __init__(self, robot_model, imu_link, frequency, physics_client=0):
+    def __init__(self, robot_model, imu_link, frequency, physicsClientId=0):
         """
         Constructor
 
@@ -21,10 +21,15 @@ class Imu(Sensor):
             imu_link - The Link object corresponding to the link the IMU is
             attached to
             frequency - The frequency of the IMU, in Hz
-            physics_client - The id of the simulated instance in which the
+            physicsClientId - The id of the simulated instance in which the
             IMU should be spawned
         """
-        Sensor.__init__(self, robot_model, physics_client, frequency=frequency)
+        Sensor.__init__(
+            self,
+            robot_model,
+            physicsClientId,
+            frequency=frequency)
+
         self.imu_link = imu_link
         self.angular_velocity = [0, 0, 0]
         self._linear_velocity = [0, 0, 0]

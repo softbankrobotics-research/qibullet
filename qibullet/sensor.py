@@ -59,10 +59,10 @@ class Sensor(RobotModule):
             frequency - The frequency of the sensor in Hz
         """
         if isinstance(frequency, int):
-            self.frequency = float(frequency)
+            frequency = float(frequency)
 
         try:
-            isinstance(frequency, float)
+            assert isinstance(frequency, float)
             assert frequency > 0.0
             self.frequency = frequency
 
