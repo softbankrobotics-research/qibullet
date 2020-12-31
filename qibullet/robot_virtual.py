@@ -226,7 +226,7 @@ class RobotVirtual:
             self.robot_model,
             self.link_dict[link_name].getIndex())
 
-        return link_state[0], link_state[1]
+        return link_state[4], link_state[5]
 
     def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
         """
