@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import time
+import pybullet
+import threading
 from qibullet.sensor import Sensor
 
 
@@ -21,14 +24,80 @@ class Imu(Sensor):
             physics_client - The id of the simulated instance in which the
             IMU should be spawned
         """
-        Sensor.__init__(self, robot_model, physics_client)
+        Sensor.__init__(self, robot_model, physics_client, frequency=frequency)
         self.imu_link = imu_link
+        self.angular_velocity = [0, 0, 0]
+        self._linear_velocity = [0, 0, 0]
+        self.linear_acceleration = [0, 0, 0]
+        self.values_lock = threading.Lock()
+
+    def subscribe(self):
+        """
+        Subscribe to the IMU, activating the IMU scan process
+        """
+        if self.isAlive():
+            return
+
+        self._module_termination = False
+        self.module_process = threading.Thread(target=self._imuScan)
+        self.module_process.start()
+
+    def unsubscribe(self):
+        """
+        Unsubscribe from the IMU, deactivating the IMU scan process
+        """
+        if self.isAlive():
+            self._terminateModule()
 
     def getGyroscopeValues(self):
-        pass
+        """
+        Returns the angular velocity of the IMU in rad/s
 
-    def getAngleValues(self):
-        pass
+        Returns:
+            angular_velocity - The angular velocity in rad/s
+        """
+        with self.values_lock:
+            return self.angular_velocity
 
     def getAccelerometerValues(self):
-        pass
+        """
+        Returns the linear acceleration of the IMU in m/s^2
+
+        Returns:
+            linear_acceleration - The linear acceleration in m/s^2
+        """
+        with self.values_lock:
+            return self.linear_acceleration
+
+    def getValues(self):
+        """
+        Returns the values of the gyroscope and the accelerometer of the IMU
+        (angular_velocity, linear_acceleration)
+
+        Returns:
+            angular_velocity - The angular velocity values in rad/s 
+            linear_acceleration - The linear acceleration values in m/s^2
+        """
+        with self.values_lock:
+            return self.angular_velocity, self.linear_acceleration
+
+    def _imuScan(self):
+        """
+        INTERNAL METHOD, retrieves and update the IMU data
+        """
+        period = 1.0 / self.getFrequency()
+
+        while not self._module_termination:
+            link_state = pybullet.getLinkState(
+                self.robot_model,
+                self.imu_link.getIndex(),
+                computeLinkVelocity=True)
+
+            with self.values_lock:
+                self.angular_velocity = link_state[7]
+                self.linear_acceleration = [i - j for i, j in zip(
+                    link_state[6], self._linear_velocity)]
+
+                self._linear_velocity = link_state[6]
+
+            time.sleep(period)
