@@ -33,9 +33,9 @@ class Imu(Sensor):
         self.setFrequency(frequency)
 
         self.imu_link = imu_link
-        self.angular_velocity = [0, 0, 0]
-        self._linear_velocity = [0, 0, 0]
-        self.linear_acceleration = [0, 0, 0]
+        self.angular_velocity = [0.0, 0.0, 0.0]
+        self._linear_velocity = [0.0, 0.0, 0.0]
+        self.linear_acceleration = [0.0, 0.0, 0.0]
         self.values_lock = threading.Lock()
 
     def subscribe(self):
