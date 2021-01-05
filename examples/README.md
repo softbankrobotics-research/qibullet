@@ -6,4 +6,5 @@
 * [Basic usage of the ROS wrappers (bridge between qibullet and ROS)](robot_ros_test.py)
 * [Script allowing a simulated model to mimic a real robot's movements](pepper_shadowing.py)
 * [Basic usage of Pepper's lasers](pepper_laser.py)
+* [Basic usage of a robot's Imu](robot_imu.py)
 * [Script spawning a virtual NAO and changing the position of the simulation's light source](light_position.py)
