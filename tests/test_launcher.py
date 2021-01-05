@@ -27,6 +27,10 @@ if __name__ == "__main__":
         from joint_test import RomeoJointTest
         from joint_test import PepperJointTest
         from sensor_test import SensorTest
+        from imu_test import PepperImuTest
+        from imu_test import NaoImuTest
+        from imu_test import RomeoImuTest
+        from imu_test import DummyImuTest
         from laser_test import PepperLaserTest
         from camera_test import NaoCameraTest
         from camera_test import RomeoCameraTest
@@ -54,6 +58,10 @@ if __name__ == "__main__":
         RomeoJointTest,
         PepperJointTest,
         SensorTest,
+        PepperImuTest,
+        NaoImuTest,
+        RomeoImuTest,
+        DummyImuTest,
         PepperLaserTest,
         NaoCameraTest,
         RomeoCameraTest,

@@ -31,17 +31,15 @@ class SensorTest(unittest.TestCase):
         SensorTest.simulation.stopSimulation(
             SensorTest.client)
 
-    def test_constructor(self):
-        """
-        Test base parameters given by the constructor of Sensor
-        """
-        self.assertIsNone(SensorTest.sensor.frequency)
-
     def test_set_get_frequency(self):
         """
         Test the @setFrequency and @getFrequency method of Sensor
         """
-        SensorTest.sensor.setFrequency(None)
+        self.assertIsNone(SensorTest.sensor.getFrequency())
+
+        with self.assertRaises(pybullet.error):
+            SensorTest.sensor.setFrequency(None)
+
         self.assertIsNone(SensorTest.sensor.getFrequency())
         SensorTest.sensor.setFrequency(5)
         self.assertIsInstance(SensorTest.sensor.getFrequency(), float)
@@ -49,10 +47,16 @@ class SensorTest(unittest.TestCase):
         SensorTest.sensor.setFrequency(10.0)
         self.assertIsInstance(SensorTest.sensor.getFrequency(), float)
         self.assertEqual(SensorTest.sensor.getFrequency(), 10.0)
-        SensorTest.sensor.setFrequency(0)
-        self.assertIsNone(SensorTest.sensor.getFrequency())
-        SensorTest.sensor.setFrequency(-3.0)
-        self.assertIsNone(SensorTest.sensor.getFrequency())
+
+        with self.assertRaises(pybullet.error):
+            SensorTest.sensor.setFrequency(0)
+
+        self.assertEqual(SensorTest.sensor.getFrequency(), 10.0)
+
+        with self.assertRaises(pybullet.error):
+            SensorTest.sensor.setFrequency(-3.0)
+
+        self.assertEqual(SensorTest.sensor.getFrequency(), 10.0)
 
     def test_subscribe(self):
         """
