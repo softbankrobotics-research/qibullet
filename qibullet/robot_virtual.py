@@ -28,6 +28,7 @@ class RobotVirtual:
         self.camera_dict = dict()
         self.joint_dict = dict()
         self.link_dict = dict()
+        self.imu = None
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
@@ -344,6 +345,110 @@ class RobotVirtual:
 
         except KeyError:
             raise pybullet.error("Invalid handle, no associated camera")
+
+    def subscribeImu(self, frequency=None):
+        """
+        Subscribe to the Inertial Unit of the robot. If the robot doesn't have
+        an inertial unit, the method will raise a pybullet error.
+
+        This method starts the background process collecting the Imu data, and
+        should be called before trying to access to the Imu data
+
+        Parameters:
+            frequency - The desired frequency for the IMU, in Hz. If the
+            variable is not specified, the frequency value used when creating
+            the Imu object will be used. The value should be specified as an
+            int or a float
+        """
+        try:
+            assert self.imu is not None
+
+            if frequency is not None:
+                self.imu.setFrequency(frequency)
+
+            self.imu.subscribe()
+
+        except AssertionError:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def unsubscribeImu(self):
+        """
+        Unsubscribe from the Inertial Unit of the robot. If the robot doesn't
+        have an inertial unit, the method will raise a pybullet error.
+
+        This method stops the background process collecting the Imu data, and
+        should be called when the Imu data are not useful anymore
+        """
+        try:
+            assert self.imu is not None
+            self.imu.unsubscribe()
+
+        except AssertionError:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImuGyroscopeValues(self):
+        """
+        Returns the angular velocity of the IMU in rad/s in the world frame. If
+        the robot doesn't have an inertial unit, the method will raise a
+        pybullet error.
+
+        One should subscribe to the IMU before calling this method (otherwise,
+        the speed will constantly be [0, 0, 0])
+
+        Returns:
+            angular_velocity - The angular velocity in rad/s
+        """
+        if self.imu is not None:
+            return self.imu.getGyroscopeValues()
+        else:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImuAccelerometerValues(self):
+        """
+        Returns the linear acceleration of the IMU in m/s^2 in the world frame.
+        If the robot doesn't have an inertial unit, the method will raise a
+        pybullet error.
+
+        One should subscribe to the IMU before calling this method (otherwise,
+        the acceleration will constantly be [0, 0, 0])
+
+        Returns:
+            linear_acceleration - The linear acceleration in m/s^2
+        """
+        if self.imu is not None:
+            return self.imu.getAccelerometerValues()
+        else:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImuValues(self):
+        """
+        Returns the values of the gyroscope and the accelerometer of the IMU
+        (angular_velocity, linear_acceleration) in the world frame. If the
+        robot doesn't have an inertial unit, the method will raise a pybullet
+        error.
+
+        One should subscribe to the IMU before calling this method (otherwise,
+        the acceleration and speed will constantly be [0, 0, 0], [0, 0, 0])
+
+        Returns:
+            angular_velocity - The angular velocity values in rad/s
+            linear_acceleration - The linear acceleration values in m/s^2
+        """
+        if self.imu is not None:
+            return self.imu.getValues()
+        else:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImu(self):
+        """
+        Returns the IMU of the robot, as an Imu object. If the robot doesn't
+        have an inertial unit, the method will return None
+
+        Returns:
+            imu - The IMU of the robot as an Imu object, None if the robo
+            doesn't possess an IMU
+        """
+        return self.imu
 
     def getPosition(self):
         """

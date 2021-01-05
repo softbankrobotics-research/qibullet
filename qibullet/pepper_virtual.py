@@ -4,9 +4,11 @@
 import os
 import pybullet
 import qibullet.tools as tools
-from qibullet.laser import *
-from qibullet.camera import *
-from qibullet.base_controller import *
+from qibullet.imu import Imu
+from qibullet.laser import Laser
+from qibullet.camera import CameraRgb
+from qibullet.camera import CameraDepth
+from qibullet.base_controller import PepperBaseController
 from qibullet.robot_posture import PepperPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -168,6 +170,13 @@ class PepperVirtual(RobotVirtual):
             parentFrameOrientation=[0, 0, 0, 1],
             childFramePosition=[translation[0], translation[1], 0],
             childFrameOrientation=quaternion,
+            physicsClientId=self.physics_client)
+
+        # The frequency of the IMU is set to 100Hz
+        self.imu = Imu(
+            self.robot_model,
+            self.link_dict["base_footprint"],
+            100.0,
             physicsClientId=self.physics_client)
 
         self.laser_manager = Laser(
