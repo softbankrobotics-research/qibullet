@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import pybullet
 from qibullet.robot_module import RobotModule
 
 
@@ -9,7 +10,7 @@ class Sensor(RobotModule):
     Abstract class describing a virtual sensor
     """
 
-    def __init__(self, robot_model, physics_client, frequency=None):
+    def __init__(self, robot_model, physics_client):
         """
         Constructor
 
@@ -22,8 +23,6 @@ class Sensor(RobotModule):
         """
         RobotModule.__init__(self, robot_model, physics_client)
         self.frequency = None
-
-        self.setFrequency(frequency)
 
     @property
     def subscribe(self):
@@ -53,7 +52,8 @@ class Sensor(RobotModule):
 
     def setFrequency(self, frequency):
         """
-        Sets the frequency of the sensor
+        Sets the frequency of the sensor. The expected value should be strictly
+        positive int or float, otherwise the method will raise a pybullet error
 
         Parameters:
             frequency - The frequency of the sensor in Hz
@@ -67,4 +67,6 @@ class Sensor(RobotModule):
             self.frequency = frequency
 
         except AssertionError:
-            self.frequency = None
+            raise pybullet.error(
+                "Incorrect frequency value, strictly positive int or float " +
+                "expected")
