@@ -2,8 +2,6 @@
 # coding: utf-8
 
 import time
-import atexit
-import weakref
 import pybullet
 import threading
 
