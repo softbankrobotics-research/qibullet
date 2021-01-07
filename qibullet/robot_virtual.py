@@ -310,6 +310,24 @@ class RobotVirtual:
         except KeyError:
             raise pybullet.error("Invalid handle, resolution unavailable")
 
+    def getCameraFps(self, handle):
+        """
+        Returns the framerate of the camera associated to the specified handle.
+        Be advised that the subscribeCamera method needs to be called
+        beforehand, otherwise a pybullet error will be raised.
+
+        Parameters:
+            handle - the handle retrieved when subscribing to the camera
+
+        Returns:
+            fps - The framerate of the camera (frequency of the camera in Hz)
+        """
+        try:
+            return Camera._getCameraFromHandle(handle).getFps()
+
+        except KeyError:
+            raise pybullet.error("Invalid handle, framerate unavailable")
+
     def getCameraLink(self, handle):
         """
         Returns the link of the camera associated to the specified handle. Be
