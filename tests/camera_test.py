@@ -128,6 +128,25 @@ class CameraTest(unittest.TestCase):
                 with self.assertRaises(pybullet.error):
                     CameraTest.robot.getCameraResolution(handle)
 
+    def test_get_camera_fps(self):
+        """
+        Test the getCameraFps method
+        """
+        for camera_id in CameraTest.robot.camera_dict.keys():
+            handle = CameraTest.robot.subscribeCamera(camera_id, fps=15)
+
+            # Check that the required framerate has been taken into account
+            self.assertEqual(CameraTest.robot.getCameraFps(handle), 15)
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
+
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.getCameraFps(handle)
+
+            # Check that a pybullet error is raised when specifying an
+            # incorrect framerate
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.subscribeCamera(camera_id, fps=-1)
+
     def test_get_camera_link(self):
         """
         Test the getCameraLink method
@@ -267,6 +286,9 @@ class PepperCameraTest(CameraTest):
     def test_get_camera_resolution(self):
         CameraTest.test_get_camera_resolution(self)
 
+    def test_get_camera_fps(self):
+        CameraTest.test_get_camera_fps(self)
+
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
 
@@ -318,6 +340,9 @@ class NaoCameraTest(CameraTest):
     def test_get_camera_resolution(self):
         CameraTest.test_get_camera_resolution(self)
 
+    def test_get_camera_fps(self):
+        CameraTest.test_get_camera_fps(self)
+
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
 
@@ -368,6 +393,9 @@ class RomeoCameraTest(CameraTest):
 
     def test_get_camera_resolution(self):
         CameraTest.test_get_camera_resolution(self)
+
+    def test_get_camera_fps(self):
+        CameraTest.test_get_camera_fps(self)
 
     def test_camera_channels(self):
         CameraTest.test_camera_channels(self)
