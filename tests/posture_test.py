@@ -81,18 +81,6 @@ class PepperPostureTest(PostureTest):
         PostureTest.simulation.stopSimulation(
             PostureTest.client)
 
-    def test_invalid_posture(self):
-        PostureTest.test_invalid_posture(self)
-
-    def test_stand_posture(self):
-        PostureTest.test_stand_posture(self)
-
-    def test_stand_zero_posture(self):
-        PostureTest.test_stand_zero_posture(self)
-
-    def test_crouch_posture(self):
-        PostureTest.test_crouch_posture(self)
-
 
 class NaoPostureTest(PostureTest):
     """
@@ -120,18 +108,6 @@ class NaoPostureTest(PostureTest):
         PostureTest.simulation.stopSimulation(
             PostureTest.client)
 
-    def test_invalid_posture(self):
-        PostureTest.test_invalid_posture(self)
-
-    def test_stand_posture(self):
-        PostureTest.test_stand_posture(self)
-
-    def test_stand_zero_posture(self):
-        PostureTest.test_stand_zero_posture(self)
-
-    def test_crouch_posture(self):
-        PostureTest.test_crouch_posture(self)
-
 
 class RomeoPostureTest(PostureTest):
     """
@@ -158,18 +134,6 @@ class RomeoPostureTest(PostureTest):
         """
         PostureTest.simulation.stopSimulation(
             PostureTest.client)
-
-    def test_invalid_posture(self):
-        PostureTest.test_invalid_posture(self)
-
-    def test_stand_posture(self):
-        PostureTest.test_stand_posture(self)
-
-    def test_stand_zero_posture(self):
-        PostureTest.test_stand_zero_posture(self)
-
-    def test_crouch_posture(self):
-        PostureTest.test_crouch_posture(self)
 
 
 if __name__ == "__main__":

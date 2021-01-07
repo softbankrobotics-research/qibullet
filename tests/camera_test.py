@@ -274,33 +274,6 @@ class PepperCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_subscribe_camera(self):
-        CameraTest.test_subscribe_camera(self)
-
-    def test_get_camera_id(self):
-        CameraTest.test_get_camera_id(self)
-
-    def test_is_active(self):
-        CameraTest.test_is_active(self)
-
-    def test_get_camera_resolution(self):
-        CameraTest.test_get_camera_resolution(self)
-
-    def test_get_camera_fps(self):
-        CameraTest.test_get_camera_fps(self)
-
-    def test_camera_channels(self):
-        CameraTest.test_camera_channels(self)
-
-    def test_get_camera_link(self):
-        CameraTest.test_get_camera_link(self)
-
-    def test_invalid_fov(self):
-        CameraTest.test_invalid_fov(self)
-
-    def test_get_camera_intrinsics(self):
-        CameraTest.test_get_camera_intrinsics(self)
-
 
 class NaoCameraTest(CameraTest):
     """
@@ -328,33 +301,6 @@ class NaoCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_subscribe_camera(self):
-        CameraTest.test_subscribe_camera(self)
-
-    def test_get_camera_id(self):
-        CameraTest.test_get_camera_id(self)
-
-    def test_is_active(self):
-        CameraTest.test_is_active(self)
-
-    def test_get_camera_resolution(self):
-        CameraTest.test_get_camera_resolution(self)
-
-    def test_get_camera_fps(self):
-        CameraTest.test_get_camera_fps(self)
-
-    def test_camera_channels(self):
-        CameraTest.test_camera_channels(self)
-
-    def test_get_camera_link(self):
-        CameraTest.test_get_camera_link(self)
-
-    def test_invalid_fov(self):
-        CameraTest.test_invalid_fov(self)
-
-    def test_get_camera_intrinsics(self):
-        CameraTest.test_get_camera_intrinsics(self)
-
 
 class RomeoCameraTest(CameraTest):
     """
@@ -381,30 +327,3 @@ class RomeoCameraTest(CameraTest):
         """
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
-
-    def test_subscribe_camera(self):
-        CameraTest.test_subscribe_camera(self)
-
-    def test_get_camera_id(self):
-        CameraTest.test_get_camera_id(self)
-
-    def test_is_active(self):
-        CameraTest.test_is_active(self)
-
-    def test_get_camera_resolution(self):
-        CameraTest.test_get_camera_resolution(self)
-
-    def test_get_camera_fps(self):
-        CameraTest.test_get_camera_fps(self)
-
-    def test_camera_channels(self):
-        CameraTest.test_camera_channels(self)
-
-    def test_get_camera_link(self):
-        CameraTest.test_get_camera_link(self)
-
-    def test_invalid_fov(self):
-        CameraTest.test_invalid_fov(self)
-
-    def test_get_camera_intrinsics(self):
-        CameraTest.test_get_camera_intrinsics(self)

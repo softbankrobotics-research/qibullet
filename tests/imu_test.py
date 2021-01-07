@@ -153,33 +153,6 @@ class PepperImuTest(ImuTest):
         ImuTest.simulation.stopSimulation(
             ImuTest.client)
 
-    def test_subscribe_unsubscribe(self):
-        ImuTest.test_subscribe_unsubscribe(self)
-
-    def test_get_gyroscope_values(self):
-        ImuTest.test_get_gyroscope_values(self)
-
-    def test_get_accelerometer_values(self):
-        ImuTest.test_get_accelerometer_values(self)
-
-    def test_get_values(self):
-        ImuTest.test_get_values(self)
-
-    def test_subscribe_unsubscribe_imu(self):
-        ImuTest.test_subscribe_unsubscribe_imu(self)
-
-    def test_get_imu_gyroscope_values(self):
-        ImuTest.test_get_imu_gyroscope_values(self)
-
-    def test_get_imu_accelerometer_values(self):
-        ImuTest.test_get_imu_accelerometer_values(self)
-
-    def test_get_imu_values(self):
-        ImuTest.test_get_imu_values(self)
-
-    def test_get_imu(self):
-        ImuTest.test_get_imu(self)
-
 
 class NaoImuTest(ImuTest):
     """
@@ -207,33 +180,6 @@ class NaoImuTest(ImuTest):
         ImuTest.simulation.stopSimulation(
             ImuTest.client)
 
-    def test_subscribe_unsubscribe(self):
-        ImuTest.test_subscribe_unsubscribe(self)
-
-    def test_get_gyroscope_values(self):
-        ImuTest.test_get_gyroscope_values(self)
-
-    def test_get_accelerometer_values(self):
-        ImuTest.test_get_accelerometer_values(self)
-
-    def test_get_values(self):
-        ImuTest.test_get_values(self)
-
-    def test_subscribe_unsubscribe_imu(self):
-        ImuTest.test_subscribe_unsubscribe_imu(self)
-
-    def test_get_imu_gyroscope_values(self):
-        ImuTest.test_get_imu_gyroscope_values(self)
-
-    def test_get_imu_accelerometer_values(self):
-        ImuTest.test_get_imu_accelerometer_values(self)
-
-    def test_get_imu_values(self):
-        ImuTest.test_get_imu_values(self)
-
-    def test_get_imu(self):
-        ImuTest.test_get_imu(self)
-
 
 class RomeoImuTest(ImuTest):
     """
@@ -260,33 +206,6 @@ class RomeoImuTest(ImuTest):
         """
         ImuTest.simulation.stopSimulation(
             ImuTest.client)
-
-    def test_subscribe_unsubscribe(self):
-        ImuTest.test_subscribe_unsubscribe(self)
-
-    def test_get_gyroscope_values(self):
-        ImuTest.test_get_gyroscope_values(self)
-
-    def test_get_accelerometer_values(self):
-        ImuTest.test_get_accelerometer_values(self)
-
-    def test_get_values(self):
-        ImuTest.test_get_values(self)
-
-    def test_subscribe_unsubscribe_imu(self):
-        ImuTest.test_subscribe_unsubscribe_imu(self)
-
-    def test_get_imu_gyroscope_values(self):
-        ImuTest.test_get_imu_gyroscope_values(self)
-
-    def test_get_imu_accelerometer_values(self):
-        ImuTest.test_get_imu_accelerometer_values(self)
-
-    def test_get_imu_values(self):
-        ImuTest.test_get_imu_values(self)
-
-    def test_get_imu(self):
-        ImuTest.test_get_imu(self)
 
 
 class DummyImuTest(unittest.TestCase):
