@@ -13,7 +13,6 @@ class BaseController(Controller):
     """
     Class describing a robot base controller
     """
-    # _instances = set()
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
 
