@@ -43,8 +43,14 @@ if __name__ == "__main__":
                     robot.getAnglesPosition(name)),
                 name))
 
-    while True:
-        for joint_parameter in joint_parameters:
-            robot.setAngles(
-                joint_parameter[1],
-                p.readUserDebugParameter(joint_parameter[0]), 1.0)
+    try:
+        while True:
+            for joint_parameter in joint_parameters:
+                robot.setAngles(
+                    joint_parameter[1],
+                    p.readUserDebugParameter(joint_parameter[0]), 1.0)
+
+    except KeyboardInterrupt:
+        pass
+    finally:
+        simulation_manager.stopSimulation(client)

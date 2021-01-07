@@ -25,18 +25,24 @@ def main():
     pepper.subscribeLaser()
     pepper.goToPosture("Stand", 0.6)
 
-    while True:
-        laser_list = pepper.getRightLaserValue()
-        laser_list.extend(pepper.getFrontLaserValue())
-        laser_list.extend(pepper.getLeftLaserValue())
+    try:
+        while True:
+            laser_list = pepper.getRightLaserValue()
+            laser_list.extend(pepper.getFrontLaserValue())
+            laser_list.extend(pepper.getLeftLaserValue())
 
-        if all(laser == 3.0 for laser in laser_list):
-            print("Nothing detected")
-        else:
-            print("Detected")
-            pass
+            if all(laser == 3.0 for laser in laser_list):
+                print("Nothing detected")
+            else:
+                print("Detected")
+                pass
 
-        time.sleep(0.1)
+            time.sleep(0.1)
+
+    except KeyboardInterrupt:
+        pass
+    finally:
+        simulation_manager.stopSimulation(client)
 
 
 if __name__ == "__main__":
