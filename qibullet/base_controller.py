@@ -2,8 +2,6 @@
 # coding: utf-8
 
 import time
-import atexit
-import weakref
 import pybullet
 import threading
 
@@ -15,7 +13,6 @@ class BaseController(Controller):
     """
     Class describing a robot base controller
     """
-    # _instances = set()
     FRAME_WORLD = 1
     FRAME_ROBOT = 2
 

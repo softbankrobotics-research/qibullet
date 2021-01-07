@@ -54,7 +54,6 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         pass
-
     finally:
         simulation_manager.stopSimulation(client)
         sys.exit("End the shadowing example")

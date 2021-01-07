@@ -27,6 +27,8 @@ def main():
             cv2.waitKey(1)
 
     except KeyboardInterrupt:
+        pass
+    finally:
         simulation_manager.stopSimulation(client)
 
 

@@ -83,15 +83,6 @@ class PepperLinkTest(LinkTest):
         LinkTest.simulation.stopSimulation(
             LinkTest.client)
 
-    def test_links_characteristics(self):
-        LinkTest.test_links_characteristics(self)
-
-    def test_get_link(self):
-        LinkTest.test_get_link(self)
-
-    def test_get_link_position(self):
-        LinkTest.test_get_link_position(self)
-
 
 class NaoLinkTest(LinkTest):
     """
@@ -119,15 +110,6 @@ class NaoLinkTest(LinkTest):
         LinkTest.simulation.stopSimulation(
             LinkTest.client)
 
-    def test_links_characteristics(self):
-        LinkTest.test_links_characteristics(self)
-
-    def test_get_link(self):
-        LinkTest.test_get_link(self)
-
-    def test_get_link_position(self):
-        LinkTest.test_get_link_position(self)
-
 
 class RomeoLinkTest(LinkTest):
     """
@@ -154,15 +136,6 @@ class RomeoLinkTest(LinkTest):
         """
         LinkTest.simulation.stopSimulation(
             LinkTest.client)
-
-    def test_links_characteristics(self):
-        LinkTest.test_links_characteristics(self)
-
-    def test_get_link(self):
-        LinkTest.test_get_link(self)
-
-    def test_get_link_position(self):
-        LinkTest.test_get_link_position(self)
 
 
 if __name__ == "__main__":

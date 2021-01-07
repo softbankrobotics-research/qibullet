@@ -24,18 +24,16 @@ class Sensor(RobotModule):
         RobotModule.__init__(self, robot_model, physics_client)
         self.frequency = None
 
-    @property
     def subscribe(self):
         """
-        INTERNAL METHOD, Has to be redefined in the daughter classes if the
+        ABSTRACT METHOD, Has to be redefined in the daughter classes if the
         sensor uses a subscribing system
         """
         raise NotImplementedError
 
-    @property
     def unsubscribe(self):
         """
-        INTERNAL METHOD, Has to be redefined in the daughter classes if the
+        ABSTRACT METHOD, Has to be redefined in the daughter classes if the
         sensor uses a subscribing system
         """
         raise NotImplementedError

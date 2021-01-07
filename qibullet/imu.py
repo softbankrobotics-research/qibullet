@@ -95,9 +95,14 @@ class Imu(Sensor):
         INTERNAL METHOD, retrieves and update the IMU data
         """
         period = 1.0 / self.getFrequency()
-        sampling_time = period
+        sampling_time = time.time()
 
         while not self._module_termination:
+            current_time = time.time()
+
+            if current_time - sampling_time < period:
+                continue
+
             link_state = pybullet.getLinkState(
                 self.robot_model,
                 self.imu_link.getIndex(),
@@ -111,6 +116,4 @@ class Imu(Sensor):
                         self._linear_velocity)]
 
                 self._linear_velocity = link_state[6]
-                sampling_time = time.time()
-
-            time.sleep(period)
+                sampling_time = current_time
