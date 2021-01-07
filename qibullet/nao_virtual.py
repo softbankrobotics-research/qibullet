@@ -4,8 +4,8 @@
 import os
 import pybullet
 import qibullet.tools as tools
-from qibullet.camera import *
-from qibullet.base_controller import *
+from qibullet.imu import Imu
+from qibullet.camera import CameraRgb
 from qibullet.robot_posture import NaoPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -202,6 +202,14 @@ class NaoVirtual(RobotVirtual):
         self.camera_dict = {
             NaoVirtual.ID_CAMERA_TOP: camera_top,
             NaoVirtual.ID_CAMERA_BOTTOM: camera_bottom}
+
+        # The frequency of the IMU is set to 100Hz
+        self.imu = Imu(
+            self.robot_model,
+            self.link_dict["torso"],
+            100.0,
+            physicsClientId=self.physics_client)
+
         # eventual constraints and lasers
 
     # TODO: implement a moveTo

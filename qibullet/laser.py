@@ -57,23 +57,13 @@ class Laser(Sensor):
         self.laser_id = laser_id
         self.display = display
 
-    def isActive(self):
-        """
-        Check if the lasers are subscribed or not (if the laser thread process
-        is active or not)
-
-        Returns:
-            boolean - True if the lasers are subscribed, false otherwise
-        """
-        return self.module_process.isAlive()
-
     def subscribe(self):
         """
         Subscribe to the laser scan (this will activate the laser scan
         process).
         """
         # No need to subscribe to the laser scan if the lasers are activated
-        if self.isActive():
+        if self.isAlive():
             return
 
         self._module_termination = False
@@ -86,7 +76,7 @@ class Laser(Sensor):
         Unsubscribe from the laser scan (this will deactivate the laser scan
         process)
         """
-        if self.isActive():
+        if self.isAlive():
             self._terminateModule()
 
     def showLaser(self, display):
