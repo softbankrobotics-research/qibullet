@@ -18,13 +18,13 @@ LASER_POSITION = [
     [-0.018, 0.0899, -0.334]  # Left laser
 ]
 ANGLE_LIST_POSITION = [
-    math.radians(LASER_ANGLE/2),  # Front laser
-    math.radians(LASER_ANGLE/2) - 1.75728,  # Right laser
-    math.radians(LASER_ANGLE/2) + 1.75728  # Left laser
+    math.radians(LASER_ANGLE / 2),  # Front laser
+    math.radians(LASER_ANGLE / 2) - 1.75728,  # Right laser
+    math.radians(LASER_ANGLE / 2) + 1.75728  # Left laser
 ]
 
 NUM_LASER = len(LASER_POSITION)
-LASER_FRAMERATE = 6.25
+DEFAULT_FREQUENCY = 6.25
 
 
 class Laser(Sensor):
@@ -36,8 +36,9 @@ class Laser(Sensor):
             self,
             robot_model,
             laser_id,
-            physicsClientId=0,
-            display=False):
+            frequency=DEFAULT_FREQUENCY,
+            display=False,
+            physicsClientId=0):
         """
         Constructor
 
@@ -45,9 +46,11 @@ class Laser(Sensor):
             robot_model - The pybullet model of the robot.
             laser_id - The id of the link (Link type)
             onto which the Lasers' are attached.
+            frequency - The update frequency of the laser in Hz (default
+            frequency set to 6.25 Hz)
+            display - boolean that allow the display of the laser
             physicsClientId - The id of the simulated instance in which the
             lasers are to be spawned
-            display - boolean that allow the display of the laser
         """
         Sensor.__init__(self, robot_model, physicsClientId)
         self.ray_from = []
@@ -56,6 +59,8 @@ class Laser(Sensor):
         self.laser_value = [0] * NUM_RAY * NUM_LASER
         self.laser_id = laser_id
         self.display = display
+
+        self.setFrequency(frequency)
 
     def subscribe(self):
         """
@@ -114,73 +119,77 @@ class Laser(Sensor):
                     LASER_POSITION[index][0],
                     LASER_POSITION[index][1],
                     LASER_POSITION[index][2]])
-                self.ray_to.append(
-                    [LASER_POSITION[index][0] + (RAY_LENGTH) *
-                     math.cos(float(i) *
-                     math.radians(-LASER_ANGLE)/NUM_RAY + angle),
-                     LASER_POSITION[index][1] + (RAY_LENGTH) *
-                     math.sin(float(i) *
-                     math.radians(-LASER_ANGLE)/NUM_RAY + angle),
-                     LASER_POSITION[index][2]])
+
+                self.ray_to.append([
+                    LASER_POSITION[index][0] + (RAY_LENGTH) * math.cos(
+                        float(i) * math.radians(-LASER_ANGLE)/NUM_RAY + angle),
+                    LASER_POSITION[index][1] + (RAY_LENGTH) * math.sin(
+                        float(i) * math.radians(-LASER_ANGLE)/NUM_RAY + angle),
+                    LASER_POSITION[index][2]])
 
     def _laserScan(self):
         """
         INTERNAL METHOD, a loop that simulate the laser and update the distance
         value of each laser
         """
-        lastLidarTime = time.time()
+        period = 1.0 / self.getFrequency()
+        sampling_time = time.time()
 
         while not self._module_termination:
-            nowLidarTime = time.time()
+            current_time = time.time()
 
-            if (nowLidarTime-lastLidarTime > 1/LASER_FRAMERATE):
-                results = pybullet.rayTestBatch(
-                    self.ray_from,
-                    self.ray_to,
-                    parentObjectUniqueId=self.robot_model,
-                    parentLinkIndex=self.laser_id,
-                    physicsClientId=self.physics_client)
+            if current_time - sampling_time < period:
+                continue
 
-                for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
-                    hitObjectUid = results[i][0]
-                    hitFraction = results[i][2]
-                    hitPosition = results[i][3]
-                    self.laser_value[i] = hitFraction * RAY_LENGTH
+            results = pybullet.rayTestBatch(
+                self.ray_from,
+                self.ray_to,
+                parentObjectUniqueId=self.robot_model,
+                parentLinkIndex=self.laser_id,
+                physicsClientId=self.physics_client)
 
-                    if self.display:
-                        if not self.ray_ids:
-                            self._createDebugLine()
+            for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
+                hitObjectUid = results[i][0]
+                hitFraction = results[i][2]
+                hitPosition = results[i][3]
+                self.laser_value[i] = hitFraction * RAY_LENGTH
 
-                        if (hitFraction == 1.):
-                            pybullet.addUserDebugLine(
-                                self.ray_from[i],
-                                self.ray_to[i],
-                                RAY_MISS_COLOR,
-                                replaceItemUniqueId=self.ray_ids[i],
-                                parentObjectUniqueId=self.robot_model,
-                                parentLinkIndex=self.laser_id,
-                                physicsClientId=self.physics_client)
-                        else:  # pragma: no cover
-                            localHitTo = [self.ray_from[i][0]+hitFraction*(
-                                        self.ray_to[i][0]-self.ray_from[i][0]),
-                                         self.ray_from[i][1]+hitFraction*(
-                                        self.ray_to[i][1]-self.ray_from[i][1]),
-                                         self.ray_from[i][2]+hitFraction*(
-                                        self.ray_to[i][2]-self.ray_from[i][2])]
-                            pybullet.addUserDebugLine(
-                                self.ray_from[i],
-                                localHitTo,
-                                RAY_HIT_COLOR,
-                                replaceItemUniqueId=self.ray_ids[i],
-                                parentObjectUniqueId=self.robot_model,
-                                parentLinkIndex=self.laser_id,
-                                physicsClientId=self.physics_client)
+                if self.display:
+                    if not self.ray_ids:
+                        self._createDebugLine()
 
-                    else:
-                        if self.ray_ids:
-                            self._resetDebugLine()
+                    if (hitFraction == 1.):
+                        pybullet.addUserDebugLine(
+                            self.ray_from[i],
+                            self.ray_to[i],
+                            RAY_MISS_COLOR,
+                            replaceItemUniqueId=self.ray_ids[i],
+                            parentObjectUniqueId=self.robot_model,
+                            parentLinkIndex=self.laser_id,
+                            physicsClientId=self.physics_client)
+                    else:  # pragma: no cover
+                        localHitTo = [
+                            self.ray_from[i][0] + hitFraction * (
+                                self.ray_to[i][0] - self.ray_from[i][0]),
+                            self.ray_from[i][1] + hitFraction * (
+                                self.ray_to[i][1] - self.ray_from[i][1]),
+                            self.ray_from[i][2] + hitFraction * (
+                                self.ray_to[i][2] - self.ray_from[i][2])]
 
-                lastLidarTime = nowLidarTime
+                        pybullet.addUserDebugLine(
+                            self.ray_from[i],
+                            localHitTo,
+                            RAY_HIT_COLOR,
+                            replaceItemUniqueId=self.ray_ids[i],
+                            parentObjectUniqueId=self.robot_model,
+                            parentLinkIndex=self.laser_id,
+                            physicsClientId=self.physics_client)
+
+                else:
+                    if self.ray_ids:
+                        self._resetDebugLine()
+
+            sampling_time = current_time
 
     def _createDebugLine(self):
         """
