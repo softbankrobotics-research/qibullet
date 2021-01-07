@@ -59,6 +59,7 @@ class Laser(Sensor):
         self.laser_value = [0] * NUM_RAY * NUM_LASER
         self.laser_id = laser_id
         self.display = display
+        self.values_lock = threading.Lock()
 
         self.setFrequency(frequency)
 
@@ -94,19 +95,22 @@ class Laser(Sensor):
         """
         Return a list of the front laser value (clockwise)
         """
-        return self.laser_value[:NUM_RAY]
+        with self.values_lock:
+            return self.laser_value[:NUM_RAY]
 
     def getRightLaserValue(self):
         """
         Return a list of the right laser value (clockwise)
         """
-        return self.laser_value[NUM_RAY:2*NUM_RAY]
+        with self.values_lock:
+            return self.laser_value[NUM_RAY:2*NUM_RAY]
 
     def getLeftLaserValue(self):
         """
         Return a list of the left laser value (clockwise)
         """
-        return self.laser_value[2*NUM_RAY:]
+        with self.values_lock:
+            return self.laser_value[2*NUM_RAY:]
 
     def _initializeRays(self):
         """
@@ -148,48 +152,49 @@ class Laser(Sensor):
                 parentLinkIndex=self.laser_id,
                 physicsClientId=self.physics_client)
 
-            for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
-                hitObjectUid = results[i][0]
-                hitFraction = results[i][2]
-                hitPosition = results[i][3]
-                self.laser_value[i] = hitFraction * RAY_LENGTH
+            with self.values_lock:
+                for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
+                    hitObjectUid = results[i][0]
+                    hitFraction = results[i][2]
+                    hitPosition = results[i][3]
+                    self.laser_value[i] = hitFraction * RAY_LENGTH
 
-                if self.display:
-                    if not self.ray_ids:
-                        self._createDebugLine()
+                    if self.display:
+                        if not self.ray_ids:
+                            self._createDebugLine()
 
-                    if (hitFraction == 1.):
-                        pybullet.addUserDebugLine(
-                            self.ray_from[i],
-                            self.ray_to[i],
-                            RAY_MISS_COLOR,
-                            replaceItemUniqueId=self.ray_ids[i],
-                            parentObjectUniqueId=self.robot_model,
-                            parentLinkIndex=self.laser_id,
-                            physicsClientId=self.physics_client)
-                    else:  # pragma: no cover
-                        localHitTo = [
-                            self.ray_from[i][0] + hitFraction * (
-                                self.ray_to[i][0] - self.ray_from[i][0]),
-                            self.ray_from[i][1] + hitFraction * (
-                                self.ray_to[i][1] - self.ray_from[i][1]),
-                            self.ray_from[i][2] + hitFraction * (
-                                self.ray_to[i][2] - self.ray_from[i][2])]
+                        if (hitFraction == 1.):
+                            pybullet.addUserDebugLine(
+                                self.ray_from[i],
+                                self.ray_to[i],
+                                RAY_MISS_COLOR,
+                                replaceItemUniqueId=self.ray_ids[i],
+                                parentObjectUniqueId=self.robot_model,
+                                parentLinkIndex=self.laser_id,
+                                physicsClientId=self.physics_client)
+                        else:  # pragma: no cover
+                            localHitTo = [
+                                self.ray_from[i][0] + hitFraction * (
+                                    self.ray_to[i][0] - self.ray_from[i][0]),
+                                self.ray_from[i][1] + hitFraction * (
+                                    self.ray_to[i][1] - self.ray_from[i][1]),
+                                self.ray_from[i][2] + hitFraction * (
+                                    self.ray_to[i][2] - self.ray_from[i][2])]
 
-                        pybullet.addUserDebugLine(
-                            self.ray_from[i],
-                            localHitTo,
-                            RAY_HIT_COLOR,
-                            replaceItemUniqueId=self.ray_ids[i],
-                            parentObjectUniqueId=self.robot_model,
-                            parentLinkIndex=self.laser_id,
-                            physicsClientId=self.physics_client)
+                            pybullet.addUserDebugLine(
+                                self.ray_from[i],
+                                localHitTo,
+                                RAY_HIT_COLOR,
+                                replaceItemUniqueId=self.ray_ids[i],
+                                parentObjectUniqueId=self.robot_model,
+                                parentLinkIndex=self.laser_id,
+                                physicsClientId=self.physics_client)
 
-                else:
-                    if self.ray_ids:
-                        self._resetDebugLine()
+                    else:
+                        if self.ray_ids:
+                            self._resetDebugLine()
 
-            sampling_time = current_time
+                sampling_time = current_time
 
     def _createDebugLine(self):
         """
