@@ -137,6 +137,8 @@ def _install_resources(agreement=False):  # pragma: no cover
             import meshes_installer_37 as meshes_installer
         elif minor == 8:
             import meshes_installer_38 as meshes_installer
+        elif minor == 9:
+            import meshes_installer_39 as meshes_installer
         else:
             print("Uncompatible version of Python 3")
             return

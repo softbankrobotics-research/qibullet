@@ -55,7 +55,7 @@ class RobotModule:
         Returns:
             boolean - True if the process is still alive, false otherwise
         """
-        return self.module_process.isAlive()
+        return self.module_process.is_alive()
 
     @classmethod
     def _getInstances(cls):
