@@ -60,9 +60,6 @@ class NaoVirtual(RobotVirtual):
             [x, y, z, q] of the robot in the WORLD frame
             physicsClientId - The id of the simulated instance in which the
             robot is supposed to be loaded
-
-        Returns:
-            boolean - True if the method ran correctly, False otherwise
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
