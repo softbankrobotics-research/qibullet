@@ -166,7 +166,8 @@ class NaoVirtual(RobotVirtual):
             pybullet.resetJointState(
                 self.robot_model,
                 joint.getIndex(),
-                0.0)
+                0.0,
+                physicsClientId=self.physics_client)
 
         pybullet.removeConstraint(
             balance_constraint,

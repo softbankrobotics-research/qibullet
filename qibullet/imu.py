@@ -104,9 +104,10 @@ class Imu(Sensor):
                 continue
 
             link_state = pybullet.getLinkState(
-                self.robot_model,
+                self.getRobotModel(),
                 self.imu_link.getIndex(),
-                computeLinkVelocity=True)
+                computeLinkVelocity=True,
+                physicsClientId=self.getPhysicsClientId())
 
             with self.values_lock:
                 self.angular_velocity = link_state[7]

@@ -216,7 +216,8 @@ class RobotVirtual:
         """
         link_state = pybullet.getLinkState(
             self.robot_model,
-            self.link_dict[link_name].getIndex())
+            self.link_dict[link_name].getIndex(),
+            physicsClientId=self.physics_client)
 
         return link_state[4], link_state[5]
 
