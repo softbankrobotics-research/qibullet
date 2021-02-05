@@ -6,6 +6,9 @@ import pybullet
 import qibullet.tools as tools
 from qibullet.imu import Imu
 from qibullet.camera import CameraRgb
+from qibullet.fsr import Fsr
+from qibullet.fsr import NaoFsr
+from qibullet.fsr import FsrHandler
 from qibullet.robot_posture import NaoPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -208,7 +211,16 @@ class NaoVirtual(RobotVirtual):
             100.0,
             physicsClientId=self.physics_client)
 
-        # eventual constraints and lasers
+        # FSRs
+        fsr_dict = dict()
+
+        for name in NaoFsr.LFOOT + NaoFsr.RFOOT:
+            fsr_dict[name] = Fsr(
+                self.robot_model,
+                self.link_dict[name],
+                physicsClientId=self.physics_client)
+
+        self._setFsrHandler(FsrHandler(fsr_dict))
 
     # TODO: implement a moveTo
     # TODO: implement a move

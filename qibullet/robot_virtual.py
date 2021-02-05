@@ -28,6 +28,7 @@ class RobotVirtual:
         self.camera_dict = dict()
         self.joint_dict = dict()
         self.link_dict = dict()
+        self.fsr_handler = None
         self.imu = None
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
@@ -457,10 +458,89 @@ class RobotVirtual:
         have an inertial unit, the method will return None
 
         Returns:
-            imu - The IMU of the robot as an Imu object, None if the robo
+            imu - The IMU of the robot as an Imu object, None if the robot
             doesn't possess an IMU
         """
         return self.imu
+
+    def getFsrValue(self, fsr_name):
+        """
+        Returns the weight detected on the Z axis of the specified FSR. The
+        return value is given in kg (computed from the measured force on the Z
+        axis and the gravity of the simulation). If the required fsr does not
+        exist, or if no FSR handler has been defined for the robot, the method
+        will raise a pybullet error
+
+        The working range of the sensor is 0N to 25N, and the return value is
+        given in kg
+
+        WARNING: The returned value is an approximation. Good practice: instead
+        of the value itself, take into account the variation of the value, in
+        order to detect any change at foot contact level.
+
+        Parameters:
+            fsr_name - The name of the FSR, as a string (for instance
+            NaoFsr.LFOOT_FL or "LFsrFL_frame")
+
+        Returns:
+            fsr_value - The measured value
+        """
+        if self.fsr_handler is not None:
+            return self.fsr_handler.getFsrValue(fsr_name)
+        else:
+            raise pybullet.error("No FSR handler could be found for the robot")
+
+    def getFsrValues(self, fsr_names):
+        """
+        Returns all of the FSR weight values for the FSRs corresponding to the
+        passed names. If the list of passed names is empty, the method will
+        return an empty list. If one of the required FSR does not exist, or if
+        no FSR handler has been defined for the robot, the method will raise a
+        pybullet error
+
+        Parameters:
+            fsr_names - List containing the FSR names (for instance
+            NaoFsr.LFOOT)
+
+        Returns:
+            fsr_values - The measured values for the corresponding FSRs, as a
+            List
+        """
+        if self.fsr_handler is not None:
+            return self.fsr_handler.getFsrValues(fsr_names)
+        else:
+            raise pybullet.error("No FSR handler could be found for the robot")
+
+    def getTotalFsrValues(self, fsr_names):
+        """
+        Returns the total weight value (the sum of all FSRs corresponding to
+        the names passed to the method). If no names are specified, the method
+        will return 0.0. If one of the required FSR does not exist, or if
+        no FSR handler has been defined for the robot, the method will raise a
+        pybullet error
+
+        Parameters:
+            fsr_names - List containing the FSR names (for instance
+            NaoFsr.LFOOT)
+
+        Returns:
+            total_weight - The sum of all values for the corresponding FSRs
+        """
+        if self.fsr_handler is not None:
+            return self.fsr_handler.getTotalFsrValue(fsr_names)
+        else:
+            raise pybullet.error("No FSR handler could be found for the robot")
+
+    def getFsrHandler(self):
+        """
+        Returns the FSR handler of the robot, as a FsrHandler object. If the
+        robot doesn't have a FSR handler, the method will return None
+
+        Returns:
+            fsr_handler - The FSR handler of the robot as a FsrHandler object,
+            None if the robot doesn't possess a FSR handler
+        """
+        return self.fsr_handler
 
     def getPosition(self):
         """
@@ -520,3 +600,10 @@ class RobotVirtual:
         except AssertionError:
             raise pybullet.error(
                 "Unauthorized link checking for self collisions")
+
+    def _setFsrHandler(self, fsr_handler):
+        """
+        INTERNAL METHOD, To be called by a daughter class. Sets a FsrHandler
+        for the robot
+        """
+        self.fsr_handler = fsr_handler
