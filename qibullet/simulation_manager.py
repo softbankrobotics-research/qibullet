@@ -11,6 +11,7 @@ from qibullet.nao_virtual import NaoVirtual
 from qibullet.romeo_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.robot_module import RobotModule
+from qibullet.helpers import GravityHelper
 
 
 class SimulationManager:
@@ -89,7 +90,7 @@ class SimulationManager:
                         target=self._stepSimulation,
                         args=[physics_client]).start()
 
-        pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
+        self.setGravity(physics_client, [0.0, 0.0, -9.81])
         return physics_client
 
     def resetSimulation(self, physics_client):
@@ -112,6 +113,7 @@ class SimulationManager:
 
         try:
             pybullet.disconnect(physicsClientId=physics_client)
+            GravityHelper.removeGravity(physics_client)
 
         except pybullet.error:
             print("Instance " + str(physics_client) + " already stopped")
@@ -125,9 +127,31 @@ class SimulationManager:
         """
         pybullet.stepSimulation(physicsClientId=physics_client)
 
+    def getGravity(self, physics_client):
+        """
+        Gets the gravity of a simulated instance. If the specified simulated
+        instance doesn't exist, the method will return None
+
+        Parameters:
+            physics_client - The id of the required simulated instance
+        """
+        return GravityHelper.getGravity(physics_client)
+
+    def setGravity(self, physics_client, gravity):
+        """
+        Sets the gravity for a simulated instance. By default (when spawning a
+        simulated instance) the gravity is set to [0.0, 0.0, -9.81]
+
+        Parameters:
+            physics_client - The id of the simulated instance in which the
+            gravity is to be updated
+            gravity - The new gravity vector, as a List of 3 floats (in m/s^2)
+        """
+        GravityHelper.updateGravity(physics_client, gravity)
+
     def setLightPosition(self, physics_client, light_position):
         """
-        Set the position of the GUI's light (does not work in DIRECT mode)
+        Sets the position of the GUI's light (does not work in DIRECT mode)
 
         Parameters:
             light_position - List containing the 3D positions [x, y, z] along
