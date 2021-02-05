@@ -46,27 +46,6 @@ class SimulationManagerTest(unittest.TestCase):
         except Exception:
             self.assertTrue(False)
 
-    def test_set_light_position(self):
-        """
-        Test the @setLightPosition method
-        """
-        manager = SimulationManager()
-        client = manager.launchSimulation(gui=False)
-
-        manager.setLightPosition(client, [10, 20, 2])
-        manager.setLightPosition(client, [0, 0, 10])
-        manager.setLightPosition(client, [-5, -20, 50])
-
-        with self.assertRaises(pybullet.error):
-            manager.setLightPosition(client, "not a list")
-
-        with self.assertRaises(pybullet.error):
-            manager.setLightPosition(
-                client,
-                [1, 2, 3, "wrong amount of elements"])
-
-        manager.stopSimulation(client)
-
     def test_reset_simulation(self):
         """
         Test the @resetSimulation method
@@ -75,6 +54,17 @@ class SimulationManagerTest(unittest.TestCase):
         client = manager.launchSimulation(gui=False)
         manager.resetSimulation(client)
         manager.stopSimulation(client)
+
+    def test_stop_simulation(self):
+        """
+        Test the @stopSimulation method
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False)
+        manager.stopSimulation(client)
+
+        with self.assertRaises(pybullet.error):
+            pybullet.stepSimulation(physicsClientId=client)
 
     def test_step_simulation(self):
         """
@@ -98,6 +88,62 @@ class SimulationManagerTest(unittest.TestCase):
 
         with self.assertRaises(pybullet.error):
             manager.stepSimulation(client + 1)
+
+        manager.stopSimulation(client)
+
+    def test_get_gravity(self):
+        """
+        Test the @getGravity method
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False)
+
+        gravity = manager.getGravity(client)
+        self.assertIsInstance(gravity, list)
+        self.assertEqual(len(gravity), 3)
+        manager.stopSimulation(client)
+
+    def test_set_gravity(self):
+        """
+        Test the @setGravity method
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False)
+        gravities = [
+            [0.0, 0.0, -9.81],
+            [0.0, 0.0, 9.81],
+            [1.0, 3.0, 0.0],
+            [-1.0, 3.5, 2.0]]
+
+        for gravity in gravities:
+            manager.setGravity(client, gravity)
+            value = manager.getGravity(client)
+
+            self.assertIsInstance(value, list)
+
+            for i in range(len(gravity)):
+                self.assertEqual(value[i], gravity[i])
+
+        manager.stopSimulation(client)
+
+    def test_set_light_position(self):
+        """
+        Test the @setLightPosition method
+        """
+        manager = SimulationManager()
+        client = manager.launchSimulation(gui=False)
+
+        manager.setLightPosition(client, [10, 20, 2])
+        manager.setLightPosition(client, [0, 0, 10])
+        manager.setLightPosition(client, [-5, -20, 50])
+
+        with self.assertRaises(pybullet.error):
+            manager.setLightPosition(client, "not a list")
+
+        with self.assertRaises(pybullet.error):
+            manager.setLightPosition(
+                client,
+                [1, 2, 3, "wrong amount of elements"])
 
         manager.stopSimulation(client)
 

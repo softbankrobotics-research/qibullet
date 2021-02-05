@@ -12,7 +12,7 @@ import pybullet
 
 # Version tag corresponding to the latest version of the additional qibullet
 # ressources
-RESOURCES_VERSION = "1.4.0"
+RESOURCES_VERSION = "1.4.3"
 
 
 def getDistance(point_a, point_b):

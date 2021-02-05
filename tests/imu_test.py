@@ -129,7 +129,7 @@ class ImuTest(unittest.TestCase):
 
 class PepperImuTest(ImuTest):
     """
-    Unittests for the control of Pepper virtual's joints
+    Unittests for the Pepper virtual's IMU
     """
 
     @classmethod
@@ -156,7 +156,7 @@ class PepperImuTest(ImuTest):
 
 class NaoImuTest(ImuTest):
     """
-    Unittests for the control of Nao virtual's joints
+    Unittests for Nao virtual's IMU
     """
 
     @classmethod
@@ -183,7 +183,7 @@ class NaoImuTest(ImuTest):
 
 class RomeoImuTest(ImuTest):
     """
-    Unittests for the control of Nao virtual's joints
+    Unittests for Romeo virtual's IMU
     """
 
     @classmethod

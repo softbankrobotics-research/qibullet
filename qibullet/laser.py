@@ -148,9 +148,9 @@ class Laser(Sensor):
             results = pybullet.rayTestBatch(
                 self.ray_from,
                 self.ray_to,
-                parentObjectUniqueId=self.robot_model,
+                parentObjectUniqueId=self.getRobotModel(),
                 parentLinkIndex=self.laser_id,
-                physicsClientId=self.physics_client)
+                physicsClientId=self.getPhysicsClientId())
 
             with self.values_lock:
                 for i in range(NUM_RAY*len(ANGLE_LIST_POSITION)):
@@ -169,9 +169,9 @@ class Laser(Sensor):
                                 self.ray_to[i],
                                 RAY_MISS_COLOR,
                                 replaceItemUniqueId=self.ray_ids[i],
-                                parentObjectUniqueId=self.robot_model,
+                                parentObjectUniqueId=self.getRobotModel(),
                                 parentLinkIndex=self.laser_id,
-                                physicsClientId=self.physics_client)
+                                physicsClientId=self.getPhysicsClientId())
                         else:  # pragma: no cover
                             localHitTo = [
                                 self.ray_from[i][0] + hitFraction * (
@@ -186,9 +186,9 @@ class Laser(Sensor):
                                 localHitTo,
                                 RAY_HIT_COLOR,
                                 replaceItemUniqueId=self.ray_ids[i],
-                                parentObjectUniqueId=self.robot_model,
+                                parentObjectUniqueId=self.getRobotModel(),
                                 parentLinkIndex=self.laser_id,
-                                physicsClientId=self.physics_client)
+                                physicsClientId=self.getPhysicsClientId())
 
                     else:
                         if self.ray_ids:
@@ -206,15 +206,17 @@ class Laser(Sensor):
                 self.ray_from[i],
                 self.ray_to[i],
                 RAY_MISS_COLOR,
-                parentObjectUniqueId=self.robot_model,
+                parentObjectUniqueId=self.getRobotModel(),
                 parentLinkIndex=self.laser_id,
-                physicsClientId=self.physics_client))
+                physicsClientId=self.getPhysicsClientId()))
 
     def _resetDebugLine(self):
         """
         INTERNAL METHOD, remove all debug lines
         """
         for i in range(len(self.ray_ids)):
-            pybullet.removeUserDebugItem(self.ray_ids[i], self.physics_client)
+            pybullet.removeUserDebugItem(
+                self.ray_ids[i],
+                physicsClientId=self.getPhysicsClientId())
 
         self.ray_ids = []

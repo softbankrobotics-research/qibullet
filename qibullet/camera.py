@@ -235,7 +235,7 @@ class Camera(Sensor):
                     top=math.tan(math.pi*self.vfov/360.0)*self.near_plane,
                     nearVal=self.near_plane,
                     farVal=self.far_plane,
-                    physicsClientId=self.physics_client)
+                    physicsClientId=self.getPhysicsClientId())
 
                 self.intrinsic_matrix = [
                     self.projection_matrix[0]*self.resolution.width/2.0,
@@ -309,10 +309,10 @@ class Camera(Sensor):
             camera_image - The camera image of the OpenGL virtual camera
         """
         _, _, _, _, pos_world, q_world = pybullet.getLinkState(
-            self.robot_model,
+            self.getRobotModel(),
             self.camera_link.getParentIndex(),
             computeForwardKinematics=False,
-            physicsClientId=self.physics_client)
+            physicsClientId=self.getPhysicsClientId())
 
         rotation = pybullet.getMatrixFromQuaternion(q_world)
         forward_vector = [rotation[0], rotation[3], rotation[6]]
@@ -327,7 +327,7 @@ class Camera(Sensor):
             pos_world,
             camera_target,
             up_vector,
-            physicsClientId=self.physics_client)
+            physicsClientId=self.getPhysicsClientId())
 
         with self.resolution_lock:
             camera_image = pybullet.getCameraImage(
@@ -337,7 +337,7 @@ class Camera(Sensor):
                 self.projection_matrix,
                 renderer=pybullet.ER_BULLET_HARDWARE_OPENGL,
                 flags=pybullet.ER_NO_SEGMENTATION_MASK,
-                physicsClientId=self.physics_client)
+                physicsClientId=self.getPhysicsClientId())
 
         return camera_image
 
