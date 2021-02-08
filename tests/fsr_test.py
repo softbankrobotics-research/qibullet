@@ -65,7 +65,7 @@ class FsrTest(unittest.TestCase):
         groups.extend([])
 
         for group in FsrTest.fsr_groups:
-            value = FsrTest.robot.getTotalFsrValues(group)
+            values = FsrTest.robot.getTotalFsrValues(group)
             self.assertIsInstance(values, float)
 
         # Pass a list of fsr names containing an unexisting FSR
