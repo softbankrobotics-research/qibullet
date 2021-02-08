@@ -5,6 +5,7 @@ from qibullet import PepperVirtual
 from qibullet import NaoVirtual
 from qibullet import RomeoVirtual
 
+
 if __name__ == "__main__":
     simulation_manager = SimulationManager()
 
