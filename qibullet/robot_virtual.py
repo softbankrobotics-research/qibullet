@@ -471,9 +471,6 @@ class RobotVirtual:
         exist, or if no FSR handler has been defined for the robot, the method
         will raise a pybullet error
 
-        The working range of the sensor is 0N to 25N, and the return value is
-        given in kg
-
         WARNING: The returned value is an approximation. Good practice: instead
         of the value itself, take into account the variation of the value, in
         order to detect any change at foot contact level.
@@ -486,7 +483,7 @@ class RobotVirtual:
             fsr_value - The measured value
         """
         if self.fsr_handler is not None:
-            return self.fsr_handler.getFsrValue(fsr_name)
+            return self.fsr_handler.getValue(fsr_name)
         else:
             raise pybullet.error("No FSR handler could be found for the robot")
 
@@ -507,7 +504,7 @@ class RobotVirtual:
             List
         """
         if self.fsr_handler is not None:
-            return self.fsr_handler.getFsrValues(fsr_names)
+            return self.fsr_handler.getValues(fsr_names)
         else:
             raise pybullet.error("No FSR handler could be found for the robot")
 
@@ -527,7 +524,7 @@ class RobotVirtual:
             total_weight - The sum of all values for the corresponding FSRs
         """
         if self.fsr_handler is not None:
-            return self.fsr_handler.getTotalFsrValue(fsr_names)
+            return self.fsr_handler.getTotalValue(fsr_names)
         else:
             raise pybullet.error("No FSR handler could be found for the robot")
 

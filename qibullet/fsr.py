@@ -46,14 +46,11 @@ class Fsr(Sensor):
 
         self.fsr_link = fsr_link
 
-    def getFsrValue(self):
+    def getValue(self):
         """
         Returns the weight detected on the Z axis of the sensor. The return
         value is given in kg (computed from the measured force on the Z axis
         and the gravity of the simulation)
-
-        The working range of the sensor is 0N to 25N, and the return value is
-        given in kg
 
         WARNING: The returned value is an approximation. Good practice: instead
         of the value itself, take into account the variation of the value, in
@@ -94,15 +91,12 @@ class FsrHandler:
         """
         self.fsr_dict = fsr_dict
 
-    def getFsrValue(self, fsr_name):
+    def getValue(self, fsr_name):
         """
         Returns the weight detected on the Z axis of the specified FSR. The
         return value is given in kg (computed from the measured force on the Z
         axis and the gravity of the simulation). If the required fsr does not
         exist, the method will raise a pybullet error
-
-        The working range of the sensor is 0N to 25N, and the return value is
-        given in kg
 
         WARNING: The returned value is an approximation. Good practice: instead
         of the value itself, take into account the variation of the value, in
@@ -116,12 +110,12 @@ class FsrHandler:
             fsr_value - The measured value
         """
         try:
-            return self.fsr_dict[fsr_name].getFsrValue()
+            return self.fsr_dict[fsr_name].getValue()
 
         except KeyError:
             raise pybullet.error("The required Fsr does not exist")
 
-    def getFsrValues(self, fsr_names):
+    def getValues(self, fsr_names):
         """
         Returns all of the FSR weight values for the FSRs corresponding to the
         passed names. If the list of passed names is empty, the method will
@@ -138,11 +132,11 @@ class FsrHandler:
         values = list()
 
         for name in fsr_names:
-            values.append(self.fsr_dict[name].getFsrValue())
+            values.append(self.fsr_dict[name].getValue())
 
         return values
 
-    def getTotalFsrValue(self, fsr_names):
+    def getTotalValue(self, fsr_names):
         """
         Returns the total weight value (the sum of all FSRs corresponding to
         the names passed to the method). If no names are specified, the method
@@ -155,7 +149,7 @@ class FsrHandler:
         Returns:
             total_weight - The sum of all values for the corresponding FSRs
         """
-        total_weight = sum(self.getFsrValues(fsr_names))
+        total_weight = sum(self.getValues(fsr_names))
 
         if isinstance(total_weight, int):
             return float(total_weight)
