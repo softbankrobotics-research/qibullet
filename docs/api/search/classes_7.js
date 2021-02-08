@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['sensor',['Sensor',['../classqibullet_1_1sensor_1_1Sensor.html',1,'qibullet::sensor']]],
-  ['simulationmanager',['SimulationManager',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html',1,'qibullet::simulation_manager']]]
+  ['naofsr',['NaoFsr',['../classqibullet_1_1fsr_1_1NaoFsr.html',1,'qibullet::fsr']]],
+  ['naoposture',['NaoPosture',['../classqibullet_1_1robot__posture_1_1NaoPosture.html',1,'qibullet::robot_posture']]],
+  ['naoroswrapper',['NaoRosWrapper',['../classqibullet_1_1ros__wrapper_1_1NaoRosWrapper.html',1,'qibullet::ros_wrapper']]],
+  ['naovirtual',['NaoVirtual',['../classqibullet_1_1nao__virtual_1_1NaoVirtual.html',1,'qibullet::nao_virtual']]]
 ];

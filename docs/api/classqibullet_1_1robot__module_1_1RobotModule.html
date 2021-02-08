@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.4.2</span>
+   &#160;<span id="projectnumber">1.4.3</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -100,12 +100,14 @@ Inheritance diagram for qibullet.robot_module.RobotModule:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqibullet_1_1robot__module_1_1RobotModule__inherit__graph.png" border="0" usemap="#qibullet_8robot__module_8RobotModule_inherit__map" alt="Inheritance graph"/></div>
 <map name="qibullet_8robot__module_8RobotModule_inherit__map" id="qibullet_8robot__module_8RobotModule_inherit__map">
-<area shape="rect" id="node2" href="classqibullet_1_1controller_1_1Controller.html" title="qibullet.controller.Controller" alt="" coords="237,17,417,43"/>
-<area shape="rect" id="node5" href="classqibullet_1_1sensor_1_1Sensor.html" title="qibullet.sensor.Sensor" alt="" coords="252,71,403,98"/>
+<area shape="rect" id="node2" href="classqibullet_1_1controller_1_1Controller.html" title="qibullet.controller.Controller" alt="" coords="237,42,417,69"/>
+<area shape="rect" id="node5" href="classqibullet_1_1sensor_1_1Sensor.html" title="qibullet.sensor.Sensor" alt="" coords="252,122,403,149"/>
 <area shape="rect" id="node3" href="classqibullet_1_1base__controller_1_1BaseController.html" title="qibullet.base_controller.\lBaseController" alt="" coords="466,5,625,47"/>
 <area shape="rect" id="node4" href="classqibullet_1_1base__controller_1_1PepperBaseController.html" title="qibullet.base_controller.\lPepperBaseController" alt="" coords="691,5,850,47"/>
 <area shape="rect" id="node6" href="classqibullet_1_1camera_1_1Camera.html" title="qibullet.camera.Camera" alt="" coords="465,71,625,98"/>
-<area shape="rect" id="node9" href="classqibullet_1_1laser_1_1Laser.html" title="qibullet.laser.Laser" alt="" coords="480,122,611,149"/>
+<area shape="rect" id="node9" href="classqibullet_1_1fsr_1_1Fsr.html" title="qibullet.fsr.Fsr" alt="" coords="493,122,598,149"/>
+<area shape="rect" id="node10" href="classqibullet_1_1imu_1_1Imu.html" title="qibullet.imu.Imu" alt="" coords="488,173,603,199"/>
+<area shape="rect" id="node11" href="classqibullet_1_1laser_1_1Laser.html" title="qibullet.laser.Laser" alt="" coords="480,223,611,250"/>
 <area shape="rect" id="node7" href="classqibullet_1_1camera_1_1CameraDepth.html" title="qibullet.camera.CameraDepth" alt="" coords="673,71,868,98"/>
 <area shape="rect" id="node8" href="classqibullet_1_1camera_1_1CameraRgb.html" title="qibullet.camera.CameraRgb" alt="" coords="679,122,863,149"/>
 </map>
@@ -119,6 +121,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3c06eec0906d45a7d3dff373d436c6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb63e2777bceda758ec4d12165c6d171"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__module_1_1RobotModule.html#adb63e2777bceda758ec4d12165c6d171">getPhysicsClientId</a> (self)</td></tr>
 <tr class="separator:adb63e2777bceda758ec4d12165c6d171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00b921636281f741b16a29f01b497ae8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__module_1_1RobotModule.html#a00b921636281f741b16a29f01b497ae8">isAlive</a> (self)</td></tr>
+<tr class="separator:a00b921636281f741b16a29f01b497ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -213,6 +217,26 @@ Returns:
 
 Returns:
     robot_model - The pybullet model of the robot
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a00b921636281f741b16a29f01b497ae8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_module.RobotModule.isAlive </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Check the activity status of the module_process thread
+
+Returns:
+    boolean - True if the process is still alive, false otherwise
 </pre> 
 </div>
 </div>

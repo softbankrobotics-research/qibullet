@@ -1,6 +1,24 @@
 var searchData=
 [
-  ['unsubscribe',['unsubscribe',['../classqibullet_1_1camera_1_1Camera.html#a976de7e641ebd73d3e242f3b8420a0fb',1,'qibullet.camera.Camera.unsubscribe()'],['../classqibullet_1_1laser_1_1Laser.html#a54d64476f735080cced9667f2e6d27c6',1,'qibullet.laser.Laser.unsubscribe()']]],
-  ['unsubscribecamera',['unsubscribeCamera',['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html#ae0018b9ef50604832758db3708a3d22e',1,'qibullet::robot_virtual::RobotVirtual']]],
-  ['unsubscribelaser',['unsubscribeLaser',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#ad0989a126285f688ca76693968a77b23',1,'qibullet::pepper_virtual::PepperVirtual']]]
+  ['sensor',['Sensor',['../classqibullet_1_1sensor_1_1Sensor.html',1,'qibullet::sensor']]],
+  ['setangles',['setAngles',['../classqibullet_1_1nao__virtual_1_1NaoVirtual.html#a05fc24a217e10dc929d6ecd31116c949',1,'qibullet.nao_virtual.NaoVirtual.setAngles()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a7933a730408c391f04925efa5bb65cf3',1,'qibullet.pepper_virtual.PepperVirtual.setAngles()'],['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html#afd188e15e0ad3e28adc613a139c66a7e',1,'qibullet.robot_virtual.RobotVirtual.setAngles()'],['../classqibullet_1_1romeo__virtual_1_1RomeoVirtual.html#a995c5e574c02f0e3c887d3452d9aa4fb',1,'qibullet.romeo_virtual.RomeoVirtual.setAngles()']]],
+  ['setfrequency',['setFrequency',['../classqibullet_1_1sensor_1_1Sensor.html#ac4662502b5a0964747806f3a340da493',1,'qibullet::sensor::Sensor']]],
+  ['setgravity',['setGravity',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a729a475dafb5be11a904db02bac89b48',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['setlightposition',['setLightPosition',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a946cf13e4badfe9dad24ef995a9b1cd3',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['setlinearvelocity',['setLinearVelocity',['../classqibullet_1_1base__controller_1_1BaseController.html#a0498f937cdaec775641df7d212fdaf53',1,'qibullet.base_controller.BaseController.setLinearVelocity()'],['../classqibullet_1_1base__controller_1_1PepperBaseController.html#a390f4cd9f1084259dd6caf960c24d50c',1,'qibullet.base_controller.PepperBaseController.setLinearVelocity()']]],
+  ['setmaxeffort',['setMaxEffort',['../classqibullet_1_1joint_1_1Joint.html#aa36c87df3ccddd29d3ef1fa34844da5a',1,'qibullet::joint::Joint']]],
+  ['setmaxvelocity',['setMaxVelocity',['../classqibullet_1_1joint_1_1Joint.html#a717fa49e92d63cf1a1659840b169406e',1,'qibullet::joint::Joint']]],
+  ['showlaser',['showLaser',['../classqibullet_1_1laser_1_1Laser.html#a8355bbb33dd291090dfcbde13a6baf31',1,'qibullet.laser.Laser.showLaser()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#aaa36b354a3c355aa60b9469d306da24b',1,'qibullet.pepper_virtual.PepperVirtual.showLaser()']]],
+  ['simulationmanager',['SimulationManager',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html',1,'qibullet::simulation_manager']]],
+  ['spawnnao',['spawnNao',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#aaac2f8b0a8912b2857c40de855a8d702',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['spawnpepper',['spawnPepper',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#aeac971c9a89aab4625031beb947cc088',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['spawnromeo',['spawnRomeo',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a0cec7ba5d437a6aa4eef65c434ff5fd7',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['stepsimulation',['stepSimulation',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a24f785c2674a55d745c966aa4fe0d8ad',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['stopmove',['stopMove',['../classqibullet_1_1base__controller_1_1PepperBaseController.html#a5cdc408d50232392edbc94ac336c5f55',1,'qibullet.base_controller.PepperBaseController.stopMove()'],['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a1f8050421702b0f6f2178cf58a0df1b0',1,'qibullet.pepper_virtual.PepperVirtual.stopMove()']]],
+  ['stopsimulation',['stopSimulation',['../classqibullet_1_1simulation__manager_1_1SimulationManager.html#a7c3a6687ff2c6e7649e3b080bcce4f3c',1,'qibullet::simulation_manager::SimulationManager']]],
+  ['stopwrapper',['stopWrapper',['../classqibullet_1_1ros__wrapper_1_1RosWrapper.html#ae6d32d9ed4f4775a40ecceee8ab30394',1,'qibullet::ros_wrapper::RosWrapper']]],
+  ['subscribe',['subscribe',['../classqibullet_1_1camera_1_1Camera.html#aa04259e6f5a86971ed98f99a0fe1426a',1,'qibullet.camera.Camera.subscribe()'],['../classqibullet_1_1imu_1_1Imu.html#a44f84142abceb642d9967fcd2445e75d',1,'qibullet.imu.Imu.subscribe()'],['../classqibullet_1_1laser_1_1Laser.html#afdb939d93bd545b8480a2bb02d3f4006',1,'qibullet.laser.Laser.subscribe()'],['../classqibullet_1_1sensor_1_1Sensor.html#a70d2ce00d12cd5808b67947d858da9df',1,'qibullet.sensor.Sensor.subscribe()']]],
+  ['subscribecamera',['subscribeCamera',['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a5ca8a7bd4b6ea7619ce01262efa669dd',1,'qibullet::robot_virtual::RobotVirtual']]],
+  ['subscribeimu',['subscribeImu',['../classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a94dc4c6ca5e1c2e3048183b9b8ea93e3',1,'qibullet::robot_virtual::RobotVirtual']]],
+  ['subscribelaser',['subscribeLaser',['../classqibullet_1_1pepper__virtual_1_1PepperVirtual.html#a51ea08353934c1bcf7966213eb4828d1',1,'qibullet::pepper_virtual::PepperVirtual']]]
 ];
