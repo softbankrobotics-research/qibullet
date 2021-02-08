@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.4.2</span>
+   &#160;<span id="projectnumber">1.4.3</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -99,12 +99,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aea27d6c3fce2bb85ab9f79486a92e833"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aea27d6c3fce2bb85ab9f79486a92e833">__init__</a> (self)</td></tr>
 <tr class="separator:aea27d6c3fce2bb85ab9f79486a92e833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a675fd4507cd644925ca43f640ab49d06"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a675fd4507cd644925ca43f640ab49d06">launchSimulation</a> (self, gui=True, use_shared_memory=False)</td></tr>
-<tr class="separator:a675fd4507cd644925ca43f640ab49d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b641b3227778e365bb6cce33d5777ad"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a0b641b3227778e365bb6cce33d5777ad">launchSimulation</a> (self, gui=True, use_shared_memory=False, auto_step=True)</td></tr>
+<tr class="separator:a0b641b3227778e365bb6cce33d5777ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff85f8e6738a675779e07d466f9ca159"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aff85f8e6738a675779e07d466f9ca159">resetSimulation</a> (self, physics_client)</td></tr>
 <tr class="separator:aff85f8e6738a675779e07d466f9ca159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c3a6687ff2c6e7649e3b080bcce4f3c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a7c3a6687ff2c6e7649e3b080bcce4f3c">stopSimulation</a> (self, physics_client)</td></tr>
 <tr class="separator:a7c3a6687ff2c6e7649e3b080bcce4f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f785c2674a55d745c966aa4fe0d8ad"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a24f785c2674a55d745c966aa4fe0d8ad">stepSimulation</a> (self, physics_client)</td></tr>
+<tr class="separator:a24f785c2674a55d745c966aa4fe0d8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44b0b9306a3f53a57d7fe77f4a92dfcf"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a44b0b9306a3f53a57d7fe77f4a92dfcf">getGravity</a> (self, physics_client)</td></tr>
+<tr class="separator:a44b0b9306a3f53a57d7fe77f4a92dfcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729a475dafb5be11a904db02bac89b48"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a729a475dafb5be11a904db02bac89b48">setGravity</a> (self, physics_client, gravity)</td></tr>
+<tr class="separator:a729a475dafb5be11a904db02bac89b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a946cf13e4badfe9dad24ef995a9b1cd3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#a946cf13e4badfe9dad24ef995a9b1cd3">setLightPosition</a> (self, physics_client, light_position)</td></tr>
 <tr class="separator:a946cf13e4badfe9dad24ef995a9b1cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeac971c9a89aab4625031beb947cc088"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1simulation__manager_1_1SimulationManager.html#aeac971c9a89aab4625031beb947cc088">spawnPepper</a> (self, physics_client, translation=[0, quaternion=[0, spawn_ground_plane=False)</td></tr>
@@ -141,7 +147,38 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a675fd4507cd644925ca43f640ab49d06"></a>
+<a class="anchor" id="a44b0b9306a3f53a57d7fe77f4a92dfcf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.getGravity </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>physics_client</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Gets the gravity of a simulated instance. If the specified simulated
+instance doesn't exist, the method will return None
+
+Parameters:
+    physics_client - The id of the required simulated instance
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a0b641b3227778e365bb6cce33d5777ad"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -161,7 +198,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>use_shared_memory</em> = <code>False</code>&#160;</td>
+          <td class="paramname"><em>use_shared_memory</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>auto_step</em> = <code>True</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -184,6 +227,10 @@ Parameters:
     possible and the motion servers are manually stepped using the
     _stepSimulation method. (More information in the setup section of
     the qiBullet wiki, and in the pybullet documentation)
+    auto_step - Boolean, True by default. Only taken into account if
+    gui is False and use_shared_memory is False. If auto_step is True,
+    the simulation is automatically stepped. Otherwise, the user will
+    explicitely have to call @stepSimulation to step the simulation
 
 Returns:
     physics_client - The id of the simulation client created
@@ -309,6 +356,45 @@ instance will still be running
 </pre> 
 </div>
 </div>
+<a class="anchor" id="a729a475dafb5be11a904db02bac89b48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.setGravity </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>physics_client</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>gravity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Sets the gravity for a simulated instance. By default (when spawning a
+simulated instance) the gravity is set to [0.0, 0.0, -9.81]
+
+Parameters:
+    physics_client - The id of the simulated instance in which the
+    gravity is to be updated
+    gravity - The new gravity vector, as a List of 3 floats (in m/s^2)
+</pre> 
+</div>
+</div>
 <a class="anchor" id="a946cf13e4badfe9dad24ef995a9b1cd3"></a>
 <div class="memitem">
 <div class="memproto">
@@ -338,7 +424,7 @@ instance will still be running
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Set the position of the GUI's light (does not work in DIRECT mode)
+<pre class="fragment">Sets the position of the GUI's light (does not work in DIRECT mode)
 
 Parameters:
     light_position - List containing the 3D positions [x, y, z] along
@@ -518,6 +604,36 @@ Parameters:
 
 Returns:
     romeo_virtual - A RomeoVirtual object, the Romeo simulated instance
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a24f785c2674a55d745c966aa4fe0d8ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.simulation_manager.SimulationManager.stepSimulation </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>physics_client</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Steps the simulated instance corresponding to the physics_client id
+
+Parameters:
+    physics_client - The id of the simulated instance to be stepped
 </pre> 
 </div>
 </div>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['joint',['Joint',['../classqibullet_1_1joint_1_1Joint.html',1,'qibullet::joint']]]
+  ['fsr',['Fsr',['../classqibullet_1_1fsr_1_1Fsr.html',1,'qibullet::fsr']]],
+  ['fsrhandler',['FsrHandler',['../classqibullet_1_1fsr_1_1FsrHandler.html',1,'qibullet::fsr']]]
 ];
