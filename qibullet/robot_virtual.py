@@ -28,6 +28,8 @@ class RobotVirtual:
         self.camera_dict = dict()
         self.joint_dict = dict()
         self.link_dict = dict()
+        self.fsr_handler = None
+        self.imu = None
 
     def loadRobot(self, translation, quaternion, physicsClientId=0):
         """
@@ -41,9 +43,6 @@ class RobotVirtual:
             [x, y, z, q] of the robot in the WORLD frame
             physicsClientId - The id of the simulated instance in which the
             robot is supposed to be loaded
-
-        Returns:
-            boolean - True if the method ran correctly, False otherwise
         """
         try:
             self.physics_client = physicsClientId
@@ -63,31 +62,25 @@ class RobotVirtual:
         for i in range(pybullet.getNumJoints(
                 self.robot_model,
                 physicsClientId=self.physics_client)):
+
+            joint_info = pybullet.getJointInfo(
+                self.robot_model,
+                i,
+                physicsClientId=self.physics_client)
+
+            # PYTHON 3 version needs a conversion bytes to str
             if IS_VERSION_PYTHON_3:
-                # PYTHON 3 version needs a conversion bytes to str
-                joint_info = pybullet.getJointInfo(
-                    self.robot_model,
-                    i,
-                    physicsClientId=self.physics_client)
-                self.link_dict[joint_info[12].decode('utf-8')] =\
-                    Link(joint_info)
-
-                if joint_info[2] == pybullet.JOINT_PRISMATIC or\
-                        joint_info[2] == pybullet.JOINT_REVOLUTE:
-                    self.joint_dict[joint_info[1].decode('utf-8')] =\
-                        Joint(joint_info)
+                link_name = joint_info[12].decode('utf-8')
+                joint_name = joint_info[1].decode('utf-8')
             else:
-                # PYTHON 2 Version
-                joint_info = pybullet.getJointInfo(
-                    self.robot_model,
-                    i,
-                    physicsClientId=self.physics_client)
+                link_name = joint_info[12]
+                joint_name = joint_info[1]
 
-                self.link_dict[joint_info[12]] = Link(joint_info)
+            self.link_dict[link_name] = Link(joint_info)
 
-                if joint_info[2] == pybullet.JOINT_PRISMATIC or\
-                        joint_info[2] == pybullet.JOINT_REVOLUTE:
-                    self.joint_dict[joint_info[1]] = Joint(joint_info)
+            if joint_info[2] == pybullet.JOINT_PRISMATIC or\
+                    joint_info[2] == pybullet.JOINT_REVOLUTE:
+                self.joint_dict[joint_name] = Joint(joint_info)
 
     def getRobotModel(self):
         """
@@ -224,11 +217,12 @@ class RobotVirtual:
         """
         link_state = pybullet.getLinkState(
             self.robot_model,
-            self.link_dict[link_name].getIndex())
+            self.link_dict[link_name].getIndex(),
+            physicsClientId=self.physics_client)
 
-        return link_state[0], link_state[1]
+        return link_state[4], link_state[5]
 
-    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA):
+    def subscribeCamera(self, camera_id, resolution=Camera.K_QVGA, fps=30.0):
         """
         Subscribe to the camera holding the camera id (for instance,
         PepperVirtual.ID_CAMERA_TOP). This method returns a handle for the
@@ -241,12 +235,14 @@ class RobotVirtual:
         Parameters:
             camera_id - The id of the camera to be subscribed
             resolution - CameraResolution object, the resolution of the camera
+            fps - The number of frames per second requested for the video
+            source (strictly positive float of int)
 
         Returns:
             handle - The associated camera handle
         """
         try:
-            return self.camera_dict[camera_id].subscribe(resolution)
+            return self.camera_dict[camera_id].subscribe(resolution, fps=fps)
 
         except KeyError:
             print("This camera does not exist, use a valid camera id")
@@ -307,6 +303,24 @@ class RobotVirtual:
         except KeyError:
             raise pybullet.error("Invalid handle, resolution unavailable")
 
+    def getCameraFps(self, handle):
+        """
+        Returns the framerate of the camera associated to the specified handle.
+        Be advised that the subscribeCamera method needs to be called
+        beforehand, otherwise a pybullet error will be raised.
+
+        Parameters:
+            handle - the handle retrieved when subscribing to the camera
+
+        Returns:
+            fps - The framerate of the camera (frequency of the camera in Hz)
+        """
+        try:
+            return Camera._getCameraFromHandle(handle).getFps()
+
+        except KeyError:
+            raise pybullet.error("Invalid handle, framerate unavailable")
+
     def getCameraLink(self, handle):
         """
         Returns the link of the camera associated to the specified handle. Be
@@ -344,6 +358,186 @@ class RobotVirtual:
 
         except KeyError:
             raise pybullet.error("Invalid handle, no associated camera")
+
+    def subscribeImu(self, frequency=None):
+        """
+        Subscribe to the Inertial Unit of the robot. If the robot doesn't have
+        an inertial unit, the method will raise a pybullet error.
+
+        This method starts the background process collecting the Imu data, and
+        should be called before trying to access to the Imu data
+
+        Parameters:
+            frequency - The desired frequency for the IMU, in Hz. If the
+            variable is not specified, the frequency value used when creating
+            the Imu object will be used. The value should be specified as an
+            int or a float
+        """
+        try:
+            assert self.imu is not None
+
+            if frequency is not None:
+                self.imu.setFrequency(frequency)
+
+            self.imu.subscribe()
+
+        except AssertionError:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def unsubscribeImu(self):
+        """
+        Unsubscribe from the Inertial Unit of the robot. If the robot doesn't
+        have an inertial unit, the method will raise a pybullet error.
+
+        This method stops the background process collecting the Imu data, and
+        should be called when the Imu data are not useful anymore
+        """
+        try:
+            assert self.imu is not None
+            self.imu.unsubscribe()
+
+        except AssertionError:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImuGyroscopeValues(self):
+        """
+        Returns the angular velocity of the IMU in rad/s in the world frame. If
+        the robot doesn't have an inertial unit, the method will raise a
+        pybullet error.
+
+        One should subscribe to the IMU before calling this method (otherwise,
+        the speed will constantly be [0, 0, 0])
+
+        Returns:
+            angular_velocity - The angular velocity in rad/s
+        """
+        if self.imu is not None:
+            return self.imu.getGyroscopeValues()
+        else:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImuAccelerometerValues(self):
+        """
+        Returns the linear acceleration of the IMU in m/s^2 in the world frame.
+        If the robot doesn't have an inertial unit, the method will raise a
+        pybullet error.
+
+        One should subscribe to the IMU before calling this method (otherwise,
+        the acceleration will constantly be [0, 0, 0])
+
+        Returns:
+            linear_acceleration - The linear acceleration in m/s^2
+        """
+        if self.imu is not None:
+            return self.imu.getAccelerometerValues()
+        else:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImuValues(self):
+        """
+        Returns the values of the gyroscope and the accelerometer of the IMU
+        (angular_velocity, linear_acceleration) in the world frame. If the
+        robot doesn't have an inertial unit, the method will raise a pybullet
+        error.
+
+        One should subscribe to the IMU before calling this method (otherwise,
+        the acceleration and speed will constantly be [0, 0, 0], [0, 0, 0])
+
+        Returns:
+            angular_velocity - The angular velocity values in rad/s
+            linear_acceleration - The linear acceleration values in m/s^2
+        """
+        if self.imu is not None:
+            return self.imu.getValues()
+        else:
+            raise pybullet.error("No IMU could be found for the virtual robot")
+
+    def getImu(self):
+        """
+        Returns the IMU of the robot, as an Imu object. If the robot doesn't
+        have an inertial unit, the method will return None
+
+        Returns:
+            imu - The IMU of the robot as an Imu object, None if the robot
+            doesn't possess an IMU
+        """
+        return self.imu
+
+    def getFsrValue(self, fsr_name):
+        """
+        Returns the weight detected on the Z axis of the specified FSR. The
+        return value is given in kg (computed from the measured force on the Z
+        axis and the gravity of the simulation). If the required fsr does not
+        exist, or if no FSR handler has been defined for the robot, the method
+        will raise a pybullet error
+
+        WARNING: The returned value is an approximation. Good practice: instead
+        of the value itself, take into account the variation of the value, in
+        order to detect any change at foot contact level.
+
+        Parameters:
+            fsr_name - The name of the FSR, as a string (for instance
+            NaoFsr.LFOOT_FL or "LFsrFL_frame")
+
+        Returns:
+            fsr_value - The measured value
+        """
+        if self.fsr_handler is not None:
+            return self.fsr_handler.getValue(fsr_name)
+        else:
+            raise pybullet.error("No FSR handler could be found for the robot")
+
+    def getFsrValues(self, fsr_names):
+        """
+        Returns all of the FSR weight values for the FSRs corresponding to the
+        passed names. If the list of passed names is empty, the method will
+        return an empty list. If one of the required FSR does not exist, or if
+        no FSR handler has been defined for the robot, the method will raise a
+        pybullet error
+
+        Parameters:
+            fsr_names - List containing the FSR names (for instance
+            NaoFsr.LFOOT)
+
+        Returns:
+            fsr_values - The measured values for the corresponding FSRs, as a
+            List
+        """
+        if self.fsr_handler is not None:
+            return self.fsr_handler.getValues(fsr_names)
+        else:
+            raise pybullet.error("No FSR handler could be found for the robot")
+
+    def getTotalFsrValues(self, fsr_names):
+        """
+        Returns the total weight value (the sum of all FSRs corresponding to
+        the names passed to the method). If no names are specified, the method
+        will return 0.0. If one of the required FSR does not exist, or if
+        no FSR handler has been defined for the robot, the method will raise a
+        pybullet error
+
+        Parameters:
+            fsr_names - List containing the FSR names (for instance
+            NaoFsr.LFOOT)
+
+        Returns:
+            total_weight - The sum of all values for the corresponding FSRs
+        """
+        if self.fsr_handler is not None:
+            return self.fsr_handler.getTotalValue(fsr_names)
+        else:
+            raise pybullet.error("No FSR handler could be found for the robot")
+
+    def getFsrHandler(self):
+        """
+        Returns the FSR handler of the robot, as a FsrHandler object. If the
+        robot doesn't have a FSR handler, the method will return None
+
+        Returns:
+            fsr_handler - The FSR handler of the robot as a FsrHandler object,
+            None if the robot doesn't possess a FSR handler
+        """
+        return self.fsr_handler
 
     def getPosition(self):
         """
@@ -403,3 +597,10 @@ class RobotVirtual:
         except AssertionError:
             raise pybullet.error(
                 "Unauthorized link checking for self collisions")
+
+    def _setFsrHandler(self, fsr_handler):
+        """
+        INTERNAL METHOD, To be called by a daughter class. Sets a FsrHandler
+        for the robot
+        """
+        self.fsr_handler = fsr_handler

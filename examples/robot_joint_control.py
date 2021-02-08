@@ -17,7 +17,8 @@ if __name__ == "__main__":
     else:
         rob = raw_input("Which robot should be spawned? (pepper/nao/romeo): ")
 
-    client = simulation_manager.launchSimulation(gui=True)
+    # Auto stepping set to False, the user has to manually step the simulation
+    client = simulation_manager.launchSimulation(gui=True, auto_step=False)
 
     if rob.lower() == "nao":
         robot = simulation_manager.spawnNao(client, spawn_ground_plane=True)
@@ -43,8 +44,17 @@ if __name__ == "__main__":
                     robot.getAnglesPosition(name)),
                 name))
 
-    while True:
-        for joint_parameter in joint_parameters:
-            robot.setAngles(
-                joint_parameter[1],
-                p.readUserDebugParameter(joint_parameter[0]), 1.0)
+    try:
+        while True:
+            for joint_parameter in joint_parameters:
+                robot.setAngles(
+                    joint_parameter[1],
+                    p.readUserDebugParameter(joint_parameter[0]), 1.0)
+
+            # Step the simulation
+            simulation_manager.stepSimulation(client)
+
+    except KeyboardInterrupt:
+        pass
+    finally:
+        simulation_manager.stopSimulation(client)

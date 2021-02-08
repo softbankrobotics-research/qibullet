@@ -204,7 +204,9 @@ class RosWrapper:
         odom.child_frame_id = "base_link"
         [vx, vy, vz], [wx, wy, wz] = pybullet.getBaseVelocity(
             self.robot.getRobotModel(),
-            self.robot.getPhysicsClientId())
+            self.robot.getPhysicsClientId(),
+            physicsClientId=self.robot.getPhysicsClientId())
+
         odom.twist.twist.linear.x = vx
         odom.twist.twist.linear.y = vy
         odom.twist.twist.angular.z = wz

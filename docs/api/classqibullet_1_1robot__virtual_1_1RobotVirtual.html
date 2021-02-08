@@ -24,7 +24,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">qiBullet
-   &#160;<span id="projectnumber">1.4.2</span>
+   &#160;<span id="projectnumber">1.4.3</span>
    </div>
    <div id="projectbrief">Bullet-based python simulation for SoftBank Robotics&#39; robots.</div>
   </td>
@@ -128,18 +128,40 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aeb3d88d3da06dbf2887647f6c598a306"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c948227286b98364c95281c0a5968b4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a7c948227286b98364c95281c0a5968b4">getLinkPosition</a> (self, link_name)</td></tr>
 <tr class="separator:a7c948227286b98364c95281c0a5968b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fa08c0cc95975e4b2633f7c2dfcf943"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a2fa08c0cc95975e4b2633f7c2dfcf943">subscribeCamera</a> (self, camera_id, resolution=Camera.K_QVGA)</td></tr>
-<tr class="separator:a2fa08c0cc95975e4b2633f7c2dfcf943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ca8a7bd4b6ea7619ce01262efa669dd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a5ca8a7bd4b6ea7619ce01262efa669dd">subscribeCamera</a> (self, camera_id, resolution=Camera.K_QVGA, fps=30.0)</td></tr>
+<tr class="separator:a5ca8a7bd4b6ea7619ce01262efa669dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0018b9ef50604832758db3708a3d22e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#ae0018b9ef50604832758db3708a3d22e">unsubscribeCamera</a> (self, handle)</td></tr>
 <tr class="separator:ae0018b9ef50604832758db3708a3d22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd6f3f64b494e1204e0fdab38ec04608"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#afd6f3f64b494e1204e0fdab38ec04608">getCameraFrame</a> (self, handle)</td></tr>
 <tr class="separator:afd6f3f64b494e1204e0fdab38ec04608"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ba7a9cfc0b7814e2ac7255f2097df26"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a4ba7a9cfc0b7814e2ac7255f2097df26">getCameraResolution</a> (self, handle)</td></tr>
 <tr class="separator:a4ba7a9cfc0b7814e2ac7255f2097df26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97fde2586683b6696623dd713c155701"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a97fde2586683b6696623dd713c155701">getCameraFps</a> (self, handle)</td></tr>
+<tr class="separator:a97fde2586683b6696623dd713c155701"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c711ca8f7ed1fade3a18f9f3c2e3754"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a1c711ca8f7ed1fade3a18f9f3c2e3754">getCameraLink</a> (self, handle)</td></tr>
 <tr class="separator:a1c711ca8f7ed1fade3a18f9f3c2e3754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace27f8a8d40d34ede1d29baa067d1ea6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#ace27f8a8d40d34ede1d29baa067d1ea6">getCamera</a> (self, handle)</td></tr>
 <tr class="separator:ace27f8a8d40d34ede1d29baa067d1ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94dc4c6ca5e1c2e3048183b9b8ea93e3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a94dc4c6ca5e1c2e3048183b9b8ea93e3">subscribeImu</a> (self, frequency=None)</td></tr>
+<tr class="separator:a94dc4c6ca5e1c2e3048183b9b8ea93e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38cc64f04b3a98ed6b63617be227ec08"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a38cc64f04b3a98ed6b63617be227ec08">unsubscribeImu</a> (self)</td></tr>
+<tr class="separator:a38cc64f04b3a98ed6b63617be227ec08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dd1cb3aa1fb443549bfb2a1aa2afd86"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a9dd1cb3aa1fb443549bfb2a1aa2afd86">getImuGyroscopeValues</a> (self)</td></tr>
+<tr class="separator:a9dd1cb3aa1fb443549bfb2a1aa2afd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa19114b7c82f8a4075b05bd9b582084b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#aa19114b7c82f8a4075b05bd9b582084b">getImuAccelerometerValues</a> (self)</td></tr>
+<tr class="separator:aa19114b7c82f8a4075b05bd9b582084b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06be2199d431ac4efb7d5729d6bfe800"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a06be2199d431ac4efb7d5729d6bfe800">getImuValues</a> (self)</td></tr>
+<tr class="separator:a06be2199d431ac4efb7d5729d6bfe800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab126afdf7a831627dd5f46d1044a7a18"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#ab126afdf7a831627dd5f46d1044a7a18">getImu</a> (self)</td></tr>
+<tr class="separator:ab126afdf7a831627dd5f46d1044a7a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14be1ff5a6d8ecf08e9c29180e8e7490"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a14be1ff5a6d8ecf08e9c29180e8e7490">getFsrValue</a> (self, fsr_name)</td></tr>
+<tr class="separator:a14be1ff5a6d8ecf08e9c29180e8e7490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c22981beac7b8300f9876be16e680ba"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a8c22981beac7b8300f9876be16e680ba">getFsrValues</a> (self, fsr_names)</td></tr>
+<tr class="separator:a8c22981beac7b8300f9876be16e680ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a426d41c651e9dea7d0514fa3495c6f43"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a426d41c651e9dea7d0514fa3495c6f43">getTotalFsrValues</a> (self, fsr_names)</td></tr>
+<tr class="separator:a426d41c651e9dea7d0514fa3495c6f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5435024a8d051795696a6e9caa6f5562"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a5435024a8d051795696a6e9caa6f5562">getFsrHandler</a> (self)</td></tr>
+<tr class="separator:a5435024a8d051795696a6e9caa6f5562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a5d5a37b466b660c5d48177833b7c8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a30a5d5a37b466b660c5d48177833b7c8">getPosition</a> (self)</td></tr>
 <tr class="separator:a30a5d5a37b466b660c5d48177833b7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e9ca43ecce246d82c5607f3156cbc74"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqibullet_1_1robot__virtual_1_1RobotVirtual.html#a8e9ca43ecce246d82c5607f3156cbc74">isSelfColliding</a> (self, link_names)</td></tr>
@@ -162,6 +184,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ae2c1b53482c02b2a178fb80e4c8b3f83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2c1b53482c02b2a178fb80e4c8b3f83"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>link_dict</b></td></tr>
 <tr class="separator:ae2c1b53482c02b2a178fb80e4c8b3f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7891ec81c7497eb69bf145c939f19a2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7891ec81c7497eb69bf145c939f19a2a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>fsr_handler</b></td></tr>
+<tr class="separator:a7891ec81c7497eb69bf145c939f19a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fd0df26b8867c9ce89d35b5bf7c6206"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5fd0df26b8867c9ce89d35b5bf7c6206"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>imu</b></td></tr>
+<tr class="separator:a5fd0df26b8867c9ce89d35b5bf7c6206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad177f2ecb12c0299efad9294655653cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad177f2ecb12c0299efad9294655653cf"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>robot_model</b></td></tr>
 <tr class="separator:ad177f2ecb12c0299efad9294655653cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -305,6 +333,41 @@ Returns:
 </pre> 
 </div>
 </div>
+<a class="anchor" id="a97fde2586683b6696623dd713c155701"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getCameraFps </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>handle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the framerate of the camera associated to the specified handle.
+Be advised that the subscribeCamera method needs to be called
+beforehand, otherwise a pybullet error will be raised.
+
+Parameters:
+    handle - the handle retrieved when subscribing to the camera
+
+Returns:
+    fps - The framerate of the camera (frequency of the camera in Hz)
+</pre> 
+</div>
+</div>
 <a class="anchor" id="afd6f3f64b494e1204e0fdab38ec04608"></a>
 <div class="memitem">
 <div class="memproto">
@@ -410,6 +473,208 @@ Parameters:
 Returns:
     resolution - a CameraResolution object describing the resolution of
     the robot camera associated to the handle
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a5435024a8d051795696a6e9caa6f5562"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getFsrHandler </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the FSR handler of the robot, as a FsrHandler object. If the
+robot doesn't have a FSR handler, the method will return None
+
+Returns:
+    fsr_handler - The FSR handler of the robot as a FsrHandler object,
+    None if the robot doesn't possess a FSR handler
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a14be1ff5a6d8ecf08e9c29180e8e7490"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getFsrValue </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fsr_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the weight detected on the Z axis of the specified FSR. The
+return value is given in kg (computed from the measured force on the Z
+axis and the gravity of the simulation). If the required fsr does not
+exist, or if no FSR handler has been defined for the robot, the method
+will raise a pybullet error
+
+WARNING: The returned value is an approximation. Good practice: instead
+of the value itself, take into account the variation of the value, in
+order to detect any change at foot contact level.
+
+Parameters:
+    fsr_name - The name of the FSR, as a string (for instance
+    NaoFsr.LFOOT_FL or "LFsrFL_frame")
+
+Returns:
+    fsr_value - The measured value
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a8c22981beac7b8300f9876be16e680ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getFsrValues </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fsr_names</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns all of the FSR weight values for the FSRs corresponding to the
+passed names. If the list of passed names is empty, the method will
+return an empty list. If one of the required FSR does not exist, or if
+no FSR handler has been defined for the robot, the method will raise a
+pybullet error
+
+Parameters:
+    fsr_names - List containing the FSR names (for instance
+    NaoFsr.LFOOT)
+
+Returns:
+    fsr_values - The measured values for the corresponding FSRs, as a
+    List
+</pre> 
+</div>
+</div>
+<a class="anchor" id="ab126afdf7a831627dd5f46d1044a7a18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getImu </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the IMU of the robot, as an Imu object. If the robot doesn't
+have an inertial unit, the method will return None
+
+Returns:
+    imu - The IMU of the robot as an Imu object, None if the robot
+    doesn't possess an IMU
+</pre> 
+</div>
+</div>
+<a class="anchor" id="aa19114b7c82f8a4075b05bd9b582084b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getImuAccelerometerValues </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the linear acceleration of the IMU in m/s^2 in the world frame.
+If the robot doesn't have an inertial unit, the method will raise a
+pybullet error.
+
+One should subscribe to the IMU before calling this method (otherwise,
+the acceleration will constantly be [0, 0, 0])
+
+Returns:
+    linear_acceleration - The linear acceleration in m/s^2
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a9dd1cb3aa1fb443549bfb2a1aa2afd86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getImuGyroscopeValues </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the angular velocity of the IMU in rad/s in the world frame. If
+the robot doesn't have an inertial unit, the method will raise a
+pybullet error.
+
+One should subscribe to the IMU before calling this method (otherwise,
+the speed will constantly be [0, 0, 0])
+
+Returns:
+    angular_velocity - The angular velocity in rad/s
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a06be2199d431ac4efb7d5729d6bfe800"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getImuValues </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the values of the gyroscope and the accelerometer of the IMU
+(angular_velocity, linear_acceleration) in the world frame. If the
+robot doesn't have an inertial unit, the method will raise a pybullet
+error.
+
+One should subscribe to the IMU before calling this method (otherwise,
+the acceleration and speed will constantly be [0, 0, 0], [0, 0, 0])
+
+Returns:
+    angular_velocity - The angular velocity values in rad/s
+    linear_acceleration - The linear acceleration values in m/s^2
 </pre> 
 </div>
 </div>
@@ -576,6 +841,44 @@ Returns:
 </pre> 
 </div>
 </div>
+<a class="anchor" id="a426d41c651e9dea7d0514fa3495c6f43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.getTotalFsrValues </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fsr_names</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Returns the total weight value (the sum of all FSRs corresponding to
+the names passed to the method). If no names are specified, the method
+will return 0.0. If one of the required FSR does not exist, or if
+no FSR handler has been defined for the robot, the method will raise a
+pybullet error
+
+Parameters:
+    fsr_names - List containing the FSR names (for instance
+    NaoFsr.LFOOT)
+
+Returns:
+    total_weight - The sum of all values for the corresponding FSRs
+</pre> 
+</div>
+</div>
 <a class="anchor" id="a8e9ca43ecce246d82c5607f3156cbc74"></a>
 <div class="memitem">
 <div class="memproto">
@@ -658,9 +961,6 @@ Parameters:
     [x, y, z, q] of the robot in the WORLD frame
     physicsClientId - The id of the simulated instance in which the
     robot is supposed to be loaded
-
-Returns:
-    boolean - True if the method ran correctly, False otherwise
 </pre> 
 </div>
 </div>
@@ -713,7 +1013,7 @@ Parameters:
 </pre> 
 </div>
 </div>
-<a class="anchor" id="a2fa08c0cc95975e4b2633f7c2dfcf943"></a>
+<a class="anchor" id="a5ca8a7bd4b6ea7619ce01262efa669dd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -733,7 +1033,13 @@ Parameters:
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>resolution</em> = <code>Camera.K_QVGA</code>&#160;</td>
+          <td class="paramname"><em>resolution</em> = <code>Camera.K_QVGA</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>fps</em> = <code>30.0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -753,9 +1059,48 @@ from a camera, stopping the background process associated
 Parameters:
     camera_id - The id of the camera to be subscribed
     resolution - CameraResolution object, the resolution of the camera
+    fps - The number of frames per second requested for the video
+    source (strictly positive float of int)
 
 Returns:
     handle - The associated camera handle
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a94dc4c6ca5e1c2e3048183b9b8ea93e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.subscribeImu </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>frequency</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Subscribe to the Inertial Unit of the robot. If the robot doesn't have
+an inertial unit, the method will raise a pybullet error.
+
+This method starts the background process collecting the Imu data, and
+should be called before trying to access to the Imu data
+
+Parameters:
+    frequency - The desired frequency for the IMU, in Hz. If the
+    variable is not specified, the frequency value used when creating
+    the Imu object will be used. The value should be specified as an
+    int or a float
 </pre> 
 </div>
 </div>
@@ -790,6 +1135,27 @@ Parameters:
 Returns:
     success - Boolean, True if unsubscribed successfully, False
     otherwise
+</pre> 
+</div>
+</div>
+<a class="anchor" id="a38cc64f04b3a98ed6b63617be227ec08"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def qibullet.robot_virtual.RobotVirtual.unsubscribeImu </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Unsubscribe from the Inertial Unit of the robot. If the robot doesn't
+have an inertial unit, the method will raise a pybullet error.
+
+This method stops the background process collecting the Imu data, and
+should be called when the Imu data are not useful anymore
 </pre> 
 </div>
 </div>

@@ -3,8 +3,6 @@
 
 import math
 import time
-import atexit
-import weakref
 import pybullet
 import threading
 import numpy as np
@@ -96,16 +94,18 @@ class Camera(Sensor):
         self.resolution_lock = threading.Lock()
         self._setFov(hfov, vfov)
 
-    def subscribe(self, resolution):
+    def subscribe(self, resolution, fps=30.0):
         """
         Subscribing method for the camera (the FOV has to be specified
         beforehand). This method will launch the frame extraction loop process
         of the camera in a separate thread. This method will return a camera
         handle, needed to retrieve camera frames, get the camera resolution,
-        and unsubscribe from it
+        etc. and unsubscribe from it
 
         Returns:
             handle - The handle of the camera
+            fps - The number of frames per second requested for the video
+            source (strictly positive float of int)
         """
         # Lets the module process thread die before launching another one, if
         # the same camera calls the subscribing method for a second time
@@ -113,6 +113,7 @@ class Camera(Sensor):
         self._module_termination = False
 
         self._setResolution(resolution)
+        self._setFps(fps)
 
         self.module_process =\
             threading.Thread(target=self._frameExtractionLoop)
@@ -201,22 +202,17 @@ class Camera(Sensor):
         with self.resolution_lock:
             return self.resolution
 
-    def _setFov(self, hfov, vfov):
+    def getFps(self):
         """
-        INTERNAL METHOD, sets the field of view of the camera
+        Returns the framerate of the camera in number of frames per second.
+        This method simply wraps the @getFrequency method of Sensor, and will
+        return the frequency of the camera in Hz
 
-        Parameters:
-            hfov - The value of the horizontal field of view angle (in degrees)
-            vfov - The value of the vertical field of view angle (in degrees)
+        Returns:
+            fps - The number of frames per second for the camera (frequency of
+            the camera in Hz)
         """
-        try:
-            assert isinstance(hfov, float) or isinstance(hfov, int)
-            assert isinstance(vfov, float) or isinstance(vfov, int)
-            self.hfov = hfov
-            self.vfov = vfov
-
-        except AssertionError as e:
-            print("Cannot set the camera FOV: " + str(e))
+        return self.getFrequency()
 
     def _setResolution(self, resolution):
         """
@@ -239,7 +235,7 @@ class Camera(Sensor):
                     top=math.tan(math.pi*self.vfov/360.0)*self.near_plane,
                     nearVal=self.near_plane,
                     farVal=self.far_plane,
-                    physicsClientId=self.physics_client)
+                    physicsClientId=self.getPhysicsClientId())
 
                 self.intrinsic_matrix = [
                     self.projection_matrix[0]*self.resolution.width/2.0,
@@ -254,6 +250,35 @@ class Camera(Sensor):
 
         except AssertionError as e:
             raise pybullet.error("Cannot set camera resolution: " + str(e))
+
+    def _setFps(self, fps):
+        """
+        INTERNAL METHOD, sets the framerate of the camera. This method actually
+        specifies the frequency of the camera, and simply wraps the
+        @setFrequency method defined in the Sensor class (for API consistency)
+
+        Parameters:
+            fps - The framerate of the camera (ultimately its frequency in Hz,
+            formated as a strictly positive float or int)
+        """
+        self.setFrequency(fps)
+
+    def _setFov(self, hfov, vfov):
+        """
+        INTERNAL METHOD, sets the field of view of the camera
+
+        Parameters:
+            hfov - The value of the horizontal field of view angle (in degrees)
+            vfov - The value of the vertical field of view angle (in degrees)
+        """
+        try:
+            assert isinstance(hfov, float) or isinstance(hfov, int)
+            assert isinstance(vfov, float) or isinstance(vfov, int)
+            self.hfov = hfov
+            self.vfov = vfov
+
+        except AssertionError as e:
+            print("Cannot set the camera FOV: " + str(e))
 
     def _getCameraIntrinsics(self):
         """
@@ -284,10 +309,10 @@ class Camera(Sensor):
             camera_image - The camera image of the OpenGL virtual camera
         """
         _, _, _, _, pos_world, q_world = pybullet.getLinkState(
-            self.robot_model,
+            self.getRobotModel(),
             self.camera_link.getParentIndex(),
             computeForwardKinematics=False,
-            physicsClientId=self.physics_client)
+            physicsClientId=self.getPhysicsClientId())
 
         rotation = pybullet.getMatrixFromQuaternion(q_world)
         forward_vector = [rotation[0], rotation[3], rotation[6]]
@@ -302,7 +327,7 @@ class Camera(Sensor):
             pos_world,
             camera_target,
             up_vector,
-            physicsClientId=self.physics_client)
+            physicsClientId=self.getPhysicsClientId())
 
         with self.resolution_lock:
             camera_image = pybullet.getCameraImage(
@@ -312,7 +337,7 @@ class Camera(Sensor):
                 self.projection_matrix,
                 renderer=pybullet.ER_BULLET_HARDWARE_OPENGL,
                 flags=pybullet.ER_NO_SEGMENTATION_MASK,
-                physicsClientId=self.physics_client)
+                physicsClientId=self.getPhysicsClientId())
 
         return camera_image
 
@@ -324,7 +349,7 @@ class Camera(Sensor):
         resolution
         """
         try:
-            assert self.module_process.isAlive()
+            assert self.isAlive()
 
             while self.getFrame() is None:
                 continue
@@ -340,7 +365,7 @@ class Camera(Sensor):
 
     def _frameExtractionLoop(self):
         """
-        INTERNAL METHOD, To be specified in each dauhter class, frame
+        ABSTRACT METHOD, To be specified in each dauhter class, frame
         extraction loop method. This method is threaded. The resolution and the
         FOV have to be specified beforehand
         """
@@ -439,14 +464,21 @@ class CameraRgb(Camera):
         Frame extraction loop, has to be threaded. The resolution and the FOV
         have to be specified beforehand
         """
+        period = 1.0 / self.getFps()
+        sampling_time = time.time()
+
         rgb_image = np.zeros((
             self.resolution.height,
             self.resolution.width,
             3))
 
         while not self._module_termination:
-            camera_image = self._getCameraImage()
+            current_time = time.time()
 
+            if current_time - sampling_time < period:
+                continue
+
+            camera_image = self._getCameraImage()
             camera_image = np.reshape(
                 camera_image[2],
                 (camera_image[1], camera_image[0], 4))
@@ -464,6 +496,7 @@ class CameraRgb(Camera):
                 camera_image[:, :, 3] * camera_image[:, :, 0]
 
             self.frame = rgb_image.astype(np.uint8)
+            sampling_time = current_time
 
 
 class CameraDepth(Camera):
@@ -509,7 +542,15 @@ class CameraDepth(Camera):
         Frame extraction loop, has to be threaded. The resolution and the FOV
         have to be specified beforehand
         """
+        period = 1.0 / self.getFps()
+        sampling_time = time.time()
+
         while not self._module_termination:
+            current_time = time.time()
+
+            if current_time - sampling_time < period:
+                continue
+
             camera_image = self._getCameraImage()
             depth_image = np.reshape(
                 camera_image[3],
@@ -521,3 +562,4 @@ class CameraDepth(Camera):
 
             depth_image *= 1000
             self.frame = depth_image.astype(np.uint16)
+            sampling_time = current_time

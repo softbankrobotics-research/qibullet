@@ -11,6 +11,7 @@ from qibullet.nao_virtual import NaoVirtual
 from qibullet.romeo_virtual import RomeoVirtual
 from qibullet.pepper_virtual import PepperVirtual
 from qibullet.robot_module import RobotModule
+from qibullet.helpers import GravityHelper
 
 
 class SimulationManager:
@@ -24,7 +25,11 @@ class SimulationManager:
         """
         pass
 
-    def launchSimulation(self, gui=True, use_shared_memory=False):
+    def launchSimulation(
+            self,
+            gui=True,
+            use_shared_memory=False,
+            auto_step=True):
         """
         Launches a simulation instance
 
@@ -40,13 +45,22 @@ class SimulationManager:
             possible and the motion servers are manually stepped using the
             _stepSimulation method. (More information in the setup section of
             the qiBullet wiki, and in the pybullet documentation)
+            auto_step - Boolean, True by default. Only taken into account if
+            gui is False and use_shared_memory is False. If auto_step is True,
+            the simulation is automatically stepped. Otherwise, the user will
+            explicitely have to call @stepSimulation to step the simulation
 
         Returns:
             physics_client - The id of the simulation client created
         """
         if gui:  # pragma: no cover
             physics_client = pybullet.connect(pybullet.GUI)
-            pybullet.setRealTimeSimulation(1, physicsClientId=physics_client)
+
+            if auto_step:
+                pybullet.setRealTimeSimulation(
+                    1,
+                    physicsClientId=physics_client)
+
             pybullet.configureDebugVisualizer(
                 pybullet.COV_ENABLE_RGB_BUFFER_PREVIEW,
                 0,
@@ -64,16 +78,19 @@ class SimulationManager:
                 physics_client = pybullet.connect(
                     pybullet.SHARED_MEMORY_SERVER)
 
-                pybullet.setRealTimeSimulation(
-                    enableRealTimeSimulation=1,
-                    physicsClientId=physics_client)
+                if auto_step:
+                    pybullet.setRealTimeSimulation(
+                        1,
+                        physicsClientId=physics_client)
             else:
                 physics_client = pybullet.connect(pybullet.DIRECT)
-                threading.Thread(
-                    target=self._stepSimulation,
-                    args=[physics_client]).start()
 
-        pybullet.setGravity(0, 0, -9.81, physicsClientId=physics_client)
+                if auto_step:
+                    threading.Thread(
+                        target=self._stepSimulation,
+                        args=[physics_client]).start()
+
+        self.setGravity(physics_client, [0.0, 0.0, -9.81])
         return physics_client
 
     def resetSimulation(self, physics_client):
@@ -96,13 +113,45 @@ class SimulationManager:
 
         try:
             pybullet.disconnect(physicsClientId=physics_client)
+            GravityHelper.removeGravity(physics_client)
 
         except pybullet.error:
             print("Instance " + str(physics_client) + " already stopped")
 
+    def stepSimulation(self, physics_client):
+        """
+        Steps the simulated instance corresponding to the physics_client id
+
+        Parameters:
+            physics_client - The id of the simulated instance to be stepped
+        """
+        pybullet.stepSimulation(physicsClientId=physics_client)
+
+    def getGravity(self, physics_client):
+        """
+        Gets the gravity of a simulated instance. If the specified simulated
+        instance doesn't exist, the method will return None
+
+        Parameters:
+            physics_client - The id of the required simulated instance
+        """
+        return GravityHelper.getGravity(physics_client)
+
+    def setGravity(self, physics_client, gravity):
+        """
+        Sets the gravity for a simulated instance. By default (when spawning a
+        simulated instance) the gravity is set to [0.0, 0.0, -9.81]
+
+        Parameters:
+            physics_client - The id of the simulated instance in which the
+            gravity is to be updated
+            gravity - The new gravity vector, as a List of 3 floats (in m/s^2)
+        """
+        GravityHelper.updateGravity(physics_client, gravity)
+
     def setLightPosition(self, physics_client, light_position):
         """
-        Set the position of the GUI's light (does not work in DIRECT mode)
+        Sets the position of the GUI's light (does not work in DIRECT mode)
 
         Parameters:
             light_position - List containing the 3D positions [x, y, z] along

@@ -128,6 +128,25 @@ class CameraTest(unittest.TestCase):
                 with self.assertRaises(pybullet.error):
                     CameraTest.robot.getCameraResolution(handle)
 
+    def test_get_camera_fps(self):
+        """
+        Test the getCameraFps method
+        """
+        for camera_id in CameraTest.robot.camera_dict.keys():
+            handle = CameraTest.robot.subscribeCamera(camera_id, fps=15)
+
+            # Check that the required framerate has been taken into account
+            self.assertEqual(CameraTest.robot.getCameraFps(handle), 15)
+            self.assertTrue(CameraTest.robot.unsubscribeCamera(handle))
+
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.getCameraFps(handle)
+
+            # Check that a pybullet error is raised when specifying an
+            # incorrect framerate
+            with self.assertRaises(pybullet.error):
+                CameraTest.robot.subscribeCamera(camera_id, fps=-1)
+
     def test_get_camera_link(self):
         """
         Test the getCameraLink method
@@ -255,30 +274,6 @@ class PepperCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_subscribe_camera(self):
-        CameraTest.test_subscribe_camera(self)
-
-    def test_get_camera_id(self):
-        CameraTest.test_get_camera_id(self)
-
-    def test_is_active(self):
-        CameraTest.test_is_active(self)
-
-    def test_get_camera_resolution(self):
-        CameraTest.test_get_camera_resolution(self)
-
-    def test_camera_channels(self):
-        CameraTest.test_camera_channels(self)
-
-    def test_get_camera_link(self):
-        CameraTest.test_get_camera_link(self)
-
-    def test_invalid_fov(self):
-        CameraTest.test_invalid_fov(self)
-
-    def test_get_camera_intrinsics(self):
-        CameraTest.test_get_camera_intrinsics(self)
-
 
 class NaoCameraTest(CameraTest):
     """
@@ -306,30 +301,6 @@ class NaoCameraTest(CameraTest):
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
 
-    def test_subscribe_camera(self):
-        CameraTest.test_subscribe_camera(self)
-
-    def test_get_camera_id(self):
-        CameraTest.test_get_camera_id(self)
-
-    def test_is_active(self):
-        CameraTest.test_is_active(self)
-
-    def test_get_camera_resolution(self):
-        CameraTest.test_get_camera_resolution(self)
-
-    def test_camera_channels(self):
-        CameraTest.test_camera_channels(self)
-
-    def test_get_camera_link(self):
-        CameraTest.test_get_camera_link(self)
-
-    def test_invalid_fov(self):
-        CameraTest.test_invalid_fov(self)
-
-    def test_get_camera_intrinsics(self):
-        CameraTest.test_get_camera_intrinsics(self)
-
 
 class RomeoCameraTest(CameraTest):
     """
@@ -356,27 +327,3 @@ class RomeoCameraTest(CameraTest):
         """
         CameraTest.simulation.stopSimulation(
             CameraTest.client)
-
-    def test_subscribe_camera(self):
-        CameraTest.test_subscribe_camera(self)
-
-    def test_get_camera_id(self):
-        CameraTest.test_get_camera_id(self)
-
-    def test_is_active(self):
-        CameraTest.test_is_active(self)
-
-    def test_get_camera_resolution(self):
-        CameraTest.test_get_camera_resolution(self)
-
-    def test_camera_channels(self):
-        CameraTest.test_camera_channels(self)
-
-    def test_get_camera_link(self):
-        CameraTest.test_get_camera_link(self)
-
-    def test_invalid_fov(self):
-        CameraTest.test_invalid_fov(self)
-
-    def test_get_camera_intrinsics(self):
-        CameraTest.test_get_camera_intrinsics(self)

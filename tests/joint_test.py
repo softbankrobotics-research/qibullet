@@ -180,27 +180,6 @@ class PepperJointTest(JointTest):
         JointTest.simulation.stopSimulation(
             JointTest.client)
 
-    def test_joints_characteristics(self):
-        JointTest.test_joints_characteristics(self)
-
-    def test_get_joint(self):
-        JointTest.test_get_joint(self)
-
-    def test_set_angles(self):
-        JointTest.test_set_angles(self)
-
-    def test_speed_limits(self):
-        JointTest.test_speed_limits(self)
-
-    def test_angle_limits(self):
-        JointTest.test_angle_limits(self)
-
-    def test_get_angles_position(self):
-        JointTest.test_get_angles_position(self)
-
-    def test_get_angles_velocity(self):
-        JointTest.test_get_angles_velocity(self)
-
 
 class NaoJointTest(JointTest):
     """
@@ -228,27 +207,6 @@ class NaoJointTest(JointTest):
         JointTest.simulation.stopSimulation(
             JointTest.client)
 
-    def test_joints_characteristics(self):
-        JointTest.test_joints_characteristics(self)
-
-    def test_get_joint(self):
-        JointTest.test_get_joint(self)
-
-    def test_set_angles(self):
-        JointTest.test_set_angles(self)
-
-    def test_speed_limits(self):
-        JointTest.test_speed_limits(self)
-
-    def test_angle_limits(self):
-        JointTest.test_angle_limits(self)
-
-    def test_get_angles_position(self):
-        JointTest.test_get_angles_position(self)
-
-    def test_get_angles_velocity(self):
-        JointTest.test_get_angles_velocity(self)
-
 
 class RomeoJointTest(JointTest):
     """
@@ -275,27 +233,6 @@ class RomeoJointTest(JointTest):
         """
         JointTest.simulation.stopSimulation(
             JointTest.client)
-
-    def test_joints_characteristics(self):
-        JointTest.test_joints_characteristics(self)
-
-    def test_get_joint(self):
-        JointTest.test_get_joint(self)
-
-    def test_set_angles(self):
-        JointTest.test_set_angles(self)
-
-    def test_speed_limits(self):
-        JointTest.test_speed_limits(self)
-
-    def test_angle_limits(self):
-        JointTest.test_angle_limits(self)
-
-    def test_get_angles_position(self):
-        JointTest.test_get_angles_position(self)
-
-    def test_get_angles_velocity(self):
-        JointTest.test_get_angles_velocity(self)
 
 
 if __name__ == "__main__":

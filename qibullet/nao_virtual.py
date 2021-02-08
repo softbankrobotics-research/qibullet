@@ -4,8 +4,11 @@
 import os
 import pybullet
 import qibullet.tools as tools
-from qibullet.camera import *
-from qibullet.base_controller import *
+from qibullet.imu import Imu
+from qibullet.camera import CameraRgb
+from qibullet.fsr import Fsr
+from qibullet.fsr import NaoFsr
+from qibullet.fsr import FsrHandler
 from qibullet.robot_posture import NaoPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -60,9 +63,6 @@ class NaoVirtual(RobotVirtual):
             [x, y, z, q] of the robot in the WORLD frame
             physicsClientId - The id of the simulated instance in which the
             robot is supposed to be loaded
-
-        Returns:
-            boolean - True if the method ran correctly, False otherwise
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
@@ -169,7 +169,8 @@ class NaoVirtual(RobotVirtual):
             pybullet.resetJointState(
                 self.robot_model,
                 joint.getIndex(),
-                0.0)
+                0.0,
+                physicsClientId=self.physics_client)
 
         pybullet.removeConstraint(
             balance_constraint,
@@ -202,7 +203,24 @@ class NaoVirtual(RobotVirtual):
         self.camera_dict = {
             NaoVirtual.ID_CAMERA_TOP: camera_top,
             NaoVirtual.ID_CAMERA_BOTTOM: camera_bottom}
-        # eventual constraints and lasers
+
+        # The frequency of the IMU is set to 100Hz
+        self.imu = Imu(
+            self.robot_model,
+            self.link_dict["torso"],
+            100.0,
+            physicsClientId=self.physics_client)
+
+        # FSRs
+        fsr_dict = dict()
+
+        for name in NaoFsr.LFOOT + NaoFsr.RFOOT:
+            fsr_dict[name] = Fsr(
+                self.robot_model,
+                self.link_dict[name],
+                physicsClientId=self.physics_client)
+
+        self._setFsrHandler(FsrHandler(fsr_dict))
 
     # TODO: implement a moveTo
     # TODO: implement a move

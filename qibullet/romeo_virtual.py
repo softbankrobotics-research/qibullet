@@ -4,7 +4,9 @@
 import os
 import pybullet
 import qibullet.tools as tools
-from qibullet.camera import *
+from qibullet.imu import Imu
+from qibullet.camera import CameraRgb
+from qibullet.camera import CameraDepth
 from qibullet.robot_posture import RomeoPosture
 from qibullet.robot_virtual import RobotVirtual
 
@@ -56,9 +58,6 @@ class RomeoVirtual(RobotVirtual):
             [x, y, z, q] of the robot in the WORLD frame
             physicsClientId - The id of the simulated instance in which the
             robot is supposed to be loaded
-
-        Returns:
-            boolean - True if the method ran correctly, False otherwise
         """
         pybullet.setAdditionalSearchPath(
             os.path.dirname(os.path.realpath(__file__)),
@@ -166,7 +165,8 @@ class RomeoVirtual(RobotVirtual):
             pybullet.resetJointState(
                 self.robot_model,
                 joint.getIndex(),
-                0.0)
+                0.0,
+                physicsClientId=self.physics_client)
 
         pybullet.removeConstraint(
             balance_constraint,
@@ -208,6 +208,13 @@ class RomeoVirtual(RobotVirtual):
             RomeoVirtual.ID_CAMERA_RIGHT: camera_right,
             RomeoVirtual.ID_CAMERA_LEFT: camera_left,
             RomeoVirtual.ID_CAMERA_DEPTH: camera_depth}
+
+        # The frequency of the IMU is set to 100Hz
+        self.imu = Imu(
+            self.robot_model,
+            self.link_dict["torso"],
+            100.0,
+            physicsClientId=self.physics_client)
 
     def setAngles(self, joint_names, joint_values, percentage_speed):
         """

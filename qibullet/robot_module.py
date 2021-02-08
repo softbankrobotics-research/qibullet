@@ -48,6 +48,15 @@ class RobotModule:
         """
         return self.physics_client
 
+    def isAlive(self):
+        """
+        Check the activity status of the module_process thread
+
+        Returns:
+            boolean - True if the process is still alive, false otherwise
+        """
+        return self.module_process.is_alive()
+
     @classmethod
     def _getInstances(cls):
         """
@@ -73,5 +82,5 @@ class RobotModule:
         """
         self._module_termination = True
 
-        if self.module_process.isAlive():
+        if self.isAlive():
             self.module_process.join()
