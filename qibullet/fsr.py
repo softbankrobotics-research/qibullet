@@ -95,7 +95,7 @@ class FsrHandler:
         """
         Returns the weight detected on the Z axis of the specified FSR. The
         return value is given in kg (computed from the measured force on the Z
-        axis and the gravity of the simulation). If the required fsr does not
+        axis and the gravity of the simulation). If the required FSR does not
         exist, the method will raise a pybullet error
 
         WARNING: The returned value is an approximation. Good practice: instead
@@ -119,7 +119,8 @@ class FsrHandler:
         """
         Returns all of the FSR weight values for the FSRs corresponding to the
         passed names. If the list of passed names is empty, the method will
-        return an empty list
+        return an empty list. If one of the required FSRs does not exist, the
+        method will raise a pybullet error
 
         Parameters:
             fsr_names - List containing the FSR names (for instance
@@ -131,16 +132,21 @@ class FsrHandler:
         """
         values = list()
 
-        for name in fsr_names:
-            values.append(self.fsr_dict[name].getValue())
+        try:
+            for name in fsr_names:
+                values.append(self.fsr_dict[name].getValue())
 
-        return values
+            return values
+
+        except KeyError:
+            raise pybullet.error("The required Fsr does not exist")
 
     def getTotalValue(self, fsr_names):
         """
         Returns the total weight value (the sum of all FSRs corresponding to
         the names passed to the method). If no names are specified, the method
-        will return 0.0
+        will return 0.0. If one of the required FSRs does not exist, the
+        method will raise a pybullet error
 
         Parameters:
             fsr_names - List containing the FSR names (for instance
