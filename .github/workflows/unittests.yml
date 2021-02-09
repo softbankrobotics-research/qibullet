@@ -36,7 +36,8 @@ jobs:
       run: |
         cd tests
         coverage run test_launcher.py
-    - name: Coverage
-      run: |
-        cd tests
         codecov
+    # - name: Coverage
+    #   run: |
+    #     cd tests
+    #     codecov
