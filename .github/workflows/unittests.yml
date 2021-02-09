@@ -39,10 +39,5 @@ jobs:
     - name: Coverage
       uses: codecov/codecov-action@v1
         with:
-          # files: ./coverage1.xml,./coverage2.xml # optional
-          flags: unittests # optional
-          # name: codecov-umbrella # optional
-          verbose: true # optional (default = false)
-      # run: |
-      #   cd tests
-      #   codecov
+          flags: unittests
+          verbose: true
