@@ -101,6 +101,11 @@ class SimulationManagerTest(unittest.TestCase):
         gravity = manager.getGravity(client)
         self.assertIsInstance(gravity, list)
         self.assertEqual(len(gravity), 3)
+
+        # Test with an invalid client
+        gravity = manager.getGravity(-1)
+        self.assertIsNone(gravity)
+
         manager.stopSimulation(client)
 
     def test_set_gravity(self):
@@ -123,6 +128,14 @@ class SimulationManagerTest(unittest.TestCase):
 
             for i in range(len(gravity)):
                 self.assertEqual(value[i], gravity[i])
+
+        # Test with an invalid client
+        try:
+            manager.setGravity(-1, gravities[0])
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False)
 
         manager.stopSimulation(client)
 
