@@ -66,6 +66,14 @@ class SimulationManagerTest(unittest.TestCase):
         with self.assertRaises(pybullet.error):
             pybullet.stepSimulation(physicsClientId=client)
 
+        # Try stopping an invalid simulation instance
+        try:
+            manager.stopSimulation(-1)
+            self.assertTrue(True)
+
+        except Exception:
+            self.assertTrue(False)
+
     def test_step_simulation(self):
         """
         Test the @stepSimulation method
@@ -91,9 +99,9 @@ class SimulationManagerTest(unittest.TestCase):
 
         manager.stopSimulation(client)
 
-    def test_get_gravity(self):
+    def test_gravity(self):
         """
-        Test the @getGravity method
+        Test the @setGravity and @getGravity methods
         """
         manager = SimulationManager()
         client = manager.launchSimulation(gui=False)
@@ -106,14 +114,6 @@ class SimulationManagerTest(unittest.TestCase):
         gravity = manager.getGravity(-1)
         self.assertIsNone(gravity)
 
-        manager.stopSimulation(client)
-
-    def test_set_gravity(self):
-        """
-        Test the @setGravity method
-        """
-        manager = SimulationManager()
-        client = manager.launchSimulation(gui=False)
         gravities = [
             [0.0, 0.0, -9.81],
             [0.0, 0.0, 9.81],
@@ -130,12 +130,8 @@ class SimulationManagerTest(unittest.TestCase):
                 self.assertEqual(value[i], gravity[i])
 
         # Test with an invalid client
-        try:
+        with self.assertRaises(pybullet.error):
             manager.setGravity(-1, gravities[0])
-            self.assertTrue(True)
-
-        except Exception:
-            self.assertTrue(False)
 
         manager.stopSimulation(client)
 
