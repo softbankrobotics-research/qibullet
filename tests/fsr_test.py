@@ -65,12 +65,12 @@ class FsrTest(unittest.TestCase):
         groups.extend([])
 
         for group in FsrTest.fsr_groups:
-            value = FsrTest.robot.getTotalFsrValue(group)
+            values = FsrTest.robot.getTotalFsrValues(group)
             self.assertIsInstance(values, float)
 
         # Pass a list of fsr names containing an unexisting FSR
         with self.assertRaises(pybullet.error):
-            FsrTest.robot.getTotalFsrValue(["does not exist"])
+            FsrTest.robot.getTotalFsrValues(["does not exist"])
 
     def test_get_fsr_handler(self):
         """
