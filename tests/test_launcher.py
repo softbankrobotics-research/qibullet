@@ -49,32 +49,33 @@ if __name__ == "__main__":
         print(str(e))
         sys.exit(1)
 
-    test_classes = [
-        SimulationManagerTest,
-        VirtualRobotTest,
-        PepperBaseTest,
-        NaoLinkTest,
-        RomeoLinkTest,
-        PepperLinkTest,
-        NaoJointTest,
-        RomeoJointTest,
-        PepperJointTest,
-        SensorTest,
-        PepperImuTest,
-        NaoImuTest,
-        RomeoImuTest,
-        DummyImuTest,
-        NaoFsrTest,
-        DummyFsrTest,
-        PepperLaserTest,
-        NaoCameraTest,
-        RomeoCameraTest,
-        PepperCameraTest,
-        NaoPostureTest,
-        PepperPostureTest,
-        RomeoPostureTest,
-        NaoSelfCollisionTest,
-        PepperSelfCollisionTest]
+    # test_classes = [
+    #     SimulationManagerTest,
+    #     VirtualRobotTest,
+    #     PepperBaseTest,
+    #     NaoLinkTest,
+    #     RomeoLinkTest,
+    #     PepperLinkTest,
+    #     NaoJointTest,
+    #     RomeoJointTest,
+    #     PepperJointTest,
+    #     SensorTest,
+    #     PepperImuTest,
+    #     NaoImuTest,
+    #     RomeoImuTest,
+    #     DummyImuTest,
+    #     NaoFsrTest,
+    #     DummyFsrTest,
+    #     PepperLaserTest,
+    #     NaoCameraTest,
+    #     RomeoCameraTest,
+    #     PepperCameraTest,
+    #     NaoPostureTest,
+    #     PepperPostureTest,
+    #     RomeoPostureTest,
+    #     NaoSelfCollisionTest,
+    #     PepperSelfCollisionTest]
+    test_classes = [SimulationManagerTest]
 
     for test_class in test_classes:
         test_results.append(
