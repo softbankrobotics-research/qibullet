@@ -38,6 +38,6 @@ jobs:
         coverage run test_launcher.py
     - name: Coverage
       uses: codecov/codecov-action@v1
-        with:
-          flags: unittests
-          verbose: true
+      with:
+        flags: unittests
+        verbose: true
