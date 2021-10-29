@@ -34,6 +34,7 @@ The installation of the additional resources will automatically be triggered if 
 ## Usage
 A robot can be spawned via the SimulationManager class:
 ```python
+import sys
 from qibullet import SimulationManager
 
 if __name__ == "__main__":
@@ -59,6 +60,16 @@ if __name__ == "__main__":
       nao = simulation_manager.spawnNao(
           client_id,
           spawn_ground_plane=True)
+
+    # This snippet is a blocking call, just to keep the simulation opened
+    if sys.version_info[0] >= 3:
+      input("Press a key to end the simulation")
+    else:
+      raw_input("Press a key to end the simulation")
+    
+    # Stop the simulation
+    simulation_manager.stopSimulation(client_id)
+    
 ```
 
 Or using loadRobot from the PepperVirtual class if you already have a simulated environment:
