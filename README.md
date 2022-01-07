@@ -87,10 +87,16 @@ More snippets can be found in the [examples folder](https://github.com/softbankr
 > :warning: The camera subscription system of qiBullet 1.4.0 (and lesser) is __deprecated__, use the [new system](https://github.com/softbankrobotics-research/qibullet/wiki/Tutorials:-Virtual-Robot#cameras)
 
 ## Documentation
-The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
+The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). In order to build the documentation, the __doxygen__ package has to be installed beforehand and the docs folder has to exist. The submodules should also be checked out:
+```bash
+git submodule init
+git submodule update
+```
+
+The documentation can then be generated via the following command:
 ```bash
 cd docs
-doxygen
+doxygen Doxyfile
 ```
 
 The repository also contains a [wiki](https://github.com/softbankrobotics-research/qibullet/wiki), providing some tutorials.
