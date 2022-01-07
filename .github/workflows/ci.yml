@@ -44,7 +44,7 @@ jobs:
   package:
     name: Deploy package
     needs: tests
-    if: ${{ github.event_name }} == 'push' && ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'push' }} && ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -63,7 +63,7 @@ jobs:
     - name: Build package
       run: python -m build
     - name: Publish package
-      uses: pypa/gh-action-pypi-publish@release/v1.4.2
+      uses: pypa/gh-action-pypi-publish@v1.4.2
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
