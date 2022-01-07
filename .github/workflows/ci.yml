@@ -43,6 +43,7 @@ jobs:
   
   documentation:
     needs: tests
+    if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -57,7 +58,6 @@ jobs:
         doxyfile-path: ./Doxyfile
     - name: Deploy the documentation to Github pages
       uses: peaceiris/actions-gh-pages@v3
-      if: ${{ github.ref == 'refs/heads/master' }}
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/api/
