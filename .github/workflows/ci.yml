@@ -1,10 +1,11 @@
-name: unit-tests
+name: ci
 
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-18.04
+  tests:
+    name: Python ${{ matrix.python-version }} tests
+    runs-on: ubuntu-latest
     
     strategy:
       max-parallel: 5
@@ -39,3 +40,28 @@ jobs:
       run: |
         cd tests
         bash <(curl -s https://codecov.io/bash)
+  
+  documentation:
+    needs: tests
+    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout qiBullet Github repository
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+    - name: Build the Doxygen documentation
+      uses: mattnotmitt/doxygen-action@v1.1.0
+      with:
+        working-directory: docs
+        doxyfile-path: ./Doxyfile
+    - name: Deploy the documentation to Github pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/api/
+        enable_jekyll: false
+        allow_empty_commit: false
+        force_orphan: true
+        publish_branch: gh-pages

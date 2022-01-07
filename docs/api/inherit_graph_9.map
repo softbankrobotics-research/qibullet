@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classqibullet_1_1ros__wrapper_1_1RosWrapper.html" title="qibullet.ros_wrapper.Ros\lWrapper" alt="" coords="5,71,172,112"/>
-<area shape="rect" id="node2" href="$classqibullet_1_1ros__wrapper_1_1NaoRosWrapper.html" title="qibullet.ros_wrapper.Nao\lRosWrapper" alt="" coords="229,5,395,47"/>
-<area shape="rect" id="node3" href="$classqibullet_1_1ros__wrapper_1_1PepperRosWrapper.html" title="qibullet.ros_wrapper.Pepper\lRosWrapper" alt="" coords="221,71,403,112"/>
-<area shape="rect" id="node4" href="$classqibullet_1_1ros__wrapper_1_1RomeoRosWrapper.html" title="qibullet.ros_wrapper.Romeo\lRosWrapper" alt="" coords="220,136,404,177"/>
-</map>
