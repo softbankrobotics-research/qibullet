@@ -1,4 +1,4 @@
-# qiBullet [![ci](https://github.com/softbankrobotics-research/qibullet/workflows/ci/badge.svg?branch=master)](https://github.com/softbankrobotics-research/qibullet/actions?query=workflow%3Aci) [![codecov](https://codecov.io/gh/softbankrobotics-research/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/softbankrobotics-research/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) ![python](https://img.shields.io/pypi/pyversions/qibullet?color=orange&logo=python&logoColor=blue) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Github discussions](https://img.shields.io/github/discussions/softbankrobotics-research/qibullet?color=blue&logo=github)](https://github.com/softbankrobotics-research/qibullet/discussions) [![docs](https://img.shields.io/badge/docs-online-success?logo=githubpages)](https://softbankrobotics-research.github.io/qibullet/api/)
+# qiBullet [![ci](https://github.com/softbankrobotics-research/qibullet/workflows/ci/badge.svg?branch=master)](https://github.com/softbankrobotics-research/qibullet/actions?query=workflow%3Aci) [![codecov](https://codecov.io/gh/softbankrobotics-research/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/softbankrobotics-research/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Github discussions](https://img.shields.io/github/discussions/softbankrobotics-research/qibullet?color=blue&logo=github)](https://github.com/softbankrobotics-research/qibullet/discussions) [![docs](https://img.shields.io/badge/docs-online-success?logo=githubpages)](https://softbankrobotics-research.github.io/qibullet/)
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
@@ -87,7 +87,7 @@ More snippets can be found in the [examples folder](https://github.com/softbankr
 > :warning: The camera subscription system of qiBullet 1.4.0 (and lesser) is __deprecated__, use the [new system](https://github.com/softbankrobotics-research/qibullet/wiki/Tutorials:-Virtual-Robot#cameras)
 
 ## Documentation
-The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). In order to build the documentation, the __doxygen__ package has to be installed beforehand and the docs folder has to exist. The submodules should also be checked out:
+The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/). In order to build the documentation, the __doxygen__ package has to be installed beforehand and the docs folder has to exist. The submodules should also be checked out:
 ```bash
 git submodule init
 git submodule update
