@@ -86,7 +86,7 @@ class RessourceDevelopCommand(develop):
 
 setuptools.setup(
     name="qibullet",
-    version="1.4.3",
+    version="1.4.4-alpha.1",
     author="Maxime Busy, Maxime Caniot",
     author_email="",
     description="Bullet-based simulation for SoftBank Robotics' robots",
@@ -119,6 +119,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         'Intended Audience :: Science/Research',
         'Intended Audience :: Developers',
         "Operating System :: POSIX :: Linux",

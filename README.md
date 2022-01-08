@@ -1,4 +1,4 @@
-# qiBullet [![unit-tests](https://github.com/softbankrobotics-research/qibullet/workflows/unit-tests/badge.svg?branch=master)](https://github.com/softbankrobotics-research/qibullet/actions?query=workflow%3Aunit-tests) [![codecov](https://codecov.io/gh/softbankrobotics-research/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/softbankrobotics-research/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Gitter chat](https://badges.gitter.im/qibullet.png)](https://gitter.im/qibullet "Gitter chat")
+# qiBullet [![ci](https://github.com/softbankrobotics-research/qibullet/workflows/ci/badge.svg?branch=master)](https://github.com/softbankrobotics-research/qibullet/actions?query=workflow%3Aci) [![codecov](https://codecov.io/gh/softbankrobotics-research/qibullet/branch/master/graph/badge.svg)](https://codecov.io/gh/softbankrobotics-research/qibullet) [![pypi](https://img.shields.io/pypi/v/qibullet.svg)](https://pypi.org/project/qibullet/) ![python](https://img.shields.io/pypi/pyversions/qibullet?color=orange&logo=python&logoColor=blue) [![Downloads](https://pepy.tech/badge/qibullet)](https://pepy.tech/project/qibullet) [![Github discussions](https://img.shields.io/github/discussions/softbankrobotics-research/qibullet?color=blue&logo=github)](https://github.com/softbankrobotics-research/qibullet/discussions) [![docs](https://img.shields.io/badge/docs-online-success?logo=githubpages)](https://softbankrobotics-research.github.io/qibullet/api/)
 
 __Bullet-based__ python simulation for __SoftBank Robotics'__ robots.
 
@@ -34,6 +34,7 @@ The installation of the additional resources will automatically be triggered if 
 ## Usage
 A robot can be spawned via the SimulationManager class:
 ```python
+import sys
 from qibullet import SimulationManager
 
 if __name__ == "__main__":
@@ -59,6 +60,16 @@ if __name__ == "__main__":
       nao = simulation_manager.spawnNao(
           client_id,
           spawn_ground_plane=True)
+
+    # This snippet is a blocking call, just to keep the simulation opened
+    if sys.version_info[0] >= 3:
+      input("Press a key to end the simulation")
+    else:
+      raw_input("Press a key to end the simulation")
+    
+    # Stop the simulation
+    simulation_manager.stopSimulation(client_id)
+    
 ```
 
 Or using loadRobot from the PepperVirtual class if you already have a simulated environment:
@@ -76,10 +87,16 @@ More snippets can be found in the [examples folder](https://github.com/softbankr
 > :warning: The camera subscription system of qiBullet 1.4.0 (and lesser) is __deprecated__, use the [new system](https://github.com/softbankrobotics-research/qibullet/wiki/Tutorials:-Virtual-Robot#cameras)
 
 ## Documentation
-The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). The documentation can be generated via the following command (the __doxygen__ package has to be installed beforehand, and the docs folder has to exist):
+The qiBullet __API documentation__ can be found [here](https://softbankrobotics-research.github.io/qibullet/api/). In order to build the documentation, the __doxygen__ package has to be installed beforehand and the docs folder has to exist. The submodules should also be checked out:
+```bash
+git submodule init
+git submodule update
+```
+
+The documentation can then be generated via the following command:
 ```bash
 cd docs
-doxygen
+doxygen Doxyfile
 ```
 
 The repository also contains a [wiki](https://github.com/softbankrobotics-research/qibullet/wiki), providing some tutorials.
