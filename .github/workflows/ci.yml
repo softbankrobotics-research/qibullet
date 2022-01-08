@@ -44,7 +44,7 @@ jobs:
   package:
     name: Deploy package
     needs: tests
-    if: ${{ github.event_name == 'push' }} && ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -62,16 +62,20 @@ jobs:
         pip install build
     - name: Build package
       run: python -m build
-    - name: Publish package
+    - name: Publish qiBullet to Test PyPI 📦
       uses: pypa/gh-action-pypi-publish@v1.4.2
       with:
-        user: __token__
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+    - name: Publish qiBullet to PyPI 📦
+      uses: pypa/gh-action-pypi-publish@v1.4.2
+      with:
         password: ${{ secrets.PYPI_API_TOKEN }}
 
   documentation:
     needs: package
     name: Deploy pages
-    if: ${{ github.event_name }} == 'push' && ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     steps:
