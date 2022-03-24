@@ -685,7 +685,7 @@ class PepperRosWrapper(RosWrapper):
             corresponding to the laser info of the pepper robot (for API
             consistency)
         """
-        if not self.robot.laser_manager.isActive():
+        if not self.robot.laser_manager.isAlive():
             return
 
         scan = LaserScan()
