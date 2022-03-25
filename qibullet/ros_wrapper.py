@@ -178,27 +178,36 @@ class RosWrapper:
         Parameters:
             odometry_publisher - The ROS publisher for the odometry message
         """
-        # Send Transform odom
-        x, y, theta = self.robot.getPosition()
+        # Setup the odom transform
+        if isinstance(self.robot, PepperVirtual) and not OFFICIAL_DRIVER:
+            reference_link = "base_footprint"
+        else:
+            reference_link = "torso"
+
+        # TODO: different models are used between qibullet and the ros stack,
+        # the base footprint will be slighlty underground when the robot is
+        # referenced in odom. Should be corrected, either by modifying the
+        # qibullet model or updating the model used by the ros stack
+        translation, quaternion = self.robot.getLinkPosition(reference_link)
         odom_trans = TransformStamped()
         odom_trans.header.frame_id = "odom"
         odom_trans.child_frame_id = "base_link"
         odom_trans.header.stamp = rospy.get_rostime()
-        odom_trans.transform.translation.x = x
-        odom_trans.transform.translation.y = y
-        odom_trans.transform.translation.z = 0
-        quaternion = pybullet.getQuaternionFromEuler([0, 0, theta])
+
+        odom_trans.transform.translation.x = translation[0]
+        odom_trans.transform.translation.y = translation[1]
+        odom_trans.transform.translation.z = translation[2]
         odom_trans.transform.rotation.x = quaternion[0]
         odom_trans.transform.rotation.y = quaternion[1]
         odom_trans.transform.rotation.z = quaternion[2]
         odom_trans.transform.rotation.w = quaternion[3]
-        self.transform_broadcaster.sendTransform(odom_trans)
-        # Set up the odometry
+        
+        # Setup the odometry
         odom = Odometry()
         odom.header.stamp = rospy.get_rostime()
         odom.header.frame_id = "odom"
-        odom.pose.pose.position.x = x
-        odom.pose.pose.position.y = y
+        odom.pose.pose.position.x = translation[0]
+        odom.pose.pose.position.y = translation[1]
         odom.pose.pose.position.z = 0.0
         odom.pose.pose.orientation = odom_trans.transform.rotation
         odom.child_frame_id = "base_link"
@@ -209,6 +218,9 @@ class RosWrapper:
         odom.twist.twist.linear.x = vx
         odom.twist.twist.linear.y = vy
         odom.twist.twist.angular.z = wz
+
+        # Send the odom transform and the odometry
+        self.transform_broadcaster.sendTransform(odom_trans)
         odometry_publisher.publish(odom)
 
     def _broadcastCamera(self, camera, image_publisher, info_publisher):
