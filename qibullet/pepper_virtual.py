@@ -241,8 +241,9 @@ class PepperVirtual(RobotVirtual):
             containing the name of the joints to be controlled
             joint_values - List of values (or value if only one joint)
             corresponding to the angles in radians to be applied
-            percentage_speed - Percentage (or percentages) of the max speed to
-            be used for the movement
+            percentage_speed -  Percentages of the max speed to be used for
+            each joint, has to be strictly superior to 0 and inferior or equal
+            to 1
         """
         try:
             if type(joint_names) is str:
