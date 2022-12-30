@@ -39,6 +39,19 @@ def computeVelocity(acc, vel_min, vel_max, dist_traveled, dist_remained):
     return vel_computed
 
 
+def isNan(number):
+    """
+    Check if a number is a NaN.
+
+    Args:
+        number (float, int): The number variable to be tested
+
+    Returns:
+        bool: True if the variable is a NaN, false otherwise
+    """
+    return number != number
+
+
 def _get_resources_root_folder():  # pragma: no cover
     """
     Returns the path to the resources' root folder (.qibullet folder in the
