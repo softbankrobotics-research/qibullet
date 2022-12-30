@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classqibullet_1_1robot__module_1_1RobotModule.html" title=" " alt="" coords="5,80,104,105"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1controller_1_1Controller.html" title=" " alt="" coords="152,31,229,56"/>
+<area shape="rect" id="node5" href="$classqibullet_1_1sensor_1_1Sensor.html" title=" " alt="" coords="159,104,222,129"/>
+<area shape="rect" id="node3" href="$classqibullet_1_1base__controller_1_1BaseController.html" title=" " alt="" coords="277,5,384,31"/>
+<area shape="rect" id="node4" href="$classqibullet_1_1base__controller_1_1PepperBaseController.html" title=" " alt="" coords="432,5,580,31"/>
+<area shape="rect" id="node6" href="$classqibullet_1_1camera_1_1Camera.html" title=" " alt="" coords="297,55,364,80"/>
+<area shape="rect" id="node9" href="$classqibullet_1_1fsr_1_1Fsr.html" title=" " alt="" coords="310,104,351,129"/>
+<area shape="rect" id="node10" href="$classqibullet_1_1imu_1_1Imu.html" title=" " alt="" coords="309,153,353,179"/>
+<area shape="rect" id="node11" href="$classqibullet_1_1laser_1_1Laser.html" title=" " alt="" coords="303,203,358,228"/>
+<area shape="rect" id="node7" href="$classqibullet_1_1camera_1_1CameraDepth.html" title=" " alt="" coords="455,55,557,80"/>
+<area shape="rect" id="node8" href="$classqibullet_1_1camera_1_1CameraRgb.html" title=" " alt="" coords="461,104,551,129"/>
+</map>

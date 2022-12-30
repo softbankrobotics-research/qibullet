@@ -1,0 +1,6 @@
+<map id="RobotPosture" name="RobotPosture">
+<area shape="rect" id="node1" title=" " alt="" coords="124,5,225,31"/>
+<area shape="rect" id="node2" href="$classqibullet_1_1robot__posture_1_1NaoPosture.html" title=" " alt="" coords="5,79,96,104"/>
+<area shape="rect" id="node3" href="$classqibullet_1_1robot__posture_1_1PepperPosture.html" title=" " alt="" coords="121,79,229,104"/>
+<area shape="rect" id="node4" href="$classqibullet_1_1robot__posture_1_1RomeoPosture.html" title=" " alt="" coords="253,79,361,104"/>
+</map>
