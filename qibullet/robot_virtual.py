@@ -6,6 +6,7 @@ import pybullet
 from qibullet.camera import *
 from qibullet.link import Link
 from qibullet.joint import Joint
+from qibullet.tools import isNan
 
 IS_VERSION_PYTHON_3 = sys.version_info[0] >= 3
 
@@ -124,7 +125,11 @@ class RobotVirtual:
     def setAngles(self, joint_names, joint_values, percentage_speeds):
         """
         Set angles on the robot's joints. Tests have to be performed by the
-        child class to guarantee the validity of the input parameters.
+        child class to guarantee the validity of the input parameters. If one
+        of the specified joint values or percentage speed is a NaN, a pybullet
+        error will be raised. Aditionally, if the joint_names, joint_values or
+        percentage_speeds don't have the same size, a pybullet error will be
+        raised
 
         Parameters:
             joint_names - List of string containing the name of the joints
@@ -150,6 +155,10 @@ class RobotVirtual:
                 joint_names,
                 joint_values,
                 percentage_speeds):
+             
+            if isNan(joint_value):
+                raise pybullet.error(
+                    "Joint value specified for " + joint_name + " is a NaN")
 
             joint_speed =\
                 self.joint_dict[joint_name].getMaxVelocity() *\

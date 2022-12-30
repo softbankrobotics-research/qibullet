@@ -89,6 +89,11 @@ class JointTest(unittest.TestCase):
         with self.assertRaises(pybullet.error):
             JointTest.robot.setAngles("HeadRoll", "wrong", 0.5)
             JointTest.robot.setAngles(["HeadRoll", "HeadPitch"], 2, 0.5)
+            JointTest.robot.setAngles("HeadPitch", float("NaN"), 0.5)
+            JointTest.robot.setAngles(
+                ["HeadRoll", "HeadPitch"],
+                [float("NaN"), 0.5],
+                0.5)
 
         for i in range(iterations):
             angles = list()
